@@ -65,7 +65,6 @@ class Login extends Component {
                     </div>
                     <input type={this.state.type} className="password__input"/>
 
-
                     <div className="wrap">
                         <button className="button">Log In</button>
                     </div>
