@@ -58,8 +58,8 @@ class Login extends Component {
 
                     <input id={'in1'} className={'login-input'} />
                     <div>
-                    <span className={'login-form-spam'}>Password</span>
-                    <span className="password__show" onClick={this.showHide}>
+                        <span className={'login-form-spam'}>Password</span>
+                        <span className="password__show" onClick={this.showHide}>
                             {this.state.type === "input" ? "Hide Password" : "Show Password"}
                      </span>
                     </div>
