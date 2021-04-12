@@ -40,12 +40,14 @@
 		border-radius: 8px;
 		background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
 }
+
 .btn:hover {
 		outline: none ;
 		cursor: pointer;
 		border: 1px solid #FF650E;
 		box-shadow: 0 0 10px #FF650E;
 }
+
 .btn:active, .btn:focus {
 		outline: none;
 }
@@ -65,6 +67,7 @@
 		margin-left: 180px;
 		margin-top: 47px;
 }
+
 .general {
 		font-family: Helvetica Neue, serif;
 		font-size: 18px;
@@ -73,6 +76,7 @@
 		color: #151515;
 		opacity: 0.9;
 }
+
 .profile {
 		margin-top: 24px;
 		font-family: Helvetica Neue, serif;
@@ -83,6 +87,7 @@
 		mix-blend-mode: hard-light;
 		opacity: 0.76
 }
+
 .avatar {
 		height: 64px;
 		width: 64px;
@@ -105,6 +110,7 @@
 		letter-spacing: -0.35px;
 		color: #7D7D7D;
 }
+
 .input_info {
 		width: 408px;
 		height: 32px;
@@ -115,6 +121,7 @@
 		box-sizing: border-box;
 		border-radius: 6px;
 }
+
 .phone {
 		border: 1px solid #BFBFBF;
 }

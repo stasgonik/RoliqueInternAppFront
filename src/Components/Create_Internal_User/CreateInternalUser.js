@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import classes from './CreateInternalUser.module.css';
 
-
 const User = () => {
 
 	const [values, setValues] = useState({
@@ -55,8 +54,6 @@ const User = () => {
 				</section>
 			</div>
 		</form>
-
-
 	)
 }
 
