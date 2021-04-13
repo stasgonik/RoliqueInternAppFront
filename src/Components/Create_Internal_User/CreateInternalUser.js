@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
 import classes from './CreateInternalUser.module.css';
+import profileIcon from '../Icons/profileIcon.svg';
+import info from '../Icons/info-button.svg';
+import Tippy from '@tippy.js/react';
+import 'tippy.js/dist/tippy.css';
+import { INFO } from '../config/messages'
 
 const User = () => {
 
@@ -34,7 +39,7 @@ const User = () => {
 				<section className={classes.leftContainer}>
 					<h3 className={classes.general}>General</h3>
 					<p className={classes.profile}>Profile Picture</p>
-					<img className={classes.avatar}/>
+					<img className={classes.avatar} src={profileIcon} alt="avatar"/>
 
 					<label className={classes.input_title}>First Name</label>
 					<input className={classes.input_info} type='text'  onChange={(e) => handleChange(e)}/>
@@ -50,7 +55,19 @@ const User = () => {
 				</section>
 
 				<section className={classes.rightContainer}>
-					TODO Do this section
+					<div className={classes.role}>
+					<h3 className={classes.rightContainer_title}>Role & Permissions</h3>
+						<Tippy content={INFO} placement="bottom" className={classes.Tooltip}>
+							<img src={info} alt="info" className={classes.infoBtn}/>
+						</Tippy>
+					</div>
+
+					<label className={classes.input_title}>Role</label>
+					<input className={classes.input_info} type='text'  onChange={(e) => handleChange(e)}/>
+
+					<h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
+					<label className={`${classes.input_title} ${classes.input_password}`}>Set Password</label>
+					<input className={`${classes.input_info}`} type='text'  onChange={(e) => handleChange(e)}/>
 				</section>
 			</div>
 		</form>

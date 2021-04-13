@@ -59,6 +59,10 @@
 		line-height: 17px;
 		color: #FFFFFF;
 }
+.mainContainer {
+		display: flex;
+		justify-content: space-between;
+}
 
 .leftContainer {
 		display: flex;
@@ -67,9 +71,15 @@
 		margin-left: 180px;
 		margin-top: 47px;
 }
+.rightContainer {
+		display: flex;
+		flex-direction: column;
 
+		margin-right: 180px;
+		margin-top: 47px;
+}
 .general {
-		font-family: Helvetica Neue, serif;
+		font-family: Helvetica Neue, sans-serif;
 		font-size: 18px;
 		line-height: 22px;
 		letter-spacing: -0.25px;
@@ -92,13 +102,9 @@
 		height: 64px;
 		width: 64px;
 		margin: 12px 0 24px 0;
-		/*margin-bottom: 24px;*/
-		background-color: greenyellow;
 }
 
 .input_title {
-		width: 66px;
-		height: 17px;
 		margin-bottom: 8px;
 
 		font-family: Helvetica Neue, serif;
@@ -130,4 +136,49 @@
 		outline: none ;
 		border: 1px solid #FF650E;
 		box-shadow: 0 0 10px #FF650E;
+}
+
+.rightContainer_title {
+		font-family: Helvetica Neue, sans-serif;
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 22px;
+		letter-spacing: -0.25px;
+
+		color: #151515;
+
+		opacity: 0.9;
+}
+.rightContainer_title_password {
+margin-top: 39px;
+}
+
+.role {
+		display: flex;
+		margin-bottom: 24px;
+
+}
+
+.infoBtn {
+		margin-left: 10px;
+}
+
+.Tooltip {
+		height: 244px;
+		width: 372px;
+		padding: 12px 16px;
+
+
+		font-family: Helvetica Neue, sans-serif;
+		font-size: 14px;
+		line-height: 20px;
+		color: #EEEEEE;
+
+		background-color: black;
+		opacity: 0.9;
+		border-radius: 8px;
+}
+
+.input_password {
+		margin-top: 24px;
 }
