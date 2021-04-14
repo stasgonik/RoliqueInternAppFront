@@ -1,4 +1,5 @@
 import config from '../Constants/configServer'
+import configFront from "../Constants/config";
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -104,16 +105,17 @@ axiosInstance.interceptors.response.use(
                         });
                 }else{
                     console.log("Refresh token is expired", tokenParts.exp, now);
-                    window.location.href = '/login/';
+                    window.location.href = configFront.URL + 'login/';
                 }
             }else{
                 console.log("Refresh token not available.")
-                window.location.href = '/login/';
+                window.location.href = configFront.URL + 'login/';
             }
         }
 
 
         // specific error handling done elsewhere
+        window.location.href = configFront.URL + 'login/';
         return Promise.reject(error);
     }
 );
