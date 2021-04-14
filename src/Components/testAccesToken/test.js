@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import authService from '../../Services/auth.service';
 import userService from '../../Services/userService';
 
 class Test extends Component {

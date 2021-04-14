@@ -1,5 +1,5 @@
-import axios from 'axios';
 import config from '../Constants/configServer'
+import axiosInstance from "./tokenInterceptor";
 
 class _endpoint {
     static login = 'auth/';
@@ -11,7 +11,7 @@ export default class AuthService {
 
     static async login(body) {
         try{
-            const result = await axios.post(`${config.URL}${_endpoint.login}`, body, config.axios_config);
+            const result = await axiosInstance.post(`${config.URL}${_endpoint.login}`, body);
 
             this.setTokens(result.data)
 
@@ -19,20 +19,6 @@ export default class AuthService {
             console.log(e)
         }
     }
-
-
-    // static async refreshToken(){
-    //     try {
-    //         let data_Headers = config.axios_config;
-    //         data_Headers.headers.Authorization = this.getRefreshToken();
-    //
-    //         const result = await axios.post(`${config.URL}${_endpoint.refresh}`, {},  data_Headers);
-    //
-    //         this.setTokens(result.data)
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // }
 
 
     // ПЕРЕВІРКА НА АУТЕНТИФІКАЦІЇЇ
