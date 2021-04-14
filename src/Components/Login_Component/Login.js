@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import './login.css'
+import authService from '../../Services/auth.service'
+
 
 class Login extends Component {
+
+    state = {
+        email: '',
+        password: ''
+    }
 
     constructor(props) {
         super(props);
@@ -22,25 +29,37 @@ class Login extends Component {
 
     myForm = React.createRef();
 
+
     send = async (e) => {
         e.preventDefault();
         try {
             let in1 = this.myForm.current[0].value;
             let in2 = this.myForm.current[1].value;
 
-            let result = await fetch('https://webhook.site/1d1e40c7-defe-4f6b-9c3b-9ee48c4e05f3', {
-                method: 'post',
-                mode: 'no-cors',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: in1,
-                    password: in2
-                })
-            });
-            console.log(result)
+            const body ={
+                email: in1,
+                password: in2
+            }
+            console.log(body)
+
+            await authService.login(body);
+            // let result = await axios.post('http://localhost:5050/auth', {
+            //         email: in1,
+            //         password: in2
+            //     }, {
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-type': 'application/json'
+            //     },});
+            // console.log(result)
+
+            // const tokens = {
+            //     access_token: result.data.access_token,
+            //     refresh_token: result.data.refresh_token
+            // }
+            // const setToken =  localStorage.setItem(result.data.user_id,[tokens.access_token, tokens.refresh_token]);
+            // console.log(localStorage.getItem(result.data.user_id[0]))
+
         } catch (e) {
             console.log(e)
         }
