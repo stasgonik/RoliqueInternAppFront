@@ -3,7 +3,6 @@ import axiosInstance from "./tokenInterceptor";
 
 class _endpoint {
     static login = 'auth/';
-    static refresh = 'auth/refresh/';
     static logout = 'auth/logout/';
 }
 
