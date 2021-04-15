@@ -1,5 +1,5 @@
 const config = {
-    URL: "http://localhost:5050/",
+    URL: 'http://localhost:5050/',
     access_token:'access_token',
     refresh_token: 'refresh_token',
     axios_config: {
