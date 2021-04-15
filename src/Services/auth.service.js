@@ -19,14 +19,11 @@ export default class AuthService {
         }
     }
 
-
     // ПЕРЕВІРКА НА АУТЕНТИФІКАЦІЇЇ
     // public isAuthenticated(): boolean {
     //     return !!this.getAccessToken();
     // }
     // ПЕРЕВІРКА НА АУТЕНТИФІКАЦІЇЇ
-
-
 
     static setAccessToken(accessToken) {
         localStorage.setItem(config.access_token, accessToken);
