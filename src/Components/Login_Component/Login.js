@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './login.css'
 import authService from '../../Services/auth.service'
+import {NavLink} from "react-router-dom";
 
 
 class Login extends Component {
@@ -40,25 +41,8 @@ class Login extends Component {
                 email: in1,
                 password: in2
             }
-            console.log(body)
 
             await authService.login(body);
-            // let result = await axios.post('http://localhost:5050/auth', {
-            //         email: in1,
-            //         password: in2
-            //     }, {
-            //     headers: {
-            //         'Accept': 'application/json',
-            //         'Content-type': 'application/json'
-            //     },});
-            // console.log(result)
-
-            // const tokens = {
-            //     access_token: result.data.access_token,
-            //     refresh_token: result.data.refresh_token
-            // }
-            // const setToken =  localStorage.setItem(result.data.user_id,[tokens.access_token, tokens.refresh_token]);
-            // console.log(localStorage.getItem(result.data.user_id[0]))
 
         } catch (e) {
             console.log(e)
@@ -88,6 +72,10 @@ class Login extends Component {
                     <div className="wrap">
                         <button className="button">Log In</button>
                     </div>
+
+                    <NavLink to={'/forgotPassword/emailForm/'}>
+                        <span className='login-form-spam blue'>You forgot your password? Click here!</span>
+                    </NavLink>
                 </form>
             </div>
         );

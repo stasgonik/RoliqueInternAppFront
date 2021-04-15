@@ -15,7 +15,7 @@
     flex-direction: column;
 
     width: 408px;
-    height: 312px;
+    height: 100px;
 
     background: rgba(255, 255, 255, 0.55);
     border: 1px solid rgba(191, 191, 191, 0.5);
@@ -51,6 +51,9 @@
     color: rgba(0, 0, 0, 0.6);
     mix-blend-mode: hard-light;
     opacity: 0.76;
+}
+.green {
+    color: green;
 }
 input
 {
@@ -178,9 +181,6 @@ input:focus {
     color: rgba(0, 0, 0, 0.6);
     mix-blend-mode: hard-light;
     opacity: 0.76;
-}
-.blue {
-    color: blueviolet;
 }
 
 

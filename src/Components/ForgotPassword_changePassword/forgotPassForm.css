@@ -52,6 +52,9 @@
     mix-blend-mode: hard-light;
     opacity: 0.76;
 }
+.red {
+    color: red;
+}
 input
 {
     height: 72px;
@@ -178,9 +181,6 @@ input:focus {
     color: rgba(0, 0, 0, 0.6);
     mix-blend-mode: hard-light;
     opacity: 0.76;
-}
-.blue {
-    color: blueviolet;
 }
 
 
