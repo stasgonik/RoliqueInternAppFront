@@ -52,8 +52,7 @@
     mix-blend-mode: hard-light;
     opacity: 0.76;
 }
-input
-{
+.login-input, .password__input {
     height: 72px;
     width: 344px;
     margin: 10px auto;
@@ -63,7 +62,12 @@ input
     box-sizing: border-box;
     border-radius: 6px;
 }
-input:focus {
+.login-input:focus {
+    outline: none !important;
+    border:1px solid #FF650E;
+    box-shadow: 0 0 10px #FF650E;
+}
+.password__input:focus {
     outline: none !important;
     border:1px solid #FF650E;
     box-shadow: 0 0 10px #FF650E;
@@ -182,7 +186,6 @@ input:focus {
 .blue {
     color: blueviolet;
 }
-
 
 
 

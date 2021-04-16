@@ -1,0 +1,30 @@
+.tooltip {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 12px 16px;
+		background-color: #000000;
+		opacity: 0.8;
+		border-radius: 8px;
+		z-index: 1;
+}
+
+.text {
+		font-family: Helvetica Neue, sans-serif;
+		font-size: 14px;
+		line-height: 20px;
+		color: #EEEEEE;
+		position: static;
+		white-space: pre-wrap;
+}
+
+.tooltipContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+}
+
+.topArrow {
+		width: 20px;
+		height: 12px;
+}
