@@ -1,6 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
+import 'react-dropzone-uploader/dist/styles.css'
+// import Dropzone from 'react-dropzone-uploader'
+
 import classes from './CreateInternalUser.module.css';
-import profileIcon from '../Items/Icons/profileIcon.svg';
+import userService from '../../Services/userService'
+// import profileIcon from '../Items/Icons/profileIcon.svg';
 import info from '../Items/Icons/info-button.svg';
 import Tooltip from '../Items/Tooltip/Tooltip'
 import {INFO} from '../../Constants/messages';
@@ -16,6 +20,8 @@ const options = [
 ];
 const User = () => {
 
+	const fileInput = useRef(null);
+
 	const [values, setValues] = useState({
 		avatar: '',
 		firstName: '',
@@ -25,6 +31,24 @@ const User = () => {
 		role: '',
 		password: '',
 	});
+
+	const [selectedFile, setselectedFile] = useState([])
+	// const [uploadFileName, setuploadFileName] = useState([])
+
+	const selected = elem => {
+		let img = elem.target.files[0];
+		img.preview = URL.createObjectURL(img)
+		setselectedFile({
+			selectedFile: img
+		});
+		console.log(selectedFile)
+	}
+
+	const fileUploadButton = async () => {
+		const fd = new FormData();
+		fd.append('image', selectedFile, selectedFile.name);
+		await userService.postUsers(fd);
+	}
 
 	const handleChange = (e) => {
 		const value = e.target.value;
@@ -51,7 +75,6 @@ const User = () => {
 	// }
 
 	return (
-
 		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
 			<Sidebar/>
 			<Header leftArrow={leftArrow}/>
@@ -60,7 +83,26 @@ const User = () => {
 				<section className={classes.leftContainer}>
 					<h3 className={classes.general}>General</h3>
 					<p className={classes.profile}>Profile Picture</p>
-					<img className={classes.avatar} src={profileIcon} alt="avatar"/>
+					{/*<img className={classes.avatar} src={profileIcon} alt="avatar"/>*/}
+
+					<input type={'file'}
+						   style={{display:'none'}}
+						   onChange={selected}
+						   ref={fileInput}
+					/>
+
+					<button className={classes.avatar} onClick={() => fileInput.current.click()}>
+						{selectedFile.length ? <img src={selectedFile.preview} style={{
+							width: 64,
+							height: 64,
+							borderRadius: 50
+						}} alt={'alt'}/> : '+'}
+					</button>
+
+					<button className={'save-changes'}
+							onClick={fileUploadButton}>
+						Save changes
+					</button>
 
 					<label className={classes.input_title}>First Name</label>
 					<input className={classes.input_info} type='text' required="required" onChange={(e) => handleChange(e)}/>
@@ -88,7 +130,7 @@ const User = () => {
 					<label className={classes.input_title}>Role</label>
 
 					<Dropdown required="required"
-							  options={optionsRole(role)}
+							  options={options}
 							  onChange={handleChangeRole}
 							  value={selectedOption}
 							  name='SelectRole'/>
