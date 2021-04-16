@@ -46,6 +46,17 @@ class ForgotPassForm extends Component {
         let errors = {};
         let formIsValid = true;
 
+        if(typeof fields["password"] !== "undefined"){
+            if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,}$/)) {
+                formIsValid = false;
+                errors["password"] = "Password is not valid";
+            }
+        }
+
+        if(fields["confirmPassword"] !== fields["password"]){
+            formIsValid = false;
+            errors["confirmPassword"] = "Passwords must be the same";
+        }
 
         if(!fields["password"]){
             formIsValid = false;
@@ -55,18 +66,6 @@ class ForgotPassForm extends Component {
         if(!fields["confirmPassword"]){
             formIsValid = false;
             errors["confirmPassword"] = "Cannot be empty";
-        }
-
-        if(fields["confirmPassword"] !== fields["password"]){
-            formIsValid = false;
-            errors["confirmPassword"] = "Passwords must be the same";
-        }
-
-        if(typeof fields["password"] !== "undefined"){
-            if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,}$/)) {
-                formIsValid = false;
-                errors["password"] = "Password is not valid";
-            }
         }
 
         this.setState({ errors });
@@ -129,6 +128,8 @@ class ForgotPassForm extends Component {
                     <input id={'in2'} className={'password__input'} type={this.state.type}
                            onChange={this.handleChange.bind(this, "confirmPassword")}
                            value={this.state.fields["confirmPassword"]}/>
+
+                    <span  className='login-form-spam red'>{this.state.errors["confirmPassword"]}</span>
 
                     <div className="wrap">
                         <button className="button">Send</button>

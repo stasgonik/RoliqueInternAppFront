@@ -22,17 +22,16 @@ class ForgotPassEmailForm extends Component {
         let errors = {};
         let formIsValid = true;
 
-        //Email
-        if(!fields["email"]){
-            formIsValid = false;
-            errors["email"] = "Cannot be empty";
-        }
-
         if(typeof fields["email"] !== "undefined"){
             if (!fields["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/)) {
                 formIsValid = false;
                 errors["email"] = "Email is not valid";
             }
+        }
+
+        if(!fields["email"]){
+            formIsValid = false;
+            errors["email"] = "Cannot be empty";
         }
 
         this.setState({errors: errors});
