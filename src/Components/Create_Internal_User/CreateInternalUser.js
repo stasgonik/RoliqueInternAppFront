@@ -41,6 +41,14 @@ const User = () => {
 		console.log(`Option selected:`, selectedOption);
 	};
 
+	// const optionsRole = (role) => {
+	// 	if (role === 'ADMIN') {
+	// 		return ['admin', 'manager', 'employee']
+	// 	}
+	// 	if (role === 'MANAGER {
+	// 		return ['admin', 'manager', 'employee']
+	// 	}
+	// }
 
 	return (
 
@@ -80,7 +88,7 @@ const User = () => {
 					<label className={classes.input_title}>Role</label>
 
 					<Dropdown required="required"
-							  options={options}
+							  options={optionsRole(role)}
 							  onChange={handleChangeRole}
 							  value={selectedOption}
 							  name='SelectRole'/>
