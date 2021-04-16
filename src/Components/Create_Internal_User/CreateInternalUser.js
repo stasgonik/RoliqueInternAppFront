@@ -3,7 +3,7 @@ import classes from './CreateInternalUser.module.css';
 import profileIcon from '../Items/Icons/profileIcon.svg';
 import info from '../Items/Icons/info-button.svg';
 import Tooltip from '../Items/Tooltip/Tooltip'
-import {INFO} from '../config/messages';
+import {INFO} from '../../Constants/messages';
 import Dropdown from '../Items/Dropdown/Dropdown';
 import Header from '../Items/Header/Header';
 import Sidebar from '../Items/Sidebar/Sidebar'
