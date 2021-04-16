@@ -65,7 +65,7 @@ axiosInstance.interceptors.response.use(
 
 
         // specific error handling done elsewhere
-        window.location.href = configFront.URL + 'login/';
+        // window.location.href = configFront.URL + 'login/';
         return Promise.reject(error);
     }
 );
