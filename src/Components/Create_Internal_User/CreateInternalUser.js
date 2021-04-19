@@ -104,7 +104,6 @@ const User = () => {
 						}} alt={'alt'}/> : '+'}
 					</button>
 
-
 					<label className={classes.input_title}>First Name</label>
 					<input className={classes.input_info}
 						   type='text'
