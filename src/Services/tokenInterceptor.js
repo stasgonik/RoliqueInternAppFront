@@ -42,8 +42,10 @@ axiosInstance.interceptors.response.use(
                         .post('auth/refresh/', {})
                         .then((response) => {
 
-                            localStorage.setItem('access_token', response.data.access_token);
-                            localStorage.setItem('refresh_token', response.data.refresh_token);
+                            localStorage.setItem(config.access_token, response.data.access_token);
+                            localStorage.setItem(config.refresh_token, response.data.refresh_token);
+                            localStorage.setItem(config.user_role, response.data.user_role);
+                            localStorage.setItem(config.user_id, response.data.user_id);
 
                             axiosInstance.defaults.headers['Authorization'] = response.data.access_token;
                             originalRequest.headers['Authorization'] = response.data.access_token;

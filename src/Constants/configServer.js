@@ -2,6 +2,8 @@ const config = {
     URL: 'http://localhost:5050/',
     access_token:'access_token',
     refresh_token: 'refresh_token',
+    user_role: 'user_role',
+    user_id: 'user_id',
     axios_config: {
         headers: {
             'Accept': 'application/json',

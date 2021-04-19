@@ -9,9 +9,11 @@ class _endpoint {
 
 export default class UserService {
 
-    static async getUsers() {
+    static async getUsers(queryReq) {
         try{
-            const result = await axiosInstance.get(`${config.URL}${_endpoint.Users}`);
+            const result = await axiosInstance.get(`${config.URL}${_endpoint.Users}`,{
+                params: queryReq
+            });
 
             return result.data
         } catch (e) {
