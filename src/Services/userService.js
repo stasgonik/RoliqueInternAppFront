@@ -29,5 +29,15 @@ export default class UserService {
         }
     }
 
+    static async postUsers(body) {
+        try{
+            const result = await axiosInstance.post(`${config.URL}${_endpoint.Users}`, body);
+
+            return result.data
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
 
 }

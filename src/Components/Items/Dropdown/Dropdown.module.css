@@ -7,39 +7,19 @@
 		border-radius: 6px;
 		width: 408px;
 		height: 32px;
+		cursor: pointer;
 
-		/*font-size: 14px;*/
-		/*line-height: 17px;*/
-		/*letter-spacing: -0.35px;*/
-		/*color: rgba(56, 56, 56, 0.45);*/
-		/*font-family: Helvetica Neue, sans-serif;*/
-		/*padding-left: 12px;*/
-		/*-webkit-appearance: none;*/
-		/*-moz-appearance: none;*/
-		/*appearance: none;*/
-		/*background: url('../Icons/caret-down.svg') no-repeat right;*/
-		/*background-position-x: calc(100% - 9.67px);*/
-		/*outline: none;*/
 }
 
 .selectInput:focus {
 		border: 1px solid #BFBFBF;
 }
-/*.option {*/
-/*		width: 46px;*/
-/*		height: 17px;*/
-/*		left: 12px;*/
-/*		top: 7px;*/
 
-/*		font-family: Helvetica Neue, sans-serif;*/
-/*		font-style: normal;*/
-/*		font-weight: normal;*/
-/*		font-size: 14px;*/
-/*		line-height: 17px;*/
-/*		letter-spacing: -0.35px;*/
-
-/*		color: #383838;*/
-/*}*/
-
-
+.dropdownContainer option {
+		background: #FFFFFF;
+		border-radius: 3px;
+		font-family: Helvetica Neue, sans-serif;
+		font-size: 14px;
+		line-height: 20px;
+}
 
