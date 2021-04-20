@@ -3,7 +3,7 @@ import classes from './Header.module.css';
 import { useHistory } from "react-router-dom";
 
 
-const Header = ({leftArrow, button}) => {
+const Header = ({leftArrow, button, title, titleHeader, titleBtn}) => {
 	const history = useHistory();
 
 
@@ -11,9 +11,9 @@ const Header = ({leftArrow, button}) => {
 		<header className={classes.header}>
 			<div className={classes.headerRightBlock}>
 			{leftArrow ? <img src={leftArrow} alt="LeftArrow" className={classes.Arrow} onClick={() => history.goBack()}/> : null}
-			<h1 className={classes.title}>Create Internal User</h1>
+			<h1 className={titleHeader}>{title}</h1>
 			</div>
-			<button className={classes.btn} onClick={button}><span className={classes.titleBtn}>Save Changes</span></button>
+			<button className={classes.btn} onClick={button}><span className={classes.titleBtn}>{titleBtn}</span></button>
 		</header>
 
 	)

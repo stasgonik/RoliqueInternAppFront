@@ -7,17 +7,7 @@
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.title {
-		font-size: 24px;
-		line-height: 29px;
-		font-weight: bold;
-		margin-left: 20px;
 
-		color: #151515;
-		font-family: Helvetica Neue, serif;
-		font-style: normal;
-		opacity: 0.9;
-}
 
 .btn {
 		display: flex;

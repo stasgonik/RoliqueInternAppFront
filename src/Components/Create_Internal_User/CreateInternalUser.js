@@ -10,7 +10,7 @@ import leftArrow from '../Items/Icons/arrow-left.svg';
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import userService from "../../Services/userService";
 import axiosInstance from "../../Services/tokenInterceptor";
-
+import topArrow from '../Items/Icons/top-arrow-black.svg';
 
 
 const role = [
@@ -55,8 +55,6 @@ const User = () => {
 	}
 
 
-
-
 	// const optionsRole = (role) => {
 	// 	role.map((value) => {
 	// 		if (value.label === 'Admin') {
@@ -84,16 +82,20 @@ const User = () => {
 
 		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
 			<Sidebar/>
-			<Header leftArrow={leftArrow} button={(e) => saveChanges(e)}/>
+			<Header titleHeader={classes.title}
+					titleBtn='Save Changes'
+					title='Create Internal User'
+					leftArrow={leftArrow}
+					button={(e) => saveChanges(e)}/>
 
 			<div className={classes.mainContainer}>
 				<section className={classes.leftContainer}>
 					<h3 className={classes.general}>General</h3>
 					<p className={classes.profile}>Profile Picture</p>
 					<input type='file'
-						   name = 'avatar'
-						   style={{display:'none'}}
-						   onChange={(e)=>selected(e)}
+						   name='avatar'
+						   style={{display: 'none'}}
+						   onChange={(e) => selected(e)}
 						   ref={fileInput}
 
 					/>
@@ -113,7 +115,7 @@ const User = () => {
 						   pattern={FIRST_LAST_NAME_REGEXP}
 						   required="required"
 						   onChange={(e) => handleChange(e)}
-						   />
+					/>
 
 					<label className={classes.input_title}>Last Name</label>
 					<input className={classes.input_info}
@@ -147,7 +149,7 @@ const User = () => {
 						<h3 className={classes.rightContainer_title}>Role & Permissions</h3>
 						<img src={info} alt="info" className={classes.infoBtn}/>
 						<div className={classes.tooltip}>
-							<Tooltip align='center' text={INFO.message}/>
+							<Tooltip align='center' topArrow={topArrow} text={INFO.message}/>
 						</div>
 					</div>
 

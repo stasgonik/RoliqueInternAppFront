@@ -15,13 +15,13 @@ const Sidebar = () => {
 				<img src={logo} alt="logo" />
 			</div>
 
-			<NavLink to="/" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
+			<NavLink to="/users" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 				<img src={users} alt="users" />
 			</NavLink>
 			<NavLink to="/" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 				<img src={volume} alt="volume" />
 			</NavLink >
-			<NavLink to="/" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
+			<NavLink to="/usersList" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 				<img src={at} alt="at" />
 			</NavLink>
 		</div>

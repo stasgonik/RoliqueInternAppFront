@@ -42,6 +42,10 @@ export default class AuthService {
         localStorage.setItem(config.user_id, user_id);
     }
 
+    static setEditUserId(user_id) {
+        localStorage.setItem(config.edit_id, user_id);
+    }
+
     static getAccessToken() {
         return localStorage.getItem(config.access_token);
     }
@@ -56,6 +60,10 @@ export default class AuthService {
 
     static getUserId() {
         return localStorage.getItem(config.user_id);
+    }
+
+    static getEditId() {
+        return localStorage.getItem(config.edit_id);
     }
 
     static setData(tokens){

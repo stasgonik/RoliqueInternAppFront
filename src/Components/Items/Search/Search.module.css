@@ -1,0 +1,30 @@
+
+.boxSearch {
+		width: 296px;
+
+		/*position: relative;*/
+		display: flex;
+		align-items: center;
+		/*margin-left: 96px;*/
+}
+
+.Search {
+		height: 32px;
+		padding-left: 28px;
+		background: #FAFAFB;
+		border: 1px solid #BFBFBF;
+		box-sizing: border-box;
+		border-radius: 6px;
+		margin: 0;
+
+		font-family: Helvetica Neue, sans-serif;
+		font-size: 14px;
+		line-height: 17px;
+		letter-spacing: -0.35px;
+		color: #BFBFBF;
+}
+
+.searchIcon {
+		position: absolute;
+		margin-left: 10px;
+}
