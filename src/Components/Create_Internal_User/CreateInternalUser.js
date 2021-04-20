@@ -83,7 +83,7 @@ const User = () => {
 
 		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
 			<Sidebar/>
-			<Header leftArrow={leftArrow} button={(e) => saveChanges(e)}/>
+			<Header name={'Create'} leftArrow={leftArrow} button={(e) => saveChanges(e)}/>
 
 			<div className={classes.mainContainer}>
 				<section className={classes.leftContainer}>

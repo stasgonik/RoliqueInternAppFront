@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import './login.css'
 import authService from '../../Services/auth.service'
-import {NavLink} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
+import PropTypes from "prop-types";
 
 
 class Login extends Component {
+
+    static propTypes = {
+        match: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired
+    };
 
     state = {
         email: '',
@@ -42,7 +49,8 @@ class Login extends Component {
                 password: in2
             }
 
-            await authService.login(body);
+            const login = await authService.login(body);
+            this.props.history.push('/registration')
 
         } catch (e) {
             console.log(e)
@@ -81,4 +89,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);
