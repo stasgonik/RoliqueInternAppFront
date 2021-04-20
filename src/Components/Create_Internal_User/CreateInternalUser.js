@@ -9,16 +9,33 @@ import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import userService from "../../Services/userService";
+import authService from "../../Services/auth.service";
 
 
 
-const role = [
+let role = [
 	{value: 'admin', label: 'Admin'},
 	{value: 'manager', label: 'Manager'},
 	{value: 'employee', label: 'Employee'},
 ];
 
+function setRoles() {
+	const user_role = authService.getUserRole();
+	if (user_role === 'employee') {
+		role = [
+			{value: 'employee', label: 'Employee'}
+		];
+	}
+	if (user_role === 'manager') {
+		role = [
+			{value: 'manager', label: 'Manager'},
+			{value: 'employee', label: 'Employee'}
+		];
+	}
+	return role;
+}
 const User = () => {
+	setRoles();
 	const fileInput = useRef(null);
 	const [values, setValues] = useState({
 		avatar: '',

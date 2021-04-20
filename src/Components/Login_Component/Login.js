@@ -49,8 +49,15 @@ class Login extends Component {
                 password: in2
             }
 
+
+            // ДОРОБИТИ ПРАВИЛЬНИЙ РЕДІРЕКТ
+
             const login = await authService.login(body);
-            this.props.history.push('/registration')
+            if (login) {
+                this.props.history.push('/registration')
+            }
+
+            // ДОРОБИТИ ПРАВИЛЬНИЙ РЕДІРЕКТ
 
         } catch (e) {
             console.log(e)

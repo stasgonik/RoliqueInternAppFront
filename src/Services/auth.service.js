@@ -15,6 +15,7 @@ export default class AuthService {
 
             this.setTokens(result.data)
 
+            return result;
         } catch (e) {
             console.log(e)
         }
@@ -57,6 +58,14 @@ export default class AuthService {
 
     static getUserRole() {
         return localStorage.getItem(config.user_role);
+    }
+
+    static getEditId() {
+        return localStorage.getItem(config.edit_id);
+    }
+
+    static setEditUserId(user_id) {
+        localStorage.setItem(config.edit_id, user_id);
     }
 
     static setTokens(tokens) {

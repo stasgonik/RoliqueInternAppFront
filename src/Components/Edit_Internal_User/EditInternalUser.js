@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import classes from './EditInternalUser.module.css';
 import info from '../Items/Icons/info-button.svg';
 import Tooltip from '../Items/Tooltip/Tooltip'
@@ -13,17 +13,43 @@ import authService from '../../Services/auth.service';
 import config from '../../Constants/configServer'
 
 
-const role = [
+let role = [
     {value: 'admin', label: 'Admin'},
     {value: 'manager', label: 'Manager'},
-    {value: 'employee', label: 'Employee'},
+    {value: 'employee', label: 'Employee'}
 ];
 
+function setRoles() {
+    const user_role = authService.getUserRole();
+    if (user_role === 'employee') {
+        role = [
+            {value: 'employee', label: 'Employee'}
+        ];
+    }
+    if (user_role === 'manager') {
+        role = [
+            {value: 'manager', label: 'Manager'},
+            {value: 'employee', label: 'Employee'}
+        ];
+    }
+    return role;
+}
+
 const EditUser = () => {
+    setRoles()
+
     const [user, setUser] = useState(async () => {
         const initialState = await userService.getSingleUsers(authService.getUserId())
-        setUser({first_name: initialState.first_name, last_name: initialState.last_name, email: initialState.email, phone:initialState.phone, role: initialState.role, profile_picture: initialState.profile_picture})
+        setUser({
+            first_name: initialState.first_name,
+            last_name: initialState.last_name,
+            email: initialState.email,
+            phone: initialState.phone,
+            role: initialState.role,
+            profile_picture: initialState.profile_picture
+        })
     });
+
 
     const fileInput = useRef(null);
     const [values, setValues] = useState({
@@ -53,9 +79,8 @@ const EditUser = () => {
     const selected = (e) => {
         let img = e.target.files[0];
         img.preview = URL.createObjectURL(img)
-        setUser({...user,[e.target.name]: img })
+        setUser({...user, [e.target.name]: img})
     }
-
 
     const saveChanges = async () => {
         const formData = new FormData();
@@ -63,7 +88,7 @@ const EditUser = () => {
             formData.append(i, user[i])
         }
 
-        await userService.editUser(formData,authService.getUserId());
+        await userService.editUser(formData, authService.getUserId());
     }
 
     const path = config.URL + user.profile_picture;
@@ -136,9 +161,6 @@ const EditUser = () => {
                 </section>
 
                 {/*<button onClick={()=> getSingleUser()}>OLA</button>*/}
-                {
-                    console.log(user)
-                }
 
                 <section className={classes.rightContainer}>
                     <div className={classes.role}>
@@ -154,7 +176,6 @@ const EditUser = () => {
                     <Dropdown required="required"
                               options={role}
                               name='role'
-                              defaultValue={user.role}
                               onChange={(e) => handleChangeRole(e)}/>
 
                     <h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>

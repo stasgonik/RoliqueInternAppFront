@@ -4,6 +4,7 @@ const config = {
     refresh_token: 'refresh_token',
     user_id: 'user_id',
     user_role: 'user_role',
+    edit_id: 'edit_id',
     axios_config: {
         headers: {
             'Accept': 'application/json',
