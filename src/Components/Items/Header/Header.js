@@ -11,7 +11,7 @@ const Header = ({leftArrow,name, button}) => {
 		<header className={classes.header}>
 			<div className={classes.headerRightBlock}>
 			{leftArrow ? <img src={leftArrow} alt="LeftArrow" className={classes.Arrow} onClick={() => history.goBack()}/> : null}
-			<h1 className={classes.title}>{name} Internal User</h1>
+			<h1 className={classes.title}>{name}</h1>
 			</div>
 			<button className={classes.btn} onClick={button}><span className={classes.titleBtn}>Save Changes</span></button>
 		</header>

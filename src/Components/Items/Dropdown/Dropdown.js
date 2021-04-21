@@ -16,7 +16,7 @@ const Dropdown = ({required, options, name, onChange, defaultValue}, props) => {
 
             >
                 <option value={'Select'} hidden disabled selected>
-                    {'Select...'}
+                    {defaultValue}
                 </option>
 
                 {

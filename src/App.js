@@ -14,6 +14,7 @@ import ForgotPassNotify from "./Components/ForgotPassword_notify/ForgotPassNotif
 import ForgotPassForm from "./Components/ForgotPassword_changePassword/ForgotPassForm";
 import CreateInternalUser from "./Components/Create_Internal_User/CreateInternalUser";
 import EditInternalUser from "./Components/Edit_Internal_User/EditInternalUser";
+import Create_Influencer from "./Components/Create_Influencer/CreateInfluencer";
 
 export default function App(props) {
     return (
@@ -27,6 +28,7 @@ export default function App(props) {
                 <Route path={'/forgotPassword/notify'} exact{...props} component={ForgotPassNotify}/>
                 <Route path={'/forgotPassword/changePassword'} exact{...props} component={ForgotPassForm}/>
                 <Route path={'/editInternalUser'} exact{...props} component={EditInternalUser}/>
+                <Route path={'/createInfluencer'} exact{...props} component={Create_Influencer}/>
             </Switch>
         </Router>
     );

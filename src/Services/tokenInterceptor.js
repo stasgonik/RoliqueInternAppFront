@@ -19,9 +19,11 @@ axiosInstance.interceptors.response.use(
     error => {
         const originalRequest = error.config;
 
+
         // Prevent infinite loops
-        if (error.response.status === 401 && originalRequest.url === config.URL + 'auth/refresh/') {
-            window.location.href = '/login/';
+        // console.log(originalRequest.url)
+        if (error.response.status === 401 && originalRequest.url ===  'auth/refresh/') {
+            window.location.href = configFront.URL + 'login/';
             return Promise.reject(error);
         }
 
@@ -68,6 +70,7 @@ axiosInstance.interceptors.response.use(
 
         // specific error handling done elsewhere
         // window.location.href = configFront.URL + 'login/';
+        throw error.response
         return Promise.reject(error);
     }
 );

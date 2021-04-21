@@ -70,23 +70,6 @@ const User = () => {
 		console.log(values)
 	}
 
-
-
-
-	// const optionsRole = (role) => {
-	// 	role.map((value) => {
-	// 		if (value.label === 'Admin') {
-	// 			return ['admin', 'manager', 'employee']
-	// 		}
-	// 		if (value.label === 'Manager') {
-	// 			return ['admin', 'manager', 'employee']
-	// 		}
-	// 		else {
-	// 			return null;
-	// 		}
-	// 	})
-	//
-	// }
 	const saveChanges = async () => {
 		const formData = new FormData();
 		for (const value in values) {
@@ -100,7 +83,7 @@ const User = () => {
 
 		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
 			<Sidebar/>
-			<Header name={'Create'} leftArrow={leftArrow} button={(e) => saveChanges(e)}/>
+			<Header name={'Create Internal User'} leftArrow={leftArrow} button={(e) => saveChanges(e)}/>
 
 			<div className={classes.mainContainer}>
 				<section className={classes.leftContainer}>

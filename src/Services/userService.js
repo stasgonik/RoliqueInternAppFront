@@ -4,7 +4,8 @@ import config from '../Constants/configServer'
 
 class _endpoint {
     static Users = 'users/';
-    static ChangePassword = 'users/forgotPassword/'
+    static ChangePassword = 'users/forgotPassword/';
+    static Influencer = 'influencers/';
 }
 
 export default class UserService {
@@ -49,6 +50,28 @@ export default class UserService {
     }
 
     static async editUser(body,id) {
+        try{
+            console.log(body)
+            const result = await axiosInstance.put(`${config.URL}${_endpoint.Users}${id}`, body);
+
+
+            return result.data
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    static async postInfluencer(body) {
+        try{
+            const result = await axiosInstance.post(`${config.URL}${_endpoint.Influencer}`, body);
+
+            return result.data
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    static async editInfluencer(body,id) {
         try{
             console.log(body)
             const result = await axiosInstance.put(`${config.URL}${_endpoint.Users}${id}`, body);
