@@ -14,17 +14,43 @@ class Login extends Component {
     };
 
     state = {
-        email: '',
-        password: ''
-    }
+        fields: {
+            email: '',
+            password: ''
+        },
+        errors: {
+            email: '',
+            password: ''
+        },
+        type: 'input',
+    };
 
     constructor(props) {
         super(props);
-        this.state = {
-            type: "input",
-            score: "null"
-        };
         this.showHide = this.showHide.bind(this);
+    }
+
+    handleValidation(){
+        const fields = this.state.fields;
+        let errors = {};
+        let formIsValid = true;
+
+        if(typeof fields["password"] !== "undefined"){
+            if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,50}$/)) {
+                formIsValid = false;
+                errors["password"] = "Password is not valid";
+            }
+        }
+
+        if(typeof fields["email"] !== "undefined"){
+            if (!fields["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/)) {
+                formIsValid = false;
+                errors["email"] = "Email is not valid";
+            }
+        }
+
+        this.setState({ errors });
+        return formIsValid;
     }
 
     showHide(e) {
@@ -49,21 +75,35 @@ class Login extends Component {
                 password: in2
             }
 
-
-            // ДОРОБИТИ ПРАВИЛЬНИЙ РЕДІРЕКТ
-
-            const login = await authService.login(body);
-            if (login) {
-                this.props.history.push('/registration')
+            if(this.handleValidation()){
+                const login = await authService.login(body);
+                if (login.status === 200) {
+                    this.props.history.push('/registration')
+                }
+                if(login.status === 400) {
+                    const errors =  {
+                            email: '',
+                            password: ''
+                    }
+                    errors.password = 'Wrong email of password!'
+                    this.setState({errors})
+                    console.log(this.state.errors.password)
+                }
             }
 
-            // ДОРОБИТИ ПРАВИЛЬНИЙ РЕДІРЕКТ
+
 
         } catch (e) {
             console.log(e)
         }
     };
 
+    handleChange(field, e){
+        e.preventDefault();
+        let fields = this.state.fields;
+        fields[field] = e.target.value;
+        this.setState({fields});
+    }
 
     render() {
         return (
@@ -74,14 +114,22 @@ class Login extends Component {
 
                     <span className={'login-form-spam'}>Email</span>
 
-                    <input id={'in1'} className={'login-input'} />
+                    <input id={'in1'} className={'login-input'} required={true}
+                           onChange={this.handleChange.bind(this, "email")}
+                    />
+
+                    <span  className='login-form-spam red'>{this.state.errors.email}</span>
                     <div>
                         <span className={'login-form-spam'}>Password</span>
                         <span className="password__show" onClick={this.showHide}>
                             {this.state.type === "input" ? "Hide Password" : "Show Password"}
                      </span>
                     </div>
-                    <input type={this.state.type} className="password__input"/>
+                    <input type={this.state.type} className="password__input" required={true}
+                           onChange={this.handleChange.bind(this, "password")}
+                    />
+
+                    <span  className='login-form-spam red'>{this.state.errors.password}</span>
 
                     <div className="wrap">
                         <button className="button">Log In</button>

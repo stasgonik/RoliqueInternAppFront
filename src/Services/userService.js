@@ -13,18 +13,24 @@ export default class UserService {
         try{
             const result = await axiosInstance.get(`${config.URL}${_endpoint.Users}`);
 
-            return result.data
+            if(result.status === 200) {
+                return result.data
+            }
         } catch (e) {
             console.log(e)
+            return e
         }
     }
     static async getSingleUsers(id) {
         try{
             const result = await axiosInstance.get(`${config.URL}${_endpoint.Users}${id}`);
 
-            return result.data
+            if(result.status === 200) {
+                return result.data
+            }
         } catch (e) {
             console.log(e)
+            return e
         }
     }
 
@@ -32,9 +38,12 @@ export default class UserService {
         try{
             const result = await axiosInstance.patch(`${config.URL}${_endpoint.ChangePassword}`, body);
 
-            return result.data
+            if(result.status === 200) {
+                return result.data
+            }
         } catch (e) {
             console.log(e)
+            return e
         }
     }
 
@@ -42,9 +51,12 @@ export default class UserService {
         try{
             const result = await axiosInstance.post(`${config.URL}${_endpoint.Users}`, body);
 
-            return result.data
+            if(result.status === 200) {
+                return result.data
+            }
         } catch (e) {
             console.log(e)
+            return e
         }
     }
 

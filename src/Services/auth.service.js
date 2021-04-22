@@ -1,6 +1,5 @@
 import config from '../Constants/configServer'
 import axiosInstance from "./tokenInterceptor";
-import {Redirect} from "react-router-dom";
 
 class _endpoint {
     static login = 'auth/';
@@ -18,6 +17,7 @@ export default class AuthService {
             return result;
         } catch (e) {
             console.log(e)
+            return e
         }
     }
 

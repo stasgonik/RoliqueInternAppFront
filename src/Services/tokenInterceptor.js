@@ -20,8 +20,9 @@ axiosInstance.interceptors.response.use(
         const originalRequest = error.config;
 
         // Prevent infinite loops
-        if (error.response.status === 401 && originalRequest.url === config.URL + 'auth/refresh/') {
-            window.location.href = '/login/';
+        if (error.response.status === 401 && (originalRequest.url === 'auth/refresh/'
+            || originalRequest.url === originalRequest.url + 'auth/refresh/')) {
+            window.location.href = configFront.URL + 'login/';
             return Promise.reject(error);
         }
 
@@ -54,6 +55,7 @@ axiosInstance.interceptors.response.use(
                         })
                         .catch(err => {
                             console.log(err)
+                            window.location.href = configFront.URL + 'login/';
                         });
                 }else{
                     console.log("Refresh token is expired", tokenParts.exp, now);
@@ -68,7 +70,7 @@ axiosInstance.interceptors.response.use(
 
         // specific error handling done elsewhere
         // window.location.href = configFront.URL + 'login/';
-        return Promise.reject(error);
+        throw error.response
     }
 );
 
