@@ -80,7 +80,7 @@ class Login extends Component {
             if (this.handleValidation()) {
                 const login = await authService.login(body);
                 if (login.status === 200) {
-                    this.props.history.push('/registration')
+                    this.props.history.push('/users')
                 }
                 if (login.status === 400) {
                     const errors = {

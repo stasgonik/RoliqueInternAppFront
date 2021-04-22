@@ -1,21 +1,16 @@
 import React, {useEffect, useRef, useState} from 'react';
 import classes from './UsersList.module.css';
 
-import Header from '../Items/Header/Header';
 import Sidebar from '../Items/Sidebar/Sidebar'
-
 import userService from "../../Services/userService";
 import Search from "../Items/Search/Search";
-import config from "../../Constants/configServer";
 import AuthService from "../../Services/auth.service";
 import configFront from "../../Constants/config";
 import path from '../Items/Icons/path.svg';
-import Tooltip from "../Items/Tooltip/Tooltip";
-
 import rightArrow from '../Items/Icons/right-arrow.svg';
 import photoDefault from '../Items/Icons/vector.svg';
 import arrowUp from '../Items/Icons/arrow-up.svg'
-import Dropdown2 from "../Items/Dropdown/Dropdown2";
+import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 
 
 const UsersList = () => {
@@ -33,18 +28,6 @@ const UsersList = () => {
 			Start()
 		}
 	})
-
-	// const [user, setUser] = useState(async () => {
-	// 	if (!values.length ) {
-	// 		setInitial(false);
-	// 		if (initial) {
-	// 			const initialState = await userService.getUsers()
-	// 			setUser(initialState)
-	// 			setValues(initialState)
-	// 			console.log(initialState);
-	// 		}
-	// 	}
-	// });
 
 	function capitalizeFirstLetter(string) {
 		return string[0].toUpperCase() + string.slice(1);
@@ -71,23 +54,23 @@ const UsersList = () => {
 	const edit = (item) => {
 		console.log(item)
 		AuthService.setEditUserId(item._id)
-		window.location.href = configFront.URL + 'users'
+		window.location.href = configFront.URL + 'users/edit'
 	}
 
 	return (
 
 		<div className={classes.mainContainer}>
 			<Sidebar/>
-			<Header titleHeader={classes.titleUsers}
-					title='Users'
-					titleBtn='Create New'
-					upArrow={arrowUp}
-					btnHeader={classes.btnHeader}
+			<UsersListHeader titleHeader={classes.titleUsers}
+							 title='Users'
+							 titleBtn='Create New'
+							 upArrow={arrowUp}
+							 btnHeader={classes.btnHeader}
+
 				// btnHeader={cl}
 				// className={classes.btnHeader}
-
 			/>
-			{/*<Dropdown2/>*/}
+
 			<section className={classes.SearchContainer}>
 				<Search
 					onChangeName={(e) => searchName(e)}/>
@@ -114,34 +97,39 @@ const UsersList = () => {
 								<div className={classes.tableText}><p className={classes.textColor}>{item.phone}</p></div>
 
 								<div>{(AuthService.getUserRole() === 'admin') ? <div className={classes.tableBtn}>
+									<div className={classes.Test}>
 									<div className={classes.btnPosition}>
-										<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div>
+										<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div></div>
 									<div className={classes.tooltipMain}>
-										<div className={classes.TooltipText}/>
+										<div className={classes.TooltipText}>
 										<p>Edit User</p></div>
+									</div>
 									<img className={classes.ArrowImg} src={rightArrow}/>
-								</div> : ''}</div>
+								</div>
+									: ''}</div>
 								{(AuthService.getUserRole() === 'manager') && (item.role === 'manager' || item.role === 'employee') ? <div className={classes.tableBtn}>
-									<div className={classes.btnPosition}>
-										<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div>
-									<div className={classes.tooltipMain}>
-										<div className={classes.TooltipText}/>
-										<p>Edit User</p></div>
-									<img className={classes.ArrowImg} src={rightArrow}/>
-								</div> : ''}
-								{(AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === item._id) ? <div className={classes.tableBtn}>
-									<div className={classes.btnPosition}>
-										<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div>
-									<div className={classes.tooltipMain}>
-										<div className={classes.TooltipText}/>
-										<p>Edit User</p></div>
-									<img className={classes.ArrowImg} src={rightArrow}/>
-								</div> : ''}
-								{/*<div className={classes.tableBtn}><img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div> : ''}</div>*/}
+										<div className={classes.Test}>
+											<div className={classes.btnPosition}>
+												<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div></div>
+										<div className={classes.tooltipMain}>
+											<div className={classes.TooltipText}>
+												<p>Edit User</p></div>
+										</div>
+										<img className={classes.ArrowImg} src={rightArrow}/>
+									</div>
+									: ''}
 
-								{/*	{(AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === {item._id}) ?*/}
-								{/*<Header titleHeader={classes.titleUsers} title='Users' titleBtn='Create New' className={classes.titleUsers}*/}
-								{/*/> : ''}</div>*/}
+								{(AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === item._id) ? <div className={classes.tableBtn}>
+										<div className={classes.Test}>
+											<div className={classes.btnPosition}>
+												<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div></div>
+										<div className={classes.tooltipMain}>
+											<div className={classes.TooltipText}>
+												<p>Edit User</p></div>
+										</div>
+										<img className={classes.ArrowImg} src={rightArrow}/>
+									</div>
+									: ''}
 
 
 							</div>
@@ -149,13 +137,7 @@ const UsersList = () => {
 					)) : ''}
 					}
 				</div>
-
-
 			</section>
-			{/*{(AuthService.getUserRole()=== 'admin') ? <div></div> : ''}*/}
-			{/*{(AuthService.getUserRole()=== 'manager') && (item.role === 'manager' || item.role === ' employee') ? <div></div> : ''}*/}
-
-
 		</div>
 	)
 }

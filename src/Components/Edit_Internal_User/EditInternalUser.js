@@ -39,7 +39,7 @@ const EditUser = () => {
     setRoles()
 
     const [user, setUser] = useState(async () => {
-        const initialState = await userService.getSingleUsers(authService.getUserId())
+        const initialState = await userService.getSingleUsers(authService.getEditId())
         setUser({
             first_name: initialState.first_name,
             last_name: initialState.last_name,
@@ -88,7 +88,7 @@ const EditUser = () => {
             formData.append(i, user[i])
         }
 
-        await userService.editUser(formData, authService.getUserId());
+        await userService.editUser(formData, authService.getEditId());
     }
 
     const path = config.URL + user.profile_picture;

@@ -7,6 +7,7 @@ import Dropdown from '../Items/Dropdown/Dropdown';
 import Header from '../Items/Header/Header';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
+import topArrow from '../Items/Icons/top-arrow-black.svg'
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import userService from "../../Services/userService";
 import AuthService from "../../Services/auth.service";
@@ -72,22 +73,6 @@ const User = () => {
 	}
 
 
-
-
-	// const optionsRole = (role) => {
-	// 	role.map((value) => {
-	// 		if (value.label === 'Admin') {
-	// 			return ['admin', 'manager', 'employee']
-	// 		}
-	// 		if (value.label === 'Manager') {
-	// 			return ['admin', 'manager', 'employee']
-	// 		}
-	// 		else {
-	// 			return null;
-	// 		}
-	// 	})
-	//
-	// }
 	const saveChanges = async () => {
 		const formData = new FormData();
 		for (const value in values) {
@@ -178,6 +163,7 @@ const User = () => {
 					<Dropdown required
 							  options={role}
 							  name='role'
+							  valid = {!!values.role}
 							  onChange={(e) => handleChangeRole(e)}/>
 
 					<h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>

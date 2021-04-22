@@ -2,9 +2,7 @@
 		display: flex;
 		flex-direction: column;
 		margin: 24px 0 16px 68px;
-
 }
-
 
 .tooltipMain {
 		display: flex;
@@ -26,17 +24,29 @@
 		margin-right: 42px;
 		visibility: hidden;
 }
+
 .TooltipText {
 		font-family: Helvetica Neue, sans-serif;
 		font-size: 14px;
 		line-height: 20px;
-
-
+		display: flex;
+		align-items: center;
+		justify-content: center;
 }
-.btnPosition:hover + .tooltipMain  {
+
+.Test:hover + .tooltipMain {
 		visibility: visible;
 }
-.btnPosition:hover + .tooltipMain + .ArrowImg {
+
+.Test:hover + .tooltipMain + .ArrowImg {
+		visibility: visible;
+}
+
+.tableBtn:hover + .tooltipMain {
+		visibility: visible;
+}
+
+.tableBtn:hover + .tooltipMain + .ArrowImg {
 		visibility: visible;
 }
 
@@ -44,14 +54,14 @@
 		width: 32px;
 		height: 32px;
 		margin: 12px 0 24px 0;
-		/*border: 1px dashed rgba(197, 146, 165, 0.8);*/
 		box-sizing: border-box;
 		border-radius: 40px;
 		color: #D0A7B6;
 		background: none;
 		margin-left: 16px;
 }
-.photo{
+
+.photo {
 		background-color: #121033;
 }
 
@@ -67,6 +77,7 @@
 		opacity: 0.9;
 
 }
+
 .btnHeader {
 		display: flex;
 		align-items: center;
@@ -134,10 +145,10 @@
 		font-size: 14px;
 		line-height: 17px;
 		letter-spacing: -0.35px;
-		/*color: #383838;*/
 		color: #EEEEEE;
 
 }
+
 .textColor {
 		color: #383838;
 }
@@ -162,11 +173,7 @@
 		height: 52px;
 		background-color: #E7E6E8;
 }
-.btnPosition {
+
+.Test {
 		position: absolute;
-		right: 8px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		/*margin-left: 40px;*/
 }
