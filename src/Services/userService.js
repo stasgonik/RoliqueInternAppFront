@@ -40,9 +40,8 @@ export default class UserService {
         try{
             const result = await axiosInstance.patch(`${config.URL}${_endpoint.ChangePassword}`, body);
 
-            if(result.status === 200) {
-                return result.data
-            }
+            console.log(result)
+            return result
         } catch (e) {
             console.log(e)
             return e

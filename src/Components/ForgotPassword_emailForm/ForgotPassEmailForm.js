@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import './forgotPassEmailForm.css'
 import EmailService from "../../Services/email.service";
-import configFront from "../../Constants/config";
-
 
 class ForgotPassEmailForm extends Component {
 
@@ -12,24 +10,25 @@ class ForgotPassEmailForm extends Component {
         },
         errors: {
             email: ''
-        }
+        },
+        success: false
     };
 
     myForm = React.createRef();
 
-    handleValidation(){
+    handleValidation() {
         const fields = this.state.fields;
         let errors = {};
         let formIsValid = true;
 
-        if(typeof fields["email"] !== "undefined"){
+        if (typeof fields["email"] !== "undefined") {
             if (!fields["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/)) {
                 formIsValid = false;
                 errors["email"] = "Email is not valid";
             }
         }
 
-        if(!fields["email"]){
+        if (!fields["email"]) {
             formIsValid = false;
             errors["email"] = "Cannot be empty";
         }
@@ -45,9 +44,26 @@ class ForgotPassEmailForm extends Component {
 
             console.log(body)
 
-            if(this.handleValidation()){
+            if (this.handleValidation()) {
                 const result = await EmailService.sendForgotPasswordEmail(body);
-                window.location.href = configFront.URL + 'forgotPassword/notify/';
+
+                if (result.status === 200) {
+                    // this.props.history.push('forgotPassword/notify/')
+                    // window.location.href = configFront.URL + 'forgotPassword/notify/';
+                    this.setState({success: true})
+                }
+                if (result.status === 400) {
+                    const errors = {
+                        email: 'Email is not valid'
+                    }
+                    this.setState({errors})
+                }
+                if (result.status === 500) {
+                    const errors = {
+                        email: 'Unknown server error'
+                    }
+                    this.setState({errors})
+                }
             }
 
 
@@ -57,7 +73,7 @@ class ForgotPassEmailForm extends Component {
     };
 
 
-    handleChange(field, e){
+    handleChange(field, e) {
         let fields = this.state.fields;
         fields[field] = e.target.value;
         this.setState({fields});
@@ -65,23 +81,50 @@ class ForgotPassEmailForm extends Component {
 
     render() {
         return (
-            <div className={'main-flex-login'}>
-                <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
+            <div>
+                {!this.state.success ?
+                    <div className={'main-flex-login'}>
+                        <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
+                            <h3 className={'login-form-h3'}>We need your email to change your password</h3>
 
-                    <h3 className={'login-form-h3'}>We need your email to change your password</h3>
+                            <span className={'login-form-spam'}>Email</span>
 
-                    <span className={'login-form-spam'}>Email</span>
+                            <input id={'in1'} className={'login-input'}
+                                   onChange={this.handleChange.bind(this, "email")}
+                                   value={this.state.fields["email"]}
+                                   required={true}/>
 
-                    <input id={'in1'} className={'login-input'}
-                           onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}
-                           required={true} />
+                            <span className='login-form-spam red'>{this.state.errors["email"]}</span>
 
-                    <span  className='login-form-spam red'>{this.state.errors["email"]}</span>
-
-                    <div className="wrap">
-                        <button className="button">Send</button>
+                            <div className="wrap">
+                                <button className="button">Send</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                    :
+                    <div className={'main-flex-login'}>
+                        <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
+                            <div>
+                                <span className='login-form-spam red'>Please check your email, we send special link to it.</span>
+                            </div>
+                        </form>
+                    </div>}
+
+                {/*<h3 className={'login-form-h3'}>We need your email to change your password</h3>*/}
+
+                {/*<span className={'login-form-spam'}>Email</span>*/}
+
+                {/*<input id={'in1'} className={'login-input'}*/}
+                {/*       onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}*/}
+                {/*       required={true} />*/}
+
+                {/*<span  className='login-form-spam red'>{this.state.errors["email"]}</span>*/}
+
+                {/*<div className="wrap">*/}
+                {/*    <button className="button">Send</button>*/}
+                {/*</div>*/}
+                {/*    </form>*/}
+                {/*</div>*/}
             </div>
         );
     }

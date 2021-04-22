@@ -55,7 +55,10 @@ axiosInstance.interceptors.response.use(
                         })
                         .catch(err => {
                             console.log(err)
-                            window.location.href = configFront.URL + 'login/';
+                            if (err.status === 401) {
+                                window.location.href = configFront.URL + 'login/';
+                            }
+                            return err
                         });
                 }else{
                     console.log("Refresh token is expired", tokenParts.exp, now);

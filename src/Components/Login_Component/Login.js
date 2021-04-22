@@ -30,26 +30,28 @@ class Login extends Component {
         this.showHide = this.showHide.bind(this);
     }
 
-    handleValidation(){
+    handleValidation() {
         const fields = this.state.fields;
         let errors = {};
         let formIsValid = true;
 
-        if(typeof fields["password"] !== "undefined"){
+        if (typeof fields["password"] !== "undefined") {
             if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,50}$/)) {
                 formIsValid = false;
                 errors["password"] = "Password is not valid";
             }
         }
 
-        if(typeof fields["email"] !== "undefined"){
+
+        if (typeof fields["email"] !== "undefined") {
             if (!fields["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/)) {
                 formIsValid = false;
                 errors["email"] = "Email is not valid";
             }
         }
 
-        this.setState({ errors });
+
+        this.setState({errors});
         return formIsValid;
     }
 
@@ -70,35 +72,38 @@ class Login extends Component {
             let in1 = this.myForm.current[0].value;
             let in2 = this.myForm.current[1].value;
 
-            const body ={
+            const body = {
                 email: in1,
                 password: in2
             }
 
-            if(this.handleValidation()){
+            if (this.handleValidation()) {
                 const login = await authService.login(body);
                 if (login.status === 200) {
                     this.props.history.push('/registration')
                 }
-                if(login.status === 400) {
-                    const errors =  {
-                            email: '',
-                            password: ''
+                if (login.status === 400) {
+                    const errors = {
+                        email: '',
+                        password: 'Wrong email of password!'
                     }
-                    errors.password = 'Wrong email of password!'
                     this.setState({errors})
-                    console.log(this.state.errors.password)
+                }
+                if (login.status === 500) {
+                    const errors = {
+                        email: '',
+                        password: 'Unknown server error'
+                    }
+                    this.setState({errors})
                 }
             }
-
-
 
         } catch (e) {
             console.log(e)
         }
     };
 
-    handleChange(field, e){
+    handleChange(field, e) {
         e.preventDefault();
         let fields = this.state.fields;
         fields[field] = e.target.value;
@@ -118,7 +123,7 @@ class Login extends Component {
                            onChange={this.handleChange.bind(this, "email")}
                     />
 
-                    <span  className='login-form-spam red'>{this.state.errors.email}</span>
+                    <span className='login-form-spam red'>{this.state.errors.email}</span>
                     <div>
                         <span className={'login-form-spam'}>Password</span>
                         <span className="password__show" onClick={this.showHide}>
@@ -129,7 +134,7 @@ class Login extends Component {
                            onChange={this.handleChange.bind(this, "password")}
                     />
 
-                    <span  className='login-form-spam red'>{this.state.errors.password}</span>
+                    <span className='login-form-spam red'>{this.state.errors.password}</span>
 
                     <div className="wrap">
                         <button className="button">Log In</button>
