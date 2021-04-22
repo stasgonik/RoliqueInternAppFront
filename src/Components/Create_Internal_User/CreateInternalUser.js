@@ -9,6 +9,7 @@ import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import userService from "../../Services/userService";
+import AuthService from "../../Services/auth.service";
 
 
 
@@ -19,7 +20,7 @@ let role = [
 ];
 
 function setRoles() {
-	const user_role = authService.getUserRole();
+	const user_role = AuthService.getUserRole();
 	if (user_role === 'employee') {
 		role = [
 			{value: 'employee', label: 'Employee'}
