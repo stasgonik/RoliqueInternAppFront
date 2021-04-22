@@ -12,9 +12,10 @@ export default class EmailService {
         try{
             const result = await axiosInstance.post(`${config.URL}${_endpoint.sendMail}`, body);
 
-            return result.data
+            return result
         } catch (e) {
             console.log(e)
+            return e
         }
     }
 

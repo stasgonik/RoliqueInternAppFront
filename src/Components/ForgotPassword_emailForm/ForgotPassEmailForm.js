@@ -46,7 +46,7 @@ class ForgotPassEmailForm extends Component {
             console.log(body)
 
             if(this.handleValidation()){
-                await EmailService.sendForgotPasswordEmail(body);
+                const result = await EmailService.sendForgotPasswordEmail(body);
                 window.location.href = configFront.URL + 'forgotPassword/notify/';
             }
 
@@ -73,7 +73,8 @@ class ForgotPassEmailForm extends Component {
                     <span className={'login-form-spam'}>Email</span>
 
                     <input id={'in1'} className={'login-input'}
-                           onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}/>
+                           onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}
+                           required={true} />
 
                     <span  className='login-form-spam red'>{this.state.errors["email"]}</span>
 

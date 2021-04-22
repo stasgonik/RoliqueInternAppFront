@@ -15,9 +15,24 @@ export default class UserService {
                 params: queryReq
             });
 
-            return result.data
+            if(result.status === 200) {
+                return result.data
+            }
         } catch (e) {
             console.log(e)
+            return e
+        }
+    }
+    static async getSingleUsers(id) {
+        try{
+            const result = await axiosInstance.get(`${config.URL}${_endpoint.Users}${id}`);
+
+            if(result.status === 200) {
+                return result.data
+            }
+        } catch (e) {
+            console.log(e)
+            return e
         }
     }
 
@@ -25,15 +40,33 @@ export default class UserService {
         try{
             const result = await axiosInstance.patch(`${config.URL}${_endpoint.ChangePassword}`, body);
 
-            return result.data
+            if(result.status === 200) {
+                return result.data
+            }
         } catch (e) {
             console.log(e)
+            return e
         }
     }
 
     static async postUsers(body) {
         try{
             const result = await axiosInstance.post(`${config.URL}${_endpoint.Users}`, body);
+
+            if(result.status === 200) {
+                return result.data
+            }
+        } catch (e) {
+            console.log(e)
+            return e
+        }
+    }
+
+    static async editUser(body,id) {
+        try{
+            console.log(body)
+            const result = await axiosInstance.put(`${config.URL}${_endpoint.Users}${id}`, body);
+
 
             return result.data
         } catch (e) {

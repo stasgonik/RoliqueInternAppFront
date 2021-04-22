@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import classes from './CreateInternalUser.module.css';
 import info from '../Items/Icons/info-button.svg';
 import Tooltip from '../Items/Tooltip/Tooltip'
@@ -9,18 +9,33 @@ import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import userService from "../../Services/userService";
-import axiosInstance from "../../Services/tokenInterceptor";
-import topArrow from '../Items/Icons/top-arrow-black.svg';
-import Messages from '../Items/Messages/Messages'
 
 
-const role = [
+
+let role = [
 	{value: 'admin', label: 'Admin'},
 	{value: 'manager', label: 'Manager'},
 	{value: 'employee', label: 'Employee'},
 ];
 
+function setRoles() {
+	const user_role = authService.getUserRole();
+	if (user_role === 'employee') {
+		role = [
+			{value: 'employee', label: 'Employee'}
+		];
+	}
+	if (user_role === 'manager') {
+		role = [
+			{value: 'manager', label: 'Manager'},
+			{value: 'employee', label: 'Employee'}
+		];
+	}
+	return role;
+}
+
 const User = () => {
+	setRoles();
 	const fileInput = useRef(null);
 	const [values, setValues] = useState({
 		avatar: '',
@@ -35,10 +50,6 @@ const User = () => {
 	const handleChange = (e) => {
 		const value = e.target.value;
 		setValues({...values, [e.target.name]: value});
-		// if (value) {
-		// 	const input = document.getElementsByTagName('input');
-		//
-		// }
 
 	}
 
@@ -58,6 +69,8 @@ const User = () => {
 		console.log(img)
 		console.log(values)
 	}
+
+
 
 
 	// const optionsRole = (role) => {
@@ -87,7 +100,7 @@ const User = () => {
 
 		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
 			<Sidebar/>
-			<Header titleHeader={classes.title}
+			<Header name={'Create'} titleHeader={classes.title}
 					titleBtn='Save Changes'
 					title='Create Internal User'
 					leftArrow={leftArrow}
@@ -99,9 +112,9 @@ const User = () => {
 					<h3 className={classes.general}>General</h3>
 					<p className={classes.profile}>Profile Picture</p>
 					<input type='file'
-						   name='avatar'
-						   style={{display: 'none'}}
-						   onChange={(e) => selected(e)}
+						   name = 'avatar'
+						   style={{display:'none'}}
+						   onChange={(e)=>selected(e)}
 						   ref={fileInput}
 
 					/>
@@ -113,6 +126,7 @@ const User = () => {
 						}} alt={'alt'}/> : '+'}
 					</button>
 
+
 					<label className={classes.input_title}>First Name</label>
 					<input className={!values.first_name ? classes.input_info : classes.input_info_valid}
 						   type='text'
@@ -121,7 +135,7 @@ const User = () => {
 						   pattern={FIRST_LAST_NAME_REGEXP}
 						   required
 						   onChange={(e) => handleChange(e)}
-					/>
+						   />
 
 					<label className={classes.input_title}>Last Name</label>
 					<input className={!values.last_name ? classes.input_info : classes.input_info_valid}
@@ -155,7 +169,7 @@ const User = () => {
 						<h3 className={classes.rightContainer_title}>Role & Permissions</h3>
 						<img src={info} alt="info" className={classes.infoBtn}/>
 						<div className={classes.tooltip}>
-							<Tooltip align='center' Arrow={topArrow} text={INFO.message}/>
+							<Tooltip align='center'  Arrow={topArrow} text={INFO.message}/>
 						</div>
 					</div>
 
@@ -163,9 +177,8 @@ const User = () => {
 					<Dropdown required
 							  options={role}
 							  name='role'
-							  valid = {!!values.role}
 							  onChange={(e) => handleChangeRole(e)}/>
-<Messages styleBox={classes.xxx} message='JJJJ'/>
+
 					<h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
 					<label className={`${classes.input_title} ${classes.input_password}`}>Set Password</label>
 					<input className={!values.password ? classes.input_info : classes.input_info_valid}
