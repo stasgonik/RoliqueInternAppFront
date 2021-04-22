@@ -11,7 +11,6 @@ export default class AuthService {
     static async login(body) {
         try{
             const result = await axiosInstance.post(`${config.URL}${_endpoint.login}`, body);
-            console.log(result);
 
             this.setData(result.data)
 
@@ -30,12 +29,13 @@ export default class AuthService {
         localStorage.setItem(config.access_token, accessToken);
     }
 
-    static setRefreshToken(refreshToken) {
-        localStorage.setItem(config.refresh_token, refreshToken);
+    static setRefreshToken(refreshToken) {localStorage.setItem(config.refresh_token, refreshToken);
+
     }
 
     static setUserRole(user_role) {
         localStorage.setItem(config.user_role, user_role);
+
     }
 
     static setUserId(user_id) {

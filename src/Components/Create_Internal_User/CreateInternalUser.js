@@ -11,6 +11,7 @@ import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} fro
 import userService from "../../Services/userService";
 import axiosInstance from "../../Services/tokenInterceptor";
 import topArrow from '../Items/Icons/top-arrow-black.svg';
+import Messages from '../Items/Messages/Messages'
 
 
 const role = [
@@ -34,6 +35,10 @@ const User = () => {
 	const handleChange = (e) => {
 		const value = e.target.value;
 		setValues({...values, [e.target.name]: value});
+		// if (value) {
+		// 	const input = document.getElementsByTagName('input');
+		//
+		// }
 
 	}
 
@@ -86,6 +91,7 @@ const User = () => {
 					titleBtn='Save Changes'
 					title='Create Internal User'
 					leftArrow={leftArrow}
+					btnHeader={classes.btnHeader}
 					button={(e) => saveChanges(e)}/>
 
 			<div className={classes.mainContainer}>
@@ -108,34 +114,34 @@ const User = () => {
 					</button>
 
 					<label className={classes.input_title}>First Name</label>
-					<input className={classes.input_info}
+					<input className={!values.first_name ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='first_name'
 						   value={values.firstName}
 						   pattern={FIRST_LAST_NAME_REGEXP}
-						   required="required"
+						   required
 						   onChange={(e) => handleChange(e)}
 					/>
 
 					<label className={classes.input_title}>Last Name</label>
-					<input className={classes.input_info}
+					<input className={!values.last_name ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='last_name'
-						   required="required"
+						   required
 						   pattern={FIRST_LAST_NAME_REGEXP}
 						   onChange={(e) => handleChange(e)}/>
 
 
 					<label className={classes.input_title}>Email</label>
-					<input className={classes.input_info}
+					<input className={!values.email ? classes.input_info : classes.input_info_valid}
 						   type='email'
 						   name='email'
-						   required="required"
+						   required
 						   pattern={EMAIL_REGEXP}
 						   onChange={(e) => handleChange(e)}/>
 
 					<label className={classes.input_title}>Phone</label>
-					<input className={`${classes.input_info} ${classes.phone}`}
+					<input className={classes.input_info_valid}
 						   type='text'
 						   name='phone'
 						   pattern={PHONE_REGEXP}
@@ -149,23 +155,24 @@ const User = () => {
 						<h3 className={classes.rightContainer_title}>Role & Permissions</h3>
 						<img src={info} alt="info" className={classes.infoBtn}/>
 						<div className={classes.tooltip}>
-							<Tooltip align='center' topArrow={topArrow} text={INFO.message}/>
+							<Tooltip align='center' Arrow={topArrow} text={INFO.message}/>
 						</div>
 					</div>
 
 					<label className={classes.input_title}>Role</label>
-					<Dropdown required="required"
+					<Dropdown required
 							  options={role}
 							  name='role'
+							  valid = {!!values.role}
 							  onChange={(e) => handleChangeRole(e)}/>
-
+<Messages styleBox={classes.xxx} message='JJJJ'/>
 					<h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
 					<label className={`${classes.input_title} ${classes.input_password}`}>Set Password</label>
-					<input className={`${classes.input_info}`}
+					<input className={!values.password ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='password'
 						   pattern={PASSWORD_REGEXP}
-						   required="required"
+						   required
 						   onChange={(e) => handleChange(e)}/>
 
 				</section>

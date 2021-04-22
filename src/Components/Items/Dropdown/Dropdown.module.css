@@ -10,9 +10,24 @@
 		cursor: pointer;
 
 }
-
-.selectInput:focus {
-		border: 1px solid #BFBFBF;
+.selectInput_invalid {
+		display: flex;
+		justify-content: center;
+		background-color: #FAFAFB;
+		border: 1px solid grey;
+		box-sizing: border-box;
+		border-radius: 6px;
+		width: 408px;
+		height: 32px;
+		cursor: pointer;
+}
+/*.selectInput:focus {*/
+/*		!*border: 1px solid #BFBFBF;*!*/
+/*		outline: none;*/
+/*}*/
+.selectInput_invalid:focus {
+		/*border: 1px solid #BFBFBF;*/
+		outline: none;
 }
 
 .dropdownContainer option {

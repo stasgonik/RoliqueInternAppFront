@@ -6,31 +6,53 @@
 }
 
 
-.tooltip {
-
+.tooltipMain {
+		display: flex;
+		width: 130px;
 		height: 44px;
 		visibility: hidden;
+		box-sizing: border-box;
 		position: absolute;
+		right: 0;
+
 		padding: 12px 16px;
-		right: 12px;
-		/*top: 159px;*/
+		margin-right: 41px;
+		background-color: #000000;
+		opacity: 0.8;
+		border-radius: 8px;
 }
 
-.infoBtn:hover + .tooltip {
+.ArrowImg {
+		margin-right: 42px;
+		visibility: hidden;
+}
+.TooltipText {
+		font-family: Helvetica Neue, sans-serif;
+		font-size: 14px;
+		line-height: 20px;
+
+
+}
+.btnPosition:hover + .tooltipMain  {
 		visibility: visible;
 }
-
+.btnPosition:hover + .tooltipMain + .ArrowImg {
+		visibility: visible;
+}
 
 .avatar {
 		width: 32px;
 		height: 32px;
 		margin: 12px 0 24px 0;
-		border: 1px dashed rgba(197, 146, 165, 0.8);
+		/*border: 1px dashed rgba(197, 146, 165, 0.8);*/
 		box-sizing: border-box;
 		border-radius: 40px;
 		color: #D0A7B6;
 		background: none;
 		margin-left: 16px;
+}
+.photo{
+		background-color: #121033;
 }
 
 .titleUsers {
@@ -43,8 +65,23 @@
 		font-family: Helvetica Neue, serif;
 		font-style: normal;
 		opacity: 0.9;
-}
 
+}
+.btnHeader {
+		display: flex;
+		align-items: center;
+		padding: 8px 16px;
+		width: 123px;
+		height: 33px;
+		right: 68px;
+
+		background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
+		border-radius: 8px;
+		margin-right: 68px;
+
+		border: 0;
+		text-decoration: none;
+}
 
 .tableHeader {
 		width: 90%;
@@ -97,8 +134,12 @@
 		font-size: 14px;
 		line-height: 17px;
 		letter-spacing: -0.35px;
-		color: #383838;
+		/*color: #383838;*/
+		color: #EEEEEE;
 
+}
+.textColor {
+		color: #383838;
 }
 
 .tableTextEmail {
@@ -120,4 +161,12 @@
 		width: 28px;
 		height: 52px;
 		background-color: #E7E6E8;
+}
+.btnPosition {
+		position: absolute;
+		right: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/*margin-left: 40px;*/
 }

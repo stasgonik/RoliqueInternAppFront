@@ -42,7 +42,7 @@ class Login extends Component {
                 password: in2
             }
 
-            await authService.login(body);
+           await authService.login(body);
 
         } catch (e) {
             console.log(e)

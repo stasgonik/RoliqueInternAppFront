@@ -8,7 +8,7 @@ const Search = ({onChangeName}) => {
 	return (
 		<div className={classes.boxSearch}>
 			<img src={search} alt='search' className={classes.searchIcon}/>
-			<input type='search'
+			<input
 				placeholder="Search"
 				className={classes.Search}
 				onChange={onChangeName}

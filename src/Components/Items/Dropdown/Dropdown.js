@@ -2,12 +2,12 @@ import React from 'react';
 import classes from './Dropdown.module.css';
 
 
-const Dropdown = ({required, options, name, onChange},props) => {
+const Dropdown = ({required, options, name, onChange, valid= false},props) => {
 
 	return (
 
 		 <div className={classes.dropdownContainer}>
-		 	<select className={classes.selectInput}
+		 	<select className={valid ? classes.selectInput_invalid : classes.selectInput}
 					required={required}
 					name={name}
 					value={props.value}

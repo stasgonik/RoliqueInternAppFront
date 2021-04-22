@@ -18,11 +18,13 @@ axiosInstance.interceptors.response.use(
     },
     error => {
         const originalRequest = error.config;
+        // throw error.response
 
         // Prevent infinite loops
-        if (error.response.status === 401 && originalRequest.url === config.URL + 'auth/refresh/') {
-            window.location.href = '/login/';
-            return Promise.reject(error);
+        if (error.response.status === 401 && (originalRequest.url === 'auth/refresh/'
+            || originalRequest.url === originalRequest.url + 'auth/refresh/')) {
+            window.location.href = configFront.URL + 'login/';
+            // return Promise.reject(error);
         }
 
         if (error.response.data.message === "Token not valid!" &&
@@ -32,7 +34,6 @@ axiosInstance.interceptors.response.use(
 
             if (refreshToken){
                 const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
-
                 // exp date in token is expressed in seconds, while now() returns milliseconds:
                 const now = Math.ceil(Date.now() / 1000);
 
@@ -53,7 +54,8 @@ axiosInstance.interceptors.response.use(
                             return axiosInstance(originalRequest);
                         })
                         .catch(err => {
-                            console.log(err)
+                            window.location.href = configFront.URL + 'login/';
+                            throw err.response;
                         });
                 }else{
                     console.log("Refresh token is expired", tokenParts.exp, now);
@@ -68,7 +70,7 @@ axiosInstance.interceptors.response.use(
 
         // specific error handling done elsewhere
         // window.location.href = configFront.URL + 'login/';
-        return Promise.reject(error);
+        throw error.response
     }
 );
 
