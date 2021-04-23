@@ -21,7 +21,7 @@ const Sidebar = () => {
 			<NavLink to="/" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 				<img src={volume} alt="volume" />
 			</NavLink >
-			<NavLink to="/" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
+			<NavLink to="/influencers" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 				<img src={at} alt="at" />
 			</NavLink>
 		</div>

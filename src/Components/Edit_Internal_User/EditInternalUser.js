@@ -91,9 +91,12 @@ const EditUser = () => {
         await userService.editUser(formData, authService.getEditId());
     }
 
-    const path = config.URL + user.profile_picture;
+    const path = user.profile_picture;
     console.log(path)
 
+    function capitalizeFirstLetter(string) {
+        return string[0].toUpperCase() + string.slice(1);
+    }
 
     return (
 

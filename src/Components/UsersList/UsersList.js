@@ -33,22 +33,28 @@ const UsersList = () => {
 		return string[0].toUpperCase() + string.slice(1);
 	}
 
+	// const searchName = async (e) => {
+	// 	const value = e.target.value;
+	// 	const resultFirstName = await userService.getUsers({first_name: value})
+	// 	if (resultFirstName) {
+	// 		const resultLastName = await userService.getUsers({last_name: value})
+	// 		const one = [];
+	// 		resultFirstName.forEach(user => {
+	// 			one.push(user._id);
+	// 		})
+	// 		resultLastName.forEach(user => {
+	// 			if (!one.includes(user._id)) {
+	// 				resultFirstName.push(user);
+	// 			}
+	// 		})
+	// 	}
+	// 	setValues(resultFirstName)
+	// }
+
 	const searchName = async (e) => {
 		const value = e.target.value;
-		const resultFirstName = await userService.getUsers({first_name: value})
-		if (resultFirstName) {
-			const resultLastName = await userService.getUsers({last_name: value})
-			const one = [];
-			resultFirstName.forEach(user => {
-				one.push(user._id);
-			})
-			resultLastName.forEach(user => {
-				if (!one.includes(user._id)) {
-					resultFirstName.push(user);
-				}
-			})
-		}
-		setValues(resultFirstName)
+		const search = await userService.getUsers({search: value})
+		setValues(search);
 	}
 
 	const edit = (item) => {

@@ -5,6 +5,7 @@ const config = {
     user_id: 'user_id',
     user_role: 'user_role',
     edit_id: 'edit_id',
+    influencer_id: 'influencer_id',
     axios_config: {
         headers: {
             'Accept': 'application/json',
