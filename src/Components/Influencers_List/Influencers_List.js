@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './Influencers_List.module.css';
 
 import Sidebar from '../Items/Sidebar/Sidebar'
@@ -18,7 +18,6 @@ import youtubeIcon from "../../img/Social_Icons/Youtube.png"
 import twitterIcon from "../../img/Social_Icons/Twitter.png"
 import tikTokIcon from "../../img/Social_Icons/TikTok.png"
 import storiesIcon from "../../img/Social_Icons/Stories.png"
-import {y} from "react-select/dist/index-4bd03571.esm";
 
 
 const Influencers_List = () => {
@@ -37,9 +36,9 @@ const Influencers_List = () => {
         }
     })
 
-    function capitalizeFirstLetter(string) {
-        return string[0].toUpperCase() + string.slice(1);
-    }
+    // function capitalizeFirstLetter(string) {
+    //     return string[0].toUpperCase() + string.slice(1);
+    // }
 
     // const searchName = async (e) => {
     //     const value = e.target.value;
@@ -148,7 +147,7 @@ const Influencers_List = () => {
                                             <div className={classes.TooltipText}>
                                                 <p>Show Influencer</p></div>
                                         </div>
-                                        <img className={classes.ArrowImg} src={rightArrow}/>
+                                        <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
                                     </div>
 
 

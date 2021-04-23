@@ -110,7 +110,7 @@ const UsersList = () => {
 										<div className={classes.TooltipText}>
 										<p>Edit User</p></div>
 									</div>
-									<img className={classes.ArrowImg} src={rightArrow}/>
+									<img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
 								</div>
 									: ''}</div>
 								{(AuthService.getUserRole() === 'manager') && (item.role === 'manager' || item.role === 'employee') ? <div className={classes.tableBtn}>
@@ -121,7 +121,7 @@ const UsersList = () => {
 											<div className={classes.TooltipText}>
 												<p>Edit User</p></div>
 										</div>
-										<img className={classes.ArrowImg} src={rightArrow}/>
+										<img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
 									</div>
 									: ''}
 
@@ -133,7 +133,7 @@ const UsersList = () => {
 											<div className={classes.TooltipText}>
 												<p>Edit User</p></div>
 										</div>
-										<img className={classes.ArrowImg} src={rightArrow}/>
+										<img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
 									</div>
 									: ''}
 

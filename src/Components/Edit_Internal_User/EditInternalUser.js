@@ -94,10 +94,6 @@ const EditUser = () => {
     const path = user.profile_picture;
     console.log(path)
 
-    function capitalizeFirstLetter(string) {
-        return string[0].toUpperCase() + string.slice(1);
-    }
-
     return (
 
         <form name={'myForm'} className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
