@@ -47,7 +47,7 @@ class ForgotPassForm extends Component {
         let formIsValid = true;
 
         if(typeof fields["password"] !== "undefined"){
-            if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,}$/)) {
+            if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,50}$/)) {
                 formIsValid = false;
                 errors["password"] = "Password is not valid";
             }
@@ -117,7 +117,8 @@ class ForgotPassForm extends Component {
                         <span className={'login-form-spam'}>Password</span>
                     </div>
 
-                    <input id={'in1'} className={'password__input'} type={this.state.type}
+                    <input id={'in1'} className={'password__input'} required={true}
+                           type={this.state.type}
                            onChange={this.handleChange.bind(this, "password")}
                            value={this.state.fields["password"]}/>
 
@@ -125,7 +126,8 @@ class ForgotPassForm extends Component {
 
                     <span className={'login-form-spam'}>Confirm Password</span>
 
-                    <input id={'in2'} className={'password__input'} type={this.state.type}
+                    <input id={'in2'} className={'password__input'} required={true}
+                           type={this.state.type}
                            onChange={this.handleChange.bind(this, "confirmPassword")}
                            value={this.state.fields["confirmPassword"]}/>
 
