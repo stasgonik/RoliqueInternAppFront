@@ -98,7 +98,13 @@ const EditUser = () => {
 
         <form name={'myForm'} className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
             <Sidebar/>
-            <Header name={'Edit'} leftArrow={leftArrow} button={(e) => saveChanges(e)}/>
+            <Header name={'Edit'}
+                    titleHeader={classes.title}
+                    title='Edit User'
+                    titleBtn='Save Changes'
+                    leftArrow={leftArrow}
+                    btnHeader={classes.btnHeader}
+                    button={(e) => saveChanges(e)}/>
             <div className={classes.mainContainer}>
                 <section className={classes.leftContainer}>
                     <h3 className={classes.general}>General</h3>
@@ -125,7 +131,6 @@ const EditUser = () => {
                            type='text'
                            name='first_name'
                            pattern={FIRST_LAST_NAME_REGEXP}
-                           required="required"
                            defaultValue={user.first_name}
                            onChange={(e) => handleChange(e)}
                     />
@@ -135,7 +140,6 @@ const EditUser = () => {
                            type='text'
                            name='last_name'
                            defaultValue={user.last_name}
-                           required="required"
                            pattern={FIRST_LAST_NAME_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
@@ -145,7 +149,6 @@ const EditUser = () => {
                            type='email'
                            name='email'
                            defaultValue={user.email}
-                           required="required"
                            pattern={EMAIL_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
@@ -159,7 +162,6 @@ const EditUser = () => {
 
                 </section>
 
-                {/*<button onClick={()=> getSingleUser()}>OLA</button>*/}
 
                 <section className={classes.rightContainer}>
                     <div className={classes.role}>
@@ -172,8 +174,7 @@ const EditUser = () => {
                     </div>
 
                     <label className={classes.input_title}>Role</label>
-                    <Dropdown required="required"
-                              options={role}
+                    <Dropdown options={role}
                               name='role'
                               onChange={(e) => handleChangeRole(e)}/>
 

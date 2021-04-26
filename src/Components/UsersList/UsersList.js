@@ -1,16 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './UsersList.module.css';
-
 import Sidebar from '../Items/Sidebar/Sidebar'
-import userService from "../../Services/userService";
 import Search from "../Items/Search/Search";
+
+import userService from "../../Services/userService";
 import AuthService from "../../Services/auth.service";
 import configFront from "../../Constants/config";
 import path from '../Items/Icons/path.svg';
 import rightArrow from '../Items/Icons/right-arrow.svg';
 import photoDefault from '../Items/Icons/vector.svg';
-import arrowUp from '../Items/Icons/arrow-up.svg'
+import arrowUp from '../Items/Icons/arrow-up.svg';
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
+import Messages from "../Items/Messages/Messages";
 
 
 const UsersList = () => {
@@ -87,6 +88,7 @@ const UsersList = () => {
 				<p className={classes.tableHeaderRole}>Role</p>
 				<p>Phone</p>
 			</section>
+
 			<section>
 
 				<div>
@@ -136,8 +138,6 @@ const UsersList = () => {
 										<img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
 									</div>
 									: ''}
-
-
 							</div>
 						</div>
 					)) : ''}

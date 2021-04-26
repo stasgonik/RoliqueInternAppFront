@@ -1,31 +1,79 @@
 .mainBox {
 		display: flex;
-		flex-direction: row;
 		align-items: center;
 		padding: 6px 16px;
-box-sizing: border-box;
-		position: absolute;
-		width: 215px;
+		box-sizing: border-box;
+		/*position: absolute;*/
+		width: 344px;
 		height: 29px;
-		left: 25px;
+		/*left: 25px;*/
 		top: 19px;
-
-		background: #EDF9F0;
 		border-radius: 8px;
+		z-index: 5;
 }
+
+.Success {
+		background-color: #EDF9F0;
+}
+
+.Warning {
+		background-color: #FFF4EC;
+}
+
+.Error {
+		background-color: #FEEFEF;
+}
+
+.Info {
+		background-color: #EEF2FA;
+}
+
 .roundIcon {
+		display: flex;
+		position: relative;
+		align-items: center;
+}
+
+.roundIcon p {
+		width: 16px;
+		height: 16px;
+
+		border-radius: 50px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		flex-direction: column;
 
-		margin: 0 8px;
-		border-radius: 50px;
+		/*left: 16px;*/
 
-		position: static;
-		width: 16px;
-		height: 16px;
-		left: 16px;
-		top: 6.5px;
+		font-size: 12px;
+}
+
+.SuccessRound {
 		background: #287D3C;
+		color: #EDF9F0;
+}
+
+.WarningRound {
+		background: #B95000;;
+		color: #FFF4EC;
+}
+
+.ErrorRound {
+		background-color: #DA1414;
+		color: #FEEFEF;
+}
+
+.InfoRound {
+		background-color: #2E5AAC;
+		color: #EEF2FA;
+}
+
+.message {
+		margin-left: 8px;
+		font-family: Helvetica Neue, sans-serif;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 17px;
+		letter-spacing: -0.35px;
 }

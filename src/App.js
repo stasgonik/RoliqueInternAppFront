@@ -23,8 +23,6 @@ export default function App(props) {
                 <Route path={'/users'} exact{...props} component={UsersList}/>
                 <Route path={'/users/create'} exact{...props} component={CreateInternalUser}/>
                 <Route path={'/users/edit'} exact{...props} component={EditInternalUser}/>
-                {/*<Route path={'/users'} exact{...props} component={CreateInternalUser}/>*/}
-                {/*<Route path={'/usersList'} exact{...props} component={UsersList}/>*/}
                 <Route path={'/forgotPassword/emailForm'} exact{...props} component={ForgotPassEmailForm}/>
                 <Route path={'/forgotPassword/changePassword'} exact{...props} component={ForgotPassForm}/>
                 <Route path={'/influencers'} exact{...props} component={Influencers_List}/>

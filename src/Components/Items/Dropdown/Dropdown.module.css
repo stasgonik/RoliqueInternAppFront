@@ -1,3 +1,4 @@
+
 .selectInput {
 		display: flex;
 		justify-content: center;
@@ -10,6 +11,7 @@
 		cursor: pointer;
 
 }
+
 .selectInput_invalid {
 		display: flex;
 		justify-content: center;
@@ -26,12 +28,12 @@
 		outline: none;
 }
 
-.dropdownContainer option {
-		background: #FFFFFF;
-		border-radius: 3px;
-		font-family: Helvetica Neue, sans-serif;
-		font-size: 14px;
-		line-height: 20px;
+/*.dropdownContainer option {*/
+/*		background: #FFFFFF;*/
+/*		border-radius: 3px;*/
+/*		font-family: Helvetica Neue, sans-serif;*/
+/*		font-size: 14px;*/
+/*		line-height: 20px;*/
 
-}
+/*}*/
 

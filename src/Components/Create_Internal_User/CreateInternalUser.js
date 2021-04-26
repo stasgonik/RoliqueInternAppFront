@@ -1,17 +1,18 @@
 import React, {useRef, useState} from 'react';
 import classes from './CreateInternalUser.module.css';
-import info from '../Items/Icons/info-button.svg';
+
 import Tooltip from '../Items/Tooltip/Tooltip'
-import {INFO} from '../../Constants/messages';
 import Dropdown from '../Items/Dropdown/Dropdown';
 import Header from '../Items/Header/Header';
-import Sidebar from '../Items/Sidebar/Sidebar'
+import Sidebar from '../Items/Sidebar/Sidebar';
+
+import userService from "../../Services/userService";
+import AuthService from "../../Services/auth.service";
+import info from '../Items/Icons/info-button.svg';
 import leftArrow from '../Items/Icons/arrow-left.svg';
 import topArrow from '../Items/Icons/top-arrow-black.svg'
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
-import userService from "../../Services/userService";
-import AuthService from "../../Services/auth.service";
-
+import {INFO} from '../../Constants/messages';
 
 
 let role = [
@@ -99,6 +100,7 @@ const User = () => {
 					<p className={classes.profile}>Profile Picture</p>
 					<input type='file'
 						   name = 'avatar'
+						   className={classes.avatarPhoto}
 						   style={{display:'none'}}
 						   onChange={(e)=>selected(e)}
 						   ref={fileInput}
