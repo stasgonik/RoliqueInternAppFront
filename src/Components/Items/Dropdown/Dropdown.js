@@ -1,9 +1,8 @@
 import React from 'react';
 import classes from './Dropdown.module.css';
-import {Link} from "react-router-dom";
 
 
-const Dropdown = ({required, options, name, onChange, valid= false},props) => {
+const Dropdown = ({required, options, name, onChange, valid= false, defaultValue},props) => {
 
 	return (
 
@@ -11,12 +10,13 @@ const Dropdown = ({required, options, name, onChange, valid= false},props) => {
 		 	<select className={valid ? classes.selectInput_invalid : classes.selectInput}
 					required={required}
 					name={name}
+					defaultValue={defaultValue}
 					value={props.value}
 					onChange={onChange}
 
 			>
 				<option value={'Select'} hidden disabled selected>
-					{'Select...'}
+					{defaultValue}
 				</option>
 
 				{
@@ -26,6 +26,8 @@ const Dropdown = ({required, options, name, onChange, valid= false},props) => {
 			</select>
 
 		 </div>
+
+
 
 	)
 
