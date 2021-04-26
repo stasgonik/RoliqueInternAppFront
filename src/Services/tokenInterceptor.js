@@ -33,11 +33,13 @@ axiosInstance.interceptors.response.use(
 
             if (refreshToken){
                 const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
+                console.log(tokenParts);
 
                 // exp date in token is expressed in seconds, while now() returns milliseconds:
                 const now = Math.ceil(Date.now() / 1000);
 
                 if (tokenParts.exp > now) {
+                    console.log(tokenParts);
                     axiosInstance.defaults.headers['Authorization'] = refreshToken;
                     return axiosInstance
                         .post('auth/refresh/', {})

@@ -13,6 +13,7 @@ import ForgotPassForm from "./Components/ForgotPassword_changePassword/ForgotPas
 import CreateInternalUser from "./Components/Create_Internal_User/CreateInternalUser";
 import UsersList from "./Components/UsersList/UsersList";
 import EditInternalUser from "./Components/Edit_Internal_User/EditInternalUser";
+import Influencers_List from "./Components/Influencers_List/Influencers_List";
 
 export default function App(props) {
     return (
@@ -21,11 +22,12 @@ export default function App(props) {
                 <Route path={'/'} exact{...props} component={Login}/>
                 <Route path={'/users'} exact{...props} component={UsersList}/>
                 <Route path={'/users/create'} exact{...props} component={CreateInternalUser}/>
+                <Route path={'/users/edit'} exact{...props} component={EditInternalUser}/>
                 {/*<Route path={'/users'} exact{...props} component={CreateInternalUser}/>*/}
                 {/*<Route path={'/usersList'} exact{...props} component={UsersList}/>*/}
                 <Route path={'/forgotPassword/emailForm'} exact{...props} component={ForgotPassEmailForm}/>
                 <Route path={'/forgotPassword/changePassword'} exact{...props} component={ForgotPassForm}/>
-                <Route path={'/users/edit'} exact{...props} component={EditInternalUser}/>
+                <Route path={'/influencers'} exact{...props} component={Influencers_List}/>
             </Switch>
         </Router>
     );

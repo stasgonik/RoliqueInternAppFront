@@ -68,6 +68,14 @@ export default class AuthService {
         localStorage.setItem(config.edit_id, user_id);
     }
 
+    static getInfluencerId() {
+        return localStorage.getItem(config.influencer_id);
+    }
+
+    static setInfluencerId(influencer_id) {
+        localStorage.setItem(config.influencer_id, influencer_id);
+    }
+
     static setTokens(tokens) {
         const {access_token, refresh_token, user_id, user_role} = tokens;
         this.setAccessToken(access_token);

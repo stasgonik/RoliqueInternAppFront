@@ -11,7 +11,6 @@ import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} fro
 import userService from "../../Services/userService";
 import authService from '../../Services/auth.service';
 import config from '../../Constants/configServer'
-import {logDOM} from "@testing-library/react";
 
 
 let role = [
@@ -35,6 +34,7 @@ function setRoles() {
     }
     return role;
 }
+
 const EditUser = () => {
     setRoles()
 
@@ -45,18 +45,26 @@ const EditUser = () => {
             last_name: initialState.last_name,
             email: initialState.email,
             phone: initialState.phone,
-            role: initialState.role.charAt(0).toUpperCase()+initialState.role.slice(1),
+            role: initialState.role,
             profile_picture: initialState.profile_picture
         })
     });
 
 
     const fileInput = useRef(null);
-    const [values, setValues] = useState({});
+    const [values, setValues] = useState({
+        avatar: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        role: '',
+        password: '',
+    });
 
     const handleChange = (e) => {
         const value = e.target.value;
-        setValues({...values, [e.target.name]: value});
+        setUser({...user, [e.target.name]: value});
     }
 
     const handleSubmit = (e) => {
@@ -65,33 +73,32 @@ const EditUser = () => {
 
     const handleChangeRole = (e) => {
         const value = e.target.value;
-        setValues({...values, [e.target.name]: value})
+        setUser({...user, [e.target.name]: value})
     };
 
     const selected = (e) => {
         let img = e.target.files[0];
         img.preview = URL.createObjectURL(img)
-        setValues({...values, [e.target.name]: img})
         setUser({...user, [e.target.name]: img})
     }
 
     const saveChanges = async () => {
         const formData = new FormData();
-        for (const value in values) {
-            formData.append(value, values[value])
+        for (const i in user) {
+            formData.append(i, user[i])
         }
 
         await userService.editUser(formData, authService.getEditId());
     }
 
     const path = user.profile_picture;
-
+    console.log(path)
 
     return (
 
         <form name={'myForm'} className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
             <Sidebar/>
-            <Header name={'Edit Internal User'} leftArrow={leftArrow} button={(e) => saveChanges(e)}/>
+            <Header name={'Edit'} leftArrow={leftArrow} button={(e) => saveChanges(e)}/>
             <div className={classes.mainContainer}>
                 <section className={classes.leftContainer}>
                     <h3 className={classes.general}>General</h3>
@@ -112,7 +119,6 @@ const EditUser = () => {
                                 borderRadius: 50,
                             }} alt={'alt'}/> : '+'}
                     </button>
-
 
                     <label className={classes.input_title}>First Name</label>
                     <input className={classes.input_info}
@@ -169,9 +175,7 @@ const EditUser = () => {
                     <Dropdown required="required"
                               options={role}
                               name='role'
-                              defaultValue={user.role}
                               onChange={(e) => handleChangeRole(e)}/>
-
 
                     <h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
                     <label className={`${classes.input_title} ${classes.input_password}`}>New Password</label>
