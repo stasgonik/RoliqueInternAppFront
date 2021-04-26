@@ -7,10 +7,10 @@ import Dropdown from '../Items/Dropdown/Dropdown';
 import Header from '../Items/Header/Header';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
-import topArrow from '../Items/Icons/top-arrow-black.svg'
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import userService from "../../Services/userService";
-import AuthService from "../../Services/auth.service";
+import authService from "../../Services/auth.service";
+import topArrow from '../Items/Icons/top-arrow-black.svg';
 
 
 
@@ -35,7 +35,6 @@ function setRoles() {
 	}
 	return role;
 }
-
 const User = () => {
 	setRoles();
 	const fileInput = useRef(null);
@@ -71,7 +70,6 @@ const User = () => {
 		console.log(img)
 		console.log(values)
 	}
-
 
 	const saveChanges = async () => {
 		const formData = new FormData();
@@ -136,7 +134,7 @@ const User = () => {
 					<input className={!values.email ? classes.input_info : classes.input_info_valid}
 						   type='email'
 						   name='email'
-						   required
+						   required="required"
 						   pattern={EMAIL_REGEXP}
 						   onChange={(e) => handleChange(e)}/>
 
