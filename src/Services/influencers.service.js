@@ -23,18 +23,18 @@ export default class InfluencersService {
         }
     }
 
-    // static async getSingleUsers(id) {
-    //     try{
-    //         const result = await axiosInstance.get(`${config.URL}${_endpoint.Users}${id}`);
-    //
-    //         if(result.status === 200) {
-    //             return result.data
-    //         }
-    //     } catch (e) {
-    //         console.log(e)
-    //         return e
-    //     }
-    // }
+    static async getSingleInfluencers(id) {
+        try{
+            const result = await axiosInstance.get(`${config.URL}${_endpoint.Influencers}${id}`);
+
+            if(result.status === 200) {
+                return result.data
+            }
+        } catch (e) {
+            console.log(e)
+            return e
+        }
+    }
 
 
     // static async postUsers(body) {
