@@ -45,26 +45,18 @@ const EditUser = () => {
             last_name: initialState.last_name,
             email: initialState.email,
             phone: initialState.phone,
-            role: initialState.role,
+            role: initialState.role.charAt(0).toUpperCase()+initialState.role.slice(1),
             profile_picture: initialState.profile_picture
         })
     });
 
 
     const fileInput = useRef(null);
-    const [values, setValues] = useState({
-        avatar: '',
-        first_name: '',
-        last_name: '',
-        email: '',
-        phone: '',
-        role: '',
-        password: '',
-    });
+    const [values, setValues] = useState({});
 
     const handleChange = (e) => {
         const value = e.target.value;
-        setUser({...user, [e.target.name]: value});
+        setValues({...values, [e.target.name]: value});
     }
 
     const handleSubmit = (e) => {
@@ -73,26 +65,26 @@ const EditUser = () => {
 
     const handleChangeRole = (e) => {
         const value = e.target.value;
-        setUser({...user, [e.target.name]: value})
+        setValues({...values, [e.target.name]: value})
     };
 
     const selected = (e) => {
         let img = e.target.files[0];
         img.preview = URL.createObjectURL(img)
+        setValues({...values, [e.target.name]: img})
         setUser({...user, [e.target.name]: img})
     }
 
     const saveChanges = async () => {
         const formData = new FormData();
-        for (const i in user) {
-            formData.append(i, user[i])
+        for (const value in values) {
+            formData.append(value, values[value])
         }
 
         await userService.editUser(formData, authService.getEditId());
     }
 
     const path = user.profile_picture;
-    console.log(path)
 
     return (
 
