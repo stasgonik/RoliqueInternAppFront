@@ -14,6 +14,7 @@ import CreateInternalUser from "./Components/Create_Internal_User/CreateInternal
 import UsersList from "./Components/UsersList/UsersList";
 import EditInternalUser from "./Components/Edit_Internal_User/EditInternalUser";
 import Influencers_List from "./Components/Influencers_List/Influencers_List";
+import CreateInfluencer from "./Components/Create_Influencer/CreateInfluencer"
 
 export default function App(props) {
     return (
@@ -26,6 +27,7 @@ export default function App(props) {
                 <Route path={'/forgotPassword/emailForm'} exact{...props} component={ForgotPassEmailForm}/>
                 <Route path={'/forgotPassword/changePassword'} exact{...props} component={ForgotPassForm}/>
                 <Route path={'/influencers'} exact{...props} component={Influencers_List}/>
+                <Route path={'/influerence/create'} exact{...props} component={CreateInfluencer}/>
             </Switch>
         </Router>
     );

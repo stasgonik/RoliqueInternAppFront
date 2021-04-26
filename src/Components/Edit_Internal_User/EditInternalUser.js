@@ -176,6 +176,7 @@ const EditUser = () => {
                     <label className={classes.input_title}>Role</label>
                     <Dropdown options={role}
                               name='role'
+                              defaultValue={user.role}
                               onChange={(e) => handleChangeRole(e)}/>
 
                     <h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
