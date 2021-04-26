@@ -3,7 +3,6 @@ import classes from './Dropdown.module.css';
 
 
 const Dropdown = ({required, options, name, onChange, valid= false, defaultValue},props) => {
-
 	return (
 
 		 <div className={classes.dropdownContainer}>
