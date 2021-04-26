@@ -5,11 +5,10 @@ import {INFO} from '../../Constants/messages';
 import Header from '../Items/Header/Header';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
-import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import userService from "../../Services/userService";
 
 
-const User = () => {
+const CreateInfluencer = () => {
     const fileInput = useRef(null);
     const instagram_profile = useRef(null);
     const instagram_followers = useRef(null);
@@ -130,7 +129,12 @@ const User = () => {
 
         <form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
             <Sidebar/>
-            <Header name={'Create Influencer'} leftArrow={leftArrow} button={(e) => saveChanges(e)}/>
+            <Header name={'Create'} titleHeader={classes.title}
+                    titleBtn='Save Changes'
+                    title='Create Influencer'
+                    leftArrow={leftArrow}
+                    btnHeader={classes.btnHeader}
+                    button={(e) => saveChanges(e)}/>
 
             <div className={classes.mainContainer}>
                 <section className={classes.leftContainer}>
@@ -230,7 +234,7 @@ const User = () => {
                                ref={blog_profile}
                                onChange={(e) => handleChange(e)}/>
                     </div>
-                    <div className={`${classes.div_helper}`} style={{paddingTop: '22px'}}>
+                    <div className={`${classes.div_helper}`} style={{paddingTop: '58px'}}>
                         <label className={`${classes.input_title}`}>Instagram Followers</label>
                         <input className={`${classes.input_info}`}
                                type='text'
@@ -277,4 +281,4 @@ const User = () => {
     )
 }
 
-export default User;
+export default CreateInfluencer;

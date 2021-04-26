@@ -60,6 +60,32 @@
     color: #FFFFFF;
 }
 
+.btnHeader {
+    display: flex;
+    align-items: center;
+    width: 123px;
+    height: 33px;
+    right: 68px;
+    margin-right: 68px;
+    padding: 8px 16px;
+
+    border: 0;
+    text-decoration: none;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
+}
+
+.title {
+    font-size: 24px;
+    line-height: 29px;
+    font-weight: bold;
+    margin-left: 20px;
+
+    color: #151515;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    opacity: 0.9;
+}
 .mainContainer {
     display: flex;
     justify-content: space-between;
