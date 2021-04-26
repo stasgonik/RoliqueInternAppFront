@@ -160,7 +160,7 @@ const CreateInfluencer = () => {
 
                     <label className={classes.input_title}>Birthdate</label>
                     <input className={classes.input_info_left}
-                           type='text'
+                           type='date'
                            name='birthdate'
                            onChange={(e) => handleChange(e)}/>
 
