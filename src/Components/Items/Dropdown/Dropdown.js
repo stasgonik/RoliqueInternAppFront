@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Dropdown.module.css';
 
 
-const Dropdown = ({required, options, name, onChange, valid= false, defaultValue},props) => {
+const Dropdown = ({required, options, name, onChange, valid= false, defaultValue, title },props) => {
 	return (
 
 		 <div className={classes.dropdownContainer}>
@@ -14,7 +14,7 @@ const Dropdown = ({required, options, name, onChange, valid= false, defaultValue
 					onChange={onChange}
 
 			>
-				<option value={'Select'} hidden disabled selected>
+				<option value={'Select'} hidden disabled selected title={title}>
 					{defaultValue}
 				</option>
 

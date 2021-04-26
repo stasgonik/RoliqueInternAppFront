@@ -165,6 +165,7 @@ const User = () => {
 					<Dropdown required
 							  options={role}
 							  name='role'
+							  title={'Select...'}
 							  valid = {!!values.role}
 							  onChange={(e) => handleChangeRole(e)}/>
 

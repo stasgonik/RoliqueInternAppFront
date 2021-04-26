@@ -25,6 +25,7 @@ const UsersList = () => {
 			const initialState = await userService.getUsers()
 			setValues(initialState)
 		}
+
 		if (initial) {
 			Start()
 		}
@@ -105,20 +106,22 @@ const UsersList = () => {
 								<div className={classes.tableText}><p className={classes.textColor}>{item.phone}</p></div>
 
 								<div>{(AuthService.getUserRole() === 'admin') ? <div className={classes.tableBtn}>
-									<div className={classes.Test}>
-									<div className={classes.btnPosition}>
-										<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div></div>
-									<div className={classes.tooltipMain}>
-										<div className={classes.TooltipText}>
-										<p>Edit User</p></div>
+										<div className={classes.Test}>
+											<div className={classes.btnPosition}>
+												<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div>
+										</div>
+										<div className={classes.tooltipMain}>
+											<div className={classes.TooltipText}>
+												<p>Edit User</p></div>
+										</div>
+										<img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
 									</div>
-									<img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
-								</div>
 									: ''}</div>
 								{(AuthService.getUserRole() === 'manager') && (item.role === 'manager' || item.role === 'employee') ? <div className={classes.tableBtn}>
 										<div className={classes.Test}>
 											<div className={classes.btnPosition}>
-												<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div></div>
+												<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div>
+										</div>
 										<div className={classes.tooltipMain}>
 											<div className={classes.TooltipText}>
 												<p>Edit User</p></div>
@@ -130,7 +133,8 @@ const UsersList = () => {
 								{(AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === item._id) ? <div className={classes.tableBtn}>
 										<div className={classes.Test}>
 											<div className={classes.btnPosition}>
-												<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div></div>
+												<img src={path} alt='path' onClick={() => edit(item)} className={classes.infoBtn}/></div>
+										</div>
 										<div className={classes.tooltipMain}>
 											<div className={classes.TooltipText}>
 												<p>Edit User</p></div>
