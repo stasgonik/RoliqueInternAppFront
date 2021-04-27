@@ -18,8 +18,8 @@ const UsersListHeader = ({upArrow, titleBtn, titleHeader, title}) => {
 				<button className={'dropbtn'} onClick={() => myFunction()}><img src={upArrow} alt={'upArrow'} className={'upArrow'}/><span className={'titleBtn'}>{titleBtn}</span></button> : ""}
 				<div id='myDropdown' className={'dropdownContent'}>
 					<div className={'content'}>
-						<Link to="#" className={'linkBtn Compaign'}>Compaign</Link>
-						<Link to="#" className={'linkBtn Influencer'}>Influencer</Link>
+						<Link to="#" className={'linkBtn Compaign'}>Campaign</Link>
+						<Link to="/influencers/create" className={'linkBtn Influencer'}>Influencer</Link>
 						<Link to="users/create" className={'linkBtn User'}>Internal User</Link>
 					</div>
 				</div>

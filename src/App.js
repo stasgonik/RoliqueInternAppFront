@@ -16,6 +16,7 @@ import EditInternalUser from "./Components/Edit_Internal_User/EditInternalUser";
 import Influencers_List from "./Components/Influencers_List/Influencers_List";
 import CreateInfluencer from "./Components/Create_Influencer/CreateInfluencer";
 import EditInfluencer from "./Components/Edit_Influencer/EditInfluencer";
+import InfluencerDetails from "./Components/InfluencerDetails/InfluencerDetails"
 
 export default function App(props) {
     return (
@@ -30,6 +31,7 @@ export default function App(props) {
                 <Route path={'/influencers/create'} exact{...props} component={CreateInfluencer}/>
                 <Route path={'/influencers'} exact{...props} component={Influencers_List}/>
                 <Route path={'/influencers/edit'} exact{...props} component={EditInfluencer}/>
+                <Route path={'/influencers/show'} exact{...props} component={InfluencerDetails}/>
             </Switch>
         </Router>
     );

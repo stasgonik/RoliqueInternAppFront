@@ -13,6 +13,8 @@ import leftArrow from '../Items/Icons/arrow-left.svg';
 import topArrow from '../Items/Icons/top-arrow-black.svg'
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import {INFO} from '../../Constants/messages';
+import Error from "../Items/Messages/Messages";
+import configFront from "../../Constants/config";
 
 
 let role = [
@@ -37,10 +39,22 @@ function setRoles() {
 	return role;
 }
 
+
+
 const User = () => {
 	setRoles();
 	const fileInput = useRef(null);
 	const [values, setValues] = useState({
+		avatar: '',
+		first_name: '',
+		last_name: '',
+		email: '',
+		phone: '',
+		role: '',
+		password: '',
+	});
+
+	const [errors, setErrors] = useState({
 		avatar: '',
 		first_name: '',
 		last_name: '',
@@ -73,14 +87,142 @@ const User = () => {
 		console.log(values)
 	}
 
+	const handleValidation = () => {
+		let errors = {
+			avatar: '',
+			first_name: '',
+			last_name: '',
+			email: '',
+			phone: '',
+			role: '',
+			password: '',
+		};
+		let formIsValid = true;
+
+		if (typeof values["password"] !== "undefined") {
+			if (!values["password"].match(/^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,50}$/)) {
+				formIsValid = false;
+				errors["password"] = INFO.INVALID_PASSWORD_PATTERN
+			}
+		}
+
+		if (!values["password"] || !values["password"].length ) {
+			formIsValid = false;
+			errors["password"] = INFO.EMPTY_FIELD
+		}
+
+		if (typeof values["email"] !== "undefined") {
+			if (!values["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/)) {
+				formIsValid = false;
+				errors["email"] = INFO.INVALID_EMAIL_PATTERN
+			}
+		}
+
+		if (!values["email"] || !values["email"].length ) {
+			formIsValid = false;
+			errors["email"] = INFO.EMPTY_FIELD
+		}
+
+		if (typeof values["first_name"] !== "undefined") {
+			if (!values["first_name"].match(/^[a-zA-Z ,.'-]{2,50}$/)) {
+				formIsValid = false;
+				errors["first_name"] = INFO.INVALID_NAME_PATTERN
+			}
+		}
+
+		if (!values["first_name"] || !values["first_name"].length ) {
+			formIsValid = false;
+			errors["first_name"] = INFO.EMPTY_FIELD
+		}
+
+		if (typeof values["last_name"] !== "undefined") {
+			if (!values["last_name"].match(/^[a-zA-Z ,.'-]{2,50}$/)) {
+				formIsValid = false;
+				errors["last_name"] = INFO.INVALID_NAME_PATTERN
+			}
+		}
+
+		if (!values["last_name"] || !values["last_name"].length ) {
+			formIsValid = false;
+			errors["last_name"] = INFO.EMPTY_FIELD
+		}
+
+		if (!values["role"] || !values["role"].length ) {
+			formIsValid = false;
+			errors["role"] = INFO.EMPTY_FIELD
+		}
+
+		if (typeof values["phone"] !== "undefined" && values["phone"] && values["phone"].length) {
+			if (!values["phone"].match(/^[\d+()-]*$/)) {
+				formIsValid = false;
+				errors["phone"] = INFO.INVALID_PHONE_PATTERN
+			}
+		}
+
+
+		setErrors(errors);
+		return formIsValid;
+	}
 
 	const saveChanges = async () => {
 		const formData = new FormData();
+		if(!values["phone"].length) {
+			delete values["phone"]
+		}
+		if(!values["avatar"].length) {
+			delete values["avatar"]
+		}
 		for (const value in values) {
 			formData.append(value, values[value])
 		}
-		await userService.postUsers(formData);
-		console.log(formData)
+		setValues({...values, avatar: '', phone: ''})
+		if(handleValidation()) {
+			const result = await userService.postUsers(formData);
+			if(result) {
+				if(result.status === 200) {
+					window.location.href = configFront.URL + 'users/';
+					return
+				}
+				let errors = {
+					avatar: '',
+					first_name: '',
+					last_name: '',
+					email: '',
+					phone: '',
+					role: '',
+					password: '',
+				};
+				if(result.status === 403) {
+					window.location.href = configFront.URL + 'users/';
+					return
+				}
+				if(result.data.customCode === 4000) {
+					errors["email"] = INFO.DATA_INCORRECT
+					setErrors(errors);
+					return
+				}
+				if(result.data.customCode === 4002) {
+					errors["email"] = INFO.EMAIL_ALREADY_EXIST
+					setErrors(errors);
+					return
+				}
+				if(result.data.customCode === 4005) {
+					errors["avatar"] = INFO.TOO_BIG_PHOTO
+					setErrors(errors);
+					return
+				}
+				if(result.status === 500) {
+					errors["email"] = INFO.SERVER_ERROR
+					setErrors(errors);
+					console.log(result);
+					return
+				}
+				errors["email"] = INFO.UNKNOWN_ERROR
+				setErrors(errors);
+				console.log(result);
+			}
+		}
+		// console.log(formData)
 	}
 
 	return (
@@ -114,40 +256,48 @@ const User = () => {
 						}} alt={'alt'}/> : '+'}
 					</button>
 
+					{errors.avatar && errors.avatar.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.avatar}/> : ''}
 
 					<label className={classes.input_title}>First Name</label>
 					<input className={!values.first_name ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='first_name'
 						   value={values.firstName}
-						   pattern={FIRST_LAST_NAME_REGEXP}
+						   // pattern={FIRST_LAST_NAME_REGEXP}
 						   required
 						   onChange={(e) => handleChange(e)}
 						   />
+
+					{errors.first_name && errors.first_name.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.first_name}/> : ''}
 
 					<label className={classes.input_title}>Last Name</label>
 					<input className={!values.last_name ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='last_name'
 						   required
-						   pattern={FIRST_LAST_NAME_REGEXP}
+						   // pattern={FIRST_LAST_NAME_REGEXP}
 						   onChange={(e) => handleChange(e)}/>
 
+					{errors.last_name && errors.last_name.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.last_name}/> : ''}
 
 					<label className={classes.input_title}>Email</label>
 					<input className={!values.email ? classes.input_info : classes.input_info_valid}
 						   type='email'
 						   name='email'
 						   required
-						   pattern={EMAIL_REGEXP}
+						   // pattern={EMAIL_REGEXP}
 						   onChange={(e) => handleChange(e)}/>
+
+					{errors.email && errors.email.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.email}/> : ''}
 
 					<label className={classes.input_title}>Phone</label>
 					<input className={classes.input_info_valid}
 						   type='text'
 						   name='phone'
-						   pattern={PHONE_REGEXP}
+						   // pattern={PHONE_REGEXP}
 						   onChange={(e) => handleChange(e)}/>
+
+					{errors.phone && errors.phone.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.phone}/> : ''}
 
 				</section>
 
@@ -169,14 +319,18 @@ const User = () => {
 							  valid = {!!values.role}
 							  onChange={(e) => handleChangeRole(e)}/>
 
+					{errors.role && errors.role.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.role}/> : ''}
+
 					<h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
 					<label className={`${classes.input_title} ${classes.input_password}`}>Set Password</label>
 					<input className={!values.password ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='password'
-						   pattern={PASSWORD_REGEXP}
+						   // pattern={PASSWORD_REGEXP}
 						   required
 						   onChange={(e) => handleChange(e)}/>
+
+					{errors.password && errors.password.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.password}/> : ''}
 
 				</section>
 			</div>

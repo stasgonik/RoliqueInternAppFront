@@ -18,12 +18,42 @@ import youtubeIcon from "../../img/Social_Icons/Youtube.png"
 import twitterIcon from "../../img/Social_Icons/Twitter.png"
 import tikTokIcon from "../../img/Social_Icons/TikTok.png"
 import storiesIcon from "../../img/Social_Icons/Stories.png"
+import axios from "axios";
 
 
 const Influencers_List = () => {
 
     const [values, setValues] = useState([]);
     const [initial, setInitial] = useState(true);
+
+    // 'mid'=YIKtvgALAAGdsKmJtl02kbSZO03j; 'ig_did'=61F01B74-1031-46DE-9CF6-628B14D302ED; 'ig_nrcb'=1; fbm_124024574287414=base_domain=.instagram.com; fbsr_124024574287414=kYJqEN7-T00Y1qi-3N0AW0WmdNqHjTjzxNnwhbUYl70.eyJ1c2VyX2lkIjoiMTAwMDY2ODEyNTk3NjQ4IiwiY29kZSI6IkFRQWNTeVZQcjJ6ek5wYkl2WmpYRlJpSDlCTnpORHpHaWM2a1FhVW15QkhtUGZRdVd2STJQMkVEdFZjM0xtOXE5V0l4TU45R2Q2R2I5WGVPLVVKaHhHRXVxT2o3S0loeS13a3hXVEthcGRwM2VmbnNRb0Q0LVRBWHNNZFZPV0xkQTFiUGtpdmdNdkZuRmIyd2VtbmQ5eUZsQURaZTYwTUlTVmd2SktuNGhiSDdSazgtYmNNc2ZoNlhLWVBod2Z6ZXdkZkRPMHhROTdFMUlvRkNTWHhwTU5rREpCRXZjeEJERTRZZlFxc2o1eW5WaDBGN0R2dVpiQ1dXUlJ4Ny1NaWltZGlLRzlRckJCcnQyeHVYSVRjemtWS0lOTFptYjktZnNxdS1Yc3pLb0NZRFpmNVlkNkI0Y3QzVjNOaWhpVjdZSWlrem5pU3lwb0J5SWZxNC1FTk9rbEFEIiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQURaQVFFM243OFpCUklDczJUaXVsUklwQ2F4STFxaTllbmtzR3BlZkFCRXhnNU5hdFhNQVlaQVpDNFFuZlZZV1FHeTdHNWFIUUZGc2daQ293S1dsc0tCOERMR0NERlpBVXVObENzaU93dFlnbGVwT2J1bTVFS1pBb0pPQkZKYlgxVWJyWG13RUdFVkNvcXBWTjYwSzB2ZVpBc2laQ1ZGU1JOS0I5ZEpsR0FwMjI1Q3N0dGdiTjNOMFpEIiwiYWxnb3JpdGhtIjoiSE1BQy1TSEEyNTYiLCJpc3N1ZWRfYXQiOjE2MTk0NDEwMzl9; fbsr_124024574287414=kYJqEN7-T00Y1qi-3N0AW0WmdNqHjTjzxNnwhbUYl70.eyJ1c2VyX2lkIjoiMTAwMDY2ODEyNTk3NjQ4IiwiY29kZSI6IkFRQWNTeVZQcjJ6ek5wYkl2WmpYRlJpSDlCTnpORHpHaWM2a1FhVW15QkhtUGZRdVd2STJQMkVEdFZjM0xtOXE5V0l4TU45R2Q2R2I5WGVPLVVKaHhHRXVxT2o3S0loeS13a3hXVEthcGRwM2VmbnNRb0Q0LVRBWHNNZFZPV0xkQTFiUGtpdmdNdkZuRmIyd2VtbmQ5eUZsQURaZTYwTUlTVmd2SktuNGhiSDdSazgtYmNNc2ZoNlhLWVBod2Z6ZXdkZkRPMHhROTdFMUlvRkNTWHhwTU5rREpCRXZjeEJERTRZZlFxc2o1eW5WaDBGN0R2dVpiQ1dXUlJ4Ny1NaWltZGlLRzlRckJCcnQyeHVYSVRjemtWS0lOTFptYjktZnNxdS1Yc3pLb0NZRFpmNVlkNkI0Y3QzVjNOaWhpVjdZSWlrem5pU3lwb0J5SWZxNC1FTk9rbEFEIiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQURaQVFFM243OFpCUklDczJUaXVsUklwQ2F4STFxaTllbmtzR3BlZkFCRXhnNU5hdFhNQVlaQVpDNFFuZlZZV1FHeTdHNWFIUUZGc2daQ293S1dsc0tCOERMR0NERlpBVXVObENzaU93dFlnbGVwT2J1bTVFS1pBb0pPQkZKYlgxVWJyWG13RUdFVkNvcXBWTjYwSzB2ZVpBc2laQ1ZGU1JOS0I5ZEpsR0FwMjI1Q3N0dGdiTjNOMFpEIiwiYWxnb3JpdGhtIjoiSE1BQy1TSEEyNTYiLCJpc3N1ZWRfYXQiOjE2MTk0NDEwMzl9; 'csrftoken'='HsOtbaZSDnJRgmE5CSyXmsnQ9Px4pmer'; 'ds_user_id'=47455008239;  'rur'=RVA
+
+
+
+    //https://www.instagram.com/ollekssandr/
+    // async function getInstagramPictures (profileName) {
+    //     const baseUrl = "https://www.instagram.com";
+    //     const profileUrl = `${baseUrl}/${profileName}`;
+    //     const jsonDataUrl = `${profileUrl}/?__a=1`;
+    //
+    //     const response = await fetch(jsonDataUrl, {mode: 'no-cors', method: "GET",
+    //         credentials: 'include',
+    //         headers:
+    //     {
+    //         'accept': '*/*',
+    //         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    //         'cookie': 'mid=YIKtvgALAAGdsKmJtl02kbSZO03j; ig_did=61F01B74-1031-46DE-9CF6-628B14D302ED; ig_nrcb=1; fbm_124024574287414=base_domain=.instagram.com; csrftoken=EVPmMuqZoMjc2yZeqJ2KLt6DcL8beeET; ds_user_id=47455008239; sessionid=47455008239:3cOZhkkeu5OK0w:15; rur=RVA'
+    //     }});
+    //     // const jsonData = await response.json();
+    //     return response;
+    //     // const pictures = jsonData.graphql.user.edge_owner_to_timeline_media.edges;
+    //
+    //     // if (response.ok) {
+    //     //     return pictures;
+    //     // } else {
+    //     //     throw new Error(pictures);
+    //     // }
+    // }
 
     useEffect(() => {
         async function Start() {
@@ -120,7 +150,7 @@ const Influencers_List = () => {
                                     {socials(item).includes('instagram') ?
                                         <img alt='instagram' className={classes.social_img} src={instagramIcon}/> : ''}
 
-                                    {socials(item).includes('Youtube') ?
+                                    {socials(item).includes('youtube') ?
                                         <img alt='youtube' className={classes.social_img} src={youtubeIcon}/> : ''}
 
                                     {socials(item).includes('facebook') ?
