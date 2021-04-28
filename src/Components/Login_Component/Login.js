@@ -22,7 +22,6 @@ class Login extends Component {
 		},
 		errors: {
 			emailPassword: '',
-			// password: ''
 		},
 		type: 'input',
 	};
@@ -40,18 +39,9 @@ class Login extends Component {
 		if ((typeof fields["password"] !== "undefined") || (typeof fields["email"] !== "undefined")) {
 			if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,50}$/) || !fields["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/)) {
 				formIsValid = false;
-				errors["emailPassword"] = true;
+				errors["emailPassword"] = INFO.INVALID_EMAIL_OR_PASSWORD
 			}
 		}
-
-
-		// if (typeof fields["email"] !== "undefined") {
-		//     if (!fields["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/)) {
-		//         formIsValid = false;
-		//         errors["email"] = "Email is not valid";
-		//     }
-		// }
-
 
 		this.setState({errors});
 		return formIsValid;
@@ -86,15 +76,13 @@ class Login extends Component {
 				}
 				if (login.status === 400) {
 					const errors = {
-						email: '',
-						password: 'Wrong email of password!'
+						emailPassword: INFO.INVALID_EMAIL_OR_PASSWORD
 					}
 					this.setState({errors})
 				}
 				if (login.status === 500) {
 					const errors = {
-						email: '',
-						password: 'Unknown server error'
+						emailPassword: INFO.SERVER_ERROR
 					}
 					this.setState({errors})
 				}
@@ -119,14 +107,14 @@ class Login extends Component {
 				<form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
 
 					<h3 className={'login-form-h3'}>Log into your account</h3>
-					{this.state.errors.emailPassword ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={INFO.INVALID_EMAIL_OR_PASSWORD}/> : ''}
+					{this.state.errors.emailPassword ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={this.state.errors.emailPassword}/> : ''}
 					<span className={'login-form-spam'}>Email</span>
 
 					<input id={'in1'} className={'loginInput'} required={true}
 						   onChange={this.handleChange.bind(this, "email")}
 					/>
 
-					<span className='login-form-spam red'>{this.state.errors.email}</span>
+					{/*<span className='login-form-spam red'>{this.state.errors.email}</span>*/}
 					<div className={'PasswordForm'}>
 						<span className={'login-form-spam'}>Password</span>
 						<span className="login-form-spam clickPassword" onClick={this.showHide}>
