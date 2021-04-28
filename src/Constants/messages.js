@@ -16,7 +16,8 @@ export const INFO = {
 	EMPTY_FIELD: 'Cannot be empty',
 	INVALID_EMAIL: 'Incorrect email',
 	SERVER_ERROR: 'Unknown server error',
-	UNKNOWN_ERROR: 'Unknown error happened'
+	UNKNOWN_ERROR: 'Unknown error happened',
+	SUCCESS_EMAIL_FORGOT: 'Please check your email'
 	}
 
 
