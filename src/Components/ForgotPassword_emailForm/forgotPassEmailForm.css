@@ -146,9 +146,15 @@
 		justify-content: center;
 		align-items: center;
 
-
-
 		font-size: 12px;
+
+}
+
+.SuccessColor {
+		background-color: #287D3C;
+		color: #EDF9F0;
+}
+.ErrorColor {
 		background-color: #DA1414;
 		color: #FEEFEF;
 }
