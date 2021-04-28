@@ -7,7 +7,9 @@ export const INFO = {
 			 'Can see internal/external users, edit his own profile, see Budget/Client CPMs when allowed.',
 	INVALID_EMAIL_OR_PASSWORD: 'Incorrect email or password',
 	INVALID_EMAIL: 'Incorrect email',
-	SERVER_ERROR: 'Unknown server error'
+	SERVER_ERROR: 'Unknown server error',
+	SUCCESS_EMAIL_FORGOT: 'Please check your email',
+	UNKNOWN_ERROR: 'Unknown error happened'
 	}
 
 

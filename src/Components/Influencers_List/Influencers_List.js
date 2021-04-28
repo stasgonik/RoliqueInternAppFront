@@ -12,12 +12,13 @@ import photoDefault from '../Items/Icons/vector.svg';
 import arrowUp from '../Items/Icons/arrow-up.svg'
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 
-import instagramIcon from "../../img/Social_Icons/Instagram.png"
-import facebookIcon from "../../img/Social_Icons/Facebook.png"
-import youtubeIcon from "../../img/Social_Icons/Youtube.png"
-import twitterIcon from "../../img/Social_Icons/Twitter.png"
-import tikTokIcon from "../../img/Social_Icons/TikTok.png"
-import storiesIcon from "../../img/Social_Icons/Stories.png"
+import instagramIcon from "../../img/Social_Icons/Instagram.png";
+import facebookIcon from "../../img/Social_Icons/Facebook.png";
+import youtubeIcon from "../../img/Social_Icons/Youtube.png";
+import twitterIcon from "../../img/Social_Icons/Twitter.png";
+import tikTokIcon from "../../img/Social_Icons/TikTok.png";
+import storiesIcon from "../../img/Social_Icons/Stories.png";
+import blogSmall from "../Items/Icons/blogSmall.svg";
 
 
 const Influencers_List = () => {
@@ -90,6 +91,7 @@ const Influencers_List = () => {
                              upArrow={arrowUp}
                              btnHeader={classes.btnHeader}
 
+
                 // btnHeader={cl}
                 // className={classes.btnHeader}
             />
@@ -120,7 +122,7 @@ const Influencers_List = () => {
                                     {socials(item).includes('instagram') ?
                                         <img alt='instagram' className={classes.social_img} src={instagramIcon}/> : ''}
 
-                                    {socials(item).includes('Youtube') ?
+                                    {socials(item).includes('youtube') ?
                                         <img alt='youtube' className={classes.social_img} src={youtubeIcon}/> : ''}
 
                                     {socials(item).includes('facebook') ?
@@ -133,7 +135,7 @@ const Influencers_List = () => {
                                         <img alt='twitter' className={classes.social_img} src={twitterIcon}/> : ''}
 
                                     {socials(item).includes('blog') ?
-                                        <img alt='blog' className={classes.social_img} src={storiesIcon}/> : ''}
+                                        <img alt='blog' className={classes.social_img} src={blogSmall}/> : ''}
                                 </p></div>
                                 <div className={classes.tableTextRating}><p className={classes.textColor}>SUPER!</p></div>
 

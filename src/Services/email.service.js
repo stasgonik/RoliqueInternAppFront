@@ -14,7 +14,6 @@ export default class EmailService {
 
             return result
         } catch (e) {
-            console.log(e)
             return e
         }
     }
