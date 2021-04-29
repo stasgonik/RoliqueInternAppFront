@@ -86,16 +86,20 @@ class ForgotPassForm extends Component {
                 const result = await userService.changePassword(body);
                 if (result.status === 200) {
                     window.location.href = configFront.URL;
+                    return
                 }
                 if (result.status === 400) {
                     this.setState({errors: INFO.TOKEN_EXPIRE});
+                    return
                 }
                 if (result.status === 500) {
                     this.setState({errors: INFO.SERVER_ERROR});
                     console.log(result);
+                    return
                 }
                 this.setState({errors: INFO.UNKNOWN_ERROR})
                 console.log(result);
+                return
             }
 
         } catch (e) {
