@@ -17,7 +17,9 @@ export const INFO = {
 	INVALID_EMAIL: 'Incorrect email',
 	SERVER_ERROR: 'Unknown server error',
 	UNKNOWN_ERROR: 'Unknown error happened',
-	SUCCESS_EMAIL_FORGOT: 'Please check your email'
+	SUCCESS_EMAIL_FORGOT: 'Please check your email',
+	CONFIRM_MUST_BE_SAME: 'Confirm password must be the same',
+	TOKEN_EXPIRE: 'Token is already expired or invalid'
 	}
 
 
