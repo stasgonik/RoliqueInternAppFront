@@ -167,6 +167,7 @@ const EditUser = () => {
 
                     <label className={classes.input_title}>Role</label>
                     <Dropdown options={role}
+                              className={classes.borderColor}
                               name='role'
                               defaultValue={user.role}
                               onChange={(e) => handleChangeRole(e)}/>

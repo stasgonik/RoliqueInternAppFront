@@ -66,28 +66,16 @@
 }
 
 .loginInput:focus {
-		outline: none !important;
+		outline: none ;
 		border: 1px solid #FF650E;
 		box-shadow: 0 0 10px #FF650E;
 }
 
 .password__input:focus {
-		outline: none !important;
+		outline: none ;
 		border: 1px solid #FF650E;
 		box-shadow: 0 0 10px #FF650E;
 }
-
-/*.login-form-button {*/
-/*		font-style: normal;*/
-/*		font-weight: normal;*/
-/*		font-size: 14px;*/
-/*		line-height: 17px;*/
-/*		height: 33px;*/
-/*		width: 344px;*/
-/*		margin: 10px auto;*/
-/*		background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);*/
-/*		border-radius: 8px;*/
-/*}*/
 
 .wrapMain {
 		margin: 24px 0 56px 32px;
@@ -130,7 +118,6 @@
 				opacity: 0;
 		}
 }
-
 
 
 .bgColor {

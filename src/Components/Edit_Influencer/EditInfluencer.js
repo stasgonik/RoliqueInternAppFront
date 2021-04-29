@@ -42,21 +42,23 @@ const EditInfluencer = () => {
     const [values, setValues] = useState(async () => {
         const initialState = await influerenceService.getSingleInfluencer(influerenceService.getInfluencerId())
         const socialInfo = {};
-        for (const social of initialState.social_profiles) {
-            const network_name = `${social.social_network_name}_profile`
-            const network_follower = `${social.social_network_name}_followers`
-            socialInfo[network_name] = social.social_network_profile;
-            socialInfo[network_follower] = social.social_network_followers;
 
+            for (const social of initialState.social_profiles) {
+                const network_name = `${social.social_network_name}_profile`
+                const network_follower = `${social.social_network_name}_followers`
+                socialInfo[network_name] = social.social_network_profile;
+                socialInfo[network_follower] = social.social_network_followers;
+
+
+            setValues({
+                first_name: initialState.first_name,
+                last_name: initialState.last_name,
+                birthdate: initialState.birthdate.split('T').shift(),
+                profession: initialState.profession,
+                ...socialInfo,
+                profile_picture: initialState.profile_picture
+            })
         }
-        setValues({
-            first_name: initialState.first_name,
-            last_name: initialState.last_name,
-            birthdate: initialState.birthdate.split('T').shift(),
-            profession: initialState.profession,
-            ...socialInfo,
-            profile_picture: initialState.profile_picture
-        })
     });
 
     const [status, setStatus] = useState(false);

@@ -314,6 +314,7 @@ const User = () => {
 					<label className={classes.input_title}>Role</label>
 					<Dropdown required
 							  options={role}
+							  // value={value}
 							  name='role'
 							  title={'Select...'}
 							  valid = {!!values.role}

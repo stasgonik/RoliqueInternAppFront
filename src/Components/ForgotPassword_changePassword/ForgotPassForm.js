@@ -4,6 +4,7 @@ import configFront from "../../Constants/config";
 import userService from "../../Services/userService";
 import {NavLink} from "react-router-dom";
 import {INFO} from "../../Constants/messages";
+import Error from "../Items/Messages/Messages";
 
 
 class ForgotPassForm extends Component {
@@ -122,27 +123,40 @@ class ForgotPassForm extends Component {
                         <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
                             <h3 className={'login-form-h3'}>Please set new password</h3>
 
-                            <div>
-                        <span className="password__show" onClick={this.showHide}>
-                    {this.state.type === "input" ? "Hide Password" : "Show Password"}
-                        </span>
+                    {/*        <div>*/}
+                    {/*    <span className="password__show" onClick={this.showHide}>*/}
+                    {/*{this.state.type === "input" ? "Hide Password" : "Show Password"}*/}
+                    {/*    </span>*/}
+                    {/*            */}
+                    {/*            <span className={'login-form-spam'}>Password</span>*/}
+                    {/*        </div>*/}
+
+                            {this.state.errors ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound ErrorColor'} className={'ErrorPosition'} message={this.state.errors}/> : ''}
+
+                            <div className={'PasswordForm'}>
                                 <span className={'login-form-spam'}>Password</span>
+                                <span className="login-form-spam clickPassword" onClick={this.showHide}>
+                            {this.state.type === "input" ? "Hide Password" : "Show Password"}
+                     </span>
                             </div>
+
 
                             <input id={'in1'} className={'password__input'} required={true}
                                    type={this.state.type}
                                    onChange={this.handleChange.bind(this, "password")}
                                    value={this.state.fields["password"]}/>
 
+                            <div className={'PasswordForm'}>
                             <span className={'login-form-spam'}>Confirm Password</span>
+                            </div>
 
                             <input id={'in2'} className={'password__input'} required={true}
                                    type={this.state.type}
                                    onChange={this.handleChange.bind(this, "confirmPassword")}
                                    value={this.state.fields["confirmPassword"]}/>
 
-                            <div className="wrap">
-                                <button className="button">Send</button>
+                            <div className="wrapMain">
+                                <button className="buttonSend">Send</button>
                             </div>
                         </form>
                     </div>

@@ -218,3 +218,6 @@
     /*background: none;*/
     /*background-image: url("http://localhost:5050/user/607d6913441fd73dd0b8fb4e/photo/317d3db0-a102-11eb-96cf-a57bbee8aaad.jpg");*/
 }
+.borderColor {
+    border: 1px solid #BFBFBF;
+}

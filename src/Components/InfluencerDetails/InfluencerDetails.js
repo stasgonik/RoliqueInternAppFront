@@ -56,7 +56,7 @@ const InfluencerDetails = () => {
 		<div className={classes.mainContainer}>
 			<Sidebar/>
 			<UsersListHeader titleHeader={classes.titleUsers}
-							 title={values.full_name}
+							 title={values.first_name && values.last_name ? `${values.first_name} ${values.last_name}` : ''}
 							 titleBtn='Create New'
 							 upArrow={arrowUp}
 							 btnHeader={classes.btnHeader}
@@ -77,7 +77,7 @@ const InfluencerDetails = () => {
 					<img src={values.profile_picture} alt="avatar"/>
 				</section>
 				<section className={classes.leftBox}>
-					<div className={classes.FullName}>{values.full_name}</div>
+					<div className={classes.FullName}>{values.first_name && values.last_name ? `${values.first_name} ${values.last_name}`: ''}</div>
 					<div className={classes.infoDetails}>
 						<div>
 							<span className={classes.positionBirthday}>Birthday:</span>
@@ -156,6 +156,14 @@ const InfluencerDetails = () => {
 					</div>
 				</section>
 			</div>
+			<section>
+				<div className={classes.ContainerPhoto}>
+
+						{values.instagram_photos ? values.instagram_photos.map((photo) => <div className={classes.instPhoto}><img src={photo} alt={'instPhoto'}/></div>) : ''}
+
+
+				</div>
+			</section>
 		</div>
 	)
 }

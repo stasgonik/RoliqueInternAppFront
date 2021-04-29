@@ -41,6 +41,7 @@
     font-size: 14px;
     line-height: 17px;
     margin-left: 32px;
+
     letter-spacing: -0.35px;
     color: rgba(0, 0, 0, 0.6);
     mix-blend-mode: hard-light;
@@ -51,6 +52,7 @@
     height: 32px;
     width: 344px;
     margin-top: 8px;
+    /*margin-bottom: 16px;*/
     background: #FAFAFB;
     border: 1px solid #BFBFBF;
     box-sizing: border-box;
@@ -62,17 +64,16 @@
     justify-content: space-between;
     margin-right: 32px;
     margin-top: 16px;
-
 }
 
 .loginInput:focus {
-    outline: none !important;
+    outline: none ;
     border: 1px solid #FF650E;
     box-shadow: 0 0 10px #FF650E;
 }
 
 .password__input:focus {
-    outline: none !important;
+    outline: none ;
     border: 1px solid #FF650E;
     box-shadow: 0 0 10px #FF650E;
 }
@@ -89,22 +90,16 @@
 /*		border-radius: 8px;*/
 /*}*/
 
-.wrap {
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
-    margin-left: 32px;
-    margin-top: 24px;
+.wrapMain {
+    margin: 24px 0 56px 32px;
 }
 
-.button {
+.buttonSend {
     height: 33px;
     width: 344px;
 
     background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
     border-radius: 8px;
-    /*max-width: 344px;*/
-    /*max-height: 33px;*/
     letter-spacing: 1.3px;
     border: none;
     font-family: Helvetica Neue, sans-serif;
@@ -114,7 +109,7 @@
     line-height: 17px;
     color: #FFFFFF
 }
-.button:hover {
+.buttonSend:hover {
     cursor: pointer;
 }
 
@@ -200,3 +195,26 @@
 /*    background-color: #DA1414;*/
 /*    color: #FEEFEF;*/
 /*}*/
+
+.bgColor {
+    background-color: #FEEFEF;
+}
+
+.colorRound {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+
+}
+
+
+.ErrorColor {
+    background-color: #DA1414;
+    color: #FEEFEF;
+}

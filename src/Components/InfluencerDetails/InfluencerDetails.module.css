@@ -342,3 +342,22 @@
 		cursor: pointer;
 
 }
+
+.test {
+		width: 100px;
+		height: 100px;
+		margin-left: 30px;
+		background-color: #2E5AAC;
+}
+
+.ContainerPhoto {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 30px;
+		margin-left: 68px;
+		margin-top: 48px;
+}
+.instPhoto img {
+		width: 296px;
+		height: 296px;
+}

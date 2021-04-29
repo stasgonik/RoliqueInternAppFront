@@ -6,7 +6,7 @@ export const INFO = {
 			 '3. Employees\n' +
 			 'Can see internal/external users, edit his own profile, see Budget/Client CPMs when allowed.',
 	INVALID_EMAIL_OR_PASSWORD: 'Incorrect email or password',
-	INVALID_PASSWORD_PATTERN: 'Password must be minimum 4-50 characters, at least one letter and one number, and possible special characters like "@$!%*#?&"',
+	INVALID_PASSWORD_PATTERN: 'Password must have 4-50 letters, numbers or special characters like "@$!%*#?&"',
 	INVALID_EMAIL_PATTERN: 'Email must match xxx@yyy.yyy pattern (xxx - letters & numbers, yyy - letters)',
 	INVALID_NAME_PATTERN: 'Name must include 2-50 only letters and separators like ",.\'-"',
 	INVALID_PHONE_PATTERN: 'Phone include only numbers and "+-()" characters',

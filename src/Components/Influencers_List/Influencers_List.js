@@ -19,6 +19,7 @@ import twitterIcon from "../../img/Social_Icons/Twitter.png";
 import tikTokIcon from "../../img/Social_Icons/TikTok.png";
 import storiesIcon from "../../img/Social_Icons/Stories.png";
 import blogSmall from "../Items/Icons/blogSmall.svg";
+import {Link} from "react-router-dom";
 
 
 const Influencers_List = () => {
@@ -67,7 +68,7 @@ const Influencers_List = () => {
 
     const show = (item) => {
         AuthService.setInfluencerId(item._id)
-        window.location.href = configFront.URL + 'influencers/show'
+        window.location.href  = configFront.URL + 'show'
     }
 
     const socials = (item) => {
@@ -144,7 +145,8 @@ const Influencers_List = () => {
                                 <div className={classes.tableBtn}>
                                         <div className={classes.Test}>
                                             <div className={classes.btnPosition}>
-                                                <img src={path} alt='path' onClick={() => show(item)} className={classes.infoBtn}/></div></div>
+                                                <img src={path} alt='path' onClick={() => show(item)}  className={classes.infoBtn}/>
+                                            </div></div>
                                         <div className={classes.tooltipMain}>
                                             <div className={classes.TooltipText}>
                                                 <p>Show Influencer</p></div>
