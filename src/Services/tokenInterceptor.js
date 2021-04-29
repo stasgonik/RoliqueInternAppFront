@@ -72,7 +72,6 @@ axiosInstance.interceptors.response.use(
 
 
         // specific error handling done elsewhere
-        // window.location.href = configFront.URL + 'login/';
         throw error.response
     }
 );

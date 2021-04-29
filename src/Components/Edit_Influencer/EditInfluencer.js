@@ -40,7 +40,7 @@ const EditInfluencer = () => {
     }
 
     const [values, setValues] = useState(async () => {
-        const initialState = await influerenceService.getSingleInfluencer(influerenceService.getInfluencerId())
+        const initialState = await influerenceService.getSingleInfluencer(influerenceService.getInfluencerId(), false)
         const socialInfo = {};
 
             for (const social of initialState.social_profiles) {

@@ -28,7 +28,7 @@ const InfluencerDetails = () => {
 	useEffect(() => {
 		async function Start() {
 			setInitial(false)
-			const initialState = await InfluencersService.getSingleInfluencers(AuthService.getInfluencerId())
+			const initialState = await InfluencersService.getSingleInfluencer(AuthService.getInfluencerId(), true)
 			console.log(initialState)
 			const arr = initialState.social_profiles;
 			arr.splice(1, 3).reverse().forEach(value => arr.push(value))
