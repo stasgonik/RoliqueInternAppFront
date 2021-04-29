@@ -75,8 +75,8 @@ const User = () => {
 	}
 
 	const handleChangeRole = (e) => {
-		const value = e.target.value;
-		setValues({...values, [e.target.name]: value})
+		const value = e.value;
+		setValues({...values, role: value})
 	};
 
 	const selected = (e) => {
@@ -196,20 +196,22 @@ const User = () => {
 					window.location.href = configFront.URL + 'users/';
 					return
 				}
-				if(result.data.customCode === 4000) {
-					errors["email"] = INFO.DATA_INCORRECT
-					setErrors(errors);
-					return
-				}
-				if(result.data.customCode === 4002) {
-					errors["email"] = INFO.EMAIL_ALREADY_EXIST
-					setErrors(errors);
-					return
-				}
-				if(result.data.customCode === 4005) {
-					errors["avatar"] = INFO.TOO_BIG_PHOTO
-					setErrors(errors);
-					return
+				if (typeof result.data !== "undefined") {
+					if(result.data.customCode === 4000) {
+						errors["email"] = INFO.DATA_INCORRECT
+						setErrors(errors);
+						return
+					}
+					if(result.data.customCode === 4002) {
+						errors["email"] = INFO.EMAIL_ALREADY_EXIST
+						setErrors(errors);
+						return
+					}
+					if(result.data.customCode === 4005) {
+						errors["avatar"] = INFO.TOO_BIG_PHOTO
+						setErrors(errors);
+						return
+					}
 				}
 				if(result.status === 500) {
 					errors["email"] = INFO.SERVER_ERROR
@@ -314,11 +316,11 @@ const User = () => {
 					<label className={classes.input_title}>Role</label>
 					<Dropdown required
 							  options={role}
-							  // value={value}
 							  name='role'
 							  title={'Select...'}
 							  valid = {!!values.role}
-							  onChange={(e) => handleChangeRole(e)}/>
+							  onChange={(e) => handleChangeRole(e)}
+							  />
 
 					{errors.role && errors.role.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.role}/> : ''}
 

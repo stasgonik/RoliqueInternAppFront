@@ -8,9 +8,7 @@ const Dropdown = ({required,options, name, onChange, valid= false, defaultValue,
 	//  function clickEventHandle() {
 	// 	 options.map(item => item)
 	//  }
-	// const options = [{name: 'Ira', age: 1000},
-	// 	{name: 'Ira', age: 1000}
-	// 	]
+
 	return (
 		 <div className={classes.dropdownContainer}>
 
@@ -18,7 +16,6 @@ const Dropdown = ({required,options, name, onChange, valid= false, defaultValue,
 				 className={valid ? classes.selectInput_invalid : classes.selectInput}
 				 options={options}
 				 name={name}
-				 value={props.value}
 				 onChange={onChange}
 			 />
 		 	{/*<select*/}
