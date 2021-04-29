@@ -20,9 +20,7 @@ class Login extends Component {
 			email: '',
 			password: ''
 		},
-		errors: {
-			emailPassword: '',
-		},
+		errors: '',
 		type: 'input',
 	};
 
@@ -33,13 +31,13 @@ class Login extends Component {
 
 	handleValidation() {
 		const fields = this.state.fields;
-		let errors = {};
+		let errors = '';
 		let formIsValid = true;
 
 		if ((typeof fields["password"] !== "undefined") || (typeof fields["email"] !== "undefined")) {
 			if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,50}$/) || !fields["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/)) {
 				formIsValid = false;
-				errors["emailPassword"] = INFO.INVALID_EMAIL_OR_PASSWORD
+				errors = INFO.INVALID_EMAIL_OR_PASSWORD
 			}
 		}
 
@@ -73,19 +71,20 @@ class Login extends Component {
 				const login = await authService.login(body);
 				if (login.status === 200) {
 					this.props.history.push('/users')
+					return
 				}
 				if (login.status === 400) {
-					const errors = {
-						emailPassword: INFO.INVALID_EMAIL_OR_PASSWORD
-					}
-					this.setState({errors})
+					this.setState({errors: INFO.INVALID_EMAIL_OR_PASSWORD})
+					return
 				}
 				if (login.status === 500) {
-					const errors = {
-						emailPassword: INFO.SERVER_ERROR
-					}
-					this.setState({errors})
+					this.setState({errors: INFO.SERVER_ERROR})
+					console.log(login)
+					return
 				}
+				this.setState({errors: INFO.UNKNOWN_ERROR})
+				console.log(login)
+				return
 			}
 
 		} catch (e) {
@@ -107,14 +106,13 @@ class Login extends Component {
 				<form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
 
 					<h3 className={'login-form-h3'}>Log into your account</h3>
-					{this.state.errors.emailPassword ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={this.state.errors.emailPassword}/> : ''}
+					{this.state.errors ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={this.state.errors}/> : ''}
 					<span className={'login-form-spam'}>Email</span>
 
 					<input id={'in1'} className={'loginInput'} required={true}
 						   onChange={this.handleChange.bind(this, "email")}
 					/>
 
-					{/*<span className='login-form-spam red'>{this.state.errors.email}</span>*/}
 					<div className={'PasswordForm'}>
 						<span className={'login-form-spam'}>Password</span>
 						<span className="login-form-spam clickPassword" onClick={this.showHide}>
@@ -124,8 +122,6 @@ class Login extends Component {
 					<input type={this.state.type} className="password__input" required={true}
 						   onChange={this.handleChange.bind(this, "password")}
 					/>
-
-					{/*<span className='login-form-spam red'>{this.state.errors.password}</span>*/}
 
 					<div className="wrap">
 						<button className="button">Log In</button>
