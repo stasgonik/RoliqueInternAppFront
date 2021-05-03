@@ -217,9 +217,7 @@
 		line-height: 24px;
 		display: flex;
 		align-items: center;
-
 		color: #151515;
-
 		opacity: 0.9;
 }
 
@@ -243,10 +241,7 @@
 		font-weight: normal;
 		font-size: 14px;
 		line-height: 17px;
-		/* identical to box height */
-
 		letter-spacing: -0.35px;
-
 		color: rgba(56, 56, 56, 0.6);
 }
 
@@ -256,10 +251,7 @@
 		font-weight: normal;
 		font-size: 14px;
 		line-height: 17px;
-		/* identical to box height */
-
 		letter-spacing: -0.35px;
-
 		color: #383838;
 }
 
@@ -272,7 +264,6 @@
 
 .mainSocial {
 		display: flex;
-		/*flex-direction: column;*/
 		align-items: center;
 		padding: 4px 8px;
 		width: 127px;
@@ -285,10 +276,8 @@
 
 .infoSocial {
 		width: 92px;
-
 		display: flex;
 		flex-direction: column;
-		/*align-items: center;*/
 		justify-content: center;
 }
 

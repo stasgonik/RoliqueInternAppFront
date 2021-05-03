@@ -64,11 +64,7 @@ const InfluencerDetails = () => {
 							 EditInf={classes.EditInf}
 							 icon={{background: `url(${edit}) no-repeat`, backgroundPosition: 'left 8px top 8px'}}
 
-
-				// btnHeader={cl}
-				// className={classes.btnHeader}
 			/>
-			{/*<img src={edit}/>*/}
 
 
 			<div className={classes.infoContainer}>

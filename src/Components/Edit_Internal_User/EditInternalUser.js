@@ -64,8 +64,8 @@ const EditUser = () => {
     }
 
     const handleChangeRole = (e) => {
-        const value = e.target.value;
-        setValues({...values, [e.target.name]: value})
+        const value = e.value;
+        setValues({...values, role: value})
     };
 
     const selected = (e) => {
@@ -167,7 +167,7 @@ const EditUser = () => {
 
                     <label className={classes.input_title}>Role</label>
                     <Dropdown options={role}
-                              className={classes.borderColor}
+                              valid={user.role}
                               name='role'
                               defaultValue={user.role}
                               onChange={(e) => handleChangeRole(e)}/>

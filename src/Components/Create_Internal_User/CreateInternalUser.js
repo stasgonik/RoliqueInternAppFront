@@ -40,7 +40,6 @@ function setRoles() {
 }
 
 
-
 const User = () => {
 	setRoles();
 	const fileInput = useRef(null);
@@ -75,6 +74,7 @@ const User = () => {
 	}
 
 	const handleChangeRole = (e) => {
+
 		const value = e.value;
 		setValues({...values, role: value})
 	};
@@ -106,7 +106,7 @@ const User = () => {
 			}
 		}
 
-		if (!values["password"] || !values["password"].length ) {
+		if (!values["password"] || !values["password"].length) {
 			formIsValid = false;
 			errors["password"] = INFO.EMPTY_FIELD
 		}
@@ -118,7 +118,7 @@ const User = () => {
 			}
 		}
 
-		if (!values["email"] || !values["email"].length ) {
+		if (!values["email"] || !values["email"].length) {
 			formIsValid = false;
 			errors["email"] = INFO.EMPTY_FIELD
 		}
@@ -130,7 +130,7 @@ const User = () => {
 			}
 		}
 
-		if (!values["first_name"] || !values["first_name"].length ) {
+		if (!values["first_name"] || !values["first_name"].length) {
 			formIsValid = false;
 			errors["first_name"] = INFO.EMPTY_FIELD
 		}
@@ -142,12 +142,12 @@ const User = () => {
 			}
 		}
 
-		if (!values["last_name"] || !values["last_name"].length ) {
+		if (!values["last_name"] || !values["last_name"].length) {
 			formIsValid = false;
 			errors["last_name"] = INFO.EMPTY_FIELD
 		}
 
-		if (!values["role"] || !values["role"].length ) {
+		if (!values["role"] || !values["role"].length) {
 			formIsValid = false;
 			errors["role"] = INFO.EMPTY_FIELD
 		}
@@ -166,20 +166,20 @@ const User = () => {
 
 	const saveChanges = async () => {
 		const formData = new FormData();
-		if(!values["phone"].length) {
+		if (!values["phone"].length) {
 			delete values["phone"]
 		}
-		if(!values["avatar"].length) {
+		if (!values["avatar"].length) {
 			delete values["avatar"]
 		}
 		for (const value in values) {
 			formData.append(value, values[value])
 		}
 		setValues({...values, avatar: '', phone: ''})
-		if(handleValidation()) {
+		if (handleValidation()) {
 			const result = await userService.postUsers(formData);
-			if(result) {
-				if(result.status === 200) {
+			if (result) {
+				if (result.status === 200) {
 					window.location.href = configFront.URL + 'users/';
 					return
 				}
@@ -192,28 +192,28 @@ const User = () => {
 					role: '',
 					password: '',
 				};
-				if(result.status === 403) {
+				if (result.status === 403) {
 					window.location.href = configFront.URL + 'users/';
 					return
 				}
 				if (typeof result.data !== "undefined") {
-					if(result.data.customCode === 4000) {
+					if (result.data.customCode === 4000) {
 						errors["email"] = INFO.DATA_INCORRECT
 						setErrors(errors);
 						return
 					}
-					if(result.data.customCode === 4002) {
+					if (result.data.customCode === 4002) {
 						errors["email"] = INFO.EMAIL_ALREADY_EXIST
 						setErrors(errors);
 						return
 					}
-					if(result.data.customCode === 4005) {
+					if (result.data.customCode === 4005) {
 						errors["avatar"] = INFO.TOO_BIG_PHOTO
 						setErrors(errors);
 						return
 					}
 				}
-				if(result.status === 500) {
+				if (result.status === 500) {
 					errors["email"] = INFO.SERVER_ERROR
 					setErrors(errors);
 					console.log(result);
@@ -243,10 +243,10 @@ const User = () => {
 					<h3 className={classes.general}>General</h3>
 					<p className={classes.profile}>Profile Picture</p>
 					<input type='file'
-						   name = 'avatar'
+						   name='avatar'
 						   className={classes.avatarPhoto}
-						   style={{display:'none'}}
-						   onChange={(e)=>selected(e)}
+						   style={{display: 'none'}}
+						   onChange={(e) => selected(e)}
 						   ref={fileInput}
 
 					/>
@@ -258,48 +258,53 @@ const User = () => {
 						}} alt={'alt'}/> : '+'}
 					</button>
 
-					{errors.avatar && errors.avatar.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.avatar}/> : ''}
+					{errors.avatar && errors.avatar.length ?
+						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.avatar}/> : ''}
 
 					<label className={classes.input_title}>First Name</label>
 					<input className={!values.first_name ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='first_name'
 						   value={values.firstName}
-						   // pattern={FIRST_LAST_NAME_REGEXP}
+						// pattern={FIRST_LAST_NAME_REGEXP}
 						   required
 						   onChange={(e) => handleChange(e)}
-						   />
+					/>
 
-					{errors.first_name && errors.first_name.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.first_name}/> : ''}
+					{errors.first_name && errors.first_name.length ?
+						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.first_name}/> : ''}
 
 					<label className={classes.input_title}>Last Name</label>
 					<input className={!values.last_name ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='last_name'
 						   required
-						   // pattern={FIRST_LAST_NAME_REGEXP}
+						// pattern={FIRST_LAST_NAME_REGEXP}
 						   onChange={(e) => handleChange(e)}/>
 
-					{errors.last_name && errors.last_name.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.last_name}/> : ''}
+					{errors.last_name && errors.last_name.length ?
+						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.last_name}/> : ''}
 
 					<label className={classes.input_title}>Email</label>
 					<input className={!values.email ? classes.input_info : classes.input_info_valid}
 						   type='email'
 						   name='email'
 						   required
-						   // pattern={EMAIL_REGEXP}
+						// pattern={EMAIL_REGEXP}
 						   onChange={(e) => handleChange(e)}/>
 
-					{errors.email && errors.email.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.email}/> : ''}
+					{errors.email && errors.email.length ?
+						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.email}/> : ''}
 
 					<label className={classes.input_title}>Phone</label>
 					<input className={classes.input_info_valid}
 						   type='text'
 						   name='phone'
-						   // pattern={PHONE_REGEXP}
+						// pattern={PHONE_REGEXP}
 						   onChange={(e) => handleChange(e)}/>
 
-					{errors.phone && errors.phone.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.phone}/> : ''}
+					{errors.phone && errors.phone.length ?
+						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.phone}/> : ''}
 
 				</section>
 
@@ -309,7 +314,7 @@ const User = () => {
 						<h3 className={classes.rightContainer_title}>Role & Permissions</h3>
 						<img src={info} alt="info" className={classes.infoBtn}/>
 						<div className={classes.tooltip}>
-							<Tooltip align='center'  Arrow={topArrow} text={INFO.message}/>
+							<Tooltip align='center' Arrow={topArrow} text={INFO.message}/>
 						</div>
 					</div>
 
@@ -317,23 +322,24 @@ const User = () => {
 					<Dropdown required
 							  options={role}
 							  name='role'
-							  title={'Select...'}
-							  valid = {!!values.role}
+							  valid={!!values.role}
 							  onChange={(e) => handleChangeRole(e)}
-							  />
+					/>
 
-					{errors.role && errors.role.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.role}/> : ''}
+					{errors.role && errors.role.length ?
+						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.role}/> : ''}
 
 					<h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
 					<label className={`${classes.input_title} ${classes.input_password}`}>Set Password</label>
 					<input className={!values.password ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='password'
-						   // pattern={PASSWORD_REGEXP}
+						// pattern={PASSWORD_REGEXP}
 						   required
 						   onChange={(e) => handleChange(e)}/>
 
-					{errors.password && errors.password.length ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.password}/> : ''}
+					{errors.password && errors.password.length ?
+						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.password}/> : ''}
 
 				</section>
 			</div>
