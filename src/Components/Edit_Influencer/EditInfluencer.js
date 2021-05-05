@@ -118,11 +118,6 @@ const EditInfluencer = () => {
                 }
             }
         }
-        // if (value.length < 1) {
-        //     delete values[e.target.name]
-        //     setValues({...values});
-        //     return
-        // }
         setEdit({...edit, [e.target.name]: value});
     }
 
@@ -137,19 +132,6 @@ const EditInfluencer = () => {
         setEdit({...edit, [e.target.name]: img})
     }
 
-    // const checkValidateInput = (data) => {
-    //     const arr = []
-    //     for (const datum in data) {
-    //         if (datum.includes('profile') || datum.includes('followers')) {
-    //             arr.push(datum)
-    //         }
-    //     }
-    //     if (arr.length % 2 === 0) {
-    //         setStatus(false)
-    //     } else if (arr.length % 2 === 1) {
-    //         setStatus(true)
-    //     }
-    // }
 
     const saveChanges = async () => {
         const formData = new FormData();
