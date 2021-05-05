@@ -158,6 +158,7 @@
     border: 1px solid #BFBFBF;
     box-sizing: border-box;
     border-radius: 6px;
+    outline: none;
 }
 .input_info:disabled {
     border-color: #FF650E;
@@ -172,7 +173,12 @@
     border: 1px solid #BFBFBF;
     box-sizing: border-box;
     border-radius: 6px;
+    outline: none;
 }
+/*.input_info_left:focus {*/
+/*    outline: none;*/
+/*    outline-offset: 0;*/
+/*}*/
 
 .input_info_invalid {
     border: 1px solid #DA1414;

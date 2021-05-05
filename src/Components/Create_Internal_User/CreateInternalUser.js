@@ -10,7 +10,7 @@ import userService from "../../Services/userService";
 import AuthService from "../../Services/auth.service";
 import info from '../Items/Icons/info-button.svg';
 import leftArrow from '../Items/Icons/arrow-left.svg';
-import topArrow from '../Items/Icons/top-arrow-black.svg'
+import topArrow from '../Items/Icons/top-arrow-black.svg';
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import {INFO} from '../../Constants/messages';
 import Error from "../Items/Messages/Messages";

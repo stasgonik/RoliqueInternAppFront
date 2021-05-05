@@ -11,6 +11,7 @@ import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} fro
 import userService from "../../Services/userService";
 import authService from '../../Services/auth.service';
 import config from '../../Constants/configServer'
+import topArrow from "../Items/Icons/top-arrow-black.svg";
 
 
 let role = [
@@ -161,7 +162,7 @@ const EditUser = () => {
                         <h3 className={classes.rightContainer_title}>Role & Permissions</h3>
                         <img src={info} alt="info" className={classes.infoBtn}/>
                         <div className={classes.tooltip}>
-                            <Tooltip align='center' text={INFO.message}/>
+                            <Tooltip align='center'  Arrow={topArrow} text={INFO.message}/>
                         </div>
                     </div>
 

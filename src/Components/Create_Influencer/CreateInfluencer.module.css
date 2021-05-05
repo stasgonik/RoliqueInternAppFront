@@ -159,6 +159,12 @@
     box-sizing: border-box;
     border-radius: 6px;
 }
+.input_info:focus {
+    outline: none;
+}
+.input_info_left:focus {
+    outline: none;
+}
 .input_info:disabled {
     border-color: #FF650E;
 }
