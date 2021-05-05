@@ -93,10 +93,13 @@ const CreateInfluencer = () => {
 
     const selected = (e) => {
         let img = e.target.files[0];
-        if (img) {
-            img.preview = URL.createObjectURL(img)
-            setValues({...values, [e.target.name]: img})
+        if (!img) {
+            delete values["avatar"]
+            setValues({...values});
+            return
         }
+        img.preview = URL.createObjectURL(img)
+        setValues({...values, [e.target.name]: img})
     }
 
     const checkValidateInput = (data) => {
