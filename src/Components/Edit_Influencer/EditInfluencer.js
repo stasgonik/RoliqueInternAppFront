@@ -40,31 +40,32 @@ const EditInfluencer = () => {
     }
 
     const [values, setValues] = useState(async () => {
-        const initialState = await influerenceService.getSingleInfluencer(influerenceService.getInfluencerId())
+        const initialState = await influerenceService.getSingleInfluencer(influerenceService.getInfluencerId(), false)
         const socialInfo = {};
-        for (const social of initialState.social_profiles) {
-            const network_name = `${social.social_network_name}_profile`
-            const network_follower = `${social.social_network_name}_followers`
-            socialInfo[network_name] = social.social_network_profile;
-            socialInfo[network_follower] = social.social_network_followers.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+
+            for (const social of initialState.social_profiles) {
+                const network_name = `${social.social_network_name}_profile`
+                const network_follower = `${social.social_network_name}_followers`
+                socialInfo[network_name] = social.social_network_profile;
+                socialInfo[network_follower] = social.social_network_followers;
+
+
+            setValues({
+                first_name: initialState.first_name,
+                last_name: initialState.last_name,
+                birthdate: initialState.birthdate.split('T').shift(),
+                profession: initialState.profession,
+                ...socialInfo,
+                profile_picture: initialState.profile_picture
+            })
         }
-        setValues({
-            first_name: initialState.first_name,
-            last_name: initialState.last_name,
-            birthdate: initialState.birthdate.split('T').shift(),
-            profession: initialState.profession,
-            ...socialInfo,
-            profile_picture: initialState.profile_picture,
-        })
     });
 
     const [status, setStatus] = useState(false);
     const [edit, setEdit] = useState({});
 
-
     const handleChange = (e) => {
-        let value = e.target.value;
-        setStatus(true)
+        const value = e.target.value;
         const strArr = e.target.name.split('_')
         const socialName = strArr.shift()
         const target = strArr.pop();
@@ -79,25 +80,13 @@ const EditInfluencer = () => {
                 input.current.required = true
             } else {
                 input.current.style.borderColor = ''
-            }
-            if (value === '') {
-                if (input.current.value === '') {
-                    inputFocus.current.style.borderColor = ''
-                    inputFocus.current.required = false
-                    input.current.style.borderColor = ''
-                    input.current.required = false
-                } else {
-                    inputFocus.current.style.borderColor = 'red'
-                    inputFocus.current.required = true
-                }
-            }
 
+            }
         }
         if (target === 'followers') {
             const inputProfile = socialName + '_profile'
             const input = ref[inputProfile]
             const inputFocus = ref[e.target.name]
-            value = value.toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
             inputFocus.current.style.borderColor = ''
             inputFocus.current.required = false
             if (!input.current.value) {
@@ -106,17 +95,11 @@ const EditInfluencer = () => {
             } else {
                 input.current.style.borderColor = ''
             }
-            if (value === '') {
-                if (input.current.value === '') {
-                    inputFocus.current.style.borderColor = ''
-                    inputFocus.current.required = false
-                    input.current.style.borderColor = ''
-                    input.current.required = false
-                } else {
-                    inputFocus.current.style.borderColor = 'red'
-                    inputFocus.current.required = true
-                }
-            }
+        }
+        if (value.length < 1) {
+            delete values[e.target.name]
+            setValues({...values});
+            return
         }
         setEdit({...edit, [e.target.name]: value});
     }
@@ -132,29 +115,29 @@ const EditInfluencer = () => {
         setEdit({...edit, [e.target.name]: img})
     }
 
+    const checkValidateInput = (data) => {
+        const arr = []
+        for (const datum in data) {
+            if (datum.includes('profile') || datum.includes('followers')) {
+                arr.push(datum)
+            }
+        }
+        if (arr.length % 2 === 0) {
+            setStatus(false)
+        } else if (arr.length % 2 === 1) {
+            setStatus(true)
+        }
+    }
 
     const saveChanges = async () => {
         const formData = new FormData();
         const arr = []
         for (const value in edit) {
-            if (value.includes('followers')) {
-                edit[value] = edit[value].split('.').join('')
-            }
-
             arr.push(values[value])
-            if (edit[value] === '') {
-                edit[value] = null
-            }
             formData.append(value, edit[value])
-            if (edit[value]) {
-                edit[value] = edit[value].toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-            }
-
         }
-
-        console.log(edit);
+        checkValidateInput(values)
         if (status && edit) {
-            console.log(edit);
             await influerenceService.editInfluerence(formData, influerenceService.getInfluencerId())
         }
     }
@@ -167,12 +150,9 @@ const EditInfluencer = () => {
                     titleBtn='Save Changes'
                     title='Edit Influencer'
                     leftArrow={leftArrow}
-                    statusButton={status}
                     btnHeader={classes.btnHeader}
                     button={(e) => saveChanges(e)}/>
-            {
-                console.log(edit)
-            }
+
 
             <div className={classes.mainContainer}>
                 <section className={classes.leftContainer}>
@@ -232,7 +212,9 @@ const EditInfluencer = () => {
                     </button>
 
                 </section>
-
+                {
+                    console.log(values)
+                }
                 <section className={classes.rightContainer}>
 
                     <div className={`${classes.div_helper}`}>
@@ -245,13 +227,13 @@ const EditInfluencer = () => {
                                type='text'
                                name='instagram_profile'
                                disabled={false}
-                               defaultValue={values.instagram_profile && values.instagram_profile}
+                               defaultValue={values.instagram_profile&&values.instagram_profile}
                                ref={instagram_profile}
                                onChange={(e) => handleChange(e)}/>
                         <label className={`${classes.input_title}`}>YouTube</label>
                         <input className={`${classes.input_info}`}
                                type='text'
-                               defaultValue={values.youtube_profile && values.youtube_profile}
+                               defaultValue={values.youtube_profile&&values.youtube_followers}
                                name='youtube_profile'
                                ref={youtube_profile}
                                onChange={(e) => handleChange(e)}/>
@@ -259,7 +241,7 @@ const EditInfluencer = () => {
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='facebook_profile'
-                               defaultValue={values.facebook_profile && values.facebook_profile}
+                               defaultValue={values.facebook_profile&&values.facebook_profile}
                                ref={facebook_profile}
                                onChange={(e) => handleChange(e)}/>
 
@@ -268,46 +250,46 @@ const EditInfluencer = () => {
                                type='text'
                                name='tiktok_profile'
                                ref={tiktok_profile}
-                               defaultValue={values.tiktok_profile && values.tiktok_profile}
+                               defaultValue={values.tiktok_profile&&values.tiktok_profile}
                                onChange={(e) => handleChange(e)}/>
                         <label className={`${classes.input_title}`}>Twitter</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='twitter_profile'
                                ref={twitter_profile}
-                               defaultValue={values.twitter_profile && values.twitter_profile}
+                               defaultValue={values.twitter_profile&&values.twitter_profile}
                                onChange={(e) => handleChange(e)}/>
                         <label className={`${classes.input_title}`}>Blog</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='blog_profile'
                                ref={blog_profile}
-                               defaultValue={values.blog_profile && values.blog_profile}
+                               defaultValue={values.blog_profile&&values.blog_profile}
                                onChange={(e) => handleChange(e)}/>
                     </div>
 
                     <div className={`${classes.div_helper}`} style={{paddingTop: '58px'}}>
                         <label className={`${classes.input_title}`}>Instagram Followers</label>
                         <input className={`${classes.input_info}`}
+                               type='text'
                                disabled={false}
                                name='instagram_followers'
                                ref={instagram_followers}
-                               value={edit.instagram_followers ? edit.instagram_followers : edit.instagram_followers === '' ? edit.instagram_followers : values.instagram_followers}
+                               defaultValue={values.instagram_followers&&values.instagram_followers}
                                onChange={(e) => handleChange(e)}/>
-
                         <label className={`${classes.input_title}`}>YouTube Subscribers</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='youtube_followers'
                                ref={youtube_followers}
-                               value={edit.youtube_followers ? edit.youtube_followers : edit.youtube_followers === '' ? edit.youtube_followers : values.youtube_followers}
+                               defaultValue={values.youtube_followers&&values.youtube_followers}
                                onChange={(e) => handleChange(e)}/>
                         <label className={`${classes.input_title}`}>Facebook Followers</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='facebook_followers'
                                ref={facebook_followers}
-                               value={edit.facebook_followers ? edit.facebook_followers : edit.facebook_followers === '' ? edit.facebook_followers : values.facebook_followers}
+                               defaultValue={values.facebook_followers&&values.facebook_followers}
                                onChange={(e) => handleChange(e)}/>
 
                         <label className={`${classes.input_title}`}>Tiktok Followers</label>
@@ -315,21 +297,21 @@ const EditInfluencer = () => {
                                type='text'
                                name='tiktok_followers'
                                ref={tiktok_followers}
-                               value={edit.tiktok_followers ? edit.tiktok_followers : edit.tiktok_followers === '' ? edit.tiktok_followers : values.tiktok_followers}
+                               defaultValue={values.tiktok_followers&&values.tiktok_followers}
                                onChange={(e) => handleChange(e)}/>
                         <label className={`${classes.input_title}`}>Twitter Followers</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='twitter_followers'
                                ref={twitter_followers}
-                               value={edit.twitter_followers ? edit.twitter_followers : edit.twitter_followers === '' ? edit.twitter_followers : values.twitter_followers}
+                               defaultValue={values.twitter_followers&&values.twitter_followers}
                                onChange={(e) => handleChange(e)}/>
                         <label className={`${classes.input_title}`}>Blog Views</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='blog_followers'
                                ref={blog_followers}
-                               value={edit.blog_followers ? edit.blog_followers : edit.blog_followers === '' ? edit.blog_followers : values.blog_followers}
+                               defaultValue={values.blog_followers&&values.blog_followers}
                                onChange={(e) => handleChange(e)}/>
                     </div>
 
