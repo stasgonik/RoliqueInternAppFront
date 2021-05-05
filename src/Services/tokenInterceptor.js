@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
     baseURL: config.URL,
-    timeout: 5000,
+    timeout: 10000,
     headers: {
         'Authorization': localStorage.getItem(config.access_token) ? localStorage.getItem(config.access_token) : null,
         'Content-Type': 'application/json',
@@ -72,7 +72,6 @@ axiosInstance.interceptors.response.use(
 
 
         // specific error handling done elsewhere
-        // window.location.href = configFront.URL + 'login/';
         throw error.response
     }
 );

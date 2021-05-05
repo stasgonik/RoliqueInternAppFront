@@ -10,9 +10,7 @@ class ForgotPassEmailForm extends Component {
         fields: {
             email: '',
         },
-        errors: {
-            email: ''
-        },
+        errors: '',
         success: false
     };
 
@@ -20,13 +18,14 @@ class ForgotPassEmailForm extends Component {
 
     handleValidation() {
         const fields = this.state.fields;
-        let errors = {};
+        this.setState({success: false})
+        let errors = '';
         let formIsValid = true;
 
         if (typeof fields["email"] !== "undefined") {
             if ((!fields["email"]) || (!fields["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/))) {
                 formIsValid = false;
-                errors["email"] = INFO.INVALID_EMAIL;
+                errors = INFO.INVALID_EMAIL;
             }
         }
 
@@ -44,28 +43,25 @@ class ForgotPassEmailForm extends Component {
         try {
             const body = this.state.fields;
 
-            console.log(body)
-
             if (this.handleValidation()) {
                 const result = await EmailService.sendForgotPasswordEmail(body);
 
                 if (result.status === 200) {
-                    // this.props.history.push('forgotPassword/notify/')
-                    // window.location.href = configFront.URL + 'forgotPassword/notify/';
                     this.setState({success: true})
+                    return
                 }
                 if (result.status === 400) {
-                    const errors = {
-                        email: INFO.INVALID_EMAIL
-                    }
-                    this.setState({errors})
+                    this.setState({errors: INFO.INVALID_EMAIL});
+                    return
                 }
                 if (result.status === 500) {
-                    const errors = {
-                        email: INFO.SERVER_ERROR
-                    }
-                    this.setState({errors})
+                    this.setState({errors: INFO.SERVER_ERROR})
+                    console.log(result)
+                    return
                 }
+                this.setState({errors: INFO.UNKNOWN_ERROR})
+                console.log(result)
+                return
             }
 
 
@@ -84,12 +80,14 @@ class ForgotPassEmailForm extends Component {
     render() {
         return (
             <div>
-                {!this.state.success ?
                     <div className={'main-flex-login'}>
                         <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
                             <h3 className={'login-form-h3'}>Write your email</h3>
 
-                            {this.state.errors.email ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={this.state.errors['email']}/> : ''}
+                            {this.state.errors ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound ErrorColor'} className={'ErrorPosition'} message={this.state.errors}/> : ''}
+
+                            {this.state.success ? <Error color={{backgroundColor: '#EDF9F0', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound SuccessColor'} className={'ErrorPosition'} message={INFO.SUCCESS_EMAIL_FORGOT}/> : ''}
+
 
                             <span className={'login-form-spam'}>Email</span>
 
@@ -98,37 +96,11 @@ class ForgotPassEmailForm extends Component {
                                    value={this.state.fields["email"]}
                                    required={true}/>
 
-                            {/*<span className='login-form-spam red'>{this.state.errors["email"]}</span>*/}
-
                             <div className="wrapMain">
                                 <button className="buttonSend">Send</button>
                             </div>
                         </form>
                     </div>
-                    :
-                    <div className={'main-flex-login'}>
-                        <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
-                            <div>
-                                <span className='login-form-spam red'>Please check your email, we send special link to it.</span>
-                            </div>
-                        </form>
-                    </div>}
-
-                {/*<h3 className={'login-form-h3'}>We need your email to change your password</h3>*/}
-
-                {/*<span className={'login-form-spam'}>Email</span>*/}
-
-                {/*<input id={'in1'} className={'login-input'}*/}
-                {/*       onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}*/}
-                {/*       required={true} />*/}
-
-                {/*<span  className='login-form-spam red'>{this.state.errors["email"]}</span>*/}
-
-                {/*<div className="wrap">*/}
-                {/*    <button className="button">Send</button>*/}
-                {/*</div>*/}
-                {/*    </form>*/}
-                {/*</div>*/}
             </div>
         );
     }

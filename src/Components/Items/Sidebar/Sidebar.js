@@ -26,7 +26,7 @@ const Sidebar = () => {
 			<NavLink to="/" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 				<img src={volume} alt="volume"/>
 			</NavLink>
-			<NavLink to="/influencers" className={urlArray.includes('influencers') ? `${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.colorChange}`  : `${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
+			<NavLink to="/influencers" className={urlArray.includes( 'influencers') || urlArray.includes( 'show')? `${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.colorChange}`  : `${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 
 				<img src={at} alt="at"/>
 			</NavLink>

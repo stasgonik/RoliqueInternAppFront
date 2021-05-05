@@ -62,7 +62,6 @@
 		justify-content: space-between;
 		margin-right: 32px;
 		margin-top: 16px;
-
 }
 
 .loginInput:focus {
@@ -77,22 +76,8 @@
 		box-shadow: 0 0 10px #FF650E;
 }
 
-/*.login-form-button {*/
-/*		font-style: normal;*/
-/*		font-weight: normal;*/
-/*		font-size: 14px;*/
-/*		line-height: 17px;*/
-/*		height: 33px;*/
-/*		width: 344px;*/
-/*		margin: 10px auto;*/
-/*		background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);*/
-/*		border-radius: 8px;*/
-/*}*/
 
 .wrap {
-		/*display: flex;*/
-		/*align-items: center;*/
-		/*justify-content: center;*/
 		margin-left: 32px;
 		margin-top: 24px;
 }
@@ -103,8 +88,6 @@
 
 		background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
 		border-radius: 8px;
-		/*max-width: 344px;*/
-		/*max-height: 33px;*/
 		letter-spacing: 1.3px;
 		border: none;
 		font-family: Helvetica Neue, sans-serif;
@@ -118,56 +101,19 @@
 		cursor: pointer;
 }
 
-/*.button::before {*/
-/*		content: '';*/
-/*		border-radius: 1000px;*/
-/*		min-width: calc(150px + 12px);*/
-/*		min-height: calc(50px + 12px);*/
-/*		border: 6px solid #FF650E;*/
-/*		box-shadow: 0 0 60px rgba(255, 101, 14, .64);*/
-/*		position: absolute;*/
-/*		top: 50%;*/
-/*		left: 50%;*/
-/*		transform: translate(-50%, -50%);*/
-/*		opacity: 0;*/
-/*		transition: all .3s ease-in-out 0s;*/
+/*@keyframes ring {*/
+/*		0% {*/
+/*				width: 30px;*/
+/*				height: 30px;*/
+/*				opacity: 1;*/
+/*		}*/
+/*		100% {*/
+/*				width: 300px;*/
+/*				height: 300px;*/
+/*				opacity: 0;*/
+/*		}*/
 /*}*/
 
-
-
-
-
-
-
-
-@keyframes ring {
-		0% {
-				width: 30px;
-				height: 30px;
-				opacity: 1;
-		}
-		100% {
-				width: 300px;
-				height: 300px;
-				opacity: 0;
-		}
-}
-
-/*.password__show {*/
-/*		float: right;*/
-/*		padding-right: 40px;*/
-/*		font-family: 'Bebas Neue', inherit;*/
-/*		font-style: normal;*/
-/*		font-weight: normal;*/
-/*		font-size: 16px;*/
-/*		padding-top: 10px;*/
-/*		padding-left: 32px;*/
-/*		!* identical to box height *!*/
-/*		letter-spacing: -0.35px;*/
-/*		color: rgba(0, 0, 0, 0.6);*/
-/*		mix-blend-mode: hard-light;*/
-/*		opacity: 0.76;*/
-/*}*/
 .clickPassword {
 		cursor: pointer;
 }
@@ -188,20 +134,13 @@
 .colorRound {
 		width: 16px;
 		height: 16px;
-
 		border-radius: 50px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
-
 
 		font-size: 12px;
 		background-color: #DA1414;
 		color: #FEEFEF;
 }
 
-/*.ErrorPosition {*/
-/*		margin-left: 32px;*/
-/*		margin-bottom: 24px;*/
-/*}*/
