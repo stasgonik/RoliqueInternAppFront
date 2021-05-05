@@ -122,7 +122,7 @@ const EditUser = () => {
                     <input className={classes.input_info}
                            type='text'
                            name='first_name'
-                           pattern={FIRST_LAST_NAME_REGEXP}
+                           //pattern={FIRST_LAST_NAME_REGEXP}
                            defaultValue={user.first_name}
                            onChange={(e) => handleChange(e)}
                     />
@@ -132,7 +132,7 @@ const EditUser = () => {
                            type='text'
                            name='last_name'
                            defaultValue={user.last_name}
-                           pattern={FIRST_LAST_NAME_REGEXP}
+                           //pattern={FIRST_LAST_NAME_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
 
@@ -141,7 +141,7 @@ const EditUser = () => {
                            type='email'
                            name='email'
                            defaultValue={user.email}
-                           pattern={EMAIL_REGEXP}
+                           //pattern={EMAIL_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
                     <label className={classes.input_title}>Phone</label>
@@ -149,7 +149,7 @@ const EditUser = () => {
                            type='text'
                            name='phone'
                            defaultValue={user.phone}
-                           pattern={PHONE_REGEXP}
+                           //pattern={PHONE_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
                 </section>
@@ -177,7 +177,7 @@ const EditUser = () => {
                     <input className={`${classes.input_info}`}
                            type='text'
                            name='password'
-                           pattern={PASSWORD_REGEXP}
+                           //pattern={PASSWORD_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
                 </section>

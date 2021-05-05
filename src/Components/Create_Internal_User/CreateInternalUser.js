@@ -180,7 +180,7 @@ const User = () => {
 			const result = await userService.postUsers(formData);
 			if (result) {
 				if (result.status === 200) {
-					window.location.href = configFront.URL + 'users/';
+					window.location.href = configFront.URL + 'users';
 					return
 				}
 				let errors = {
@@ -193,7 +193,7 @@ const User = () => {
 					password: '',
 				};
 				if (result.status === 403) {
-					window.location.href = configFront.URL + 'users/';
+					window.location.href = configFront.URL + 'users';
 					return
 				}
 				if (typeof result.data !== "undefined") {
