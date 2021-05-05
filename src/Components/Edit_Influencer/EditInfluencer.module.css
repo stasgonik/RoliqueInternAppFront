@@ -75,6 +75,10 @@
     background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
 }
 
+.btnHeader:disabled {
+    opacity: 0.6;
+}
+
 .title {
     font-size: 24px;
     line-height: 29px;
@@ -86,6 +90,7 @@
     font-style: normal;
     opacity: 0.9;
 }
+
 .mainContainer {
     display: flex;
     justify-content: space-between;
@@ -143,7 +148,7 @@
     color: #7D7D7D;
 }
 
-.div_helper{
+.div_helper {
     display: flex;
     flex-direction: column;
     padding: 0 20px;
@@ -159,6 +164,7 @@
     box-sizing: border-box;
     border-radius: 6px;
 }
+
 .input_info:disabled {
     border-color: #FF650E;
 }
