@@ -169,10 +169,14 @@ const User = () => {
 		if (!values["phone"].length) {
 			delete values["phone"]
 		}
+		if (values["avatar"] === "") {
+			delete values["avatar"]
+		}
 		for (const value in values) {
 			formData.append(value, values[value])
 		}
-		setValues({...values, phone: ''})
+		let av = values["avatar"] ? values['avatar'] : "";
+		setValues({...values, phone: '', avatar: av})
 		if (handleValidation()) {
 			const result = await userService.postUsers(formData);
 			if (result) {
