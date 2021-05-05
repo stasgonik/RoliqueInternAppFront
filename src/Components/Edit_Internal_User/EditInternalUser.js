@@ -71,9 +71,11 @@ const EditUser = () => {
 
     const selected = (e) => {
         let img = e.target.files[0];
-        img.preview = URL.createObjectURL(img)
-        setValues({...values, [e.target.name]: img})
-        setUser({...user, [e.target.name]: img})
+        if (img) {
+            img.preview = URL.createObjectURL(img)
+            setValues({...values, [e.target.name]: img})
+            setUser({...user, [e.target.name]: img})
+        }
     }
 
     const saveChanges = async () => {

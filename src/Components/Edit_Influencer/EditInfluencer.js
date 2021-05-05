@@ -111,8 +111,10 @@ const EditInfluencer = () => {
 
     const selected = (e) => {
         let img = e.target.files[0];
-        img.preview = URL.createObjectURL(img)
-        setEdit({...edit, [e.target.name]: img})
+        if (img) {
+            img.preview = URL.createObjectURL(img)
+            setEdit({...edit, [e.target.name]: img})
+        }
     }
 
     const checkValidateInput = (data) => {
