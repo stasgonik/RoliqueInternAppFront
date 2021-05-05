@@ -169,18 +169,15 @@ const User = () => {
 		if (!values["phone"].length) {
 			delete values["phone"]
 		}
-		if (!values["avatar"].length) {
-			delete values["avatar"]
-		}
 		for (const value in values) {
 			formData.append(value, values[value])
 		}
-		setValues({...values, avatar: '', phone: ''})
+		setValues({...values, phone: ''})
 		if (handleValidation()) {
 			const result = await userService.postUsers(formData);
 			if (result) {
 				if (result.status === 200) {
-					window.location.href = configFront.URL + 'users/';
+					window.location.href = configFront.URL + 'users';
 					return
 				}
 				let errors = {
@@ -193,7 +190,7 @@ const User = () => {
 					password: '',
 				};
 				if (result.status === 403) {
-					window.location.href = configFront.URL + 'users/';
+					window.location.href = configFront.URL + 'users';
 					return
 				}
 				if (typeof result.data !== "undefined") {
