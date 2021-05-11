@@ -11,14 +11,12 @@ import rightArrow from '../Items/Icons/right-arrow.svg';
 import photoDefault from '../Items/Icons/vector.svg';
 import arrowUp from '../Items/Icons/arrow-up.svg'
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
-
-import instagramIcon from "../../img/Social_Icons/Instagram.png";
-import facebookIcon from "../../img/Social_Icons/Facebook.png";
-import youtubeIcon from "../../img/Social_Icons/Youtube.png";
-import twitterIcon from "../../img/Social_Icons/Twitter.png";
-import tikTokIcon from "../../img/Social_Icons/TikTok.png";
-import storiesIcon from "../../img/Social_Icons/Stories.png";
-import blogSmall from "../Items/Icons/blogSmall.svg";
+import instagramIcon from "../../img/Social_Icons/Instagram.svg";
+import facebookIcon from "../../img/Social_Icons/Facebook.svg";
+import youtubeIcon from "../../img/Social_Icons/Youtube.svg";
+import twitterIcon from "../../img/Social_Icons/Twitter.svg";
+import tikTokIcon from "../../img/Social_Icons/TikTok.svg";
+import blogSmall from "../../img/Social_Icons/Stories.svg";
 import {Link} from "react-router-dom";
 
 
@@ -67,8 +65,7 @@ const Influencers_List = () => {
     }
 
     const show = (item) => {
-        AuthService.setInfluencerId(item._id)
-        window.location.href  = configFront.URL + 'show'
+        window.location.href  = configFront.URL + 'influencers/' + item._id
     }
 
     const socials = (item) => {

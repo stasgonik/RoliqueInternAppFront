@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import classes from './InfluencerDetails.module.css';
-
+import {
+	useParams
+} from "react-router-dom";
 import Sidebar from '../Items/Sidebar/Sidebar'
 import InfluencersService from "../../Services/influencers.service";
 import Search from "../Items/Search/Search";
@@ -20,6 +22,7 @@ import twitter from '../Items/Icons/twitter.svg';
 import edit from '../Items/Icons/edit-alt.svg';
 
 const InfluencerDetails = () => {
+	const { influencerId } = useParams();
 
 	const [values, setValues] = useState({});
 	const [initial, setInitial] = useState(true);
@@ -28,7 +31,7 @@ const InfluencerDetails = () => {
 	useEffect(() => {
 		async function Start() {
 			setInitial(false)
-			const initialState = await InfluencersService.getSingleInfluencer(AuthService.getInfluencerId(), true)
+			const initialState = await InfluencersService.getSingleInfluencer(influencerId, true)
 			console.log(initialState)
 			const arr = initialState.social_profiles;
 			arr.splice(1, 3).reverse().forEach(value => arr.push(value))

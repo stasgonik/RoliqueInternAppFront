@@ -24,14 +24,14 @@ export default function App(props) {
             <Switch>
                 <Route path={'/'} exact{...props} component={Login}/>
                 <Route path={'/users'} exact{...props} component={UsersList}/>
-                <Route path={'/users/create'} exact{...props} component={CreateInternalUser}/>
-                <Route path={'/users/edit'} exact{...props} component={EditInternalUser}/>
-                <Route path={'/forgotPassword/emailForm'} exact{...props} component={ForgotPassEmailForm}/>
-                <Route path={'/forgotPassword/changePassword'} exact{...props} component={ForgotPassForm}/>
-                <Route path={'/influencers/create'}  exact{...props}  component={CreateInfluencer}/>
-                <Route path={'/influencers'} exact{...props} component={Influencers_List}/>
-                <Route path={'/influencers/edit'} exact{...props} component={EditInfluencer}/>
-                <Route path={'/show'} exact{...props} component={InfluencerDetails}/>
+                <Route path={'/users/create'} exact {...props} component={CreateInternalUser}/>
+                <Route path={'/users/:userId/edit'} exact {...props} component={EditInternalUser}/>
+                <Route path={'/forgotPassword/emailForm'} exact {...props} component={ForgotPassEmailForm}/>
+                <Route path={'/forgotPassword/changePassword'} exact {...props} component={ForgotPassForm}/>
+                <Route path={'/influencers/create'}  exact {...props}  component={CreateInfluencer}/>
+                <Route path={'/influencers'} exact {...props} component={Influencers_List}/>
+                <Route path={'/influencers/:influencerId/edit'} exact {...props} component={EditInfluencer}/>
+                <Route path={'/influencers/:influencerId'} exact {...props} component={InfluencerDetails}/>
             </Switch>
         </Router>
     );

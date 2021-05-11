@@ -1,10 +1,14 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import './UsersListHeader.css'
 import AuthService from "../../../Services/auth.service";
 
 
 const UsersListHeader = ({upArrow, titleBtn, titleHeader, title, titleBtnEdit, EditInf, icon}) => {
+	let { influencerId } = useParams();
+	if(!influencerId) {
+		influencerId = 0
+	}
 
 	const myFunction = () => {
 		document.getElementById("myDropdown").classList.toggle("show");
@@ -15,7 +19,7 @@ const UsersListHeader = ({upArrow, titleBtn, titleHeader, title, titleBtnEdit, E
 				<h1 className={titleHeader}>{title}</h1>
 			</div>
 			<div className={EditInf} style={icon}>
-			<Link to="influencers/edit" className={'EditSrc'}>{titleBtnEdit}</Link>
+			<Link to={`${influencerId}/edit`} className={'EditSrc'}>{titleBtnEdit}</Link>
 			</div>
 			 <div className={'dropdown'}>{(AuthService.getUserRole() === 'admin' || AuthService.getUserRole() === 'manager') ?
 				<button className={'dropbtn'} onClick={() => myFunction()}><img src={upArrow} alt={'upArrow'} className={'upArrow'}/><span className={'titleBtn'}>{titleBtn}</span></button> : ""}

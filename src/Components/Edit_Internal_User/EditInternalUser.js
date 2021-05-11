@@ -1,4 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {
+    useParams
+} from "react-router-dom";
+
 import classes from './EditInternalUser.module.css';
 import info from '../Items/Icons/info-button.svg';
 import Tooltip from '../Items/Tooltip/Tooltip'
@@ -12,6 +16,7 @@ import userService from "../../Services/userService";
 import authService from '../../Services/auth.service';
 import config from '../../Constants/configServer'
 import topArrow from "../Items/Icons/top-arrow-black.svg";
+import configFront from "../../Constants/config";
 
 
 let role = [
@@ -38,9 +43,13 @@ function setRoles() {
 
 const EditUser = () => {
     setRoles()
+    const { userId } = useParams();
+    if(!userId) {
+        window.location.href  = configFront.URL + 'users'
+    }
 
     const [user, setUser] = useState(async () => {
-        const initialState = await userService.getSingleUsers(authService.getEditId())
+        const initialState = await userService.getSingleUsers(userId)
         setUser({
             first_name: initialState.first_name,
             last_name: initialState.last_name,
@@ -84,7 +93,7 @@ const EditUser = () => {
             formData.append(value, values[value])
         }
 
-        await userService.editUser(formData, authService.getEditId());
+        await userService.editUser(formData, userId);
     }
 
     const path = user.profile_picture;

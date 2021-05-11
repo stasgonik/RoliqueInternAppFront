@@ -60,9 +60,7 @@ const UsersList = () => {
 	}
 
 	const edit = (item) => {
-		console.log(item)
-		AuthService.setEditUserId(item._id)
-		window.location.href = configFront.URL + 'users/edit'
+		window.location.href = configFront.URL + 'users/' + item._id + "/edit"
 	}
 
 	return (

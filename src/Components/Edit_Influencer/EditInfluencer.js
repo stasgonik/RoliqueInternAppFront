@@ -1,4 +1,7 @@
 import React, {useRef, useState} from 'react';
+import {
+    useParams
+} from "react-router-dom";
 import classes from './EditInfluencer.module.css';
 import Tooltip from '../Items/Tooltip/Tooltip'
 import {INFO} from '../../Constants/messages';
@@ -6,9 +9,16 @@ import Header from '../Items/Header/Header';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
 import influerenceService from "../../Services/influencers.service";
+import configFront from "../../Constants/config";
 
 
 const EditInfluencer = () => {
+    const { influencerId } = useParams();
+    if(!influencerId) {
+        window.location.href  = configFront.URL + 'influencers'
+    }
+
+
     const fileInput = useRef(null);
     const instagram_profile = useRef(null);
     const instagram_followers = useRef(null);
@@ -40,7 +50,7 @@ const EditInfluencer = () => {
     }
 
     const [values, setValues] = useState(async () => {
-        const initialState = await influerenceService.getSingleInfluencer(influerenceService.getInfluencerId(), false)
+        const initialState = await influerenceService.getSingleInfluencer(influencerId, false)
         const socialInfo = {};
 
             for (const social of initialState.social_profiles) {
@@ -140,7 +150,7 @@ const EditInfluencer = () => {
         }
         checkValidateInput(values)
         if (status && edit) {
-            await influerenceService.editInfluerence(formData, influerenceService.getInfluencerId())
+            await influerenceService.editInfluerence(formData, influencerId)
         }
     }
 
