@@ -139,7 +139,7 @@ const Influencers_List = () => {
 
                                 <div></div>
 
-                                <Link to={`${item._id}`}>
+                                <Link to={`influencers/${item._id}`}>
                                     <div className={classes.tableBtn}>
                                         <div className={classes.Test}>
                                             <div className={classes.btnPosition}>

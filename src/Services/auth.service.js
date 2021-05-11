@@ -59,22 +59,6 @@ export default class AuthService {
         return localStorage.getItem(config.user_role);
     }
 
-    static getEditId() {
-        return localStorage.getItem(config.edit_id);
-    }
-
-    static setEditUserId(user_id) {
-        localStorage.setItem(config.edit_id, user_id);
-    }
-
-    static getInfluencerId() {
-        return localStorage.getItem(config.influencer_id);
-    }
-
-    static setInfluencerId(influencer_id) {
-        localStorage.setItem(config.influencer_id, influencer_id);
-    }
-
     static setTokens(tokens) {
         const {access_token, refresh_token, user_id, user_role} = tokens;
         this.setAccessToken(access_token);
