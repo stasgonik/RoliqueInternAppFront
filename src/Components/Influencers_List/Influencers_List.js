@@ -64,9 +64,9 @@ const Influencers_List = () => {
         setValues(search);
     }
 
-    const show = (item) => {
-        window.location.href  = configFront.URL + 'influencers/' + item._id
-    }
+    // const show = (item) => {
+    //     window.location.href  = configFront.URL + 'influencers/' + item._id
+    // }
 
     const socials = (item) => {
         const social = [];
@@ -139,10 +139,11 @@ const Influencers_List = () => {
 
                                 <div></div>
 
-                                <div className={classes.tableBtn}>
+                                <Link to={`${item._id}`}>
+                                    <div className={classes.tableBtn}>
                                         <div className={classes.Test}>
                                             <div className={classes.btnPosition}>
-                                                <img src={path} alt='path' onClick={() => show(item)}  className={classes.infoBtn}/>
+                                                <img src={path} alt='path' className={classes.infoBtn}/>
                                             </div></div>
                                         <div className={classes.tooltipMain}>
                                             <div className={classes.TooltipText}>
@@ -150,6 +151,8 @@ const Influencers_List = () => {
                                         </div>
                                         <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
                                     </div>
+                                </Link>
+
 
 
 
