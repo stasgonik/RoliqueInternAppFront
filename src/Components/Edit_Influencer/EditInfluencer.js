@@ -137,14 +137,22 @@ const EditInfluencer = () => {
 
     const selected = (e) => {
         let img = e.target.files[0];
-        img.preview = URL.createObjectURL(img)
-        setEdit({...edit, [e.target.name]: img})
+        if(img) {
+            setStatus(true)
+            img.preview = URL.createObjectURL(img)
+            setEdit({...edit, profile_picture: img})
+        }
+
     }
 
 
     const saveChanges = async () => {
         const formData = new FormData();
         const arr = []
+        let pp;
+        if(edit.profile_picture) {
+            pp = edit.profile_picture;
+        }
         for (const value in edit) {
             if (value.includes('followers')) {
                 edit[value] = edit[value].split('.').join('')
@@ -164,6 +172,9 @@ const EditInfluencer = () => {
         console.log(edit);
         if (status && edit) {
             console.log(edit);
+            if (pp) {
+                formData.set('profile_picture', pp, 'avatar.jpg')
+            }
             await influerenceService.editInfluerence(formData, influencerId)
         }
     }
@@ -231,8 +242,8 @@ const EditInfluencer = () => {
                            ref={fileInput}
                     />
                     <button className={classes.avatar} onClick={() => fileInput.current.click()}>
-                        {!values.profile_pictures ? <img
-                            src={typeof values.profile_picture === 'object' ? edit.profile_picture.preview : `${values.profile_picture}`}
+                        {values.profile_picture ? <img
+                            src={typeof edit.profile_picture === 'object' ? `${edit.profile_picture.preview}` : `${values.profile_picture}`}
                             style={{
                                 width: 64,
                                 height: 64,
