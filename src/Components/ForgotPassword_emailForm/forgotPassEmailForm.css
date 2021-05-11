@@ -63,14 +63,14 @@
 
 .loginInput:focus {
 		outline: none ;
-		border: 1px solid #FF650E;
-		box-shadow: 0 0 10px #FF650E;
+		/*border: 1px solid #FF650E;*/
+		/*box-shadow: 0 0 10px #FF650E;*/
 }
 
 .password__input:focus {
 		outline: none ;
-		border: 1px solid #FF650E;
-		box-shadow: 0 0 10px #FF650E;
+		/*border: 1px solid #FF650E;*/
+		/*box-shadow: 0 0 10px #FF650E;*/
 }
 
 .wrapMain {

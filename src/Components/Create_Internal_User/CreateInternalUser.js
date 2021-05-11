@@ -264,7 +264,7 @@ const User = () => {
 					</button>
 
 					{errors.avatar && errors.avatar.length ?
-						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.avatar}/> : ''}
+						<div className={classes.errorDiv}>{errors.avatar}</div> : ''}
 
 					<label className={classes.input_title}>First Name</label>
 					<input className={!values.first_name ? classes.input_info : classes.input_info_valid}
@@ -277,7 +277,7 @@ const User = () => {
 					/>
 
 					{errors.first_name && errors.first_name.length ?
-						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.first_name}/> : ''}
+						<div className={classes.errorDiv}>{errors.first_name}</div> : ''}
 
 					<label className={classes.input_title}>Last Name</label>
 					<input className={!values.last_name ? classes.input_info : classes.input_info_valid}
@@ -288,7 +288,7 @@ const User = () => {
 						   onChange={(e) => handleChange(e)}/>
 
 					{errors.last_name && errors.last_name.length ?
-						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.last_name}/> : ''}
+						<div className={classes.errorDiv}>{errors.last_name}</div> : ''}
 
 					<label className={classes.input_title}>Email</label>
 					<input className={!values.email ? classes.input_info : classes.input_info_valid}
@@ -299,7 +299,7 @@ const User = () => {
 						   onChange={(e) => handleChange(e)}/>
 
 					{errors.email && errors.email.length ?
-						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.email}/> : ''}
+						<div className={classes.errorDiv}>{errors.email}</div> : ''}
 
 					<label className={classes.input_title}>Phone</label>
 					<input className={classes.input_info_valid}
@@ -309,7 +309,7 @@ const User = () => {
 						   onChange={(e) => handleChange(e)}/>
 
 					{errors.phone && errors.phone.length ?
-						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.phone}/> : ''}
+						<div className={classes.errorDiv}>{errors.phone}</div> : ''}
 
 				</section>
 
@@ -332,19 +332,19 @@ const User = () => {
 					/>
 
 					{errors.role && errors.role.length ?
-						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.role}/> : ''}
+						<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
+							{errors.role}</div> : ''}
 
 					<h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
 					<label className={`${classes.input_title} ${classes.input_password}`}>Set Password</label>
 					<input className={!values.password ? classes.input_info : classes.input_info_valid}
 						   type='text'
 						   name='password'
-						// pattern={PASSWORD_REGEXP}
 						   required
 						   onChange={(e) => handleChange(e)}/>
 
 					{errors.password && errors.password.length ?
-						<Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound'} className={'ErrorPosition'} message={errors.password}/> : ''}
+						<div className={classes.errorDiv}>{errors.password}</div> : ''}
 
 				</section>
 			</div>

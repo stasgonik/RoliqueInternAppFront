@@ -21,12 +21,12 @@
 		background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
 }
 
-.btn:hover {
-		outline: none ;
-		cursor: pointer;
-		border: 1px solid #FF650E;
-		box-shadow: 0 0 10px #FF650E;
-}
+/*.btn:hover {*/
+/*		outline: none ;*/
+/*		cursor: pointer;*/
+/*		!*border: 1px solid #FF650E;*!*/
+/*		!*box-shadow: 0 0 10px #FF650E;*!*/
+/*}*/
 
 .btn:active, .btn:focus {
 		outline: none;

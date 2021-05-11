@@ -40,8 +40,6 @@
 .btnHeader:hover {
 		outline: none;
 		cursor: pointer;
-		border: 1px solid #FF650E;
-		box-shadow: 0 0 10px #FF650E;
 }
 
 .btnHeader:active, .btn:focus {
@@ -154,7 +152,7 @@
 
 .role {
 		display: flex;
-		margin-bottom: 24px;
+		margin-bottom: 5px;
 
 }
 
@@ -165,20 +163,21 @@
 
 .tooltip {
 		width: 372px;
-		visibility: hidden;
+		display: none;
 		position: absolute;
-		right: 219px;
 		top: 171px;
-
 }
 
 .infoBtn:hover + .tooltip {
-		visibility: visible;
+		z-index: 10;
+		display: block;
+
 }
 
-.input_password {
-		margin-top: 24px;
-}
+
+/*.input_password {*/
+/*		margin-top: 24px;*/
+/*}*/
 
 .avatar {
 		width: 64px;
@@ -214,4 +213,21 @@
 	font-size: 12px;
 	background-color: #DA1414;
 	color: #FEEFEF;
+}
+
+.errorDiv {
+		font-family: Helvetica Neue, sans-serif;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 14px;
+		letter-spacing: -0.35px;
+
+		color: #DA1414;
+		margin-top: -8px;
+
+}
+
+.roleErrorPos {
+		margin-top: 8px;
 }

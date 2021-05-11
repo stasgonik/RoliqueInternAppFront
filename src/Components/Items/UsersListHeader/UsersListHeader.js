@@ -18,9 +18,9 @@ const UsersListHeader = ({upArrow, titleBtn, titleHeader, title, titleBtnEdit, E
 			<div className={'headerRightBlock'}>
 				<h1 className={titleHeader}>{title}</h1>
 			</div>
-			<div className={EditInf} style={icon}>
-			<Link to={`${influencerId}/edit`} className={'EditSrc'}>{titleBtnEdit}</Link>
-			</div>
+
+			<Link to={`${influencerId}/edit`} className={EditInf ? 'EditSrc' : 'DispNone'} style={icon}><div className={EditInf}>{titleBtnEdit}</div></Link>
+
 			 <div className={'dropdown'}>{(AuthService.getUserRole() === 'admin' || AuthService.getUserRole() === 'manager') ?
 				<button className={'dropbtn'} onClick={() => myFunction()}><img src={upArrow} alt={'upArrow'} className={'upArrow'}/><span className={'titleBtn'}>{titleBtn}</span></button> : ""}
 				<div id='myDropdown' className={'dropdownContent'}>

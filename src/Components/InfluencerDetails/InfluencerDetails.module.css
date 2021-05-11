@@ -318,17 +318,16 @@
 		background: #68ABE7;
 }
 .EditInf {
-		position: absolute;
-		right: 202px;
-		width: 73px;
-		height: 33px;
-		display: flex;
-		align-items: center;
 
-		border: 1px solid #BFBFBF;
-		box-sizing: border-box;
-		border-radius: 8px;
-		cursor: pointer;
+		font-family: Helvetica Neue, sans-serif;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 17px;
+		margin-left: 30px;
+
+		color: rgba(0, 0, 0, 0.6);
+		text-decoration: none;
 
 }
 

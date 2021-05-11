@@ -76,8 +76,8 @@
 .dropbtn:hover {
 		outline: none;
 		cursor: pointer;
-		border: 1px solid #FF650E;
-		box-shadow: 0 0 10px #FF650E;
+		/*border: 1px solid #FF650E;*/
+		/*box-shadow: 0 0 10px #FF650E;*/
 }
 
 .dropbtn:active, .dropbtn:focus {
@@ -97,13 +97,21 @@
 
 
 .EditSrc {
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 14px;
-		line-height: 17px;
-		margin-left: 30px;
 
-		color: rgba(0, 0, 0, 0.6);
+		position: absolute;
+		right: 202px;
+		width: 73px;
+		height: 33px;
+		display: flex;
+		align-items: center;
+
+		border: 1px solid #BFBFBF;
+		box-sizing: border-box;
+		border-radius: 8px;
+		cursor: pointer;
 		text-decoration: none;
+}
+
+.DispNone {
+		display: none;
 }
