@@ -21,7 +21,7 @@ class Login extends Component {
 			password: ''
 		},
 		errors: '',
-		type: 'input',
+		type: 'password',
 	};
 
 	constructor(props) {
