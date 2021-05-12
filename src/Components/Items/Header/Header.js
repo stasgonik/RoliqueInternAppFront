@@ -1,8 +1,7 @@
 import React from 'react';
 import classes from './Header.module.css';
 import { useHistory } from "react-router-dom";
-import AuthService from "../../../Services/auth.service";
-import arrowUp from "../Icons/arrow-up.svg";
+// import arrowUp from "../Icons/arrow-up.svg";
 
 
 const Header = ({leftArrow, button, title, titleHeader, titleBtn, btnHeader}) => {

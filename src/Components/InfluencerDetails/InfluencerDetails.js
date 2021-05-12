@@ -5,12 +5,10 @@ import {
 } from "react-router-dom";
 import Sidebar from '../Items/Sidebar/Sidebar'
 import InfluencersService from "../../Services/influencers.service";
-import Search from "../Items/Search/Search";
-import AuthService from "../../Services/auth.service";
-import configFront from "../../Constants/configFront";
-import path from '../Items/Icons/path.svg';
-import rightArrow from '../Items/Icons/right-arrow.svg';
-import photoDefault from '../Items/Icons/vector.svg';
+// import Search from "../Items/Search/Search";
+// import path from '../Items/Icons/path.svg';
+// import rightArrow from '../Items/Icons/right-arrow.svg';
+// import photoDefault from '../Items/Icons/vector.svg';
 import arrowUp from '../Items/Icons/arrow-up.svg'
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 import instagram from '../Items/Icons/instagram.svg';

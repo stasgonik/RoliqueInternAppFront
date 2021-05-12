@@ -6,14 +6,11 @@ import Sidebar from '../Items/Sidebar/Sidebar'
 import Search from "../Items/Search/Search";
 import userService from "../../Services/userService";
 import AuthService from "../../Services/auth.service";
-import configFront from "../../Constants/configFront";
 import path from '../Items/Icons/path.svg';
 import rightArrow from '../Items/Icons/right-arrow.svg';
 import photoDefault from '../Items/Icons/vector.svg';
 import arrowUp from '../Items/Icons/arrow-up.svg';
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
-import Messages from "../Items/Messages/Messages";
-
 
 const UsersList = () => {
 

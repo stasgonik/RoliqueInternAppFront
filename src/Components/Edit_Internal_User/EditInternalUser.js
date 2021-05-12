@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
     useParams
 } from "react-router-dom";
@@ -11,12 +11,12 @@ import Dropdown from '../Items/Dropdown/Dropdown';
 import Header from '../Items/Header/Header';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
-import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
+// import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import userService from "../../Services/userService";
 import authService from '../../Services/auth.service';
-import config from '../../Constants/configServer'
+// import configServer from '../../Constants/configServer'
 import topArrow from "../Items/Icons/top-arrow-black.svg";
-import configFront from "../../Constants/config";
+import configFront from "../../Constants/configFront";
 
 
 let role = [
