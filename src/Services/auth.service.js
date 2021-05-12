@@ -1,5 +1,6 @@
 import configServer from '../Constants/configServer'
 import axiosInstance from "./tokenInterceptor";
+import configFront from "../Constants/configFront";
 
 class _endpoint {
     static login = 'auth/';
@@ -16,6 +17,22 @@ export default class AuthService {
 
             return result;
         } catch (e) {
+            return e
+        }
+    }
+
+    static async logout() {
+        try {
+            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.logout}`)
+
+            if (result && result.status === 200) {
+                localStorage.clear()
+
+                window.location.href = configFront.URL
+            }
+        } catch (e) {
+            localStorage.clear()
+            console.log(e)
             return e
         }
     }

@@ -61,9 +61,10 @@ export default class UserService {
             console.log(body)
             const result = await axiosInstance.put(`${configServer.URL}${_endpoint.Users}${id}`, body);
 
-            return result.data
+            return result
         } catch (e) {
             console.log(e)
+            return e
         }
     }
 }

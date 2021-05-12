@@ -50,14 +50,16 @@ const EditUser = () => {
 
     const [user, setUser] = useState(async () => {
         const initialState = await userService.getSingleUsers(userId)
-        setUser({
-            first_name: initialState.first_name,
-            last_name: initialState.last_name,
-            email: initialState.email,
-            phone: initialState.phone,
-            role: initialState.role.charAt(0).toUpperCase()+initialState.role.slice(1),
-            profile_picture: initialState.profile_picture
-        })
+        if(initialState) {
+            setUser({
+                first_name: initialState.first_name,
+                last_name: initialState.last_name,
+                email: initialState.email,
+                phone: initialState.phone,
+                role: initialState.role.charAt(0).toUpperCase()+initialState.role.slice(1),
+                profile_picture: initialState.profile_picture
+            })
+        }
     });
 
 
@@ -93,7 +95,12 @@ const EditUser = () => {
             formData.append(value, values[value])
         }
 
-        await userService.editUser(formData, userId);
+        const result = await userService.editUser(formData, userId);
+        if (result) {
+            if (result.status === 200) {
+                window.location.href = configFront.URL + 'users'
+            }
+        }
     }
 
     const path = user.profile_picture;

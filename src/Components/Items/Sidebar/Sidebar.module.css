@@ -5,8 +5,8 @@
 		position: fixed;
 		display: flex;
 		flex-direction: column;
-		z-index: 2
-
+		z-index: 2;
+		justify-content: flex-end;
 }
 
 .SidebarImgLogo {
@@ -16,6 +16,7 @@
 		align-items: center;
 		justify-content: center;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+		justify-self: flex-start;
 }
 
 .SidebarImg {
@@ -25,7 +26,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-
+		justify-self: flex-start;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 .SidebarImg:hover {
@@ -34,4 +35,9 @@
 
 .colorChange {
 		background-color: #FF650E;
+}
+
+.SidebarLogout {
+	margin-top: auto;
+	cursor: pointer;
 }

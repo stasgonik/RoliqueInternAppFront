@@ -9,7 +9,12 @@ import users from '../Icons/users.svg';
 import volume from '../Icons/volume.svg';
 import at from '../Icons/at.svg';
 import {NavLink} from "react-router-dom";
+import arrow from '../Icons/arrow-logout.svg'
+import AuthService from "../../../Services/auth.service";
 
+const logout = async () => {
+	await AuthService.logout()
+}
 
 const Sidebar = () => {
 	let loc = useLocation();
@@ -26,10 +31,15 @@ const Sidebar = () => {
 			<NavLink to="/" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 				<img src={volume} alt="volume"/>
 			</NavLink>
-			<NavLink to="/influencers" className={urlArray.includes( 'influencers') || urlArray.includes( 'show')? `${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.colorChange}`  : `${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
+			<NavLink to="/influencers" className={urlArray.includes( 'influencers') ? `${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.colorChange}`  : `${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 
 				<img src={at} alt="at"/>
 			</NavLink>
+
+			<div title="Logout" className={`${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.SidebarLogout}`} onClick={() => logout()}>
+				<img src={arrow} alt="logoutArrow"/>
+			</div>
+
 		</div>
 	)
 
