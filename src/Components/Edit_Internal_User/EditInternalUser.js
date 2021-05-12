@@ -44,19 +44,19 @@ function setRoles() {
 const EditUser = () => {
     setRoles()
     const params = useParams();
-    if(!params[routes.USER_ID]) {
-        window.location.href  = configFront.URL + `${routes.USERS}`
+    if (!params[routes.USER_ID]) {
+        window.location.href = configFront.URL + `${routes.USERS}`
     }
 
     const [user, setUser] = useState(async () => {
         const initialState = await userService.getSingleUser(params[routes.USER_ID])
-        if(initialState) {
+        if (initialState) {
             setUser({
                 first_name: initialState.first_name,
                 last_name: initialState.last_name,
                 email: initialState.email,
                 phone: initialState.phone,
-                role: initialState.role.charAt(0).toUpperCase()+initialState.role.slice(1),
+                role: initialState.role.charAt(0).toUpperCase() + initialState.role.slice(1),
                 profile_picture: initialState.profile_picture
             })
         }
@@ -139,7 +139,7 @@ const EditUser = () => {
                     <input className={classes.input_info}
                            type='text'
                            name='first_name'
-                           //pattern={FIRST_LAST_NAME_REGEXP}
+                        //pattern={FIRST_LAST_NAME_REGEXP}
                            defaultValue={user.first_name}
                            onChange={(e) => handleChange(e)}
                     />
@@ -149,7 +149,7 @@ const EditUser = () => {
                            type='text'
                            name='last_name'
                            defaultValue={user.last_name}
-                           //pattern={FIRST_LAST_NAME_REGEXP}
+                        //pattern={FIRST_LAST_NAME_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
 
@@ -158,7 +158,7 @@ const EditUser = () => {
                            type='email'
                            name='email'
                            defaultValue={user.email}
-                           //pattern={EMAIL_REGEXP}
+                        //pattern={EMAIL_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
                     <label className={classes.input_title}>Phone</label>
@@ -166,7 +166,7 @@ const EditUser = () => {
                            type='text'
                            name='phone'
                            defaultValue={user.phone}
-                           //pattern={PHONE_REGEXP}
+                        //pattern={PHONE_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
                 </section>
@@ -177,7 +177,7 @@ const EditUser = () => {
                         <h3 className={classes.rightContainer_title}>Role & Permissions</h3>
                         <img src={info} alt="info" className={classes.infoBtn}/>
                         <div className={classes.tooltip}>
-                            <Tooltip align='center'  Arrow={topArrow} text={INFO.message}/>
+                            <Tooltip align='center' Arrow={topArrow} text={INFO.message}/>
                         </div>
                     </div>
 
@@ -193,7 +193,7 @@ const EditUser = () => {
                     <input className={`${classes.input_info}`}
                            type='text'
                            name='password'
-                           //pattern={PASSWORD_REGEXP}
+                        //pattern={PASSWORD_REGEXP}
                            onChange={(e) => handleChange(e)}/>
                 </section>
             </div>

@@ -15,8 +15,8 @@ import Tooltip from '../Items/Tooltip/Tooltip'
 
 const EditInfluencer = () => {
     const params = useParams();
-    if(!params[routes.INFLUENCER_ID]) {
-        window.location.href  = configFront.URL + `${routes.INFLUENCERS}`
+    if (!params[routes.INFLUENCER_ID]) {
+        window.location.href = configFront.URL + `${routes.INFLUENCERS}`
     }
 
     const fileInput = useRef(null);
@@ -141,7 +141,7 @@ const EditInfluencer = () => {
 
     const selected = (e) => {
         let img = e.target.files[0];
-        if(img) {
+        if (img) {
             setStatus(true)
             img.preview = URL.createObjectURL(img)
             setEdit({...edit, profile_picture: img})
@@ -152,7 +152,7 @@ const EditInfluencer = () => {
         const formData = new FormData();
         const arr = []
         let pp;
-        if(edit.profile_picture) {
+        if (edit.profile_picture) {
             pp = edit.profile_picture;
         }
 

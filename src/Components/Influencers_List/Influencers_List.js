@@ -29,6 +29,7 @@ const Influencers_List = () => {
             const initialState = await InfluencersService.getInfluencers()
             setValues(initialState)
         }
+
         if (initial) {
             Start()
         }
@@ -81,12 +82,16 @@ const Influencers_List = () => {
                     {values ? (values.map((item, index) =>
                         <div key={index}>
                             <div className={`${classes.tableHeaderInfo}`}>
-                                {item.profile_picture ? <img src={`${item.profile_picture}`} alt='avatar' className={classes.avatar}/> :
-                                    <img src={photoDefault} alt='photoDefault' className={`${classes.avatar} ${classes.photo}`}/>}
+                                {item.profile_picture ?
+                                    <img src={`${item.profile_picture}`} alt='avatar' className={classes.avatar}/> :
+                                    <img src={photoDefault} alt='photoDefault'
+                                         className={`${classes.avatar} ${classes.photo}`}/>}
 
-                                <div className={classes.tableTextName}><p className={classes.textColor}>{item.user_name} </p></div>
+                                <div className={classes.tableTextName}><p
+                                    className={classes.textColor}>{item.user_name} </p></div>
 
-                                <div className={classes.tableTextEmail}><p className={classes.textColor}>{item.full_name}</p></div>
+                                <div className={classes.tableTextEmail}><p
+                                    className={classes.textColor}>{item.full_name}</p></div>
                                 <div className={classes.tableTextRole}><p className={classes.textColor}>
                                     {socials(item).includes('instagram') ?
                                         <img alt='instagram' className={classes.social_img} src={instagramIcon}/> : ''}
@@ -106,7 +111,8 @@ const Influencers_List = () => {
                                     {socials(item).includes('blog') ?
                                         <img alt='blog' className={classes.social_img} src={blogSmall}/> : ''}
                                 </p></div>
-                                <div className={classes.tableTextRating}><p className={classes.textColor}>SUPER!</p></div>
+                                <div className={classes.tableTextRating}><p className={classes.textColor}>SUPER!</p>
+                                </div>
 
                                 <div></div>
 
@@ -115,7 +121,8 @@ const Influencers_List = () => {
                                         <div className={classes.Test}>
                                             <div className={classes.btnPosition}>
                                                 <img src={path} alt='path' className={classes.infoBtn}/>
-                                            </div></div>
+                                            </div>
+                                        </div>
                                         <div className={classes.tooltipMain}>
                                             <div className={classes.TooltipText}>
                                                 <p>Show Influencer</p></div>
@@ -123,8 +130,6 @@ const Influencers_List = () => {
                                         <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
                                     </div>
                                 </Link>
-
-
 
 
                             </div>

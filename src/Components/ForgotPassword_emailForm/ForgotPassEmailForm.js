@@ -4,6 +4,7 @@ import EmailService from "../../Services/email.service";
 import Error from "../Items/Messages/Messages";
 import './forgotPassEmailForm.css'
 import {INFO} from '../../Constants/messages';
+import regexp from '../../Constants/regexp.enum'
 
 class ForgotPassEmailForm extends Component {
     state = {
@@ -23,16 +24,11 @@ class ForgotPassEmailForm extends Component {
         let formIsValid = true;
 
         if (typeof fields["email"] !== "undefined") {
-            if ((!fields["email"]) || (!fields["email"].match(/^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]+$/))) {
+            if ((!fields["email"]) || (!fields["email"].match(regexp.EMAIL_REGEXP))) {
                 formIsValid = false;
                 errors = INFO.INVALID_EMAIL;
             }
         }
-
-        // if (!fields["email"]) {
-        //     formIsValid = false;
-        //     errors["email"] = "Cannot be empty";
-        // }
 
         this.setState({errors});
         return formIsValid;
@@ -50,15 +46,18 @@ class ForgotPassEmailForm extends Component {
                     this.setState({success: true})
                     return
                 }
+
                 if (result.status === 400) {
                     this.setState({errors: INFO.INVALID_EMAIL});
                     return
                 }
+
                 if (result.status === 500) {
                     this.setState({errors: INFO.SERVER_ERROR})
                     console.log(result)
                     return
                 }
+
                 this.setState({errors: INFO.UNKNOWN_ERROR})
                 console.log(result)
                 return
@@ -80,27 +79,33 @@ class ForgotPassEmailForm extends Component {
     render() {
         return (
             <div>
-                    <div className={'main-flex-login'}>
-                        <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
-                            <h3 className={'login-form-h3'}>Write your email</h3>
+                <div className={'main-flex-login'}>
+                    <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
+                        <h3 className={'login-form-h3'}>Write your email</h3>
 
-                            {this.state.errors ? <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound ErrorColor'} className={'ErrorPosition'} message={this.state.errors}/> : ''}
+                        {this.state.errors ?
+                            <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}}
+                                   colorRound={'colorRound ErrorColor'} className={'ErrorPosition'}
+                                   message={this.state.errors}/> : ''}
 
-                            {this.state.success ? <Error color={{backgroundColor: '#EDF9F0', marginLeft: '32px', marginBottom: '24px'}} colorRound={'colorRound SuccessColor'} className={'ErrorPosition'} message={INFO.SUCCESS_EMAIL_FORGOT}/> : ''}
+                        {this.state.success ?
+                            <Error color={{backgroundColor: '#EDF9F0', marginLeft: '32px', marginBottom: '24px'}}
+                                   colorRound={'colorRound SuccessColor'} className={'ErrorPosition'}
+                                   message={INFO.SUCCESS_EMAIL_FORGOT}/> : ''}
 
 
-                            <span className={'login-form-spam'}>Email</span>
+                        <span className={'login-form-spam'}>Email</span>
 
-                            <input id={'in1'} className={'loginInput'}
-                                   onChange={this.handleChange.bind(this, "email")}
-                                   value={this.state.fields["email"]}
-                                   required={true}/>
+                        <input id={'in1'} className={'loginInput'}
+                               onChange={this.handleChange.bind(this, "email")}
+                               value={this.state.fields["email"]}
+                               required={true}/>
 
-                            <div className="wrapMain">
-                                <button className="buttonSend">Send</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div className="wrapMain">
+                            <button className="buttonSend">Send</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         );
     }
