@@ -6,6 +6,7 @@ import Header from '../Items/Header/Header';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
 import userService from "../../Services/userService";
+import influencersService from "../../Services/influencers.service";
 
 
 const CreateInfluencer = () => {
@@ -132,7 +133,7 @@ const CreateInfluencer = () => {
         }
         checkValidateInput(values)
         if (!status) {
-            await userService.postInfluencer(formData);
+            await influencersService.postInfluencer(formData);
         }
     }
 

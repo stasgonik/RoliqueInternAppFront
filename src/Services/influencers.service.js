@@ -22,6 +22,7 @@ export default class InfluencersService {
             return e
         }
     }
+
     static async getSingleInfluencer(id, showPhotos = false) {
         try{
             const result = await axiosInstance.get(`${config.URL}${_endpoint.Influencers}${id}`, {
@@ -43,32 +44,19 @@ export default class InfluencersService {
         try{
             const result = await axiosInstance.put(`${config.URL}${_endpoint.Influencers}${id}`, body);
 
-
             return result.data
         } catch (e) {
             console.log(e)
         }
     }
 
+    static async postInfluencer(body) {
+        try{
+            const result = await axiosInstance.post(`${config.URL}${_endpoint.Influencers}`, body);
 
-    static getInfluencerId() {
-        return localStorage.getItem(config.influencer_id);
+            return result.data
+        } catch (e) {
+            console.log(e)
+        }
     }
-
-    // static async postUsers(body) {
-    //     try{
-    //         const result = await axiosInstance.post(`${config.URL}${_endpoint.Users}`, body);
-    //
-    //         if(result.status === 200) {
-    //             return result.data
-    //         }
-    //     } catch (e) {
-    //         console.log(e)
-    //         return e
-    //     }
-    // }
-
-
-
-
 }
