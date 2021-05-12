@@ -1,12 +1,12 @@
-import config from '../Constants/configServer'
-import configFront from "../Constants/config";
+import configServer from '../Constants/configServer'
+import configFront from "../Constants/configFront";
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: config.URL,
+    baseURL: configServer.URL,
     timeout: 10000,
     headers: {
-        'Authorization': localStorage.getItem(config.access_token) ? localStorage.getItem(config.access_token) : null,
+        'Authorization': localStorage.getItem(configServer.access_token) ? localStorage.getItem(configServer.access_token) : null,
         'Content-Type': 'application/json',
         'accept': 'application/json'
     }
@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
         if (error.response.data.message === "Token not valid!" &&
             error.response.status === 401)
         {
-            const refreshToken = localStorage.getItem(config.refresh_token);
+            const refreshToken = localStorage.getItem(configServer.refresh_token);
 
             if (refreshToken){
                 const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
@@ -43,10 +43,10 @@ axiosInstance.interceptors.response.use(
                         .post('auth/refresh/', {})
                         .then((response) => {
 
-                            localStorage.setItem(config.access_token, response.data.access_token);
-                            localStorage.setItem(config.refresh_token, response.data.refresh_token);
-                            localStorage.setItem(config.user_role, response.data.user_role);
-                            localStorage.setItem(config.user_id, response.data.user_id);
+                            localStorage.setItem(configServer.access_token, response.data.access_token);
+                            localStorage.setItem(configServer.refresh_token, response.data.refresh_token);
+                            localStorage.setItem(configServer.user_role, response.data.user_role);
+                            localStorage.setItem(configServer.user_id, response.data.user_id);
 
                             axiosInstance.defaults.headers['Authorization'] = response.data.access_token;
                             originalRequest.headers['Authorization'] = response.data.access_token;

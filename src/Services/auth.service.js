@@ -1,4 +1,4 @@
-import config from '../Constants/configServer'
+import configServer from '../Constants/configServer'
 import axiosInstance from "./tokenInterceptor";
 
 class _endpoint {
@@ -10,7 +10,7 @@ export default class AuthService {
 
     static async login(body) {
         try {
-            const result = await axiosInstance.post(`${config.URL}${_endpoint.login}`, body)
+            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.login}`, body)
 
             this.setTokens(result.data)
 
@@ -27,36 +27,36 @@ export default class AuthService {
     // ПЕРЕВІРКА НА АУТЕНТИФІКАЦІЇЇ
 
     static setAccessToken(accessToken) {
-        localStorage.setItem(config.access_token, accessToken);
+        localStorage.setItem(configServer.access_token, accessToken);
     }
 
     static setUserId(user_id) {
-        localStorage.setItem(config.user_id, user_id);
+        localStorage.setItem(configServer.user_id, user_id);
     }
 
     static setRefreshToken(refreshToken) {
-        localStorage.setItem(config.refresh_token, refreshToken);
+        localStorage.setItem(configServer.refresh_token, refreshToken);
     }
 
     static getUserId() {
-        return localStorage.getItem(config.user_id);
+        return localStorage.getItem(configServer.user_id);
     }
 
     static getAccessToken() {
-        return localStorage.getItem(config.access_token);
+        return localStorage.getItem(configServer.access_token);
     }
 
     static getRefreshToken() {
-        return localStorage.getItem(config.refresh_token);
+        return localStorage.getItem(configServer.refresh_token);
     }
 
     static setUserRole(user_role) {
-        localStorage.setItem(config.user_role, user_role);
+        localStorage.setItem(configServer.user_role, user_role);
     }
 
 
     static getUserRole() {
-        return localStorage.getItem(config.user_role);
+        return localStorage.getItem(configServer.user_role);
     }
 
     static setTokens(tokens) {

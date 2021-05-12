@@ -14,7 +14,7 @@ import topArrow from '../Items/Icons/top-arrow-black.svg';
 import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import {INFO} from '../../Constants/messages';
 import Error from "../Items/Messages/Messages";
-import configFront from "../../Constants/config";
+import configFront from "../../Constants/configFront";
 
 
 let role = [

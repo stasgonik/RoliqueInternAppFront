@@ -1,5 +1,5 @@
 import axiosInstance from "./tokenInterceptor";
-import config from '../Constants/configServer'
+import configServer from '../Constants/configServer'
 
 
 class _endpoint {
@@ -10,7 +10,7 @@ export default class EmailService {
 
     static async sendForgotPasswordEmail(body) {
         try{
-            const result = await axiosInstance.post(`${config.URL}${_endpoint.sendMail}`, body);
+            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.sendMail}`, body);
 
             return result
         } catch (e) {

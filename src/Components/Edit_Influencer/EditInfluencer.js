@@ -9,7 +9,7 @@ import Header from '../Items/Header/Header';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import leftArrow from '../Items/Icons/arrow-left.svg';
 import influerenceService from "../../Services/influencers.service";
-import configFront from "../../Constants/config";
+import configFront from "../../Constants/configFront";
 
 
 const EditInfluencer = () => {

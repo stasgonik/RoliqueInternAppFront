@@ -5,7 +5,7 @@ import Sidebar from '../Items/Sidebar/Sidebar'
 import InfluencersService from "../../Services/influencers.service";
 import Search from "../Items/Search/Search";
 import AuthService from "../../Services/auth.service";
-import configFront from "../../Constants/config";
+import configFront from "../../Constants/configFront";
 import path from '../Items/Icons/path.svg';
 import rightArrow from '../Items/Icons/right-arrow.svg';
 import photoDefault from '../Items/Icons/vector.svg';

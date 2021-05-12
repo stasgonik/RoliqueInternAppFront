@@ -1,11 +1,9 @@
-const config = {
+const configServer = {
     URL: 'http://localhost:5050/',
     access_token:'access_token',
     refresh_token: 'refresh_token',
     user_id: 'user_id',
     user_role: 'user_role',
-    edit_id: 'edit_id',
-    influencer_id: 'influencer_id',
     axios_config: {
         headers: {
             'Accept': 'application/json',
@@ -14,4 +12,4 @@ const config = {
         }
     }
 }
-export default config;
+export default configServer;

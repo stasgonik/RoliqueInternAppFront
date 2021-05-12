@@ -1,5 +1,5 @@
 import axiosInstance from "./tokenInterceptor";
-import config from '../Constants/configServer'
+import configServer from '../Constants/configServer'
 
 
 class _endpoint {
@@ -10,7 +10,7 @@ export default class InfluencersService {
 
     static async getInfluencers(queryReq) {
         try{
-            const result = await axiosInstance.get(`${config.URL}${_endpoint.Influencers}`,{
+            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Influencers}`,{
                 params: queryReq
             });
 
@@ -25,7 +25,7 @@ export default class InfluencersService {
 
     static async getSingleInfluencer(id, showPhotos = false) {
         try{
-            const result = await axiosInstance.get(`${config.URL}${_endpoint.Influencers}${id}`, {
+            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Influencers}${id}`, {
                 params: {
                     showPhotos
                 }
@@ -42,7 +42,7 @@ export default class InfluencersService {
 
     static async editInfluerence(body,id) {
         try{
-            const result = await axiosInstance.put(`${config.URL}${_endpoint.Influencers}${id}`, body);
+            const result = await axiosInstance.put(`${configServer.URL}${_endpoint.Influencers}${id}`, body);
 
             return result.data
         } catch (e) {
@@ -52,7 +52,7 @@ export default class InfluencersService {
 
     static async postInfluencer(body) {
         try{
-            const result = await axiosInstance.post(`${config.URL}${_endpoint.Influencers}`, body);
+            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.Influencers}`, body);
 
             return result.data
         } catch (e) {
