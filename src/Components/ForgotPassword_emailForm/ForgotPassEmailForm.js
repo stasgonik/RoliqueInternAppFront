@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import './forgotPassEmailForm.css'
+
 import EmailService from "../../Services/email.service";
-import {INFO} from '../../Constants/messages';
 import Error from "../Items/Messages/Messages";
+import './forgotPassEmailForm.css'
+import {INFO} from '../../Constants/messages';
 
 class ForgotPassEmailForm extends Component {
-
     state = {
         fields: {
             email: '',

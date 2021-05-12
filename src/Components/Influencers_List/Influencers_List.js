@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import classes from './Influencers_List.module.css';
-
-import Sidebar from '../Items/Sidebar/Sidebar'
-import InfluencersService from "../../Services/influencers.service";
-import Search from "../Items/Search/Search";
-import path from '../Items/Icons/path.svg';
-import rightArrow from '../Items/Icons/right-arrow.svg';
-import photoDefault from '../Items/Icons/vector.svg';
-import arrowUp from '../Items/Icons/arrow-up.svg'
-import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
-import instagramIcon from "../../img/Social_Icons/Instagram.svg";
-import facebookIcon from "../../img/Social_Icons/Facebook.svg";
-import youtubeIcon from "../../img/Social_Icons/Youtube.svg";
-import twitterIcon from "../../img/Social_Icons/Twitter.svg";
-import tikTokIcon from "../../img/Social_Icons/TikTok.svg";
-import blogSmall from "../../img/Social_Icons/Stories.svg";
 import {Link} from "react-router-dom";
 
+import arrowUp from '../Items/Icons/arrow-up.svg'
+import blogSmall from "../../img/Social_Icons/Stories.svg";
+import classes from './Influencers_List.module.css';
+import facebookIcon from "../../img/Social_Icons/Facebook.svg";
+import InfluencersService from "../../Services/influencers.service";
+import instagramIcon from "../../img/Social_Icons/Instagram.svg";
+import path from '../Items/Icons/path.svg';
+import photoDefault from '../Items/Icons/vector.svg';
+import rightArrow from '../Items/Icons/right-arrow.svg';
+import routes from "../../Constants/routes.enum";
+import Search from "../Items/Search/Search";
+import Sidebar from '../Items/Sidebar/Sidebar'
+import tikTokIcon from "../../img/Social_Icons/TikTok.svg";
+import twitterIcon from "../../img/Social_Icons/Twitter.svg";
+import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
+import youtubeIcon from "../../img/Social_Icons/Youtube.svg";
 
 const Influencers_List = () => {
 
@@ -34,37 +34,11 @@ const Influencers_List = () => {
         }
     })
 
-    // function capitalizeFirstLetter(string) {
-    //     return string[0].toUpperCase() + string.slice(1);
-    // }
-
-    // const searchName = async (e) => {
-    //     const value = e.target.value;
-    //     const resultFirstName = await userService.getUsers({first_name: value})
-    //     if (resultFirstName) {
-    //         const resultLastName = await userService.getUsers({last_name: value})
-    //         const one = [];
-    //         resultFirstName.forEach(user => {
-    //             one.push(user._id);
-    //         })
-    //         resultLastName.forEach(user => {
-    //             if (!one.includes(user._id)) {
-    //                 resultFirstName.push(user);
-    //             }
-    //         })
-    //     }
-    //     setValues(resultFirstName)
-    // }
-
     const searchName = async (e) => {
         const value = e.target.value;
         const search = await InfluencersService.getInfluencers({search: value})
         setValues(search);
     }
-
-    // const show = (item) => {
-    //     window.location.href  = configFront.URL + 'influencers/' + item._id
-    // }
 
     const socials = (item) => {
         const social = [];
@@ -73,7 +47,6 @@ const Influencers_List = () => {
                 social.push(profile.social_network_name)
             })
         }
-        // console.log(social)
         return social
     }
 
@@ -137,7 +110,7 @@ const Influencers_List = () => {
 
                                 <div></div>
 
-                                <Link to={`influencers/${item._id}`}>
+                                <Link to={`${routes.INFLUENCERS}/${item._id}`}>
                                     <div className={classes.tableBtn}>
                                         <div className={classes.Test}>
                                             <div className={classes.btnPosition}>

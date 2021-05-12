@@ -1,12 +1,17 @@
-import configServer from '../Constants/configServer'
-import configFront from "../Constants/configFront";
 import axios from 'axios';
+
+import configFront from "../Constants/configFront";
+import configServer from '../Constants/configServer'
+
+class _endpoint {
+    static refresh = 'auth/refresh';
+}
 
 const axiosInstance = axios.create({
     baseURL: configServer.URL,
     timeout: 10000,
     headers: {
-        'Authorization': localStorage.getItem(configServer.access_token) ? localStorage.getItem(configServer.access_token) : null,
+        [configServer.AUTHORIZATION]: localStorage.getItem(configServer.access_token) ? localStorage.getItem(configServer.access_token) : null,
         'Content-Type': 'application/json',
         'accept': 'application/json'
     }
@@ -20,8 +25,8 @@ axiosInstance.interceptors.response.use(
         const originalRequest = error.config;
 
         // Prevent infinite loops
-        if (error.response.status === 401 && (originalRequest.url === 'auth/refresh/'
-            || originalRequest.url === originalRequest.url + 'auth/refresh/')) {
+        if (error.response.status === 401 && (originalRequest.url === `${_endpoint.refresh}`
+            || originalRequest.url === originalRequest.url + `${_endpoint.refresh}`)) {
             window.location.href = configFront.URL;
             return Promise.reject(error);
         }
@@ -38,9 +43,9 @@ axiosInstance.interceptors.response.use(
                 const now = Math.ceil(Date.now() / 1000);
 
                 if (tokenParts.exp > now) {
-                    axiosInstance.defaults.headers['Authorization'] = refreshToken;
+                    axiosInstance.defaults.headers[configServer.AUTHORIZATION] = refreshToken;
                     return axiosInstance
-                        .post('auth/refresh/', {})
+                        .post(`${_endpoint.refresh}`, {})
                         .then((response) => {
 
                             localStorage.setItem(configServer.access_token, response.data.access_token);
@@ -48,8 +53,8 @@ axiosInstance.interceptors.response.use(
                             localStorage.setItem(configServer.user_role, response.data.user_role);
                             localStorage.setItem(configServer.user_id, response.data.user_id);
 
-                            axiosInstance.defaults.headers['Authorization'] = response.data.access_token;
-                            originalRequest.headers['Authorization'] = response.data.access_token;
+                            axiosInstance.defaults.headers[configServer.AUTHORIZATION] = response.data.access_token;
+                            originalRequest.headers[configServer.AUTHORIZATION] = response.data.access_token;
 
                             return axiosInstance(originalRequest);
                         })
@@ -69,9 +74,6 @@ axiosInstance.interceptors.response.use(
                 window.location.href = configFront.URL;
             }
         }
-
-
-        // specific error handling done elsewhere
         throw error.response
     }
 );

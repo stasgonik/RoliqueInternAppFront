@@ -1,30 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import classes from './InfluencerDetails.module.css';
 import {
 	useParams
 } from "react-router-dom";
-import Sidebar from '../Items/Sidebar/Sidebar'
+
+import arrowUp from '../Items/Icons/arrow-up.svg'
+import blog from '../Items/Icons/blog.svg';
+import classes from './InfluencerDetails.module.css';
+import edit from '../Items/Icons/edit-alt.svg';
+import facebook from '../Items/Icons/facebook.svg';
 import InfluencersService from "../../Services/influencers.service";
+import instagram from '../Items/Icons/instagram.svg';
+import Sidebar from '../Items/Sidebar/Sidebar'
+import tiktok from '../Items/Icons/tiktok.svg';
+import twitter from '../Items/Icons/twitter.svg';
+import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
+import youtube from '../Items/Icons/youtube.svg';
+
 // import Search from "../Items/Search/Search";
 // import path from '../Items/Icons/path.svg';
 // import rightArrow from '../Items/Icons/right-arrow.svg';
 // import photoDefault from '../Items/Icons/vector.svg';
-import arrowUp from '../Items/Icons/arrow-up.svg'
-import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
-import instagram from '../Items/Icons/instagram.svg';
-import youtube from '../Items/Icons/youtube.svg';
-import facebook from '../Items/Icons/facebook.svg';
-import tiktok from '../Items/Icons/tiktok.svg';
-import blog from '../Items/Icons/blog.svg';
-import twitter from '../Items/Icons/twitter.svg';
-import edit from '../Items/Icons/edit-alt.svg';
 
 const InfluencerDetails = () => {
 	const { influencerId } = useParams();
 
 	const [values, setValues] = useState({});
 	const [initial, setInitial] = useState(true);
-
 
 	useEffect(() => {
 		async function Start() {
@@ -43,7 +44,6 @@ const InfluencerDetails = () => {
 				console.log(newDate)
 				setValues({...initialState, birthdate: newDate.split('-').reverse().join('-')})
 			}
-
 		}
 
 		if (initial) {
@@ -64,12 +64,9 @@ const InfluencerDetails = () => {
 							 titleBtnEdit={'Edit'}
 							 EditInf={classes.EditInf}
 							 icon={{background: `url(${edit}) no-repeat`, backgroundPosition: 'left 8px top 8px'}}
-
 			/>
 
-
 			<div className={classes.infoContainer}>
-
 				<section className={classes.rightBox}>
 					<img src={values.profile_picture} alt="avatar"/>
 				</section>

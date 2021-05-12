@@ -1,13 +1,11 @@
 import axiosInstance from "./tokenInterceptor";
 import configServer from '../Constants/configServer'
 
-
 class _endpoint {
     static Influencers = 'influencers/';
 }
 
 export default class InfluencersService {
-
     static async getInfluencers(queryReq) {
         try{
             const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Influencers}`,{

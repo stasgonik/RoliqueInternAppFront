@@ -3,21 +3,21 @@ import {
     useParams
 } from "react-router-dom";
 
+import authService from '../../Services/auth.service';
 import classes from './EditInternalUser.module.css';
-import info from '../Items/Icons/info-button.svg';
-import Tooltip from '../Items/Tooltip/Tooltip'
-import {INFO} from '../../Constants/messages';
+import configFront from "../../Constants/configFront";
 import Dropdown from '../Items/Dropdown/Dropdown';
 import Header from '../Items/Header/Header';
-import Sidebar from '../Items/Sidebar/Sidebar'
+import info from '../Items/Icons/info-button.svg';
+import {INFO} from '../../Constants/messages';
 import leftArrow from '../Items/Icons/arrow-left.svg';
-// import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
-import userService from "../../Services/userService";
-import authService from '../../Services/auth.service';
-// import configServer from '../../Constants/configServer'
+import routes from "../../Constants/routes.enum";
+import Sidebar from '../Items/Sidebar/Sidebar'
+import Tooltip from '../Items/Tooltip/Tooltip'
 import topArrow from "../Items/Icons/top-arrow-black.svg";
-import configFront from "../../Constants/configFront";
+import userService from "../../Services/userService";
 
+// import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 
 let role = [
     {value: 'admin', label: 'Admin'},
@@ -43,13 +43,13 @@ function setRoles() {
 
 const EditUser = () => {
     setRoles()
-    const { userId } = useParams();
-    if(!userId) {
-        window.location.href  = configFront.URL + 'users'
+    const params = useParams();
+    if(!params[routes.USER_ID]) {
+        window.location.href  = configFront.URL + `${routes.USERS}`
     }
 
     const [user, setUser] = useState(async () => {
-        const initialState = await userService.getSingleUsers(userId)
+        const initialState = await userService.getSingleUser(params[routes.USER_ID])
         if(initialState) {
             setUser({
                 first_name: initialState.first_name,
@@ -61,7 +61,6 @@ const EditUser = () => {
             })
         }
     });
-
 
     const fileInput = useRef(null);
     const [values, setValues] = useState({});
@@ -95,10 +94,10 @@ const EditUser = () => {
             formData.append(value, values[value])
         }
 
-        const result = await userService.editUser(formData, userId);
+        const result = await userService.editUser(formData, params[routes.USER_ID]);
         if (result) {
             if (result.status === 200) {
-                window.location.href = configFront.URL + 'users'
+                window.location.href = configFront.URL + `${routes.USERS}`
             }
         }
     }
@@ -106,7 +105,6 @@ const EditUser = () => {
     const path = user.profile_picture;
 
     return (
-
         <form name={'myForm'} className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
             <Sidebar/>
             <Header name={'Edit'}
@@ -173,7 +171,6 @@ const EditUser = () => {
 
                 </section>
 
-
                 <section className={classes.rightContainer}>
                     <div className={classes.role}>
 
@@ -198,9 +195,7 @@ const EditUser = () => {
                            name='password'
                            //pattern={PASSWORD_REGEXP}
                            onChange={(e) => handleChange(e)}/>
-
                 </section>
-
             </div>
         </form>
     )

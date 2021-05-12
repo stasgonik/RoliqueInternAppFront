@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 
+import arrowUp from '../Items/Icons/arrow-up.svg';
+import AuthService from "../../Services/auth.service";
 import classes from './UsersList.module.css';
+import path from '../Items/Icons/path.svg';
+import photoDefault from '../Items/Icons/vector.svg';
+import rightArrow from '../Items/Icons/right-arrow.svg';
+import routes from "../../Constants/routes.enum";
 import Sidebar from '../Items/Sidebar/Sidebar'
 import Search from "../Items/Search/Search";
-import userService from "../../Services/userService";
-import AuthService from "../../Services/auth.service";
-import path from '../Items/Icons/path.svg';
-import rightArrow from '../Items/Icons/right-arrow.svg';
-import photoDefault from '../Items/Icons/vector.svg';
-import arrowUp from '../Items/Icons/arrow-up.svg';
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
+import userService from "../../Services/userService";
 
 const UsersList = () => {
 
@@ -33,33 +34,11 @@ const UsersList = () => {
         return string[0].toUpperCase() + string.slice(1);
     }
 
-    // const searchName = async (e) => {
-    // 	const value = e.target.value;
-    // 	const resultFirstName = await userService.getUsers({first_name: value})
-    // 	if (resultFirstName) {
-    // 		const resultLastName = await userService.getUsers({last_name: value})
-    // 		const one = [];
-    // 		resultFirstName.forEach(user => {
-    // 			one.push(user._id);
-    // 		})
-    // 		resultLastName.forEach(user => {
-    // 			if (!one.includes(user._id)) {
-    // 				resultFirstName.push(user);
-    // 			}
-    // 		})
-    // 	}
-    // 	setValues(resultFirstName)
-    // }
-
     const searchName = async (e) => {
         const value = e.target.value;
         const search = await userService.getUsers({search: value})
         setValues(search);
     }
-
-    // const edit = (item) => {
-    // 	window.location.href = configFront.URL + 'users/' + item._id + "/edit"
-    // }
 
     return (
 
@@ -108,7 +87,7 @@ const UsersList = () => {
                                 </div>
 
                                 <div>{(AuthService.getUserRole() === 'admin') ?
-                                    <Link to={`users/${item._id}/edit`}>
+                                    <Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
                                         <div className={classes.tableBtn}>
                                             <div className={classes.Test}>
                                                 <div className={classes.btnPosition}>
@@ -124,7 +103,7 @@ const UsersList = () => {
                                     </Link>
                                     : ''}</div>
                                 {(AuthService.getUserRole() === 'manager') && (item.role === 'manager' || item.role === 'employee') ?
-                                    <Link to={`users/${item._id}/edit`}>
+                                    <Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
                                         <div className={classes.tableBtn}>
                                             <div className={classes.Test}>
                                                 <div className={classes.btnPosition}>
@@ -141,7 +120,7 @@ const UsersList = () => {
                                     : ''}
 
                                 {(AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === item._id) ?
-                                    <Link to={`users/${item._id}/edit`}>
+                                    <Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
                                         <div className={classes.tableBtn}>
                                             <div className={classes.Test}>
                                                 <div className={classes.btnPosition}>

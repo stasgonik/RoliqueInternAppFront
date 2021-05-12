@@ -1,12 +1,12 @@
 import React, {useRef, useState} from 'react';
-import classes from './CreateInfluencer.module.css';
-import Tooltip from '../Items/Tooltip/Tooltip'
-import {INFO} from '../../Constants/messages';
-import Header from '../Items/Header/Header';
-import Sidebar from '../Items/Sidebar/Sidebar'
-import leftArrow from '../Items/Icons/arrow-left.svg';
-import influencersService from "../../Services/influencers.service";
 
+import classes from './CreateInfluencer.module.css';
+import Header from '../Items/Header/Header';
+import influencersService from "../../Services/influencers.service";
+import {INFO} from '../../Constants/messages';
+import leftArrow from '../Items/Icons/arrow-left.svg';
+import Sidebar from '../Items/Sidebar/Sidebar'
+import Tooltip from '../Items/Tooltip/Tooltip'
 
 const CreateInfluencer = () => {
     const fileInput = useRef(null);
@@ -22,7 +22,6 @@ const CreateInfluencer = () => {
     const twitter_followers = useRef(null);
     const blog_profile = useRef(null);
     const blog_followers = useRef(null);
-
 
     const ref = {
         instagram_followers,
@@ -51,6 +50,7 @@ const CreateInfluencer = () => {
         const strArr = e.target.name.split('_')
         const socialName = strArr.shift()
         const target = strArr.pop();
+
         if (target === 'profile') {
             const inputFollower = socialName + '_followers'
             const input = ref[inputFollower]
@@ -62,9 +62,9 @@ const CreateInfluencer = () => {
                 input.current.required = true
             } else {
                 input.current.style.borderColor = ''
-
             }
         }
+
         if (target === 'followers') {
             const inputProfile = socialName + '_profile'
             const input = ref[inputProfile]
@@ -78,18 +78,19 @@ const CreateInfluencer = () => {
                 input.current.style.borderColor = ''
             }
         }
+
         if (value.length < 1) {
             delete values[e.target.name]
             setValues({...values});
             return
         }
+
         setValues({...values, [e.target.name]: value});
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
     }
-
 
     const selected = (e) => {
         let img = e.target.files[0];
@@ -98,6 +99,7 @@ const CreateInfluencer = () => {
             setValues({...values});
             return
         }
+
         img.preview = URL.createObjectURL(img)
         setValues({...values, [e.target.name]: img})
     }
@@ -110,6 +112,7 @@ const CreateInfluencer = () => {
                 arr.push(datum)
             }
         }
+
         if (arr.length % 2 === 0) {
             setStatus(1)
         } else if (arr.length % 2 !== 0) {
@@ -117,14 +120,13 @@ const CreateInfluencer = () => {
         } else {
             setStatus(0)
         }
+
         console.log(arr)
         console.log(status)
-        // console.log(!status)
     }
 
     const saveChanges = async () => {
         const formData = new FormData();
-        // console.log(values)
         const arr = []
         for (const value in values) {
             arr.push(values[value])
@@ -136,9 +138,7 @@ const CreateInfluencer = () => {
         }
     }
 
-
     return (
-
         <form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
             <Sidebar/>
             <Header name={'Create'} titleHeader={classes.title}
@@ -151,7 +151,6 @@ const CreateInfluencer = () => {
             <div className={classes.mainContainer}>
                 <section className={classes.leftContainer}>
                     <h3 className={classes.general}>General</h3>
-
                     <label className={classes.input_title}>First Name</label>
                     <input className={classes.input_info_left}
                            type='text'
@@ -160,7 +159,6 @@ const CreateInfluencer = () => {
                            required={true}
                            onChange={(e) => handleChange(e)}
                     />
-
                     <label className={classes.input_title}>Last Name</label>
                     <input className={classes.input_info_left}
                            type='text'
@@ -168,8 +166,6 @@ const CreateInfluencer = () => {
                            required={true}
                         // pattern={FIRST_LAST_NAME_REGEXP}
                            onChange={(e) => handleChange(e)}/>
-
-
                     <label className={classes.input_title}>Birthdate</label>
                     <input className={classes.input_info_left}
                            type='date'
@@ -177,14 +173,12 @@ const CreateInfluencer = () => {
                            name='birthdate'
                            placeholder={''}
                            onChange={(e) => handleChange(e)}/>
-
                     <label className={classes.input_title}>Profession</label>
                     <input className={`${classes.input_info_left}`}
                            type='text'
                            name='profession'
                            required={true}
                            onChange={(e) => handleChange(e)}/>
-
                     <p className={classes.profile}>Profile Picture</p>
                     <input type='file'
                            name='avatar'
@@ -199,11 +193,9 @@ const CreateInfluencer = () => {
                             borderRadius: 50
                         }} alt={'alt'}/> : '+'}
                     </button>
-
                 </section>
 
                 <section className={classes.rightContainer}>
-
                     <div className={`${classes.div_helper}`}>
                         <h3 className={classes.rightContainer_title}>Social Profiles</h3>
                         <div className={classes.tooltip}>
@@ -288,7 +280,6 @@ const CreateInfluencer = () => {
                                ref={blog_followers}
                                onChange={(e) => handleChange(e)}/>
                     </div>
-
                 </section>
             </div>
         </form>

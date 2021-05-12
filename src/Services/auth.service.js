@@ -1,6 +1,6 @@
-import configServer from '../Constants/configServer'
 import axiosInstance from "./tokenInterceptor";
 import configFront from "../Constants/configFront";
+import configServer from '../Constants/configServer'
 
 class _endpoint {
     static login = 'auth/';
@@ -8,7 +8,6 @@ class _endpoint {
 }
 
 export default class AuthService {
-
     static async login(body) {
         try {
             const result = await axiosInstance.post(`${configServer.URL}${_endpoint.login}`, body)
@@ -83,5 +82,4 @@ export default class AuthService {
         this.setUserId(user_id);
         this.setUserRole(user_role);
     }
-
 }

@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
-import './login.css'
-import authService from '../../Services/auth.service'
-import {NavLink, withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
+import React, {Component} from 'react';
+import {NavLink, withRouter} from "react-router-dom";
+
+import authService from '../../Services/auth.service'
+import './login.css'
 import Error from '../Items/Messages/Messages';
 import {INFO} from '../../Constants/messages'
+import routes from "../../Constants/routes.enum";
 
 
 class Login extends Component {
@@ -70,7 +72,7 @@ class Login extends Component {
 			if (this.handleValidation()) {
 				const login = await authService.login(body);
 				if (login.status === 200) {
-					this.props.history.push('/users')
+					this.props.history.push(`/${routes.USERS}`)
 					return
 				}
 				if (login.status === 400) {
@@ -127,7 +129,7 @@ class Login extends Component {
 						<button className="button">Log In</button>
 					</div>
 
-					<NavLink to={'/forgotPassword/emailForm/'}>
+					<NavLink to={`/${routes.FORGOT_PASSWORD}/${routes.EMAIL_FORM}`}>
 						<p className='login-form-spam blue'>You forgot your password? Click here!</p>
 					</NavLink>
 				</form>

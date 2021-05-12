@@ -2,20 +2,21 @@ import React, {useRef, useState} from 'react';
 import {
     useParams
 } from "react-router-dom";
-import classes from './EditInfluencer.module.css';
-import Tooltip from '../Items/Tooltip/Tooltip'
-import {INFO} from '../../Constants/messages';
-import Header from '../Items/Header/Header';
-import Sidebar from '../Items/Sidebar/Sidebar'
-import leftArrow from '../Items/Icons/arrow-left.svg';
-import influerenceService from "../../Services/influencers.service";
-import configFront from "../../Constants/configFront";
 
+import classes from './EditInfluencer.module.css';
+import configFront from "../../Constants/configFront";
+import Header from '../Items/Header/Header';
+import influerenceService from "../../Services/influencers.service";
+import {INFO} from '../../Constants/messages';
+import leftArrow from '../Items/Icons/arrow-left.svg';
+import routes from "../../Constants/routes.enum";
+import Sidebar from '../Items/Sidebar/Sidebar'
+import Tooltip from '../Items/Tooltip/Tooltip'
 
 const EditInfluencer = () => {
-    const { influencerId } = useParams();
-    if(!influencerId) {
-        window.location.href  = configFront.URL + 'influencers'
+    const params = useParams();
+    if(!params[routes.INFLUENCER_ID]) {
+        window.location.href  = configFront.URL + `${routes.INFLUENCERS}`
     }
 
     const fileInput = useRef(null);
@@ -49,7 +50,7 @@ const EditInfluencer = () => {
     }
 
     const [values, setValues] = useState(async () => {
-        const initialState = await influerenceService.getSingleInfluencer(influencerId)
+        const initialState = await influerenceService.getSingleInfluencer(params[routes.INFLUENCER_ID])
         const socialInfo = {};
         for (const social of initialState.social_profiles) {
             const network_name = `${social.social_network_name}_profile`
@@ -57,6 +58,7 @@ const EditInfluencer = () => {
             socialInfo[network_name] = social.social_network_profile;
             socialInfo[network_follower] = social.social_network_followers.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
         }
+
         setValues({
             first_name: initialState.first_name,
             last_name: initialState.last_name,
@@ -70,7 +72,6 @@ const EditInfluencer = () => {
     const [status, setStatus] = useState(false);
     const [edit, setEdit] = useState({});
 
-
     const handleChange = (e) => {
         let value = e.target.value;
         setStatus(true)
@@ -83,12 +84,14 @@ const EditInfluencer = () => {
             const inputFocus = ref[e.target.name]
             inputFocus.current.style.borderColor = ''
             inputFocus.current.required = false
+
             if (!input.current.value) {
                 input.current.style.borderColor = 'red'
                 input.current.required = true
             } else {
                 input.current.style.borderColor = ''
             }
+
             if (value === '') {
                 if (input.current.value === '') {
                     inputFocus.current.style.borderColor = ''
@@ -100,8 +103,8 @@ const EditInfluencer = () => {
                     inputFocus.current.required = true
                 }
             }
-
         }
+
         if (target === 'followers') {
             const inputProfile = socialName + '_profile'
             const input = ref[inputProfile]
@@ -109,12 +112,14 @@ const EditInfluencer = () => {
             value = value.toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
             inputFocus.current.style.borderColor = ''
             inputFocus.current.required = false
+
             if (!input.current.value) {
                 input.current.style.borderColor = 'red'
                 input.current.required = true
             } else {
                 input.current.style.borderColor = ''
             }
+
             if (value === '') {
                 if (input.current.value === '') {
                     inputFocus.current.style.borderColor = ''
@@ -134,7 +139,6 @@ const EditInfluencer = () => {
         e.preventDefault()
     }
 
-
     const selected = (e) => {
         let img = e.target.files[0];
         if(img) {
@@ -142,9 +146,7 @@ const EditInfluencer = () => {
             img.preview = URL.createObjectURL(img)
             setEdit({...edit, profile_picture: img})
         }
-
     }
-
 
     const saveChanges = async () => {
         const formData = new FormData();
@@ -153,6 +155,7 @@ const EditInfluencer = () => {
         if(edit.profile_picture) {
             pp = edit.profile_picture;
         }
+
         for (const value in edit) {
             if (value.includes('followers')) {
                 edit[value] = edit[value].split('.').join('')
@@ -162,23 +165,20 @@ const EditInfluencer = () => {
             if (edit[value] === '') {
                 edit[value] = null
             }
+
             formData.append(value, edit[value])
             if (edit[value]) {
                 edit[value] = edit[value].toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
             }
-
         }
 
-        console.log(edit);
         if (status && edit) {
-            console.log(edit);
             if (pp) {
                 formData.set('profile_picture', pp, 'avatar.jpg')
             }
-            await influerenceService.editInfluerence(formData, influencerId)
+            await influerenceService.editInfluerence(formData, params[routes.INFLUENCER_ID])
         }
     }
-
 
     return (
         <form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
@@ -250,11 +250,9 @@ const EditInfluencer = () => {
                                 borderRadius: 50,
                             }} alt={'alt'}/> : '+'}
                     </button>
-
                 </section>
 
                 <section className={classes.rightContainer}>
-
                     <div className={`${classes.div_helper}`}>
                         <h3 className={classes.rightContainer_title}>Social Profiles</h3>
                         <div className={classes.tooltip}>
@@ -282,7 +280,6 @@ const EditInfluencer = () => {
                                defaultValue={values.facebook_profile && values.facebook_profile}
                                ref={facebook_profile}
                                onChange={(e) => handleChange(e)}/>
-
                         <label className={`${classes.input_title}`}>Tiktok</label>
                         <input className={`${classes.input_info}`}
                                type='text'
@@ -329,7 +326,6 @@ const EditInfluencer = () => {
                                ref={facebook_followers}
                                value={edit.facebook_followers ? edit.facebook_followers : edit.facebook_followers === '' ? edit.facebook_followers : values.facebook_followers}
                                onChange={(e) => handleChange(e)}/>
-
                         <label className={`${classes.input_title}`}>Tiktok Followers</label>
                         <input className={`${classes.input_info}`}
                                type='text'
@@ -352,7 +348,6 @@ const EditInfluencer = () => {
                                value={edit.blog_followers ? edit.blog_followers : edit.blog_followers === '' ? edit.blog_followers : values.blog_followers}
                                onChange={(e) => handleChange(e)}/>
                     </div>
-
                 </section>
             </div>
         </form>

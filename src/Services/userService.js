@@ -1,14 +1,12 @@
 import axiosInstance from "./tokenInterceptor";
 import configServer from '../Constants/configServer'
 
-
 class _endpoint {
     static Users = 'users/';
     static ChangePassword = 'users/forgotPassword/';
 }
 
 export default class UserService {
-
     static async getUsers(queryReq) {
         try{
             const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Users}`,{
@@ -23,7 +21,8 @@ export default class UserService {
             return e
         }
     }
-    static async getSingleUsers(id) {
+
+    static async getSingleUser(id) {
         try{
             const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Users}${id}`);
 

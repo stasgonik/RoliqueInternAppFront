@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import './forgotPassForm.css'
-import configFront from "../../Constants/configFront";
-import userService from "../../Services/userService";
-// import {NavLink} from "react-router-dom";
-import {INFO} from "../../Constants/messages";
-import Error from "../Items/Messages/Messages";
 
+import configFront from "../../Constants/configFront";
+import Error from "../Items/Messages/Messages";
+import './forgotPassForm.css'
+import {INFO} from "../../Constants/messages";
+import userService from "../../Services/userService";
 
 class ForgotPassForm extends Component {
 
@@ -15,7 +14,7 @@ class ForgotPassForm extends Component {
             confirmPassword: ''
         },
         errors: '',
-        type: 'input',
+        type: 'password',
         token: '',
     };
 

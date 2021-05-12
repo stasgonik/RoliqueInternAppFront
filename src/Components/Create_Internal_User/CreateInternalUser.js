@@ -1,21 +1,20 @@
 import React, {useRef, useState} from 'react';
-import classes from './CreateInternalUser.module.css';
 
-import Tooltip from '../Items/Tooltip/Tooltip'
+import AuthService from "../../Services/auth.service";
+import classes from './CreateInternalUser.module.css';
+import configFront from "../../Constants/configFront";
 import Dropdown from '../Items/Dropdown/Dropdown';
 import Header from '../Items/Header/Header';
-import Sidebar from '../Items/Sidebar/Sidebar';
-
-import userService from "../../Services/userService";
-import AuthService from "../../Services/auth.service";
 import info from '../Items/Icons/info-button.svg';
-import leftArrow from '../Items/Icons/arrow-left.svg';
-import topArrow from '../Items/Icons/top-arrow-black.svg';
-// import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 import {INFO} from '../../Constants/messages';
-// import Error from "../Items/Messages/Messages";
-import configFront from "../../Constants/configFront";
+import leftArrow from '../Items/Icons/arrow-left.svg';
+import routes from "../../Constants/routes.enum";
+import Sidebar from '../Items/Sidebar/Sidebar';
+import Tooltip from '../Items/Tooltip/Tooltip'
+import topArrow from '../Items/Icons/top-arrow-black.svg';
+import userService from "../../Services/userService";
 
+// import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 
 let role = [
 	{value: 'admin', label: 'Admin'},
@@ -87,8 +86,6 @@ const User = () => {
 		}
 		img.preview = URL.createObjectURL(img)
 		setValues({...values, [e.target.name]: img})
-		console.log(img)
-		console.log(values)
 	}
 
 	const handleValidation = () => {
@@ -163,7 +160,6 @@ const User = () => {
 			}
 		}
 
-
 		setErrors(errors);
 		return formIsValid;
 	}
@@ -173,21 +169,26 @@ const User = () => {
 		if (!values["phone"].length) {
 			delete values["phone"]
 		}
+
 		if (values["avatar"] === "") {
 			delete values["avatar"]
 		}
+
 		for (const value in values) {
 			formData.append(value, values[value])
 		}
+
 		let av = values["avatar"] ? values['avatar'] : "";
 		setValues({...values, phone: '', avatar: av})
+
 		if (handleValidation()) {
 			const result = await userService.postUsers(formData);
 			if (result) {
 				if (result.status === 200) {
-					window.location.href = configFront.URL + 'users';
+					window.location.href = configFront.URL + `${routes.USERS}`;
 					return
 				}
+
 				let errors = {
 					avatar: '',
 					first_name: '',
@@ -197,10 +198,12 @@ const User = () => {
 					role: '',
 					password: '',
 				};
+
 				if (result.status === 403) {
-					window.location.href = configFront.URL + 'users';
+					window.location.href = configFront.URL + `${routes.USERS}`;
 					return
 				}
+
 				if (typeof result.data !== "undefined") {
 					if (result.data.customCode === 4000) {
 						errors["email"] = INFO.DATA_INCORRECT
@@ -218,22 +221,22 @@ const User = () => {
 						return
 					}
 				}
+
 				if (result.status === 500) {
 					errors["email"] = INFO.SERVER_ERROR
 					setErrors(errors);
 					console.log(result);
 					return
 				}
+
 				errors["email"] = INFO.UNKNOWN_ERROR
 				setErrors(errors);
 				console.log(result);
 			}
 		}
-		// console.log(formData)
 	}
 
 	return (
-
 		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
 			<Sidebar/>
 			<Header name={'Create'} titleHeader={classes.title}
@@ -312,7 +315,6 @@ const User = () => {
 						<div className={classes.errorDiv}>{errors.phone}</div> : ''}
 
 				</section>
-
 				<section className={classes.rightContainer}>
 					<div className={classes.role}>
 
@@ -322,7 +324,6 @@ const User = () => {
 							<Tooltip align='center' Arrow={topArrow} text={INFO.message}/>
 						</div>
 					</div>
-
 					<label className={classes.input_title}>Role</label>
 					<Dropdown required
 							  options={role}
