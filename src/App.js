@@ -29,7 +29,7 @@ export default function App(props) {
                 <Route path={`/${routes.FORGOT_PASSWORD}/${routes.CHANGE_PASSWORD}`} exact {...props} component={ForgotPassForm}/>
                 <Route path={`/${routes.INFLUENCERS}`} exact {...props} component={Influencers_List}/>
                 <Route path={`/${routes.INFLUENCERS}/${routes.CREATE}`} exact {...props}  component={CreateInfluencer}/>
-                <Route path={`/${routes.INFLUENCERS}/:${routes.INFLUENCER_ID}`} {...props} component={InfluencerDetails}/>
+                <Route path={`/${routes.INFLUENCERS}/:${routes.INFLUENCER_ID}`} exact {...props} component={InfluencerDetails}/>
                 <Route path={`/${routes.INFLUENCERS}/:${routes.INFLUENCER_ID}/${routes.EDIT}`} exact {...props} component={EditInfluencer}/>
             </Switch>
         </Router>
