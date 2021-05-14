@@ -280,7 +280,7 @@ const EditUser = () => {
 						   name='first_name'
 						//pattern={FIRST_LAST_NAME_REGEXP}
 						   defaultValue={user.first_name}
-						   onChange={(e) => handleChange(e)}
+						   onInput={(e) => handleChange(e)}
 					/>
 					{errors.first_name && errors.first_name.length ?
 						<div className={classes.errorDiv}>{errors.first_name}</div> : ''}
@@ -291,7 +291,7 @@ const EditUser = () => {
 						   name='last_name'
 						   defaultValue={user.last_name}
 						//pattern={FIRST_LAST_NAME_REGEXP}
-						   onChange={(e) => handleChange(e)}/>
+						   onInput={(e) => handleChange(e)}/>
 					{errors.last_name && errors.last_name.length ?
 						<div className={classes.errorDiv}>{errors.last_name}</div> : ''}
 
@@ -301,7 +301,7 @@ const EditUser = () => {
 						   name='email'
 						   defaultValue={user.email}
 						//pattern={EMAIL_REGEXP}
-						   onChange={(e) => handleChange(e)}/>
+						   onInput={(e) => handleChange(e)}/>
 
 					{errors.email && errors.email.length ?
 						<div className={classes.errorDiv}>{errors.email}</div> : ''}
@@ -312,7 +312,7 @@ const EditUser = () => {
 						   name='phone'
 						   defaultValue={user.phone}
 						//pattern={PHONE_REGEXP}
-						   onChange={(e) => handleChange(e)}/>
+						   onInput={(e) => handleChange(e)}/>
 
 					{errors.phone && errors.phone.length ?
 						<div className={classes.errorDiv}>{errors.phone}</div> : ''}
@@ -342,7 +342,7 @@ const EditUser = () => {
 						   type='text'
 						   name='password'
 						//pattern={PASSWORD_REGEXP}
-						   onChange={(e) => handleChange(e)}/>
+						   onInput={(e) => handleChange(e)}/>
 
 					{errors.password && errors.password.length ?
 						<div className={classes.errorDiv}>{errors.password}</div> : ''}
