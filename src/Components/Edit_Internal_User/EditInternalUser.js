@@ -17,6 +17,7 @@ import Tooltip from '../Items/Tooltip/Tooltip'
 import topArrow from "../Items/Icons/top-arrow-black.svg";
 import userService from "../../Services/userService";
 import regexp from "../../Constants/regexp.enum";
+import loading from "../../img/Loading.gif";
 
 // import {EMAIL_REGEXP, FIRST_LAST_NAME_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../Constants/regexp.enum';
 
@@ -43,6 +44,8 @@ function setRoles() {
 }
 
 const EditUser = () => {
+	const [isSending, setIsSending] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	setRoles()
 	const params = useParams();
 	if (!params[routes.USER_ID]) {
@@ -50,6 +53,7 @@ const EditUser = () => {
 	}
 
 	const [user, setUser] = useState(async () => {
+		setIsLoading(true)
 		const initialState = await userService.getSingleUser(params[routes.USER_ID])
 		if (initialState) {
 			setUser({
@@ -61,6 +65,7 @@ const EditUser = () => {
 				profile_picture: initialState.profile_picture
 			})
 		}
+		setIsLoading(false)
 	});
 
 	const fileInput = useRef(null);
@@ -144,6 +149,9 @@ const EditUser = () => {
 		}
 
 		setErrors(errors);
+		if (!formIsValid) {
+			setIsSending(false)
+		}
 		return formIsValid;
 	}
 
@@ -172,6 +180,7 @@ const EditUser = () => {
 	}
 
 	const saveChanges = async () => {
+		setIsSending(true)
 		const formData = new FormData();
 		for (const value in values) {
 			formData.append(value, values[value])
@@ -187,6 +196,7 @@ const EditUser = () => {
 		if (handleValidation()) {
 			const result = await userService.editUser(formData, params[routes.USER_ID]);
 			if (result) {
+				setIsSending(true)
 				if (result.status === 200) {
 					window.location.href = configFront.URL + `${routes.USERS}`;
 				}
@@ -248,109 +258,118 @@ const EditUser = () => {
 			<Header name={'Edit'}
 					titleHeader={classes.title}
 					title='Edit User'
-					titleBtn='Save Changes'
+					titleBtn={isSending? "Sending" : 'Save Changes'}
 					leftArrow={leftArrow}
-					btnHeader={classes.btnHeader}
-					button={(e) => saveChanges(e)}/>
-			<div className={classes.mainContainer}>
-				<section className={classes.leftContainer}>
-					<h3 className={classes.general}>General</h3>
-					<p className={classes.profile}>Profile Picture</p>
-					<input type='file'
-						   name='profile_picture'
-						   style={{display: 'none'}}
-						   onChange={(e) => selected(e)}
-						   ref={fileInput}
-					/>
-					{/*{config.URL + user.profile_picture}*/}
-					<button className={classes.avatar} onClick={() => fileInput.current.click()}>
-						{!user.profile_pictures ? <img
-							src={typeof user.profile_picture === 'object' ? user.profile_picture.preview : `${path}`}
-							style={{
-								width: 64,
-								height: 64,
-								borderRadius: 50,
-							}} alt={'alt'}/> : '+'}
-					</button>
+					btnHeader={isSending? classes.btnHeaderDisabled : classes.btnHeader}
+					button={(e) => saveChanges(e)}
+					isSending={isSending}
+			/>
+			{isLoading?
+				<div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
+					<img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
+					<p>Please wait...</p>
+				</div>
+				: <div className={classes.mainContainer}>
+					<section className={classes.leftContainer}>
+						<h3 className={classes.general}>General</h3>
+						<p className={classes.profile}>Profile Picture</p>
+						<input type='file'
+							   name='profile_picture'
+							   style={{display: 'none'}}
+							   onChange={(e) => selected(e)}
+							   ref={fileInput}
+						/>
+						{/*{config.URL + user.profile_picture}*/}
+						<button className={classes.avatar} onClick={() => fileInput.current.click()}>
+							{!user.profile_pictures ? <img
+								src={typeof user.profile_picture === 'object' ? user.profile_picture.preview : `${path}`}
+								style={{
+									width: 64,
+									height: 64,
+									borderRadius: 50,
+								}} alt={'alt'}/> : '+'}
+						</button>
 
-					{errors.avatar && errors.avatar.length ?
-						<div className={classes.errorDiv}>{errors.avatar}</div> : ''}
+						{errors.avatar && errors.avatar.length ?
+							<div className={classes.errorDiv}>{errors.avatar}</div> : ''}
 
-					<label className={classes.input_title}>First Name</label>
-					<input className={classes.input_info}
-						   type='text'
-						   name='first_name'
-						//pattern={FIRST_LAST_NAME_REGEXP}
-						   defaultValue={user.first_name}
-						   onInput={(e) => handleChange(e)}
-					/>
-					{errors.first_name && errors.first_name.length ?
-						<div className={classes.errorDiv}>{errors.first_name}</div> : ''}
+						<label className={classes.input_title}>First Name</label>
+						<input className={classes.input_info}
+							   type='text'
+							   name='first_name'
+							//pattern={FIRST_LAST_NAME_REGEXP}
+							   defaultValue={user.first_name}
+							   onInput={(e) => handleChange(e)}
+						/>
+						{errors.first_name && errors.first_name.length ?
+							<div className={classes.errorDiv}>{errors.first_name}</div> : ''}
 
-					<label className={classes.input_title}>Last Name</label>
-					<input className={classes.input_info}
-						   type='text'
-						   name='last_name'
-						   defaultValue={user.last_name}
-						//pattern={FIRST_LAST_NAME_REGEXP}
-						   onInput={(e) => handleChange(e)}/>
-					{errors.last_name && errors.last_name.length ?
-						<div className={classes.errorDiv}>{errors.last_name}</div> : ''}
+						<label className={classes.input_title}>Last Name</label>
+						<input className={classes.input_info}
+							   type='text'
+							   name='last_name'
+							   defaultValue={user.last_name}
+							//pattern={FIRST_LAST_NAME_REGEXP}
+							   onInput={(e) => handleChange(e)}/>
+						{errors.last_name && errors.last_name.length ?
+							<div className={classes.errorDiv}>{errors.last_name}</div> : ''}
 
-					<label className={classes.input_title}>Email</label>
-					<input className={classes.input_info}
-						   type='email'
-						   name='email'
-						   defaultValue={user.email}
-						//pattern={EMAIL_REGEXP}
-						   onInput={(e) => handleChange(e)}/>
+						<label className={classes.input_title}>Email</label>
+						<input className={classes.input_info}
+							   type='email'
+							   name='email'
+							   defaultValue={user.email}
+							//pattern={EMAIL_REGEXP}
+							   onInput={(e) => handleChange(e)}/>
 
-					{errors.email && errors.email.length ?
-						<div className={classes.errorDiv}>{errors.email}</div> : ''}
+						{errors.email && errors.email.length ?
+							<div className={classes.errorDiv}>{errors.email}</div> : ''}
 
-					<label className={classes.input_title}>Phone</label>
-					<input className={`${classes.input_info} ${classes.phone}`}
-						   type='text'
-						   name='phone'
-						   defaultValue={user.phone}
-						//pattern={PHONE_REGEXP}
-						   onInput={(e) => handleChange(e)}/>
+						<label className={classes.input_title}>Phone</label>
+						<input className={`${classes.input_info} ${classes.phone}`}
+							   type='text'
+							   name='phone'
+							   defaultValue={user.phone}
+							//pattern={PHONE_REGEXP}
+							   onInput={(e) => handleChange(e)}/>
 
-					{errors.phone && errors.phone.length ?
-						<div className={classes.errorDiv}>{errors.phone}</div> : ''}
+						{errors.phone && errors.phone.length ?
+							<div className={classes.errorDiv}>{errors.phone}</div> : ''}
 
-				</section>
+					</section>
 
-				<section className={classes.rightContainer}>
-					<div className={classes.role}>
+					<section className={classes.rightContainer}>
+						<div className={classes.role}>
 
-						<h3 className={classes.rightContainer_title}>Role & Permissions</h3>
-						<img src={info} alt="info" className={classes.infoBtn}/>
-						<div className={classes.tooltip}>
-							<Tooltip align='center' Arrow={topArrow} text={INFO.message}/>
+							<h3 className={classes.rightContainer_title}>Role & Permissions</h3>
+							<img src={info} alt="info" className={classes.infoBtn}/>
+							<div className={classes.tooltip}>
+								<Tooltip align='center' Arrow={topArrow} text={INFO.message}/>
+							</div>
 						</div>
-					</div>
 
-					<label className={classes.input_title}>Role</label>
-					<Dropdown options={role}
-							  valid={user.role}
-							  name='role'
-							  defaultValue={user.role}
-							  onChange={(e) => handleChangeRole(e)}/>
+						<label className={classes.input_title}>Role</label>
+						<Dropdown options={role}
+								  valid={user.role}
+								  name='role'
+								  defaultValue={user.role}
+								  onChange={(e) => handleChangeRole(e)}/>
 
-					<h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
-					<label className={`${classes.input_title} ${classes.input_password}`}>New Password</label>
-					<input className={`${classes.input_info}`}
-						   type='text'
-						   name='password'
-						//pattern={PASSWORD_REGEXP}
-						   onInput={(e) => handleChange(e)}/>
+						<h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
+						<label className={`${classes.input_title} ${classes.input_password}`}>New Password</label>
+						<input className={`${classes.input_info}`}
+							   type='text'
+							   name='password'
+							//pattern={PASSWORD_REGEXP}
+							   onInput={(e) => handleChange(e)}/>
 
-					{errors.password && errors.password.length ?
-						<div className={classes.errorDiv}>{errors.password}</div> : ''}
+						{errors.password && errors.password.length ?
+							<div className={classes.errorDiv}>{errors.password}</div> : ''}
 
-				</section>
-			</div>
+					</section>
+				</div>
+			}
+
 		</form>
 	)
 }
