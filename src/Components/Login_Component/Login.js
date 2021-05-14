@@ -24,6 +24,7 @@ class Login extends Component {
         },
         errors: '',
         type: 'password',
+        isSending: false
     };
 
     constructor(props) {
@@ -44,6 +45,9 @@ class Login extends Component {
         }
 
         this.setState({errors});
+        if (!formIsValid) {
+            this.setState({isSending: false})
+        }
         return formIsValid;
     }
 
@@ -60,6 +64,7 @@ class Login extends Component {
 
     send = async (e) => {
         e.preventDefault();
+        this.setState({isSending: true})
         try {
             let in1 = this.myForm.current[0].value;
             let in2 = this.myForm.current[1].value;
@@ -71,6 +76,9 @@ class Login extends Component {
 
             if (this.handleValidation()) {
                 const login = await authService.login(body);
+                if (login) {
+                    this.setState({isSending: false})
+                }
                 if (login.status === 200) {
                     this.props.history.push(`/${routes.USERS}`)
                     return
@@ -102,7 +110,6 @@ class Login extends Component {
     }
 
     render() {
-
         return (
             <div className={'main-flex-login'}>
                 <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
@@ -128,7 +135,7 @@ class Login extends Component {
                     />
 
                     <div className="wrap">
-                        <button className="button">Log In</button>
+                        <button className={this.state.isSending? "button disabled" : "button"} disabled={!!this.state.isSending}>{this.state.isSending? 'Sending' : 'Log In'}</button>
                     </div>
 
                     <NavLink to={`/${routes.FORGOT_PASSWORD}/${routes.EMAIL_FORM}`}>

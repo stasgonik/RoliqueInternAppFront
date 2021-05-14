@@ -95,6 +95,11 @@
 		line-height: 17px;
 		color: #FFFFFF
 }
+
+.disabled {
+	opacity: 0.8;
+}
+
 .button:hover {
 		cursor: pointer;
 }
