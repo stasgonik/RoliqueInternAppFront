@@ -12,7 +12,8 @@ class ForgotPassEmailForm extends Component {
             email: '',
         },
         errors: '',
-        success: false
+        success: false,
+        isSending: false
     };
 
     myForm = React.createRef();
@@ -31,16 +32,23 @@ class ForgotPassEmailForm extends Component {
         }
 
         this.setState({errors});
+        if (!formIsValid) {
+            this.setState({isSending: false})
+        }
         return formIsValid;
     }
 
     send = async (e) => {
         e.preventDefault();
+        this.setState({isSending: true})
         try {
             const body = this.state.fields;
 
             if (this.handleValidation()) {
                 const result = await EmailService.sendForgotPasswordEmail(body);
+                if (result) {
+                    this.setState({isSending: false})
+                }
 
                 if (result.status === 200) {
                     this.setState({success: true})
@@ -102,7 +110,7 @@ class ForgotPassEmailForm extends Component {
                                required={true}/>
 
                         <div className="wrapMain">
-                            <button className="buttonSend">Send</button>
+                            <button className={this.state.isSending? "buttonSend disabled" : "buttonSend"} disabled={!!this.state.isSending}>{this.state.isSending? 'Sending' : 'Send'}</button>
                         </div>
                     </form>
                 </div>
