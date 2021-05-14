@@ -80,6 +80,10 @@
     margin: 24px 0 56px 32px;
 }
 
+.disabled {
+    opacity: 0.8;
+}
+
 .buttonSend {
     height: 33px;
     width: 344px;

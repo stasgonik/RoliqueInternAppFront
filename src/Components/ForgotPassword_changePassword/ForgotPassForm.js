@@ -17,6 +17,7 @@ class ForgotPassForm extends Component {
         errors: '',
         type: 'password',
         token: '',
+        isSending: false
     };
 
     constructor(props) {
@@ -69,11 +70,15 @@ class ForgotPassForm extends Component {
         }
 
         this.setState({errors});
+        if (!formIsValid) {
+            this.setState({isSending: false})
+        }
         return formIsValid;
     }
 
     send = async (e) => {
         e.preventDefault();
+        this.setState({isSending: true})
         try {
             const search = this.props.location.search;
             const params = new URLSearchParams(search);
@@ -85,6 +90,10 @@ class ForgotPassForm extends Component {
 
             if (this.handleValidation()) {
                 const result = await userService.changePassword(body);
+                if (result) {
+                    this.setState({isSending: false})
+                }
+
                 if (result.status === 200) {
                     window.location.href = configFront.URL;
                     return
@@ -130,7 +139,8 @@ class ForgotPassForm extends Component {
 
                         <div className={'PasswordForm'}>
                             <span className={'login-form-spam'}>Password</span>
-                            <span className="login-form-spam clickPassword" onClick={this.showHide}>
+                            <span classN
+                                  ame="login-form-spam clickPassword" onClick={this.showHide}>
                             {this.state.type === "input" ? "Hide Password" : "Show Password"}</span>
                         </div>
 
@@ -149,7 +159,8 @@ class ForgotPassForm extends Component {
                                value={this.state.fields["confirmPassword"]}/>
 
                         <div className="wrapMain">
-                            <button className="buttonSend">Send</button>
+                            <button className={this.state.isSending ? "buttonSend disabled" : "buttonSend"}
+                                    disabled={!!this.state.isSending}>{this.state.isSending ? 'Sending' : 'Send'}</button>
                         </div>
                     </form>
                 </div>
