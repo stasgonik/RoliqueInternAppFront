@@ -5,7 +5,7 @@ import classes from './Header.module.css';
 
 // import arrowUp from "../Icons/arrow-up.svg";
 
-const Header = ({leftArrow, button, title, titleHeader, titleBtn, btnHeader}) => {
+const Header = ({leftArrow, button, title, titleHeader, titleBtn, btnHeader, isSending}) => {
     const history = useHistory();
 
 
@@ -16,7 +16,7 @@ const Header = ({leftArrow, button, title, titleHeader, titleBtn, btnHeader}) =>
                                   onClick={() => history.goBack()}/> : null}
                 <h1 className={titleHeader}>{title}</h1>
             </div>
-            <button className={btnHeader} onClick={button}><span className={classes.titleBtn}>{titleBtn}</span></button>
+            <button disabled={!!isSending} className={btnHeader} onClick={button}><span className={classes.titleBtn}>{titleBtn}</span></button>
         </header>
     )
 }

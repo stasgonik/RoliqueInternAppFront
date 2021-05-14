@@ -38,6 +38,7 @@ function setRoles() {
 }
 
 const User = () => {
+    const [isSending, setIsSending] = useState(false);
     setRoles();
     const fileInput = useRef(null);
     const [values, setValues] = useState({
@@ -159,10 +160,14 @@ const User = () => {
         }
 
         setErrors(errors);
+        if (!formIsValid) {
+            setIsSending(false)
+        }
         return formIsValid;
     }
 
     const saveChanges = async () => {
+        setIsSending(true)
         const formData = new FormData();
         if (!values["phone"].length) {
             delete values["phone"]
@@ -184,6 +189,7 @@ const User = () => {
         if (handleValidation()) {
             const result = await userService.postUsers(formData);
             if (result) {
+                setIsSending(false)
                 if (result.status === 200) {
                     window.location.href = configFront.URL + `${routes.USERS}`;
                     return
@@ -240,11 +246,13 @@ const User = () => {
         <form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
             <Sidebar/>
             <Header name={'Create'} titleHeader={classes.title}
-                    titleBtn='Save Changes'
+                    titleBtn={isSending? "Sending" : 'Save Changes'}
                     title='Create Internal User'
                     leftArrow={leftArrow}
-                    btnHeader={classes.btnHeader}
-                    button={(e) => saveChanges(e)}/>
+                    btnHeader={isSending? classes.btnHeaderDisabled : classes.btnHeader}
+                    button={(e) => saveChanges(e)}
+                    isSending={isSending}
+            />
 
             <div className={classes.mainContainer}>
                 <section className={classes.leftContainer}>
