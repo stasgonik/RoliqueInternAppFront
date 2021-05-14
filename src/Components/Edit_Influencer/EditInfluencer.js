@@ -214,9 +214,6 @@ const EditInfluencer = () => {
                     statusButton={status}
                     btnHeader={classes.btnHeader}
                     button={(e) => saveChanges(e)}/>
-            {
-                console.log(edit)
-            }
 
             <div className={classes.mainContainer}>
                 <section className={classes.leftContainer}>

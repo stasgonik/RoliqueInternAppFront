@@ -229,9 +229,12 @@ const User = () => {
                     return
                 }
 
-                errors["email"] = INFO.UNKNOWN_ERROR
-                setErrors(errors);
-                console.log(result);
+                if (result.status !== 200) {
+                    errors["email"] = INFO.UNKNOWN_ERROR
+                    setErrors(errors);
+                    console.log(result);
+                    return
+                }
             }
         }
     }
