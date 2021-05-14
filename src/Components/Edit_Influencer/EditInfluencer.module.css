@@ -153,6 +153,7 @@
     width: 184px;
     height: 32px;
     margin-bottom: 16px;
+    padding-left: 8px;
 
     background: #FAFAFB;
     border: 1px solid #BFBFBF;
@@ -174,6 +175,7 @@
     box-sizing: border-box;
     border-radius: 6px;
     outline: none;
+    padding-left: 8px;
 }
 /*.input_info_left:focus {*/
 /*    outline: none;*/
@@ -239,4 +241,9 @@
     border-radius: 50px;
     color: #D0A7B6;
     background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+

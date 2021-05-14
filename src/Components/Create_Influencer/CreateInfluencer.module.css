@@ -153,6 +153,7 @@
     width: 184px;
     height: 32px;
     margin-bottom: 16px;
+    padding-left: 8px;
 
     background: #FAFAFB;
     border: 1px solid #BFBFBF;
@@ -173,6 +174,7 @@
     width: 408px;
     height: 32px;
     margin-bottom: 16px;
+    padding-left: 8px;
 
     background: #FAFAFB;
     border: 1px solid #BFBFBF;
@@ -231,6 +233,9 @@
 
 
 .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 64px;
     height: 64px;
     margin: 12px 0 24px 0;

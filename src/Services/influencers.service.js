@@ -49,6 +49,7 @@ export default class InfluencersService {
     }
 
     static async postInfluencer(body) {
+        console.log(body)
         try{
             const result = await axiosInstance.post(`${configServer.URL}${_endpoint.Influencers}`, body);
 

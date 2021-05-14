@@ -62,11 +62,33 @@ const EditInfluencer = () => {
         setValues({
             first_name: initialState.first_name,
             last_name: initialState.last_name,
-            birthdate: initialState.birthdate.split('T').shift(),
             profession: initialState.profession,
             ...socialInfo,
             profile_picture: initialState.profile_picture,
         })
+
+        if(initialState.birthdate) {
+            setValues({
+                first_name: initialState.first_name,
+                last_name: initialState.last_name,
+                profession: initialState.profession,
+                birthdate: initialState.birthdate.split('T').shift(),
+                ...socialInfo,
+                profile_picture: initialState.profile_picture,
+            })
+            return
+        } else {
+            setValues({
+                first_name: initialState.first_name,
+                last_name: initialState.last_name,
+                profession: initialState.profession,
+                ...socialInfo,
+                profile_picture: initialState.profile_picture,
+            })
+            return
+        }
+
+
     });
 
     const [status, setStatus] = useState(false);
@@ -75,6 +97,7 @@ const EditInfluencer = () => {
     const handleChange = (e) => {
         let value = e.target.value;
         setStatus(true)
+
         const strArr = e.target.name.split('_')
         const socialName = strArr.shift()
         const target = strArr.pop();
@@ -175,6 +198,7 @@ const EditInfluencer = () => {
         if (status && edit) {
             if (pp) {
                 formData.set('profile_picture', pp, 'avatar.jpg')
+                setEdit({...edit, profile_picture: pp})
             }
             await influerenceService.editInfluerence(formData, params[routes.INFLUENCER_ID])
         }
@@ -242,7 +266,7 @@ const EditInfluencer = () => {
                            ref={fileInput}
                     />
                     <button className={classes.avatar} onClick={() => fileInput.current.click()}>
-                        {values.profile_picture ? <img
+                        {values.profile_picture || edit.profile_picture ? <img
                             src={typeof edit.profile_picture === 'object' ? `${edit.profile_picture.preview}` : `${values.profile_picture}`}
                             style={{
                                 width: 64,

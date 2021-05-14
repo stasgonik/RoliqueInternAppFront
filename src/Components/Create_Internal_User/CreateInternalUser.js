@@ -179,6 +179,8 @@ const User = () => {
         let av = values["avatar"] ? values['avatar'] : "";
         setValues({...values, phone: '', avatar: av})
 
+
+
         if (handleValidation()) {
             const result = await userService.postUsers(formData);
             if (result) {
