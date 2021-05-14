@@ -87,50 +87,48 @@ const EditUser = () => {
 			password: ''
 		};
 		let formIsValid = true;
-		console.log(values);
+
 
 		if (typeof values["email"] !== "undefined") {
 			if (!values["email"].match(regexp.EMAIL_REGEXP)) {
 				formIsValid = false;
 				errors["email"] = INFO.INVALID_EMAIL_PATTERN
 			}
-		}
 
-		if (typeof values["email"] !== "undefined") {
 			if (!values["email"] || !values["email"].length) {
 				formIsValid = false;
 				errors["email"] = INFO.EMPTY_FIELD
 			}
 		}
 
+
 		if (typeof values["first_name"] !== "undefined") {
 			if (!values["first_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
 				formIsValid = false;
 				errors["first_name"] = INFO.INVALID_NAME_PATTERN
 			}
+
+			if (!values["first_name"] || !values["first_name"].length) {
+				formIsValid = false;
+				errors["first_name"] = INFO.EMPTY_FIELD
+			}
+
 		}
 
-		if (!values["first_name"] || !values["first_name"].length) {
-			formIsValid = false;
-			errors["first_name"] = INFO.EMPTY_FIELD
-		}
 
 		if (typeof values["last_name"] !== "undefined") {
 			if (!values["last_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
 				formIsValid = false;
 				errors["last_name"] = INFO.INVALID_NAME_PATTERN
 			}
+
+			if (!values["last_name"] || !values["last_name"].length) {
+				formIsValid = false;
+				errors["last_name"] = INFO.EMPTY_FIELD
+			}
 		}
 
-		if (!values["last_name"] || !values["last_name"].length) {
-			formIsValid = false;
-			errors["last_name"] = INFO.EMPTY_FIELD
-		}
 
-		// if (!values["role"] || !values["role"].length) {
-		//     formIsValid = false;
-		//     errors["role"] = INFO.EMPTY_FIELD
-		// }
 
 		if (typeof values["phone"] !== "undefined" && values["phone"] && values["phone"].length) {
 			if (!values["phone"].match(regexp.PHONE_REGEXP)) {
@@ -138,7 +136,7 @@ const EditUser = () => {
 				errors["phone"] = INFO.INVALID_PHONE_PATTERN
 			}
 		}
-		if (typeof values["password"] !== "undefined") {
+		if (typeof values["password"] !== "undefined" && (values["password"] && values["password"].length)) {
 			if (!values["password"].match(regexp.PASSWORD_REGEXP)) {
 				formIsValid = false;
 				errors["password"] = INFO.INVALID_PASSWORD_PATTERN
