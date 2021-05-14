@@ -170,13 +170,7 @@
 .infoBtn:hover + .tooltip {
     z-index: 10;
     display: block;
-
 }
-
-
-/*.input_password {*/
-/*		margin-top: 24px;*/
-/*}*/
 
 .avatar {
     width: 64px;
@@ -254,10 +248,17 @@
         flex-direction: column;
     }
     .leftContainer{
-        width: 30%;
+        width: 40%;
     }
     .rightContainer{
         width: 30%;
         padding-left: 180px;
+    }
+    .tooltip{
+        top: 717px;
+        right: 476px;
+    }
+    .dropDown{
+        width: 408px;
     }
 }
