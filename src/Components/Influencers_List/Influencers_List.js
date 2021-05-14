@@ -17,17 +17,21 @@ import tikTokIcon from "../../img/Social_Icons/TikTok.svg";
 import twitterIcon from "../../img/Social_Icons/Twitter.svg";
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 import youtubeIcon from "../../img/Social_Icons/Youtube.svg";
+import loading from "../../img/Loading.gif";
 
 const Influencers_List = () => {
 
     const [values, setValues] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [initial, setInitial] = useState(true);
 
     useEffect(() => {
         async function Start() {
             setInitial(false)
+            setIsLoading(true)
             const initialState = await InfluencersService.getInfluencers()
             setValues(initialState)
+            setIsLoading(false)
         }
 
         if (initial) {
@@ -37,8 +41,10 @@ const Influencers_List = () => {
 
     const searchName = async (e) => {
         const value = e.target.value;
+        setIsLoading(true)
         const search = await InfluencersService.getInfluencers({search: value})
         setValues(search);
+        setIsLoading(false)
     }
 
     const socials = (item) => {
@@ -56,7 +62,7 @@ const Influencers_List = () => {
         <div className={classes.mainContainer}>
             <Sidebar/>
             <UsersListHeader titleHeader={classes.titleUsers}
-                             title='Influencers'
+                             title={initial ? '' : 'Influencers'}
                              titleBtn='Create New'
                              upArrow={arrowUp}
                              btnHeader={classes.btnHeader}
@@ -79,62 +85,69 @@ const Influencers_List = () => {
             <section>
 
                 <div>
-                    {values ? (values.map((item, index) =>
-                        <div key={index}>
-                            <div className={`${classes.tableHeaderInfo}`}>
-                                {item.profile_picture ?
-                                    <img src={`${item.profile_picture}`} alt='avatar' className={classes.avatar}/> :
-                                    <img src={photoDefault} alt='photoDefault'
-                                         className={`${classes.avatar} ${classes.photo}`}/>}
-
-                                <div className={classes.tableTextName}><p
-                                    className={classes.textColor}>{item.user_name} </p></div>
-
-                                <div className={classes.tableTextEmail}><p
-                                    className={classes.textColor}>{item.full_name}</p></div>
-                                <div className={classes.tableTextRole}><p className={classes.textColor}>
-                                    {socials(item).includes('instagram') ?
-                                        <img alt='instagram' className={classes.social_img} src={instagramIcon}/> : ''}
-
-                                    {socials(item).includes('youtube') ?
-                                        <img alt='youtube' className={classes.social_img} src={youtubeIcon}/> : ''}
-
-                                    {socials(item).includes('facebook') ?
-                                        <img alt='facebook' className={classes.social_img} src={facebookIcon}/> : ''}
-
-                                    {socials(item).includes('tiktok') ?
-                                        <img alt='tiktok' className={classes.social_img} src={tikTokIcon}/> : ''}
-
-                                    {socials(item).includes('twitter') ?
-                                        <img alt='twitter' className={classes.social_img} src={twitterIcon}/> : ''}
-
-                                    {socials(item).includes('blog') ?
-                                        <img alt='blog' className={classes.social_img} src={blogSmall}/> : ''}
-                                </p></div>
-                                <div className={classes.tableTextRating}><p className={classes.textColor}>SUPER!</p>
-                                </div>
-
-                                <div></div>
-
-                                <Link to={`${routes.INFLUENCERS}/${item._id}`}>
-                                    <div className={classes.tableBtn}>
-                                        <div className={classes.Test}>
-                                            <div className={classes.btnPosition}>
-                                                <img src={path} alt='path' className={classes.infoBtn}/>
-                                            </div>
-                                        </div>
-                                        <div className={classes.tooltipMain}>
-                                            <div className={classes.TooltipText}>
-                                                <p>Show Influencer</p></div>
-                                        </div>
-                                        <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
-                                    </div>
-                                </Link>
-
-
-                            </div>
+                    {isLoading ?
+                        <div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
+                            <img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
+                            <p>Please wait...</p>
                         </div>
-                    )) : ''}
+                        : values ? (values.map((item, index) =>
+                            <div key={index}>
+                                <div className={`${classes.tableHeaderInfo}`}>
+                                    {item.profile_picture ?
+                                        <img src={`${item.profile_picture}`} alt='avatar' className={classes.avatar}/> :
+                                        <img src={photoDefault} alt='photoDefault'
+                                             className={`${classes.avatar} ${classes.photo}`}/>}
+
+                                    <div className={classes.tableTextName}><p
+                                        className={classes.textColor}>{item.user_name} </p></div>
+
+                                    <div className={classes.tableTextEmail}><p
+                                        className={classes.textColor}>{item.full_name}</p></div>
+                                    <div className={classes.tableTextRole}><p className={classes.textColor}>
+                                        {socials(item).includes('instagram') ?
+                                            <img alt='instagram' className={classes.social_img}
+                                                 src={instagramIcon}/> : ''}
+
+                                        {socials(item).includes('youtube') ?
+                                            <img alt='youtube' className={classes.social_img} src={youtubeIcon}/> : ''}
+
+                                        {socials(item).includes('facebook') ?
+                                            <img alt='facebook' className={classes.social_img}
+                                                 src={facebookIcon}/> : ''}
+
+                                        {socials(item).includes('tiktok') ?
+                                            <img alt='tiktok' className={classes.social_img} src={tikTokIcon}/> : ''}
+
+                                        {socials(item).includes('twitter') ?
+                                            <img alt='twitter' className={classes.social_img} src={twitterIcon}/> : ''}
+
+                                        {socials(item).includes('blog') ?
+                                            <img alt='blog' className={classes.social_img} src={blogSmall}/> : ''}
+                                    </p></div>
+                                    <div className={classes.tableTextRating}><p className={classes.textColor}>SUPER!</p>
+                                    </div>
+
+                                    <div></div>
+
+                                    <Link to={`${routes.INFLUENCERS}/${item._id}`}>
+                                        <div className={classes.tableBtn}>
+                                            <div className={classes.Test}>
+                                                <div className={classes.btnPosition}>
+                                                    <img src={path} alt='path' className={classes.infoBtn}/>
+                                                </div>
+                                            </div>
+                                            <div className={classes.tooltipMain}>
+                                                <div className={classes.TooltipText}>
+                                                    <p>Show Influencer</p></div>
+                                            </div>
+                                            <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
+                                        </div>
+                                    </Link>
+
+
+                                </div>
+                            </div>
+                        )) : ''}
                     }
                 </div>
             </section>

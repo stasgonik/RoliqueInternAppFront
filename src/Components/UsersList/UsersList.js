@@ -12,17 +12,21 @@ import Sidebar from '../Items/Sidebar/Sidebar'
 import Search from "../Items/Search/Search";
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 import userService from "../../Services/userService";
+import loading from "../../img/Loading.gif";
 
 const UsersList = () => {
 
     const [values, setValues] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [initial, setInitial] = useState(true);
 
     useEffect(() => {
         async function Start() {
             setInitial(false)
+            setIsLoading(true)
             const initialState = await userService.getUsers()
             setValues(initialState)
+            setIsLoading(false)
         }
 
         if (initial) {
@@ -35,9 +39,11 @@ const UsersList = () => {
     }
 
     const searchName = async (e) => {
+        setIsLoading(true)
         const value = e.target.value;
         const search = await userService.getUsers({search: value})
         setValues(search);
+        setIsLoading(false)
     }
 
     return (
@@ -45,7 +51,7 @@ const UsersList = () => {
         <div className={classes.mainContainer}>
             <Sidebar/>
             <UsersListHeader titleHeader={classes.titleUsers}
-                             title='Users'
+                             title={initial? '' : 'Users'}
                              titleBtn='Create New'
                              upArrow={arrowUp}
                              btnHeader={classes.btnHeader}
@@ -68,7 +74,12 @@ const UsersList = () => {
             <section>
 
                 <div>
-                    {values ? (values.map((item, index) =>
+                    {isLoading?
+                        <div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
+                            <img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
+                            <p>Please wait...</p>
+                        </div>
+                        : values ? (values.map((item, index) =>
                         <div key={index}>
                             <div className={`${classes.tableHeaderInfo}`}>
                                 {item.profile_picture ?
