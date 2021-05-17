@@ -245,3 +245,16 @@
     color: #D0A7B6;
     background: none;
 }
+
+.errorDiv {
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.35px;
+
+    color: #da1414;
+    margin-top: -8px;
+
+}

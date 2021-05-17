@@ -7,6 +7,10 @@ import {INFO} from '../../Constants/messages';
 import leftArrow from '../Items/Icons/arrow-left.svg';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import Tooltip from '../Items/Tooltip/Tooltip'
+import regexp from "../../Constants/regexp.enum";
+import userService from "../../Services/userService";
+import configFront from "../../Constants/configFront";
+import routes from "../../Constants/routes.enum";
 
 const CreateInfluencer = () => {
 	const fileInput = useRef(null);
@@ -42,8 +46,16 @@ const CreateInfluencer = () => {
 		first_name: '',
 		last_name: '',
 		profession: '',
+		// avatar: '',
 	});
 	const [status, setStatus] = useState(0);
+
+	const [errors, setErrors] = useState({
+		avatar: '',
+		first_name: '',
+		last_name: '',
+		profession: ''
+	});
 
 	const handleChange = (e) => {
 		let value = e.target.value;
@@ -160,6 +172,61 @@ const CreateInfluencer = () => {
 		setValues({...values, [e.target.name]: img})
 	}
 
+	const handleValidation = () => {
+		let errors = {
+			avatar: '',
+			first_name: '',
+			last_name: '',
+			profession: '',
+
+		};
+		let formIsValid = true;
+
+
+		if (typeof values["first_name"] !== "undefined") {
+			if (!values["first_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
+				formIsValid = false;
+				errors["first_name"] = INFO.INVALID_NAME_PATTERN
+			}
+		}
+
+		if (!values["first_name"] || !values["first_name"].length) {
+			formIsValid = false;
+			errors["first_name"] = INFO.EMPTY_FIELD
+		}
+
+		if (typeof values["last_name"] !== "undefined") {
+			if (!values["last_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
+				formIsValid = false;
+				errors["last_name"] = INFO.INVALID_NAME_PATTERN
+			}
+		}
+
+		if (!values["last_name"] || !values["last_name"].length) {
+			formIsValid = false;
+			errors["last_name"] = INFO.EMPTY_FIELD
+		}
+
+		if (typeof values["profession"] !== "undefined") {
+			if (!values["profession"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
+				formIsValid = false;
+				errors["profession"] = INFO.INVALID_NAME_PATTERN
+			}
+		}
+
+		if (!values["profession"] || !values["profession"].length) {
+			formIsValid = false;
+			errors["profession"] = INFO.EMPTY_FIELD
+		}
+
+
+		setErrors(errors);
+		// if (!formIsValid) {
+		// 	setIsSending(false)
+		// }
+		return formIsValid;
+	}
+
 	const checkValidateInput = (data) => {
 		let state2 = false;
 		const arr = []
@@ -196,10 +263,10 @@ const CreateInfluencer = () => {
 				values[value] = values[value].split('.').join('')
 			}
 
-			// arr.push(values[value])
-			if (values[value] === '') {
-				values[value] = null
-			}
+			// // arr.push(values[value])
+			// if (values[value] === '') {
+			// 	values[value] = null
+			// }
 
 			formData.append(value, values[value])
 			if (values[value]) {
@@ -211,6 +278,59 @@ const CreateInfluencer = () => {
 			if (checkValidateInput(values)) {
 				console.log(formData.values())
 				await influencersService.postInfluencer(formData);
+			}
+		}
+
+
+		if (handleValidation()) {
+			const result = await influencersService.postInfluencer(formData);
+			if (result) {
+				// setIsSending(false)
+				if (result.status === 200) {
+					window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
+					return
+				}
+
+				let errors = {
+					avatar: '',
+					first_name: '',
+					last_name: '',
+					profession: ''
+
+				};
+
+				if (result.status === 403) {
+					window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
+					return
+				}
+
+				// if (typeof result.data !== "undefined") {
+				// 	if (result.data.customCode === 4000) {
+				// 		errors["email"] = INFO.DATA_INCORRECT
+				// 		setErrors(errors);
+				// 		return
+				// 	}
+				// 	if (result.data.customCode === 4002) {
+				// 		errors["email"] = INFO.EMAIL_ALREADY_EXIST
+				// 		setErrors(errors);
+				// 		return
+				// 	}
+				//
+				// }
+				//
+				// if (result.status === 500) {
+				// 	errors["email"] = INFO.SERVER_ERROR
+				// 	setErrors(errors);
+				// 	console.log(result);
+				// 	return
+				// }
+
+				// if (result.status !== 200) {
+				// 	errors["email"] = INFO.UNKNOWN_ERROR
+				// 	setErrors(errors);
+				// 	console.log(result);
+				// 	return
+				// }
 			}
 		}
 	}
@@ -233,16 +353,23 @@ const CreateInfluencer = () => {
 						   type='text'
 						   name='first_name'
 						// pattern={FIRST_LAST_NAME_REGEXP}
-						   required={true}
-						   onChange={(e) => handleChange(e)}
+						//    required={true}
+						   onInput={(e) => handleChange(e)}
 					/>
+
+					{errors.first_name && errors.first_name.length ?
+						<div className={classes.errorDiv}>{errors.first_name}</div> : ''}
+
 					<label className={classes.input_title}>Last Name</label>
 					<input className={classes.input_info_left}
 						   type='text'
 						   name='last_name'
-						   required={true}
-						// pattern={FIRST_LAST_NAME_REGEXP}
-						   onChange={(e) => handleChange(e)}/>
+						   // required={true}
+						   onInput={(e) => handleChange(e)}/>
+
+					{errors.last_name && errors.last_name.length ?
+						<div className={classes.errorDiv}>{errors.last_name}</div> : ''}
+
 					<label className={classes.input_title}>Birthdate</label>
 					<input className={classes.input_info_left}
 						   type='date'
@@ -250,12 +377,17 @@ const CreateInfluencer = () => {
 						   name='birthdate'
 						   placeholder={''}
 						   onChange={(e) => handleChange(e)}/>
+
 					<label className={classes.input_title}>Profession</label>
 					<input className={`${classes.input_info_left}`}
 						   type='text'
 						   name='profession'
 						   required={true}
 						   onChange={(e) => handleChange(e)}/>
+
+					{errors.profession && errors.profession.length ?
+						<div className={classes.errorDiv}>{errors.profession}</div> : ''}
+
 					<p className={classes.profile}>Profile Picture</p>
 					<input type='file'
 						   name='avatar'
@@ -270,6 +402,10 @@ const CreateInfluencer = () => {
 							borderRadius: 50
 						}} alt={'alt'}/> : '+'}
 					</button>
+
+					{errors.avatar && errors.avatar.length ?
+						<div className={classes.errorDiv}>{errors.avatar}</div> : ''}
+
 				</section>
 
 				<section className={classes.rightContainer}>
