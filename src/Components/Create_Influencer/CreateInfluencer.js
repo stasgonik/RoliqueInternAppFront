@@ -46,6 +46,8 @@ const CreateInfluencer = () => {
 		first_name: '',
 		last_name: '',
 		profession: '',
+		birthdate: '',
+
 		// avatar: '',
 	});
 	const [status, setStatus] = useState(0);
@@ -54,7 +56,8 @@ const CreateInfluencer = () => {
 		avatar: '',
 		first_name: '',
 		last_name: '',
-		profession: ''
+		profession: '',
+		birthdate: ''
 	});
 
 	const handleChange = (e) => {
@@ -62,6 +65,7 @@ const CreateInfluencer = () => {
 		const strArr = e.target.name.split('_')
 		const socialName = strArr.shift()
 		const target = strArr.pop();
+
 
 		if (target === 'profile') {
 			const inputFollower = socialName + '_followers'
@@ -72,8 +76,37 @@ const CreateInfluencer = () => {
 			if (!input.current.value) {
 				input.current.style.borderColor = 'red'
 				input.current.required = true
+				if (value !== '') {
+					let errProf = '';
+					if (!value.match(regexp.PROFILE_REGEXP)) {
+						errProf = INFO.PROFILE_REGEX
+					}
+					setErrors({...errors, [inputFollower]: INFO.PROFILES_ERROR, [e.target.name]: errProf})
+				}
+
 			} else {
 				input.current.style.borderColor = ''
+
+				if (value !== '') {
+					let errProf = '';
+					let errFoll = '';
+					let normalFoll = input.current.value.split('.').join('')
+
+					if (!value.match(regexp.PROFILE_REGEXP)) {
+						errProf = INFO.PROFILE_REGEX
+					}
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+						errFoll = INFO.FOLLOWERS_REGEX
+					}
+					setErrors({...errors, [e.target.name]: errProf, [inputFollower]: errFoll})
+				} else {
+					let errFoll = '';
+					let normalFoll = input.current.value.split('.').join('')
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+						errFoll = INFO.FOLLOWERS_REGEX
+					}
+					setErrors({...errors, [inputFollower]: errFoll})
+				}
 			}
 		}
 
@@ -86,16 +119,39 @@ const CreateInfluencer = () => {
 			if (!input.current.value) {
 				input.current.style.borderColor = 'red'
 				input.current.required = true
+				if (value !== '') {
+					let errFoll = '';
+					let normalFoll = value.split('.').join('')
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+						errFoll = INFO.FOLLOWERS_REGEX
+					}
+					setErrors({...errors, [inputProfile]: INFO.PROFILES_ERROR, [e.target.name]: errFoll})
+				}
 			} else {
 				input.current.style.borderColor = ''
+
+				if (value !== '') {
+					let errFoll = '';
+					let errProf = '';
+					let normalFoll = value.split('.').join('');
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+						errFoll = INFO.FOLLOWERS_REGEX
+					}
+					if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+						errProf = INFO.PROFILE_REGEX
+					}
+
+					setErrors({...errors, [e.target.name]: errFoll, [inputProfile]: errProf})
+				} else {
+					let errProf = '';
+					if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+						errProf = INFO.PROFILE_REGEX
+					}
+					setErrors({...errors, [inputProfile]: errProf})
+				}
 			}
 		}
 
-		if (value.length < 1) {
-			delete values[e.target.name]
-			setValues({...values});
-			return
-		}
 
 		if (target === 'followers') {
 			const inputProfile = socialName + '_profile'
@@ -113,23 +169,31 @@ const CreateInfluencer = () => {
 				input.current.style.borderColor = ''
 			}
 
-			if (value === '') {
-				if (input.current.value === '') {
+			if (value === '' || !value) {
+				if (input.current.value === '' || !input.current.value) {
 					inputFocus.current.style.borderColor = ''
 					inputFocus.current.required = false
 					input.current.style.borderColor = ''
 					input.current.required = false
+					setErrors({...errors, [e.target.name]: '', [inputProfile]: ''})
+
 				} else {
 					inputFocus.current.style.borderColor = 'red'
 					inputFocus.current.required = true
+					let errProf = '';
+					if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+						errProf = INFO.PROFILE_REGEX
+					}
+					setErrors({...errors, [inputProfile]: errProf, [e.target.name]: INFO.PROFILES_ERROR})
 				}
 			}
+
 		}
-		if (target === 'followers') {
-			const inputProfile = socialName + '_profile'
-			const input = ref[inputProfile]
+		if (target === 'profile') {
+			const inputFollower = socialName + '_followers'
+			const input = ref[inputFollower]
 			const inputFocus = ref[e.target.name]
-			value = value.toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+			// value = value.toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 			inputFocus.current.style.borderColor = ''
 			inputFocus.current.required = false
 
@@ -140,20 +204,62 @@ const CreateInfluencer = () => {
 			//         input.current.style.borderColor = ''
 			//     }
 
-			if (value === '') {
-				if (input.current.value === '') {
+			if (value === '' || !value) {
+				if (input.current.value === '' || !input.current.value) {
 					inputFocus.current.style.borderColor = ''
 					inputFocus.current.required = false
 					input.current.style.borderColor = ''
 					input.current.required = false
+					setErrors({...errors, [e.target.name]: '', [inputFollower]: ''})
 				} else {
 					inputFocus.current.style.borderColor = 'red'
 					inputFocus.current.required = true
+					let errFoll = '';
+					let normalFoll = input.current.value.split('.').join('')
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+						errFoll = INFO.FOLLOWERS_REGEX
+					}
+					setErrors({...errors, [inputFollower]: errFoll, [e.target.name]: INFO.PROFILES_ERROR})
 				}
 			}
 		}
 
+		if (value.length < 1) {
+			delete values[e.target.name]
+			setValues({...values});
+			// setErrors({...errors, [e.target.name]: ''})
+			return
+		}
+
+		// setErrors({...errors})
+
+		// if (target === 'profile') {
+		// 	// console.log(errors);
+		// 	const inputFollower = socialName + '_followers'
+		// 	if (errors[inputFollower] === '' && !errors[inputFollower]) {
+		// 		delete errors[inputFollower];
+		// 	}
+		// 	if (errors[e.target.name] === '' && !errors[e.target.name]) {
+		// 		delete errors[e.target.name];
+		// 	}
+		// 	// setErrors({...errors})
+		// }
+
+		// if (target === 'followers') {
+		// 	// console.log(errors);
+		// 	const inputProfile = socialName + '_profile'
+		// 	if (errors[inputProfile] === '' && !errors[inputProfile]) {
+		// 		delete errors[inputProfile];
+		// 	}
+		// 	if (errors[e.target.name] === '' && !errors[e.target.name]) {
+		// 		delete errors[e.target.name];
+		// 	}
+		// 	// setErrors({...errors})
+		// }
+
+		// console.log(Object.keys(errors))
 		setValues({...values, [e.target.name]: value});
+		// console.log(Object.keys(errors))
 	}
 
 	const handleSubmit = (e) => {
@@ -173,97 +279,133 @@ const CreateInfluencer = () => {
 	}
 
 	const handleValidation = () => {
-		let errors = {
+		let formIsValid = true;
+		console.log(errors)
+		if (Object.keys(errors).length > 5) {
+			for (let i = 0; i < Object.keys(errors).length; i++) {
+				const key = Object.keys(errors)[i];
+				const words = key.split('_')
+				const socialName = words.shift()
+				const target = words.pop();
+
+				if (target === 'profile' && errors[key].length) {
+					console.log(key)
+					console.log(errors[key])
+					formIsValid = false
+				}
+
+				if (target === 'followers' && errors[key].length) {
+					console.log(key)
+					console.log(errors[key])
+					formIsValid = false
+				}
+			}
+		}
+		let error = {
 			avatar: '',
 			first_name: '',
 			last_name: '',
 			profession: '',
-
+			birthdate: ''
 		};
-		let formIsValid = true;
+		// let formIsValid = true;
 
 
 		if (typeof values["first_name"] !== "undefined") {
 			if (!values["first_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
 				formIsValid = false;
-				errors["first_name"] = INFO.INVALID_NAME_PATTERN
+				error["first_name"] = INFO.INVALID_NAME_PATTERN
 			}
 		}
 
 		if (!values["first_name"] || !values["first_name"].length) {
 			formIsValid = false;
-			errors["first_name"] = INFO.EMPTY_FIELD
+			error["first_name"] = INFO.EMPTY_FIELD
 		}
 
 		if (typeof values["last_name"] !== "undefined") {
 			if (!values["last_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
 				formIsValid = false;
-				errors["last_name"] = INFO.INVALID_NAME_PATTERN
+				error["last_name"] = INFO.INVALID_NAME_PATTERN
 			}
 		}
 
 		if (!values["last_name"] || !values["last_name"].length) {
 			formIsValid = false;
-			errors["last_name"] = INFO.EMPTY_FIELD
+			error["last_name"] = INFO.EMPTY_FIELD
 		}
 
 		if (typeof values["profession"] !== "undefined") {
 			if (!values["profession"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
 				formIsValid = false;
-				errors["profession"] = INFO.INVALID_NAME_PATTERN
+				error["profession"] = INFO.INVALID_NAME_PATTERN
 			}
 		}
 
 		if (!values["profession"] || !values["profession"].length) {
 			formIsValid = false;
-			errors["profession"] = INFO.EMPTY_FIELD
+			error["profession"] = INFO.EMPTY_FIELD
+		}
+
+		if (!values["birthdate"] ) {
+			formIsValid = false;
+			error["birthdate"] = INFO.EMPTY_FIELD
 		}
 
 
-		setErrors(errors);
+		setErrors({...errors, ...error});
 		// if (!formIsValid) {
 		// 	setIsSending(false)
 		// }
+		console.log(formIsValid)
 		return formIsValid;
 	}
 
-	const checkValidateInput = (data) => {
-		let state2 = false;
-		const arr = []
-		for (const datum in data) {
-			console.log(datum)
-			if (datum.includes('profile') || datum.includes('followers')) {
-				arr.push(datum)
-			}
-		}
-		console.log(arr)
-
-		if (arr.length % 2 === 0) {
-			setStatus(1)
-			state2 = true;
-		} else if (arr.length % 2 !== 0) {
-			setStatus(0)
-			state2 = false;
-		} else {
-			setStatus(0)
-			state2 = false;
-		}
-
-		console.log(arr)
-		console.log(status)
-		return state2;
-	}
+	// const checkValidateInput = (data) => {
+	// 	let state2 = false;
+	// 	const arr = []
+	// 	for (const datum in data) {
+	// 		// console.log(datum)
+	// 		if (datum.includes('profile') || datum.includes('followers')) {
+	// 			arr.push(datum)
+	// 		}
+	// 	}
+	// 	// console.log(arr)
+	//
+	// 	if (arr.length % 2 === 0) {
+	// 		setStatus(1)
+	// 		state2 = true;
+	// 	} else if (arr.length % 2 !== 0) {
+	// 		setStatus(0)
+	// 		state2 = false;
+	// 	} else {
+	// 		setStatus(0)
+	// 		state2 = false;
+	// 	}
+	//
+	// 	// console.log(arr)
+	// 	console.log(status)
+	// 	return state2;
+	// }
 
 	const saveChanges = async () => {
 		const formData = new FormData();
 		const arr = []
+		let bd;
+		if (values.birthdate) {
+			bd = values.birthdate
+		}
+		let pp;
+		if (values.avatar) {
+			pp = values.avatar;
+		}
 
 		for (const value in values) {
 			if (value.includes('followers')) {
 				values[value] = values[value].split('.').join('')
 			}
 
-			// // arr.push(values[value])
+			// arr.push(values[value])
 			// if (values[value] === '') {
 			// 	values[value] = null
 			// }
@@ -274,65 +416,74 @@ const CreateInfluencer = () => {
 			}
 		}
 
+
 		if (values) {
-			if (checkValidateInput(values)) {
-				console.log(formData.values())
-				await influencersService.postInfluencer(formData);
+			if (bd) {
+				// formData.set('profile_picture', pp, 'avatar.jpg')
+				if (pp) {
+					setValues({...values, avatar: pp, birthdate: bd})
+				} else {
+					setValues({...values, birthdate: bd})
+				}
+
+			} else if (pp) {
+				// formData.set('profile_picture', pp, 'avatar.jpg')
+				setValues({...values, avatar: pp})
+			}
+			if (handleValidation()) {
+
+				const result = await influencersService.postInfluencer(formData);
+				if (result) {
+					// setIsSending(false)
+					if (result.status === 200) {
+						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
+						return
+					}
+
+					let errors = {
+						avatar: '',
+						first_name: '',
+						last_name: '',
+						profession: ''
+
+					};
+
+					if (result.status === 403) {
+						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
+						return
+					}
+
+					// if (typeof result.data !== "undefined") {
+					// 	if (result.data.customCode === 4000) {
+					// 		errors["email"] = INFO.DATA_INCORRECT
+					// 		setErrors(errors);
+					// 		return
+					// 	}
+					// 	if (result.data.customCode === 4002) {
+					// 		errors["email"] = INFO.EMAIL_ALREADY_EXIST
+					// 		setErrors(errors);
+					// 		return
+					// 	}
+					//
+					// }
+					//
+					// if (result.status === 500) {
+					// 	errors["email"] = INFO.SERVER_ERROR
+					// 	setErrors(errors);
+					// 	console.log(result);
+					// 	return
+					// }
+
+					// if (result.status !== 200) {
+					// 	errors["email"] = INFO.UNKNOWN_ERROR
+					// 	setErrors(errors);
+					// 	console.log(result);
+					// 	return
+					// }
+				}
 			}
 		}
 
-
-		if (handleValidation()) {
-			const result = await influencersService.postInfluencer(formData);
-			if (result) {
-				// setIsSending(false)
-				if (result.status === 200) {
-					window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
-					return
-				}
-
-				let errors = {
-					avatar: '',
-					first_name: '',
-					last_name: '',
-					profession: ''
-
-				};
-
-				if (result.status === 403) {
-					window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
-					return
-				}
-
-				// if (typeof result.data !== "undefined") {
-				// 	if (result.data.customCode === 4000) {
-				// 		errors["email"] = INFO.DATA_INCORRECT
-				// 		setErrors(errors);
-				// 		return
-				// 	}
-				// 	if (result.data.customCode === 4002) {
-				// 		errors["email"] = INFO.EMAIL_ALREADY_EXIST
-				// 		setErrors(errors);
-				// 		return
-				// 	}
-				//
-				// }
-				//
-				// if (result.status === 500) {
-				// 	errors["email"] = INFO.SERVER_ERROR
-				// 	setErrors(errors);
-				// 	console.log(result);
-				// 	return
-				// }
-
-				// if (result.status !== 200) {
-				// 	errors["email"] = INFO.UNKNOWN_ERROR
-				// 	setErrors(errors);
-				// 	console.log(result);
-				// 	return
-				// }
-			}
-		}
 	}
 
 	return (
@@ -364,7 +515,7 @@ const CreateInfluencer = () => {
 					<input className={classes.input_info_left}
 						   type='text'
 						   name='last_name'
-						   // required={true}
+						// required={true}
 						   onInput={(e) => handleChange(e)}/>
 
 					{errors.last_name && errors.last_name.length ?
@@ -377,6 +528,9 @@ const CreateInfluencer = () => {
 						   name='birthdate'
 						   placeholder={''}
 						   onChange={(e) => handleChange(e)}/>
+
+					{errors.birthdate && errors.birthdate.length ?
+						<div className={classes.errorDiv}>{errors.birthdate}</div> : ''}
 
 					<label className={classes.input_title}>Profession</label>
 					<input className={`${classes.input_info_left}`}
@@ -420,13 +574,23 @@ const CreateInfluencer = () => {
 							   name='instagram_profile'
 							   disabled={false}
 							   ref={instagram_profile}
-							   onChange={(e) => handleChange(e)}/>
+							   onChange={(e) => handleChange(e)}
+						/>
+
+
+						{errors['instagram_profile'] && errors['instagram_profile'].length ?
+							<div className={classes.errorDiv}>{errors['instagram_profile']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>YouTube</label>
 						<input className={`${classes.input_info}`}
 							   type='text'
 							   name='youtube_profile'
 							   ref={youtube_profile}
 							   onChange={(e) => handleChange(e)}/>
+
+						{errors['youtube_profile'] && errors['youtube_profile'].length ?
+							<div className={classes.errorDiv}>{errors['youtube_profile']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>Facebook</label>
 						<input className={`${classes.input_info}`}
 							   type='text'
@@ -440,18 +604,31 @@ const CreateInfluencer = () => {
 							   name='tiktok_profile'
 							   ref={tiktok_profile}
 							   onChange={(e) => handleChange(e)}/>
+
+
+						{errors['tiktok_profile'] && errors['tiktok_profile'].length ?
+							<div className={classes.errorDiv}>{errors['tiktok_profile']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>Twitter</label>
 						<input className={`${classes.input_info}`}
 							   type='text'
 							   name='twitter_profile'
 							   ref={twitter_profile}
 							   onChange={(e) => handleChange(e)}/>
+
+						{errors['twitter_profile'] && errors['twitter_profile'].length ?
+							<div className={classes.errorDiv}>{errors['twitter_profile']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>Blog</label>
 						<input className={`${classes.input_info}`}
 							   type='text'
 							   name='blog_profile'
 							   ref={blog_profile}
 							   onChange={(e) => handleChange(e)}/>
+
+						{errors['blog_profile'] && errors['blog_profile'].length ?
+							<div className={classes.errorDiv}>{errors['blog_profile']}</div> : ''}
+
 					</div>
 					<div className={`${classes.div_helper}`} style={{paddingTop: '58px'}}>
 						<label className={`${classes.input_title}`}>Instagram Followers</label>
@@ -461,7 +638,13 @@ const CreateInfluencer = () => {
 							   name='instagram_followers'
 							   ref={instagram_followers}
 							   value={values.instagram_followers ? values.instagram_followers : values.instagram_followers === '' ? values.instagram_followers : values.instagram_followers}
-							   onChange={(e) => handleChange(e)}/>
+							   onChange={(e) => handleChange(e)}
+						/>
+
+
+						{errors['instagram_followers'] && errors['instagram_followers'].length ?
+							<div className={classes.errorDiv}>{errors['instagram_followers']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>YouTube Subscribers</label>
 						<input className={`${classes.input_info}`}
 							   type='text'
@@ -469,6 +652,10 @@ const CreateInfluencer = () => {
 							   ref={youtube_followers}
 							   value={values.youtube_followers ? values.youtube_followers : values.youtube_followers === '' ? values.youtube_followers : values.youtube_followers}
 							   onChange={(e) => handleChange(e)}/>
+
+						{errors['youtube_followers'] && errors['youtube_followers'].length ?
+							<div className={classes.errorDiv}>{errors['youtube_followers']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>Facebook Followers</label>
 						<input className={`${classes.input_info}`}
 							   type='text'
@@ -477,6 +664,9 @@ const CreateInfluencer = () => {
 							   value={values.facebook_followers ? values.facebook_followers : values.facebook_followers === '' ? values.facebook_followers : values.facebook_followers}
 							   onChange={(e) => handleChange(e)}/>
 
+						{errors['facebook_followers'] && errors['facebook_followers'].length ?
+							<div className={classes.errorDiv}>{errors['facebook_followers']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>Tiktok Followers</label>
 						<input className={`${classes.input_info}`}
 							   type='text'
@@ -484,6 +674,10 @@ const CreateInfluencer = () => {
 							   ref={tiktok_followers}
 							   value={values.tiktok_followers ? values.tiktok_followers : values.tiktok_followers === '' ? values.tiktok_followers : values.tiktok_followers}
 							   onChange={(e) => handleChange(e)}/>
+
+						{errors['tiktok_followers'] && errors['tiktok_followers'].length ?
+							<div className={classes.errorDiv}>{errors['tiktok_followers']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>Twitter Followers</label>
 						<input className={`${classes.input_info}`}
 							   type='text'
@@ -491,6 +685,10 @@ const CreateInfluencer = () => {
 							   ref={twitter_followers}
 							   value={values.twitter_followers ? values.twitter_followers : values.twitter_followers === '' ? values.twitter_followers : values.twitter_followers}
 							   onChange={(e) => handleChange(e)}/>
+
+						{errors['twitter_followers'] && errors['twitter_followers'].length ?
+							<div className={classes.errorDiv}>{errors['twitter_followers']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>Blog Views</label>
 						<input className={`${classes.input_info}`}
 							   type='text'
@@ -498,6 +696,10 @@ const CreateInfluencer = () => {
 							   ref={blog_followers}
 							   value={values.blog_followers ? values.blog_followers : values.blog_followers === '' ? values.blog_followers : values.blog_followers}
 							   onChange={(e) => handleChange(e)}/>
+
+						{errors['blog_followers'] && errors['blog_followers'].length ?
+							<div className={classes.errorDiv}>{errors['blog_followers']}</div> : ''}
+
 					</div>
 				</section>
 			</div>
