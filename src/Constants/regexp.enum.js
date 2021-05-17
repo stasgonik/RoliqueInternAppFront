@@ -3,6 +3,6 @@ module.exports = {
 	FIRST_LAST_NAME_REGEXP: /^[a-zA-Z ,.'-]{2,50}$/,
 	PASSWORD_REGEXP: /^(?=.*[A-Za-z])(?=.*\d)([A-Za-z\d@$!%*#?&]?){4,50}/,
 	PHONE_REGEXP: /^[\d+()-]*$/,
-	FOLLOWERS_REGEXP: /^[\d]*$/,
+	FOLLOWERS_REGEXP: /^[\d]{1,15}$/,
 	PROFILE_REGEXP: /^[a-zA-Z .-@]{2,50}$/,
 };

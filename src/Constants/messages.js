@@ -21,7 +21,7 @@ export const INFO = {
 	CONFIRM_MUST_BE_SAME: 'Confirm password must be the same',
 	TOKEN_EXPIRE: 'Token is already expired or invalid',
 	PROFILES_ERROR: 'This field must be filled',
-	FOLLOWERS_REGEX: 'This field can include only numbers',
+	FOLLOWERS_REGEX: 'This field can include only up to 15-digit numbers',
 	PROFILE_REGEX: 'Field must include 2-50 only letters and separators like .@-'
 	}
 

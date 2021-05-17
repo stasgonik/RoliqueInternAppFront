@@ -8,7 +8,6 @@ import leftArrow from '../Items/Icons/arrow-left.svg';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import Tooltip from '../Items/Tooltip/Tooltip'
 import regexp from "../../Constants/regexp.enum";
-import userService from "../../Services/userService";
 import configFront from "../../Constants/configFront";
 import routes from "../../Constants/routes.enum";
 
@@ -47,10 +46,7 @@ const CreateInfluencer = () => {
 		last_name: '',
 		profession: '',
 		birthdate: '',
-
-		// avatar: '',
 	});
-	const [status, setStatus] = useState(0);
 
 	const [errors, setErrors] = useState({
 		avatar: '',
@@ -193,16 +189,9 @@ const CreateInfluencer = () => {
 			const inputFollower = socialName + '_followers'
 			const input = ref[inputFollower]
 			const inputFocus = ref[e.target.name]
-			// value = value.toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 			inputFocus.current.style.borderColor = ''
 			inputFocus.current.required = false
 
-			//     if (!input.current.value) {
-			//         input.current.style.borderColor = 'red'
-			//         input.current.required = true
-			//     } else {
-			//         input.current.style.borderColor = ''
-			//     }
 
 			if (value === '' || !value) {
 				if (input.current.value === '' || !input.current.value) {
@@ -227,39 +216,10 @@ const CreateInfluencer = () => {
 		if (value.length < 1) {
 			delete values[e.target.name]
 			setValues({...values});
-			// setErrors({...errors, [e.target.name]: ''})
 			return
 		}
 
-		// setErrors({...errors})
-
-		// if (target === 'profile') {
-		// 	// console.log(errors);
-		// 	const inputFollower = socialName + '_followers'
-		// 	if (errors[inputFollower] === '' && !errors[inputFollower]) {
-		// 		delete errors[inputFollower];
-		// 	}
-		// 	if (errors[e.target.name] === '' && !errors[e.target.name]) {
-		// 		delete errors[e.target.name];
-		// 	}
-		// 	// setErrors({...errors})
-		// }
-
-		// if (target === 'followers') {
-		// 	// console.log(errors);
-		// 	const inputProfile = socialName + '_profile'
-		// 	if (errors[inputProfile] === '' && !errors[inputProfile]) {
-		// 		delete errors[inputProfile];
-		// 	}
-		// 	if (errors[e.target.name] === '' && !errors[e.target.name]) {
-		// 		delete errors[e.target.name];
-		// 	}
-		// 	// setErrors({...errors})
-		// }
-
-		// console.log(Object.keys(errors))
 		setValues({...values, [e.target.name]: value});
-		// console.log(Object.keys(errors))
 	}
 
 	const handleSubmit = (e) => {
@@ -285,7 +245,6 @@ const CreateInfluencer = () => {
 			for (let i = 0; i < Object.keys(errors).length; i++) {
 				const key = Object.keys(errors)[i];
 				const words = key.split('_')
-				const socialName = words.shift()
 				const target = words.pop();
 
 				if (target === 'profile' && errors[key].length) {
@@ -308,8 +267,6 @@ const CreateInfluencer = () => {
 			profession: '',
 			birthdate: ''
 		};
-		// let formIsValid = true;
-
 
 		if (typeof values["first_name"] !== "undefined") {
 			if (!values["first_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
@@ -347,7 +304,7 @@ const CreateInfluencer = () => {
 			error["profession"] = INFO.EMPTY_FIELD
 		}
 
-		if (!values["birthdate"] ) {
+		if (!values["birthdate"]) {
 			formIsValid = false;
 			error["birthdate"] = INFO.EMPTY_FIELD
 		}
@@ -361,32 +318,6 @@ const CreateInfluencer = () => {
 		return formIsValid;
 	}
 
-	// const checkValidateInput = (data) => {
-	// 	let state2 = false;
-	// 	const arr = []
-	// 	for (const datum in data) {
-	// 		// console.log(datum)
-	// 		if (datum.includes('profile') || datum.includes('followers')) {
-	// 			arr.push(datum)
-	// 		}
-	// 	}
-	// 	// console.log(arr)
-	//
-	// 	if (arr.length % 2 === 0) {
-	// 		setStatus(1)
-	// 		state2 = true;
-	// 	} else if (arr.length % 2 !== 0) {
-	// 		setStatus(0)
-	// 		state2 = false;
-	// 	} else {
-	// 		setStatus(0)
-	// 		state2 = false;
-	// 	}
-	//
-	// 	// console.log(arr)
-	// 	console.log(status)
-	// 	return state2;
-	// }
 
 	const saveChanges = async () => {
 		const formData = new FormData();
@@ -503,8 +434,6 @@ const CreateInfluencer = () => {
 					<input className={classes.input_info_left}
 						   type='text'
 						   name='first_name'
-						// pattern={FIRST_LAST_NAME_REGEXP}
-						//    required={true}
 						   onInput={(e) => handleChange(e)}
 					/>
 
@@ -515,7 +444,6 @@ const CreateInfluencer = () => {
 					<input className={classes.input_info_left}
 						   type='text'
 						   name='last_name'
-						// required={true}
 						   onInput={(e) => handleChange(e)}/>
 
 					{errors.last_name && errors.last_name.length ?
@@ -536,7 +464,6 @@ const CreateInfluencer = () => {
 					<input className={`${classes.input_info_left}`}
 						   type='text'
 						   name='profession'
-						   required={true}
 						   onChange={(e) => handleChange(e)}/>
 
 					{errors.profession && errors.profession.length ?

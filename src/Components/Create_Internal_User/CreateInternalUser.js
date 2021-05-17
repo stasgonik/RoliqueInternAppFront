@@ -285,8 +285,6 @@ const User = () => {
                            type='text'
                            name='first_name'
                            value={values.firstName}
-                        // pattern={FIRST_LAST_NAME_REGEXP}
-                        // required
                            onChange={(e) => handleChange(e)}
                     />
 
@@ -297,8 +295,6 @@ const User = () => {
                     <input className={!values.last_name ? classes.input_info : classes.input_info_valid}
                            type='text'
                            name='last_name'
-                        // required
-                        // pattern={FIRST_LAST_NAME_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
                     {errors.last_name && errors.last_name.length ?
@@ -308,8 +304,6 @@ const User = () => {
                     <input className={!values.email ? classes.input_info : classes.input_info_valid}
                            type='email'
                            name='email'
-                        // required
-                        // pattern={EMAIL_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
                     {errors.email && errors.email.length ?
@@ -319,7 +313,6 @@ const User = () => {
                     <input className={classes.input_info_valid}
                            type='text'
                            name='phone'
-                        // pattern={PHONE_REGEXP}
                            onChange={(e) => handleChange(e)}/>
 
                     {errors.phone && errors.phone.length ?
@@ -352,7 +345,6 @@ const User = () => {
                     <input className={!values.password ? classes.input_info : classes.input_info_valid}
                            type='text'
                            name='password'
-                        // required
                            onChange={(e) => handleChange(e)}/>
 
                     {errors.password && errors.password.length ?
