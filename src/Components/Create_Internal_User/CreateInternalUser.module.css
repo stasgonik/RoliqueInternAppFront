@@ -1,258 +1,264 @@
 .mainBlock {
-		height: 80px;
+    height: 80px;
 }
 
 .header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		height: 80px;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .title {
-	font-size: 24px;
-	line-height: 29px;
-	font-weight: bold;
-	margin-left: 20px;
+    font-size: 24px;
+    line-height: 29px;
+    font-weight: bold;
+    margin-left: 20px;
 
-	color: #151515;
-	font-family: Helvetica Neue, sans-serif;
-	font-style: normal;
-	opacity: 0.9;
+    color: #151515;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    opacity: 0.9;
 }
 
 .btnHeader {
-		display: flex;
-		align-items: center;
-		width: 123px;
-		height: 33px;
-		right: 68px;
-		margin-right: 68px;
-		padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    width: 123px;
+    height: 33px;
+    right: 68px;
+    margin-right: 68px;
+    padding: 8px 16px;
 
-		border: 0;
-		text-decoration: none;
-		border-radius: 8px;
-		background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
+    border: 0;
+    text-decoration: none;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
 }
 
 .btnHeader:hover {
-		outline: none;
-		cursor: pointer;
+    outline: none;
+    cursor: pointer;
 }
 
 .btnHeader:active, .btn:focus {
-		outline: none;
-}
-
-.btnHeaderDisabled {
-	opacity: 0.8;
-	display: flex;
-	align-items: center;
-	width: 123px;
-	height: 33px;
-	right: 68px;
-	margin-right: 68px;
-	padding: 8px 16px;
-
-	border: 0;
-	text-decoration: none;
-	border-radius: 8px;
-	background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
-}
-
-.btnHeaderDisabled:hover {
-	outline: none;
-	cursor: pointer;
-}
-
-.btnHeaderDisabled:active, .btn:focus {
-	outline: none;
+    outline: none;
 }
 
 .titleBtn {
-		/*width: 91px;*/
-		font-family: Helvetica Neue, sans-serif;
-		font-size: 13px;
-		line-height: 17px;
-		color: #FFFFFF;
+    /*width: 91px;*/
+    font-family: Helvetica Neue, sans-serif;
+    font-size: 13px;
+    line-height: 17px;
+    color: #FFFFFF;
 }
 
 .mainContainer {
-		display: flex;
-		justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .leftContainer {
-		display: flex;
-		flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-		margin-left: 180px;
-		margin-top: 47px;
+    margin-left: 180px;
+    margin-top: 47px;
 }
 
 .rightContainer {
-		display: flex;
-		flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-		margin-right: 180px;
-		margin-top: 47px;
+    margin-right: 180px;
+    margin-top: 47px;
 }
 
 .general {
-		font-family: Helvetica Neue, sans-serif;
-		font-size: 18px;
-		line-height: 22px;
-		letter-spacing: -0.25px;
-		color: #151515;
-		opacity: 0.9;
+    font-family: Helvetica Neue, sans-serif;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.25px;
+    color: #151515;
+    opacity: 0.9;
 }
 
 .profile {
-		margin-top: 24px;
-		font-family: Helvetica Neue, serif;
-		font-size: 14px;
-		line-height: 17px;
-		letter-spacing: -0.35px;
-		color: rgba(0, 0, 0, 0.6);
-		mix-blend-mode: hard-light;
-		opacity: 0.76
+    margin-top: 24px;
+    font-family: Helvetica Neue, serif;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.35px;
+    color: rgba(0, 0, 0, 0.6);
+    mix-blend-mode: hard-light;
+    opacity: 0.76
 }
 
 .input_title {
-		margin-bottom: 8px;
+    margin-bottom: 8px;
 
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 14px;
-		line-height: 17px;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
 
-		letter-spacing: -0.35px;
-		color: #7D7D7D;
+    letter-spacing: -0.35px;
+    color: #7D7D7D;
 }
 
 .input_info {
-		width: 408px;
-		height: 32px;
-		margin-bottom: 16px;
+    width: 408px;
+    height: 32px;
+    margin-bottom: 16px;
 
-		background: #FAFAFB;
-		border: 1px solid #DA1414;
-		box-sizing: border-box;
-		border-radius: 6px;
-		outline: none;
+    background: #FAFAFB;
+    border: 1px solid #DA1414;
+    box-sizing: border-box;
+    border-radius: 6px;
+    outline: none;
 }
 
 .input_info_valid {
-		width: 408px;
-		height: 32px;
-		margin-bottom: 16px;
-		border: 1px solid #BFBFBF;
-		box-sizing: border-box;
-		border-radius: 6px;
-		outline: none;
-		background: #FAFAFB;
+    width: 408px;
+    height: 32px;
+    margin-bottom: 16px;
+    border: 1px solid #BFBFBF;
+    box-sizing: border-box;
+    border-radius: 6px;
+    outline: none;
+    background: #FAFAFB;
 
 }
 
 .rightContainer_title {
-		font-family: Helvetica Neue, sans-serif;
-		font-weight: bold;
-		font-size: 18px;
-		line-height: 22px;
-		letter-spacing: -0.25px;
+    font-family: Helvetica Neue, sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.25px;
 
-		color: #151515;
+    color: #151515;
 
-		opacity: 0.9;
+    opacity: 0.9;
 }
 
 .rightContainer_title_password {
-		margin-top: 39px;
+    margin-top: 39px;
 }
 
 
-
 .role {
-		display: flex;
-		margin-bottom: 5px;
+    display: flex;
+    margin-bottom: 5px;
 
 }
 
 .infoBtn {
-		margin-left: 10px;
-		width: 16px;
+    margin-left: 10px;
+    width: 16px;
 }
 
 .tooltip {
-		width: 372px;
-		display: none;
-		position: absolute;
-		top: 171px;
+    width: 372px;
+    display: none;
+    position: absolute;
+    top: 171px;
 }
 
 .infoBtn:hover + .tooltip {
-		z-index: 10;
-		display: block;
-
+    z-index: 10;
+    display: block;
 }
 
-
-/*.input_password {*/
-/*		margin-top: 24px;*/
-/*}*/
-
 .avatar {
-		width: 64px;
-		height: 64px;
-		margin: 12px 0 24px 0;
-		border: 1px dashed rgba(197, 146, 165, 0.8);
-		box-sizing: border-box;
-		border-radius: 50px;
-		color: #D0A7B6;
-		background: none;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		cursor: pointer;
+    width: 64px;
+    height: 64px;
+    margin: 12px 0 24px 0;
+    border: 1px dashed rgba(197, 146, 165, 0.8);
+    box-sizing: border-box;
+    border-radius: 50px;
+    color: #D0A7B6;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 
 }
 
 .bgColor {
-	background-color: #FEEFEF;
+    background-color: #FEEFEF;
 }
 
 .colorRound {
-	width: 16px;
-	height: 16px;
+    width: 16px;
+    height: 16px;
 
-	border-radius: 50px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 
-
-	font-size: 12px;
-	background-color: #DA1414;
-	color: #FEEFEF;
+    font-size: 12px;
+    background-color: #DA1414;
+    color: #FEEFEF;
 }
 
 .errorDiv {
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 12px;
-		line-height: 14px;
-		letter-spacing: -0.35px;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.35px;
 
-		color: #da1414;
-		margin-top: -8px;
+    color: #DA1414;
+    margin-top: -8px;
 
 }
 
 .roleErrorPos {
-		margin-top: 8px;
+    margin-top: 8px;
+}
+
+@media screen and (max-width: 2560px) {
+    .mainContainer {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+@media screen and (max-width: 1600px) {
+    .mainContainer{
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+@media screen and (max-width: 1440px) {
+    .mainContainer{
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .mainContainer{
+        flex-direction: column;
+    }
+    .leftContainer{
+        width: 40%;
+    }
+    .rightContainer{
+        width: 30%;
+        padding-left: 180px;
+    }
+    .tooltip{
+        top: 717px;
+        right: 476px;
+    }
+    .dropDown{
+        width: 408px;
+    }
 }
