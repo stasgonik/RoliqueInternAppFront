@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 
 import classes from './CreateInfluencer.module.css';
+import configFront from "../../Constants/configFront";
 import Header from '../Items/Header/Header';
 import influencersService from "../../Services/influencers.service";
 import {INFO} from '../../Constants/messages';
@@ -8,7 +9,6 @@ import leftArrow from '../Items/Icons/arrow-left.svg';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import Tooltip from '../Items/Tooltip/Tooltip'
 import regexp from "../../Constants/regexp.enum";
-import configFront from "../../Constants/configFront";
 import routes from "../../Constants/routes.enum";
 
 const CreateInfluencer = () => {
