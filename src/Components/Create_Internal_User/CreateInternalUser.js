@@ -285,7 +285,7 @@ const User = () => {
                            type='text'
                            name='first_name'
                            value={values.firstName}
-                           onChange={(e) => handleChange(e)}
+                           onInput={(e) => handleChange(e)}
                     />
 
                     {errors.first_name && errors.first_name.length ?
@@ -295,7 +295,7 @@ const User = () => {
                     <input className={!values.last_name ? classes.input_info : classes.input_info_valid}
                            type='text'
                            name='last_name'
-                           onChange={(e) => handleChange(e)}/>
+                           onInput={(e) => handleChange(e)}/>
 
                     {errors.last_name && errors.last_name.length ?
                         <div className={classes.errorDiv}>{errors.last_name}</div> : ''}
@@ -304,7 +304,7 @@ const User = () => {
                     <input className={!values.email ? classes.input_info : classes.input_info_valid}
                            type='email'
                            name='email'
-                           onChange={(e) => handleChange(e)}/>
+                           onInput={(e) => handleChange(e)}/>
 
                     {errors.email && errors.email.length ?
                         <div className={classes.errorDiv}>{errors.email}</div> : ''}
@@ -313,7 +313,7 @@ const User = () => {
                     <input className={classes.input_info_valid}
                            type='text'
                            name='phone'
-                           onChange={(e) => handleChange(e)}/>
+                           onInput={(e) => handleChange(e)}/>
 
                     {errors.phone && errors.phone.length ?
                         <div className={classes.errorDiv}>{errors.phone}</div> : ''}
@@ -345,7 +345,7 @@ const User = () => {
                     <input className={!values.password ? classes.input_info : classes.input_info_valid}
                            type='text'
                            name='password'
-                           onChange={(e) => handleChange(e)}/>
+                           onInput={(e) => handleChange(e)}/>
 
                     {errors.password && errors.password.length ?
                         <div className={classes.errorDiv}>{errors.password}</div> : ''}
