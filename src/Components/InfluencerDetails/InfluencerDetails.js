@@ -38,7 +38,7 @@ const InfluencerDetails = () => {
             async function Start() {
                 setIsLoading(true)
                 setInitial(false)
-                const initialState = await InfluencersService.getSingleInfluencer(params[routes.INFLUENCER_ID], true)
+                const initialState = await InfluencersService.getSingleInfluencer(params[routes.INFLUENCER_ID])
 
                 const arr = initialState.social_profiles;
                 arr.splice(1, 3).reverse().forEach(value => arr.push(value))

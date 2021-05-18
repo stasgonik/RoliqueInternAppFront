@@ -21,12 +21,9 @@ export default class InfluencersService {
         }
     }
 
-    static async getSingleInfluencer(id, showPhotos = false) {
+    static async getSingleInfluencer(id) {
         try{
             const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Influencers}${id}`, {
-                params: {
-                    showPhotos
-                }
             });
 
             if(result.status === 200) {
