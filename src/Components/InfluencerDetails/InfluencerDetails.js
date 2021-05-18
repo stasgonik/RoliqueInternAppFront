@@ -58,7 +58,7 @@ const InfluencerDetails = () => {
 
 				} else {
 					const newDate = initialState.birthdate.split('T').shift();
-					setValues({...initialState, birthdate: newDate.split('-').reverse().join('-')});
+					setValues({...initialState, birthdate: newDate.split('-').reverse().join('.')});
 
 				}
 				setIsLoading(false)
