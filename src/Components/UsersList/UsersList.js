@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import arrowUp from '../Items/Icons/arrow-up.svg';
 import AuthService from "../../Services/auth.service";
 import classes from './UsersList.module.css';
+import loading from "../../img/Loading.gif";
 import path from '../Items/Icons/path.svg';
 import photoDefault from '../Items/Icons/vector.svg';
 import rightArrow from '../Items/Icons/right-arrow.svg';
@@ -12,7 +13,7 @@ import Sidebar from '../Items/Sidebar/Sidebar'
 import Search from "../Items/Search/Search";
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 import userService from "../../Services/userService";
-import loading from "../../img/Loading.gif";
+
 
 const UsersList = () => {
 
