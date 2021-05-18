@@ -321,7 +321,7 @@ const CreateInfluencer = () => {
 
 	const saveChanges = async () => {
 		const formData = new FormData();
-		const arr = []
+		// const arr = []
 		let bd;
 		if (values.birthdate) {
 			bd = values.birthdate
@@ -371,13 +371,12 @@ const CreateInfluencer = () => {
 						return
 					}
 
-					let errors = {
-						avatar: '',
-						first_name: '',
-						last_name: '',
-						profession: ''
-
-					};
+					// let errors = {
+					// 	avatar: '',
+					// 	first_name: '',
+					// 	last_name: '',
+					// 	profession: ''
+					// };
 
 					if (result.status === 403) {
 						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
