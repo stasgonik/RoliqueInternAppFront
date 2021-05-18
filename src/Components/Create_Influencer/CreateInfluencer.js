@@ -371,18 +371,22 @@ const CreateInfluencer = () => {
 						return
 					}
 
-					// let errors = {
-					// 	avatar: '',
-					// 	first_name: '',
-					// 	last_name: '',
-					// 	profession: ''
-					// };
+					let errors = {
+						avatar: '',
+						first_name: '',
+						last_name: '',
+						profession: ''
+					};
 
-					if (result.status === 403) {
-						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
-						return
-					}
-
+					// if (result.status === 403) {
+					// 	window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
+					// 	return
+					// }
+					// if (result.data.customCode === 4005) {
+					// 	errors["avatar"] = INFO.TOO_BIG_PHOTO
+					// 	setErrors(errors);
+					// 	return
+					// }
 					// if (typeof result.data !== "undefined") {
 					// 	if (result.data.customCode === 4000) {
 					// 		errors["email"] = INFO.DATA_INCORRECT
