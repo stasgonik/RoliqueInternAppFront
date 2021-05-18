@@ -33,10 +33,10 @@ const UsersListHeader = ({upArrow, titleBtn, titleHeader, title, titleBtnEdit, E
                     className={'titleBtn'}>{titleBtn}</span></button> : ""}
                 <div id='myDropdown' className={'dropdownContent'}>
                     <div className={'content'}>
-                        <Link to="#" className={'linkBtn Compaign'}>Campaign</Link>
-                        <Link to={`${routes.INFLUENCERS}/${routes.CREATE}`}
+                        <Link exact to="#" className={'linkBtn Compaign'}>Campaign</Link>
+                        <Link to={`/${routes.INFLUENCERS}/${routes.CREATE}`}
                               className={'linkBtn Influencer'}>Influencer</Link>
-                        <Link to={`${routes.USERS}/${routes.CREATE}`} className={'linkBtn User'}>Internal User</Link>
+                        <Link to={`/${routes.USERS}/${routes.CREATE}`} className={'linkBtn User'}>Internal User</Link>
                     </div>
                 </div>
             </div>
