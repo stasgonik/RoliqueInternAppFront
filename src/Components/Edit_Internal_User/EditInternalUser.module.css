@@ -210,7 +210,18 @@
     justify-content: center;
     align-items: center;
 }
+.errorDiv {
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.35px;
 
+    color: #DA1414;
+    margin-top: -8px;
+
+}
 @media screen and (max-width: 2560px) {
     .mainContainer {
         width: 100%;

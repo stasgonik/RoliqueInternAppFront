@@ -385,6 +385,7 @@ const CreateInfluencer = () => {
 						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
 						return
 					}
+					 console.log(result)
 
 					if (typeof result.data !== "undefined") {
 						 if (result.data.customCode === 4005) {
@@ -392,7 +393,16 @@ const CreateInfluencer = () => {
 							 setErrors(errors);
 							 return
 						 }
+						 if (result.data.customCode === 4008) {
+						 	result.data.payload.forEach((value)=> {
+						 		const errorName = value + "_profile"
+								errors[errorName] = INFO.SOCIAL_PROFILE_EXIST;
+							})
+							 setErrors(errors);
+							 return
+						 }
 					 }
+
 
 					if (result.status === 500) {
 						errors["profession"] = INFO.SERVER_ERROR

@@ -22,7 +22,8 @@ export const INFO = {
 	TOKEN_EXPIRE: 'Token is already expired or invalid',
 	PROFILES_ERROR: 'This field must be filled',
 	FOLLOWERS_REGEX: 'This field can include only up to 15-digit numbers',
-	PROFILE_REGEX: 'Field must include 2-50 only letters and separators like .@-'
+	PROFILE_REGEX: 'Field must include 2-50 only letters and separators like .@-',
+	SOCIAL_PROFILE_EXIST: 'User with such social profile already exist',
 	}
 
 
