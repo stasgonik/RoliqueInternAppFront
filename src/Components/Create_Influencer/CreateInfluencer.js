@@ -370,36 +370,28 @@ const CreateInfluencer = () => {
 						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
 						return
 					}
+					console.log(result)
 
 					let errors = {
 						avatar: '',
 						first_name: '',
 						last_name: '',
-						profession: ''
+						profession: '',
+						birthdate: '',
 					};
 
-					// if (result.status === 403) {
-					// 	window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
-					// 	return
-					// }
-					// if (result.data.customCode === 4005) {
-					// 	errors["avatar"] = INFO.TOO_BIG_PHOTO
-					// 	setErrors(errors);
-					// 	return
-					// }
-					// if (typeof result.data !== "undefined") {
-					// 	if (result.data.customCode === 4000) {
-					// 		errors["email"] = INFO.DATA_INCORRECT
-					// 		setErrors(errors);
-					// 		return
-					// 	}
-					// 	if (result.data.customCode === 4002) {
-					// 		errors["email"] = INFO.EMAIL_ALREADY_EXIST
-					// 		setErrors(errors);
-					// 		return
-					// 	}
-					//
-					// }
+					 if (result.status === 403) {
+						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
+						return
+					}
+
+					if (typeof result.data !== "undefined") {
+						 if (result.data.customCode === 4005) {
+							 errors["avatar"] = INFO.TOO_BIG_PHOTO
+							 setErrors(errors);
+							 return
+						 }
+					 }
 					//
 					// if (result.status === 500) {
 					// 	errors["email"] = INFO.SERVER_ERROR

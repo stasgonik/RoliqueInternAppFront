@@ -50,8 +50,9 @@ export default class InfluencersService {
         try{
             const result = await axiosInstance.post(`${configServer.URL}${_endpoint.Influencers}`, body);
 
-            return result.data
+            return result
         } catch (e) {
+            return e
             console.log(e)
         }
     }

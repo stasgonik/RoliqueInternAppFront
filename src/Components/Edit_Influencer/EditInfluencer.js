@@ -12,6 +12,7 @@ import leftArrow from '../Items/Icons/arrow-left.svg';
 import routes from "../../Constants/routes.enum";
 import Sidebar from '../Items/Sidebar/Sidebar'
 import Tooltip from '../Items/Tooltip/Tooltip'
+import regexp from "../../Constants/regexp.enum";
 
 const EditInfluencer = () => {
     const params = useParams();
@@ -93,6 +94,59 @@ const EditInfluencer = () => {
 
     const [status, setStatus] = useState(false);
     const [edit, setEdit] = useState({});
+
+    const [errors, setErrors] = useState({
+        avatar: '',
+        first_name: '',
+        last_name: '',
+        profession: '',
+        birthdate: ''
+    });
+
+    const handleValidation = () => {
+        let errors = {
+            avatar: '',
+            first_name: '',
+            last_name: '',
+            profession: '',
+            birthdate: ''
+        };
+        let formIsValid = true;
+
+
+        if (typeof values["first_name"] !== "undefined") {
+            if (!values["first_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
+                formIsValid = false;
+                errors["first_name"] = INFO.INVALID_NAME_PATTERN
+            }
+
+            if (!values["first_name"] || !values["first_name"].length) {
+                formIsValid = false;
+                errors["first_name"] = INFO.EMPTY_FIELD
+            }
+
+        }
+
+
+        if (typeof values["last_name"] !== "undefined") {
+            if (!values["last_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
+                formIsValid = false;
+                errors["last_name"] = INFO.INVALID_NAME_PATTERN
+            }
+
+            if (!values["last_name"] || !values["last_name"].length) {
+                formIsValid = false;
+                errors["last_name"] = INFO.EMPTY_FIELD
+            }
+        }
+
+
+        setErrors(errors);
+        // if (!formIsValid) {
+        //     setIsSending(false)
+        // }
+        return formIsValid;
+    }
 
     const handleChange = (e) => {
         let value = e.target.value;
