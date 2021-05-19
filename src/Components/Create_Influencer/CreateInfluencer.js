@@ -41,6 +41,8 @@ const CreateInfluencer = () => {
 		blog_followers,
 	}
 
+	const [isSending, setIsSending] = useState(false);
+
 	const [values, setValues] = useState({
 		first_name: '',
 		last_name: '',
@@ -311,15 +313,16 @@ const CreateInfluencer = () => {
 
 
 		setErrors({...errors, ...error});
-		// if (!formIsValid) {
-		// 	setIsSending(false)
-		// }
+		if (!formIsValid) {
+			setIsSending(false)
+		}
 		console.log(formIsValid)
 		return formIsValid;
 	}
 
 
 	const saveChanges = async () => {
+		setIsSending(true);
 		const formData = new FormData();
 		// const arr = []
 		let bd;
@@ -362,15 +365,13 @@ const CreateInfluencer = () => {
 				setValues({...values, avatar: pp})
 			}
 			if (handleValidation()) {
-
 				const result = await influencersService.postInfluencer(formData);
 				if (result) {
-					// setIsSending(false)
+					setIsSending(false)
 					if (result.status === 200) {
 						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
 						return
 					}
-					console.log(result)
 
 					let errors = {
 						avatar: '',
@@ -392,20 +393,19 @@ const CreateInfluencer = () => {
 							 return
 						 }
 					 }
-					//
-					// if (result.status === 500) {
-					// 	errors["email"] = INFO.SERVER_ERROR
-					// 	setErrors(errors);
-					// 	console.log(result);
-					// 	return
-					// }
 
-					// if (result.status !== 200) {
-					// 	errors["email"] = INFO.UNKNOWN_ERROR
-					// 	setErrors(errors);
-					// 	console.log(result);
-					// 	return
-					// }
+					if (result.status === 500) {
+						errors["profession"] = INFO.SERVER_ERROR
+						setErrors(errors);
+						console.log(result);
+						return
+					}
+
+					if (result.status !== 200) {
+						errors["profession"] = INFO.UNKNOWN_ERROR
+						setErrors(errors);
+						console.log(result);
+					}
 				}
 			}
 		}
@@ -416,10 +416,11 @@ const CreateInfluencer = () => {
 		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
 			<Sidebar/>
 			<Header name={'Create'} titleHeader={classes.title}
-					titleBtn='Save Changes'
+					titleBtn={isSending? 'Sending' : 'Save Changes'}
 					title='Create Influencer'
 					leftArrow={leftArrow}
-					btnHeader={classes.btnHeader}
+					isSending={isSending}
+					btnHeader={isSending? `${classes.btnHeader} ${classes.disabled}`  : classes.btnHeader}
 					button={(e) => saveChanges(e)}/>
 
 			<div className={classes.mainContainer}>

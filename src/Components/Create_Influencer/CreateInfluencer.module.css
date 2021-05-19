@@ -69,10 +69,15 @@
     margin-right: 68px;
     padding: 8px 16px;
 
+    cursor: pointer;
     border: 0;
     text-decoration: none;
     border-radius: 8px;
     background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
+}
+
+.disabled {
+    opacity: 0.8
 }
 
 .title {
