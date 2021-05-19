@@ -543,9 +543,6 @@ const EditInfluencer = () => {
                            placeholder={''}
                            onInput={(e) => handleChange(e)}/>
 
-                    {/*{errors.birthdate && errors.birthdate.length ?*/}
-                    {/*    <div className={classes.errorDiv}>{errors.birthdate}</div> : ''}*/}
-
                     <label className={classes.input_title}>Profession</label>
                     <input className={`${classes.input_info_left}`}
                            type='text'

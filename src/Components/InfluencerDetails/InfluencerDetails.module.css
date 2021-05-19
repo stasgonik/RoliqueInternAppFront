@@ -260,6 +260,7 @@
 }
 .mainSocialContainer {
 		display: flex;
+		flex-wrap: wrap;
 }
 
 .mainSocial {
