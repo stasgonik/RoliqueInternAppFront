@@ -520,6 +520,9 @@ const CreateInfluencer = () => {
 							   ref={facebook_profile}
 							   onChange={(e) => handleChange(e)}/>
 
+						{errors['facebook_profile'] && errors['facebook_profile'].length ?
+							<div className={classes.errorDiv}>{errors['facebook_profile']}</div> : ''}
+
 						<label className={`${classes.input_title}`}>Tiktok</label>
 						<input className={`${classes.input_info}`}
 							   type='text'

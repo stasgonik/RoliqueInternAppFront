@@ -13,6 +13,7 @@ import routes from "../../Constants/routes.enum";
 import Sidebar from '../Items/Sidebar/Sidebar'
 import Tooltip from '../Items/Tooltip/Tooltip'
 import regexp from "../../Constants/regexp.enum";
+import userService from "../../Services/userService";
 
 const EditInfluencer = () => {
     const params = useParams();
@@ -104,44 +105,84 @@ const EditInfluencer = () => {
     });
 
     const handleValidation = () => {
-        let errors = {
+        let formIsValid = true;
+
+        if (Object.keys(errors).length > 5) {
+            for (let i = 0; i < Object.keys(errors).length; i++) {
+                const key = Object.keys(errors)[i];
+                const words = key.split('_')
+                const target = words.pop();
+
+                if (target === 'profile' && errors[key].length) {
+                    console.log(key)
+                    console.log(errors[key])
+                    formIsValid = false
+                }
+
+                if (target === 'followers' && errors[key].length) {
+                    console.log(key)
+                    console.log(errors[key])
+                    formIsValid = false
+                }
+            }
+        }
+
+        let error = {
             avatar: '',
             first_name: '',
             last_name: '',
             profession: '',
-            birthdate: ''
         };
-        let formIsValid = true;
 
 
-        if (typeof values["first_name"] !== "undefined") {
-            if (!values["first_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
+
+        if (typeof edit["first_name"] !== "undefined") {
+            if (!edit["first_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
                 formIsValid = false;
-                errors["first_name"] = INFO.INVALID_NAME_PATTERN
+                error["first_name"] = INFO.INVALID_NAME_PATTERN
             }
 
-            if (!values["first_name"] || !values["first_name"].length) {
+            if (!edit["first_name"] || !edit["first_name"].length) {
                 formIsValid = false;
-                errors["first_name"] = INFO.EMPTY_FIELD
+                error["first_name"] = INFO.EMPTY_FIELD
             }
 
         }
 
 
-        if (typeof values["last_name"] !== "undefined") {
-            if (!values["last_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
+        if (typeof edit["last_name"] !== "undefined" ) {
+            if (!edit["last_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
                 formIsValid = false;
-                errors["last_name"] = INFO.INVALID_NAME_PATTERN
+                error["last_name"] = INFO.INVALID_NAME_PATTERN
             }
 
-            if (!values["last_name"] || !values["last_name"].length) {
+            if (!edit["last_name"] || !edit["last_name"].length) {
                 formIsValid = false;
-                errors["last_name"] = INFO.EMPTY_FIELD
+                error["last_name"] = INFO.EMPTY_FIELD
             }
         }
+
+        if (typeof edit["profession"] !== "undefined") {
+            if (!edit["profession"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
+                formIsValid = false;
+                error["profession"] = INFO.INVALID_NAME_PATTERN
+            }
+
+
+            if (!edit["profession"] || !edit["profession"].length) {
+                formIsValid = false;
+                error["profession"] = INFO.EMPTY_FIELD
+            }
+        }
+
+        // if (!edit["birthdate"]) {
+        //     formIsValid = false;
+        //     errors["birthdate"] = INFO.EMPTY_FIELD
+        // }
 
 
         setErrors(errors);
+        console.log(errors)
         // if (!formIsValid) {
         //     setIsSending(false)
         // }
@@ -155,6 +196,7 @@ const EditInfluencer = () => {
         const strArr = e.target.name.split('_')
         const socialName = strArr.shift()
         const target = strArr.pop();
+
         if (target === 'profile') {
             const inputFollower = socialName + '_followers'
             const input = ref[inputFollower]
@@ -165,21 +207,52 @@ const EditInfluencer = () => {
             if (!input.current.value) {
                 input.current.style.borderColor = 'red'
                 input.current.required = true
-            } else {
-                input.current.style.borderColor = ''
-            }
 
-            if (value === '') {
-                if (input.current.value === '') {
-                    inputFocus.current.style.borderColor = ''
-                    inputFocus.current.required = false
-                    input.current.style.borderColor = ''
-                    input.current.required = false
-                } else {
-                    inputFocus.current.style.borderColor = 'red'
-                    inputFocus.current.required = true
+                if (value !== '') {
+                    let errProf = '';
+                    if (!value.match(regexp.PROFILE_REGEXP)) {
+                        errProf = INFO.PROFILE_REGEX
+                    }
+                    setErrors({...errors, [inputFollower]: INFO.PROFILES_ERROR, [e.target.name]: errProf})
                 }
             }
+             else {
+                input.current.style.borderColor = ''
+
+
+                if (value !== '') {
+                    let errProf = '';
+                    let errFoll = '';
+                    let normalFoll = input.current.value.split('.').join('')
+
+                    if (!value.match(regexp.PROFILE_REGEXP)) {
+                        errProf = INFO.PROFILE_REGEX
+                    }
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+                        errFoll = INFO.FOLLOWERS_REGEX
+                    }
+                    setErrors({...errors, [e.target.name]: errProf, [inputFollower]: errFoll})
+                } else {
+                    let errFoll = '';
+                    let normalFoll = input.current.value.split('.').join('')
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+                        errFoll = INFO.FOLLOWERS_REGEX
+                    }
+                    setErrors({...errors, [inputFollower]: errFoll})
+                }
+            }
+
+            // if (value === '') {
+            //     if (input.current.value === '') {
+            //         inputFocus.current.style.borderColor = ''
+            //         inputFocus.current.required = false
+            //         input.current.style.borderColor = ''
+            //         input.current.required = false
+            //     } else {
+            //         inputFocus.current.style.borderColor = 'red'
+            //         inputFocus.current.required = true
+            //     }
+            // }
         }
 
         if (target === 'followers') {
@@ -193,22 +266,122 @@ const EditInfluencer = () => {
             if (!input.current.value) {
                 input.current.style.borderColor = 'red'
                 input.current.required = true
+
+                if (value !== '') {
+                    let errFoll = '';
+                    let normalFoll = value.split('.').join('')
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+                        errFoll = INFO.FOLLOWERS_REGEX
+                    }
+                    setErrors({...errors, [inputProfile]: INFO.PROFILES_ERROR, [e.target.name]: errFoll})
+                }
+            } else {
+                input.current.style.borderColor = ''
+
+                if (value !== '') {
+                    let errFoll = '';
+                    let errProf = '';
+                    let normalFoll = value.split('.').join('');
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+                        errFoll = INFO.FOLLOWERS_REGEX
+                    }
+                    if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+                        errProf = INFO.PROFILE_REGEX
+                    }
+
+                    setErrors({...errors, [e.target.name]: errFoll, [inputProfile]: errProf})
+                } else {
+                    let errProf = '';
+                    if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+                        errProf = INFO.PROFILE_REGEX
+                    }
+                    setErrors({...errors, [inputProfile]: errProf})
+                }
+            }
+
+            // if (value === '') {
+            //     if (input.current.value === '') {
+            //         inputFocus.current.style.borderColor = ''
+            //         inputFocus.current.required = false
+            //         input.current.style.borderColor = ''
+            //         input.current.required = false
+            //     } else {
+            //         inputFocus.current.style.borderColor = 'red'
+            //         inputFocus.current.required = true
+            //     }
+            // }
+        }
+
+        if (target === 'followers') {
+            const inputProfile = socialName + '_profile'
+            const input = ref[inputProfile]
+            const inputFocus = ref[e.target.name]
+            value = value.toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+            inputFocus.current.style.borderColor = ''
+            inputFocus.current.required = false
+
+
+            if (!input.current.value) {
+                input.current.style.borderColor = 'red'
+                input.current.required = true
             } else {
                 input.current.style.borderColor = ''
             }
 
-            if (value === '') {
-                if (input.current.value === '') {
+            if (value === '' || !value) {
+                if (input.current.value === '' || !input.current.value) {
                     inputFocus.current.style.borderColor = ''
                     inputFocus.current.required = false
                     input.current.style.borderColor = ''
                     input.current.required = false
+                    setErrors({...errors, [e.target.name]: '', [inputProfile]: ''})
+
                 } else {
                     inputFocus.current.style.borderColor = 'red'
                     inputFocus.current.required = true
+                    let errProf = '';
+                    if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+                        errProf = INFO.PROFILE_REGEX
+                    }
+                    setErrors({...errors, [inputProfile]: errProf, [e.target.name]: INFO.PROFILES_ERROR})
+                }
+            }
+
+        }
+        if (target === 'profile') {
+            const inputFollower = socialName + '_followers'
+            const input = ref[inputFollower]
+            const inputFocus = ref[e.target.name]
+            inputFocus.current.style.borderColor = ''
+            inputFocus.current.required = false
+
+
+            if (value === '' || !value) {
+                if (input.current.value === '' || !input.current.value) {
+                    inputFocus.current.style.borderColor = ''
+                    inputFocus.current.required = false
+                    input.current.style.borderColor = ''
+                    input.current.required = false
+                    setErrors({...errors, [e.target.name]: '', [inputFollower]: ''})
+                } else {
+                    inputFocus.current.style.borderColor = 'red'
+                    inputFocus.current.required = true
+                    let errFoll = '';
+                    let normalFoll = input.current.value.split('.').join('')
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+                        errFoll = INFO.FOLLOWERS_REGEX
+                    }
+                    setErrors({...errors, [inputFollower]: errFoll, [e.target.name]: INFO.PROFILES_ERROR})
                 }
             }
         }
+
+        // if (value.length < 1) {
+        //     delete edit[e.target.name]
+        //     setEdit({...edit});
+        //     return
+        // }
+
         setEdit({...edit, [e.target.name]: value});
     }
 
@@ -234,14 +407,19 @@ const EditInfluencer = () => {
         }
 
         for (const value in edit) {
-            if (value.includes('followers')) {
+            if (value.includes('followers') && (edit[value] !== 0)) {
                 edit[value] = edit[value].split('.').join('')
             }
 
             arr.push(values[value])
-            if (edit[value] === '') {
-                edit[value] = null
-            }
+             if (edit[value] === '') {
+                 if (value.includes('followers')) {
+                     edit[value] = 0
+                 } else {
+                     edit[value] = ''
+                 }
+
+             }
 
             formData.append(value, edit[value])
             if (edit[value]) {
@@ -255,6 +433,64 @@ const EditInfluencer = () => {
                 setEdit({...edit, profile_picture: pp})
             }
             await influerenceService.editInfluerence(formData, params[routes.INFLUENCER_ID])
+        }
+
+        if (handleValidation()) {
+            const result = await influerenceService.editInfluerence(formData, params[routes.INFLUENCER_ID]);
+            if (result) {
+                // setIsSending(true)
+                if (result.status === 200) {
+                    window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
+                }
+
+                let errors = {
+                    avatar: '',
+                    first_name: '',
+                    last_name: '',
+                    profession: '',
+                    // birthdate: ''
+                };
+
+
+                if (result.status === 403) {
+                    window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
+                    return
+                }
+
+                if (typeof result.data !== "undefined") {
+
+
+                    if (result.data.customCode === 4000) {
+                        errors["email"] = INFO.DATA_INCORRECT
+                        setErrors(errors);
+                        return
+                    }
+                    // if (result.data.customCode === 4002) {
+                    //     errors["email"] = INFO.EMAIL_ALREADY_EXIST
+                    //     setErrors(errors);
+                    //     return
+                    // }
+                    if (result.data.customCode === 4005) {
+                        errors["avatar"] = INFO.TOO_BIG_PHOTO
+                        setErrors(errors);
+                        return
+                    }
+                }
+
+                if (result.status === 500) {
+                    errors["email"] = INFO.SERVER_ERROR
+                    setErrors(errors);
+                    console.log(result);
+                    return
+                }
+
+                if (result.status !== 200) {
+                    errors["email"] = INFO.UNKNOWN_ERROR
+                    setErrors(errors);
+                    console.log(result);
+                    return
+                }
+            }
         }
     }
 
@@ -278,36 +514,43 @@ const EditInfluencer = () => {
                            type='text'
                            name='first_name'
                            defaultValue={values.first_name}
-                        // pattern={FIRST_LAST_NAME_REGEXP}
-                           required={true}
-                           onChange={(e) => handleChange(e)}
+                           onInput={(e) => handleChange(e)}
                     />
+
+                    {errors.first_name && errors.first_name.length ?
+                        <div className={classes.errorDiv}>{errors.first_name}</div> : ''}
 
                     <label className={classes.input_title}>Last Name</label>
                     <input className={classes.input_info_left}
                            type='text'
                            name='last_name'
                            defaultValue={values.last_name}
-                           required={true}
-                        // pattern={FIRST_LAST_NAME_REGEXP}
-                           onChange={(e) => handleChange(e)}/>
+                           onInput={(e) => handleChange(e)}/>
+
+                    {errors.last_name && errors.last_name.length ?
+                        <div className={classes.errorDiv}>{errors.last_name}</div> : ''}
 
 
                     <label className={classes.input_title}>Birthdate</label>
                     <input className={classes.input_info_left}
                            type='date'
                            name='birthdate'
-                           value={values.birthdate}
+                           defaultValue={values.birthdate}
                            placeholder={''}
-                           onChange={(e) => handleChange(e)}/>
+                           onInput={(e) => handleChange(e)}/>
+
+                    {/*{errors.birthdate && errors.birthdate.length ?*/}
+                    {/*    <div className={classes.errorDiv}>{errors.birthdate}</div> : ''}*/}
 
                     <label className={classes.input_title}>Profession</label>
                     <input className={`${classes.input_info_left}`}
                            type='text'
                            name='profession'
                            defaultValue={values.profession}
-                           required={true}
-                           onChange={(e) => handleChange(e)}/>
+                           onInput={(e) => handleChange(e)}/>
+
+                    {errors.profession && errors.profession.length ?
+                        <div className={classes.errorDiv}>{errors.profession}</div> : ''}
 
                     <p className={classes.profile}>Profile Picture</p>
                     <input type='file'
@@ -325,6 +568,9 @@ const EditInfluencer = () => {
                                 borderRadius: 50,
                             }} alt={'alt'}/> : '+'}
                     </button>
+
+                    {errors.avatar && errors.avatar.length ?
+                        <div className={classes.errorDiv}>{errors.avatar}</div> : ''}
                 </section>
 
                 <section className={classes.rightContainer}>
@@ -340,42 +586,65 @@ const EditInfluencer = () => {
                                disabled={false}
                                defaultValue={values.instagram_profile && values.instagram_profile}
                                ref={instagram_profile}
-                               onChange={(e) => handleChange(e)}/>
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['instagram_profile'] && errors['instagram_profile'].length ?
+                            <div className={classes.errorDiv}>{errors['instagram_profile']}</div> : ''}
+
                         <label className={`${classes.input_title}`}>YouTube</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                defaultValue={values.youtube_profile && values.youtube_profile}
                                name='youtube_profile'
                                ref={youtube_profile}
-                               onChange={(e) => handleChange(e)}/>
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['youtube_profile'] && errors['youtube_profile'].length ?
+                            <div className={classes.errorDiv}>{errors['youtube_profile']}</div> : ''}
+
                         <label className={`${classes.input_title}`}>Facebook</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='facebook_profile'
                                defaultValue={values.facebook_profile && values.facebook_profile}
                                ref={facebook_profile}
-                               onChange={(e) => handleChange(e)}/>
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['facebook_profile'] && errors['facebook_profile'].length ?
+                            <div className={classes.errorDiv}>{errors['facebook_profile']}</div> : ''}
+
                         <label className={`${classes.input_title}`}>Tiktok</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='tiktok_profile'
                                ref={tiktok_profile}
                                defaultValue={values.tiktok_profile && values.tiktok_profile}
-                               onChange={(e) => handleChange(e)}/>
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['tiktok_profile'] && errors['tiktok_profile'].length ?
+                            <div className={classes.errorDiv}>{errors['tiktok_profile']}</div> : ''}
+
                         <label className={`${classes.input_title}`}>Twitter</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='twitter_profile'
                                ref={twitter_profile}
                                defaultValue={values.twitter_profile && values.twitter_profile}
-                               onChange={(e) => handleChange(e)}/>
+                               onInput={(e) => handleChange(e)}/>
+
+                               {errors['twitter_profile'] && errors['twitter_profile'].length ?
+                            <div className={classes.errorDiv}>{errors['twitter_profile']}</div> : ''}
+
                         <label className={`${classes.input_title}`}>Blog</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='blog_profile'
                                ref={blog_profile}
                                defaultValue={values.blog_profile && values.blog_profile}
-                               onChange={(e) => handleChange(e)}/>
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['blog_profile'] && errors['blog_profile'].length ?
+                            <div className={classes.errorDiv}>{errors['blog_profile']}</div> : ''}
                     </div>
 
                     <div className={`${classes.div_helper}`} style={{paddingTop: '58px'}}>
@@ -384,44 +653,67 @@ const EditInfluencer = () => {
                                disabled={false}
                                name='instagram_followers'
                                ref={instagram_followers}
-                               value={edit.instagram_followers ? edit.instagram_followers : edit.instagram_followers === '' ? edit.instagram_followers : values.instagram_followers}
-                               onChange={(e) => handleChange(e)}/>
+                               value={edit.instagram_followers ? edit.instagram_followers : edit.instagram_followers === '' || edit.instagram_followers === 0 ? '' : values.instagram_followers}
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['instagram_followers'] && errors['instagram_followers'].length ?
+                            <div className={classes.errorDiv}>{errors['instagram_followers']}</div> : ''}
 
                         <label className={`${classes.input_title}`}>YouTube Subscribers</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='youtube_followers'
                                ref={youtube_followers}
-                               value={edit.youtube_followers ? edit.youtube_followers : edit.youtube_followers === '' ? edit.youtube_followers : values.youtube_followers}
-                               onChange={(e) => handleChange(e)}/>
+                               value={edit.youtube_followers ? edit.youtube_followers : edit.youtube_followers === '' || edit.youtube_followers === 0 ? '' : values.youtube_followers}
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['youtube_followers'] && errors['youtube_followers'].length ?
+                            <div className={classes.errorDiv}>{errors['youtube_followers']}</div> : ''}
+
                         <label className={`${classes.input_title}`}>Facebook Followers</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='facebook_followers'
                                ref={facebook_followers}
-                               value={edit.facebook_followers ? edit.facebook_followers : edit.facebook_followers === '' ? edit.facebook_followers : values.facebook_followers}
-                               onChange={(e) => handleChange(e)}/>
+                               value={edit.facebook_followers ? edit.facebook_followers : edit.facebook_followers === '' || edit.facebook_followers === 0 ? '' : values.facebook_followers}
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['facebook_followers'] && errors['facebook_followers'].length ?
+                            <div className={classes.errorDiv}>{errors['facebook_followers']}</div> : ''}
+
                         <label className={`${classes.input_title}`}>Tiktok Followers</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='tiktok_followers'
                                ref={tiktok_followers}
-                               value={edit.tiktok_followers ? edit.tiktok_followers : edit.tiktok_followers === '' ? edit.tiktok_followers : values.tiktok_followers}
-                               onChange={(e) => handleChange(e)}/>
+                               value={edit.tiktok_followers ? edit.tiktok_followers : edit.tiktok_followers === '' || edit.tiktok_followers === 0 ? '' : values.tiktok_followers}
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['tiktok_followers'] && errors['tiktok_followers'].length ?
+                            <div className={classes.errorDiv}>{errors['tiktok_followers']}</div> : ''}
+
                         <label className={`${classes.input_title}`}>Twitter Followers</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='twitter_followers'
                                ref={twitter_followers}
-                               value={edit.twitter_followers ? edit.twitter_followers : edit.twitter_followers === '' ? edit.twitter_followers : values.twitter_followers}
-                               onChange={(e) => handleChange(e)}/>
+                               value={edit.twitter_followers ? edit.twitter_followers : edit.twitter_followers === '' || edit.twitter_followers === 0 ? '' : values.twitter_followers}
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['twitter_followers'] && errors['twitter_followers'].length ?
+                            <div className={classes.errorDiv}>{errors['twitter_followers']}</div> : ''}
+
                         <label className={`${classes.input_title}`}>Blog Views</label>
                         <input className={`${classes.input_info}`}
                                type='text'
                                name='blog_followers'
                                ref={blog_followers}
-                               value={edit.blog_followers ? edit.blog_followers : edit.blog_followers === '' ? edit.blog_followers : values.blog_followers}
-                               onChange={(e) => handleChange(e)}/>
+                               value={edit.blog_followers ? edit.blog_followers : edit.blog_followers === '' || edit.blog_followers === 0 ? '' : values.blog_followers}
+                               onInput={(e) => handleChange(e)}/>
+
+                        {errors['blog_followers'] && errors['blog_followers'].length ?
+                            <div className={classes.errorDiv}>{errors['blog_followers']}</div> : ''}
+
                     </div>
                 </section>
             </div>

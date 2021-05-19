@@ -149,6 +149,7 @@ const EditUser = () => {
         }
 
         setErrors(errors);
+        console.log(errors)
         if (!formIsValid) {
             setIsSending(false)
         }
