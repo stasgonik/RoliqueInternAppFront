@@ -9,13 +9,16 @@ import Header from '../Items/Header/Header';
 import influerenceService from "../../Services/influencers.service";
 import {INFO} from '../../Constants/messages';
 import leftArrow from '../Items/Icons/arrow-left.svg';
+import loading from "../../img/Loading.gif";
+import regexp from "../../Constants/regexp.enum";
 import routes from "../../Constants/routes.enum";
 import Sidebar from '../Items/Sidebar/Sidebar'
 import Tooltip from '../Items/Tooltip/Tooltip'
-import regexp from "../../Constants/regexp.enum";
-import userService from "../../Services/userService";
+
 
 const EditInfluencer = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSending, setIsSending] = useState(false);
     const params = useParams();
     if (!params[routes.INFLUENCER_ID]) {
         window.location.href = configFront.URL + `${routes.INFLUENCERS}`
@@ -52,6 +55,7 @@ const EditInfluencer = () => {
     }
 
     const [values, setValues] = useState(async () => {
+        setIsLoading(true)
         const initialState = await influerenceService.getSingleInfluencer(params[routes.INFLUENCER_ID])
         const socialInfo = {};
         for (const social of initialState.social_profiles) {
@@ -69,7 +73,7 @@ const EditInfluencer = () => {
             profile_picture: initialState.profile_picture,
         })
 
-        if(initialState.birthdate) {
+        if (initialState.birthdate) {
             setValues({
                 first_name: initialState.first_name,
                 last_name: initialState.last_name,
@@ -78,7 +82,6 @@ const EditInfluencer = () => {
                 ...socialInfo,
                 profile_picture: initialState.profile_picture,
             })
-            return
         } else {
             setValues({
                 first_name: initialState.first_name,
@@ -87,10 +90,8 @@ const EditInfluencer = () => {
                 ...socialInfo,
                 profile_picture: initialState.profile_picture,
             })
-            return
         }
-
-
+        setIsLoading(false)
     });
 
     const [status, setStatus] = useState(false);
@@ -135,7 +136,6 @@ const EditInfluencer = () => {
         };
 
 
-
         if (typeof edit["first_name"] !== "undefined") {
             if (!edit["first_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
                 formIsValid = false;
@@ -150,7 +150,7 @@ const EditInfluencer = () => {
         }
 
 
-        if (typeof edit["last_name"] !== "undefined" ) {
+        if (typeof edit["last_name"] !== "undefined") {
             if (!edit["last_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
                 formIsValid = false;
                 error["last_name"] = INFO.INVALID_NAME_PATTERN
@@ -183,9 +183,9 @@ const EditInfluencer = () => {
 
         setErrors(errors);
         console.log(errors)
-        // if (!formIsValid) {
-        //     setIsSending(false)
-        // }
+        if (!formIsValid) {
+            setIsSending(false)
+        }
         return formIsValid;
     }
 
@@ -215,8 +215,7 @@ const EditInfluencer = () => {
                     }
                     setErrors({...errors, [inputFollower]: INFO.PROFILES_ERROR, [e.target.name]: errProf})
                 }
-            }
-             else {
+            } else {
                 input.current.style.borderColor = ''
 
 
@@ -399,11 +398,16 @@ const EditInfluencer = () => {
     }
 
     const saveChanges = async () => {
+        setIsSending(true)
         const formData = new FormData();
         const arr = []
-        let pp;
+        let pp = false;
         if (edit.profile_picture) {
             pp = edit.profile_picture;
+        }
+        let bd = false;
+        if (edit.birthdate) {
+            pp = edit.birthdate;
         }
 
         for (const value in edit) {
@@ -412,14 +416,14 @@ const EditInfluencer = () => {
             }
 
             arr.push(values[value])
-             if (edit[value] === '') {
-                 if (value.includes('followers')) {
-                     edit[value] = 0
-                 } else {
-                     edit[value] = ''
-                 }
+            if (edit[value] === '') {
+                if (value.includes('followers')) {
+                    edit[value] = 0
+                } else {
+                    edit[value] = ''
+                }
 
-             }
+            }
 
             formData.append(value, edit[value])
             if (edit[value]) {
@@ -427,20 +431,27 @@ const EditInfluencer = () => {
             }
         }
 
-        if (status && edit) {
+        if (bd) {
             if (pp) {
-                formData.set('profile_picture', pp, 'avatar.jpg')
-                setEdit({...edit, profile_picture: pp})
+                // formData.set('profile_picture', pp, 'avatar.jpg')
+                setEdit({...edit, avatar: pp, birthdate: bd})
+            } else {
+                setEdit({...edit, birthdate: bd})
             }
-            await influerenceService.editInfluerence(formData, params[routes.INFLUENCER_ID])
+
+        } else if (pp) {
+            // formData.set('profile_picture', pp, 'avatar.jpg')
+            setEdit({...edit, profile_picture: pp})
         }
 
-        if (handleValidation()) {
+
+        if (status && edit && handleValidation()) {
             const result = await influerenceService.editInfluerence(formData, params[routes.INFLUENCER_ID]);
             if (result) {
-                // setIsSending(true)
+                setIsSending(false)
                 if (result.status === 200) {
                     window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
+                    return
                 }
 
                 let errors = {
@@ -473,7 +484,7 @@ const EditInfluencer = () => {
                     }
 
                     if (result.data.customCode === 4008) {
-                        result.data.payload.forEach((value)=> {
+                        result.data.payload.forEach((value) => {
                             const errorName = value + "_profile"
                             errors[errorName] = INFO.SOCIAL_PROFILE_EXIST;
                         })
@@ -492,7 +503,6 @@ const EditInfluencer = () => {
                     errors["profession"] = INFO.UNKNOWN_ERROR
                     setErrors(errors);
                     console.log(result);
-                    return
                 }
             }
         }
@@ -502,14 +512,20 @@ const EditInfluencer = () => {
         <form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
             <Sidebar/>
             <Header name={'Edit'} titleHeader={classes.title}
-                    titleBtn='Save Changes'
+                    titleBtn={isSending? 'Sending' : 'Save Changes'}
                     title='Edit Influencer'
                     leftArrow={leftArrow}
                     statusButton={status}
-                    btnHeader={classes.btnHeader}
-                    button={(e) => saveChanges(e)}/>
+                    btnHeader={isSending? `${classes.btnHeader} ${classes.disabled}` : classes.btnHeader}
+                    button={(e) => saveChanges(e)}
+            isSending={isSending}/>
 
-            <div className={classes.mainContainer}>
+            {isLoading?
+                <div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
+                    <img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
+                    <p>Please wait...</p>
+                </div>
+            : <div className={classes.mainContainer}>
                 <section className={classes.leftContainer}>
                     <h3 className={classes.general}>General</h3>
 
@@ -633,7 +649,7 @@ const EditInfluencer = () => {
                                defaultValue={values.twitter_profile && values.twitter_profile}
                                onInput={(e) => handleChange(e)}/>
 
-                               {errors['twitter_profile'] && errors['twitter_profile'].length ?
+                        {errors['twitter_profile'] && errors['twitter_profile'].length ?
                             <div className={classes.errorDiv}>{errors['twitter_profile']}</div> : ''}
 
                         <label className={`${classes.input_title}`}>Blog</label>
@@ -717,7 +733,7 @@ const EditInfluencer = () => {
 
                     </div>
                 </section>
-            </div>
+            </div>}
         </form>
     )
 }

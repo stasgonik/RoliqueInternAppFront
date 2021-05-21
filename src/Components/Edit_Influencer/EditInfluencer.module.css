@@ -75,6 +75,10 @@
     background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
 }
 
+.disabled {
+    opacity: 0.8
+}
+
 .title {
     font-size: 24px;
     line-height: 29px;

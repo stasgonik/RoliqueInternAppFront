@@ -361,7 +361,6 @@ const CreateInfluencer = () => {
 				}
 
 			} else if (pp) {
-				// formData.set('profile_picture', pp, 'avatar.jpg')
 				setValues({...values, avatar: pp})
 			}
 			if (handleValidation()) {

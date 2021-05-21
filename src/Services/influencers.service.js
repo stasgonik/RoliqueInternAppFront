@@ -41,8 +41,9 @@ export default class InfluencersService {
 
             return result
         } catch (e) {
-            return e
             console.log(e)
+            return e
+
         }
     }
 
@@ -53,8 +54,9 @@ export default class InfluencersService {
 
             return result
         } catch (e) {
-            return e
             console.log(e)
+            return e
+
         }
     }
 }
