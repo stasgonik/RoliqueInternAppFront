@@ -115,14 +115,10 @@ const EditInfluencer = () => {
                 const target = words.pop();
 
                 if (target === 'profile' && errors[key].length) {
-                    console.log(key)
-                    console.log(errors[key])
                     formIsValid = false
                 }
 
                 if (target === 'followers' && errors[key].length) {
-                    console.log(key)
-                    console.log(errors[key])
                     formIsValid = false
                 }
             }
