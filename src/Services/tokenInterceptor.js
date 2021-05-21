@@ -28,6 +28,7 @@ axiosInstance.interceptors.response.use(
         // Prevent infinite loops
         if (error.response.status === 401 && (originalRequest.url === `${_endpoint.refresh}`
             || originalRequest.url === originalRequest.url + `${_endpoint.refresh}`)) {
+            localStorage.clear()
             window.location.href = configFront.URL;
             return Promise.reject(error);
         }

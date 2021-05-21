@@ -5,6 +5,7 @@ import configServer from '../Constants/configServer'
 class _endpoint {
     static login = 'auth/';
     static logout = 'auth/logout/';
+    static refresh = 'auth/refresh';
 }
 
 export default class AuthService {
@@ -16,6 +17,21 @@ export default class AuthService {
 
             return result;
         } catch (e) {
+            return e
+        }
+    }
+
+    static async refresh() {
+        try {
+            axiosInstance.defaults.headers[configServer.AUTHORIZATION] = this.getRefreshToken();
+            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.refresh}`)
+
+            this.setTokens(result.data)
+            axiosInstance.defaults.headers[configServer.AUTHORIZATION] = this.getAccessToken();
+
+            return result;
+        } catch (e) {
+            axiosInstance.defaults.headers[configServer.AUTHORIZATION] = this.getAccessToken();
             return e
         }
     }

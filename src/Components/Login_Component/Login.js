@@ -8,6 +8,7 @@ import Error from '../Items/Messages/Messages';
 import {INFO} from '../../Constants/messages'
 import regexp from '../../Constants/regexp.enum';
 import routes from "../../Constants/routes.enum";
+import configFront from "../../Constants/configFront";
 
 class Login extends Component {
 
@@ -30,6 +31,17 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.showHide = this.showHide.bind(this);
+    }
+
+    async componentDidMount() {
+        if (authService.getAccessToken() && authService.getRefreshToken()) {
+            const result = await authService.refresh()
+            if (result.status === 200) {
+                this.props.history.push(`/${routes.USERS}`)
+            } else {
+                localStorage.clear()
+            }
+        }
     }
 
     handleValidation() {
