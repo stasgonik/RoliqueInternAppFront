@@ -88,14 +88,11 @@ const UsersList = () => {
                                     <img src={photoDefault} alt='photoDefault'
                                          className={`${classes.avatar} ${classes.photo}`}/>}
 
-                                <div className={classes.tableTextName}><p
-                                    className={classes.textColor}>{item.first_name} {item.last_name}</p></div>
+                                <div className={`${classes.tableTextName} ${classes.textColor}`}>{item.first_name} {item.last_name}</div>
 
-                                <div className={classes.tableTextEmail}><p
-                                    className={classes.textColor}>{item.email}</p></div>
-                                <div className={classes.tableTextRole}><p
-                                    className={classes.textColor}>{capitalizeFirstLetter(item.role)}</p></div>
-                                <div className={classes.tableText}><p className={classes.textColor}>{item.phone}</p>
+                                <div className={`${classes.tableTextEmail} ${classes.textColor}`}>{item.email}</div>
+                                <div className={`${classes.tableTextRole} ${classes.textColor}`}>{capitalizeFirstLetter(item.role)}</div>
+                                <div className={`${classes.phone} ${classes.tableText} ${classes.textColor}`}>{item.phone}
                                 </div>
 
                                 <div>{(AuthService.getUserRole() === 'admin') ?

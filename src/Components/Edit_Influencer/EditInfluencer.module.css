@@ -264,3 +264,9 @@
     margin-top: -8px;
 
 }
+
+@media (max-width: 1100px) {
+    .rightContainer {
+        margin-left: 160px;
+    }
+}

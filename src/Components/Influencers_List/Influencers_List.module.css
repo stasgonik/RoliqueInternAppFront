@@ -192,3 +192,47 @@
     position: absolute;
 }
 
+@media (min-width: 1500px) {
+    .tableHeaderName {
+        margin-right: 300px;
+    }
+    .tableHeaderEmail {
+        margin-right: 233px;
+    }
+    .tableHeaderRole {
+        margin-right: 228px;
+    }
+    .tableTextName {
+        width: 300px;
+    }
+    .tableTextEmail {
+        width: 235px;
+    }
+    .tableTextRole {
+        width: 177px;
+        margin-right: 142px;
+    }
+}
+
+@media (min-width: 1800px) {
+    .tableHeaderName {
+        margin-right: 320px;
+    }
+    .tableHeaderEmail {
+        margin-right: 245px;
+    }
+    .tableHeaderRole {
+        margin-right: 240px;
+    }
+    .tableTextName {
+        width: 330px;
+    }
+    .tableTextEmail {
+        width: 236px;
+    }
+    .tableTextRole {
+        width: 177px;
+        margin-right: 142px;
+    }
+}
+

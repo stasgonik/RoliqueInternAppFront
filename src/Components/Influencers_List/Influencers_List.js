@@ -68,9 +68,6 @@ const Influencers_List = () => {
                              upArrow={arrowUp}
                              btnHeader={classes.btnHeader}
 
-
-                // btnHeader={cl}
-                // className={classes.btnHeader}
             />
 
             <section className={classes.SearchContainer}>
