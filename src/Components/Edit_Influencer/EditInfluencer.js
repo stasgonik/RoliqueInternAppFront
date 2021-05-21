@@ -223,14 +223,15 @@ const EditInfluencer = () => {
                     if (!value.match(regexp.PROFILE_REGEXP)) {
                         errProf = INFO.PROFILE_REGEX
                     }
-                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
+                console.log(normalFoll)
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
                         errFoll = INFO.FOLLOWERS_REGEX
                     }
                     setErrors({...errors, [e.target.name]: errProf, [inputFollower]: errFoll})
                 } else {
                     let errFoll = '';
                     let normalFoll = input.current.value.split('.').join('')
-                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
                         errFoll = INFO.FOLLOWERS_REGEX
                     }
                     setErrors({...errors, [inputFollower]: errFoll})
@@ -265,7 +266,7 @@ const EditInfluencer = () => {
                 if (value !== '') {
                     let errFoll = '';
                     let normalFoll = value.split('.').join('')
-                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
                         errFoll = INFO.FOLLOWERS_REGEX
                     }
                     setErrors({...errors, [inputProfile]: INFO.PROFILES_ERROR, [e.target.name]: errFoll})
@@ -277,7 +278,7 @@ const EditInfluencer = () => {
                     let errFoll = '';
                     let errProf = '';
                     let normalFoll = value.split('.').join('');
-                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
                         errFoll = INFO.FOLLOWERS_REGEX
                     }
                     if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
@@ -363,7 +364,7 @@ const EditInfluencer = () => {
                     inputFocus.current.required = true
                     let errFoll = '';
                     let normalFoll = input.current.value.split('.').join('')
-                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
+                    if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
                         errFoll = INFO.FOLLOWERS_REGEX
                     }
                     setErrors({...errors, [inputFollower]: errFoll, [e.target.name]: INFO.PROFILES_ERROR})
