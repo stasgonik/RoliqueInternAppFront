@@ -30,7 +30,7 @@
     right: 68px;
     margin-right: 68px;
     padding: 8px 16px;
-
+    cursor: pointer;
     border: 0;
     text-decoration: none;
     border-radius: 8px;
@@ -54,7 +54,8 @@
     right: 68px;
     margin-right: 68px;
     padding: 8px 16px;
-
+    opacity: 0.6;
+    cursor: default;
     border: 0;
     text-decoration: none;
     border-radius: 8px;
@@ -63,7 +64,7 @@
 
 .btnHeaderDisabled:hover {
     outline: none;
-    cursor: pointer;
+    cursor: default;
 }
 
 .btnHeaderDisabled:active, .btn:focus {

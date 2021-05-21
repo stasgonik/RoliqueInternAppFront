@@ -93,14 +93,14 @@ const CreateInfluencer = () => {
 					if (!value.match(regexp.PROFILE_REGEXP)) {
 						errProf = INFO.PROFILE_REGEX
 					}
-					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
 						errFoll = INFO.FOLLOWERS_REGEX
 					}
 					setErrors({...errors, [e.target.name]: errProf, [inputFollower]: errFoll})
 				} else {
 					let errFoll = '';
 					let normalFoll = input.current.value.split('.').join('')
-					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
 						errFoll = INFO.FOLLOWERS_REGEX
 					}
 					setErrors({...errors, [inputFollower]: errFoll})
@@ -120,7 +120,7 @@ const CreateInfluencer = () => {
 				if (value !== '') {
 					let errFoll = '';
 					let normalFoll = value.split('.').join('')
-					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
 						errFoll = INFO.FOLLOWERS_REGEX
 					}
 					setErrors({...errors, [inputProfile]: INFO.PROFILES_ERROR, [e.target.name]: errFoll})
@@ -132,7 +132,7 @@ const CreateInfluencer = () => {
 					let errFoll = '';
 					let errProf = '';
 					let normalFoll = value.split('.').join('');
-					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
 						errFoll = INFO.FOLLOWERS_REGEX
 					}
 					if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
@@ -207,7 +207,7 @@ const CreateInfluencer = () => {
 					inputFocus.current.required = true
 					let errFoll = '';
 					let normalFoll = input.current.value.split('.').join('')
-					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
+					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP || normalFoll === 0 || normalFoll === '0')) {
 						errFoll = INFO.FOLLOWERS_REGEX
 					}
 					setErrors({...errors, [inputFollower]: errFoll, [e.target.name]: INFO.PROFILES_ERROR})
@@ -242,7 +242,6 @@ const CreateInfluencer = () => {
 
 	const handleValidation = () => {
 		let formIsValid = true;
-		console.log(errors)
 		if (Object.keys(errors).length > 5) {
 			for (let i = 0; i < Object.keys(errors).length; i++) {
 				const key = Object.keys(errors)[i];
@@ -316,7 +315,6 @@ const CreateInfluencer = () => {
 		if (!formIsValid) {
 			setIsSending(false)
 		}
-		console.log(formIsValid)
 		return formIsValid;
 	}
 

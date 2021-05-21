@@ -516,9 +516,10 @@ const EditInfluencer = () => {
                     title='Edit Influencer'
                     leftArrow={leftArrow}
                     statusButton={status}
-                    btnHeader={isSending? `${classes.btnHeader} ${classes.disabled}` : classes.btnHeader}
+                    btnHeader={isSending || !status? `${classes.btnHeader} ${classes.disabled}` : classes.btnHeader}
                     button={(e) => saveChanges(e)}
-            isSending={isSending}/>
+                    isSending={isSending || !status}
+            />
 
             {isLoading?
                 <div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
