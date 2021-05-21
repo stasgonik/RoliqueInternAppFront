@@ -487,7 +487,9 @@ const EditInfluencer = () => {
                         result.data.payload.forEach((value) => {
                             const errorName = value + "_profile"
                             errors[errorName] = INFO.SOCIAL_PROFILE_EXIST;
+
                         })
+                        setErrors(errors)
                         return
                     }
                 }
