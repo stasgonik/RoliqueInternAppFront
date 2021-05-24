@@ -77,6 +77,7 @@ const Dropdown = ({options, name, onChange, defaultValue, valid = false}) => {
                 onChange={onChange}
                 styles={colorStyles}
                 placeholder={defaultValue}
+                isSearchable={false}
             />
         </div>
     )

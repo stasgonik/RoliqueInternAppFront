@@ -71,7 +71,7 @@ const Influencers_List = () => {
             />
 
             <section className={classes.SearchContainer}>
-                <Search
+                <Search placeholder={"Search"}
                     onChangeName={(e) => searchName(e)}/>
             </section>
             <section className={classes.tableHeader}>

@@ -21,10 +21,10 @@ const UsersListHeader = ({upArrow, titleBtn, titleHeader, title, titleBtnEdit, E
                 <h1 className={titleHeader}>{title}</h1>
             </div>
 
-            <Link to={`${params[routes.INFLUENCER_ID]}/${routes.EDIT}`} className={EditInf ? 'EditSrc' : 'DispNone'}
-                  style={icon}>
+            {(AuthService.getUserRole() === 'admin' || AuthService.getUserRole() === 'manager')? <Link to={`${params[routes.INFLUENCER_ID]}/${routes.EDIT}`} className={EditInf ? 'EditSrc' : 'DispNone'}
+                   style={icon}>
                 <div className={EditInf}>{titleBtnEdit}</div>
-            </Link>
+            </Link> : ''}
 
             <div
                 className={'dropdown'}>{(AuthService.getUserRole() === 'admin' || AuthService.getUserRole() === 'manager') ?
