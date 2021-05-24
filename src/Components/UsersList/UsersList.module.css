@@ -159,7 +159,7 @@
 }
 
 .tableTextRole {
-		width: 215px;
+		width: 210px;
 }
 
 .tableBtn {
@@ -179,3 +179,53 @@
 		position: absolute;
 }
 
+@media (min-width: 1500px) {
+		.tableHeaderName {
+				margin-right: 300px;
+		}
+		.tableHeaderEmail {
+				margin-right: 233px;
+		}
+		.tableHeaderRole {
+				margin-right: 228px;
+		}
+		.tableTextName {
+				width: 286px;
+		}
+
+		.tableTextEmail {
+				width: 268px;
+		}
+		.tableTextRole {
+				width: 255px;
+		}
+}
+
+@media (min-width: 1800px) {
+		.tableHeaderName {
+				margin-right: 320px;
+		}
+		.tableHeaderEmail {
+				margin-right: 245px;
+		}
+		.tableHeaderRole {
+				margin-right: 240px;
+		}
+		.tableTextName {
+				width: 305px;
+		}
+
+		.tableTextEmail {
+				width: 278px;
+		}
+		.tableTextRole {
+				width: 270px;
+		}
+}
+
+@media (max-width: 1100px) {
+	.phone {
+			margin-right: 60px;
+	}
+
+}

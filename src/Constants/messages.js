@@ -23,7 +23,7 @@ export const INFO = {
 	PROFILES_ERROR: 'This field must be filled',
 	FOLLOWERS_REGEX: 'This field can include only up to 15-digit numbers',
 	PROFILE_REGEX: 'Field must include 2-50 only letters and separators like .@-',
-	SOCIAL_PROFILE_EXIST: 'User with such social profile already exist',
+	SOCIAL_PROFILE_EXIST: 'User with such profile already exist',
 	}
 
 
