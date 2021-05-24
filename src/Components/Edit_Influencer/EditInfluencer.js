@@ -178,7 +178,7 @@ const EditInfluencer = () => {
 
 
         setErrors(errors);
-        console.log(errors)
+
         if (!formIsValid) {
             setIsSending(false)
         }
