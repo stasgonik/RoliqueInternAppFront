@@ -86,7 +86,7 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 	const onSelect = () => {
 		let v = selectInputRef.current ? selectInputRef.current.select.getValue() : []
 		setVal(v)
-		// onChange(name, v)
+		// onChange(name, value)
 		// временно закоментил пока мы не доделаем все остальное,
 		// но в конечном итоге так и должно вызываться
 	}
