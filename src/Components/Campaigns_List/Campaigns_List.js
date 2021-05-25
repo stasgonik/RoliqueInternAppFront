@@ -149,7 +149,7 @@ const Campaigns_List = () => {
         }
 
         if (!sort.field || sort.field !== 'title' ||
-            (sort.field === 'title' && (sort.normalOrder && preserve) || (!sort.normalOrder && !preserve))) {
+            (sort.field === 'title' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
             const newSort = {field: 'title', normalOrder: true}
             const sorted = values.sort(function (a, b) {
                     if (a.title.toLowerCase() < b.title.toLowerCase()) {
@@ -196,7 +196,7 @@ const Campaigns_List = () => {
         }
 
         if (!sort.field || sort.field !== 'brand' ||
-            (sort.field === 'brand' && (sort.normalOrder && preserve) || (!sort.normalOrder && !preserve))) {
+            (sort.field === 'brand' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
             const newSort = {field: 'brand', normalOrder: true}
             const sorted = values.sort(function (a, b) {
                     if (a.brand.name.toLowerCase() < b.brand.name.toLowerCase()) {
@@ -243,7 +243,7 @@ const Campaigns_List = () => {
         }
 
         if (!sort.field || sort.field !== 'start_date' ||
-            (sort.field === 'start_date' && (sort.normalOrder && preserve) || (!sort.normalOrder && !preserve))) {
+            (sort.field === 'start_date' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
             const newSort = {field: 'start_date', normalOrder: true}
             const sorted = values.sort(function (a, b) {
                     if (!a.start_date && b.start_date) {
@@ -296,7 +296,7 @@ const Campaigns_List = () => {
         }
 
         if (!sort.field || sort.field !== 'end_date' ||
-            (sort.field === 'end_date' && (sort.normalOrder && preserve) || (!sort.normalOrder && !preserve))) {
+            (sort.field === 'end_date' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
 
 
             setIsLoading(false)
@@ -320,7 +320,7 @@ const Campaigns_List = () => {
         }
 
         if (!sort.field || sort.field !== 'budget' ||
-            (sort.field === 'budget' && (sort.normalOrder && preserve) || (!sort.normalOrder && !preserve))) {
+            (sort.field === 'budget' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
             const newSort = {field: 'budget', normalOrder: true}
             const sorted = values.sort((a, b) => {
                     return a.budget.totalBudget - b.budget.totalBudget;
@@ -355,7 +355,7 @@ const Campaigns_List = () => {
         }
 
         if (!sort.field || sort.field !== 'profit' ||
-            (sort.field === 'profit' && (sort.normalOrder && preserve) || (!sort.normalOrder && !preserve))) {
+            (sort.field === 'profit' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
             const newSort = {field: 'profit', normalOrder: true}
             const sorted = values.sort((a, b) => {
                     return a.profit - b.profit;
