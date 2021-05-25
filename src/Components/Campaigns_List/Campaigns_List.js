@@ -510,7 +510,9 @@ const Campaigns_List = () => {
                             <Search
                                 widthSearch={classes.widthSearch}
                                 placeholder={"Search by title..."}
-                                onChangeName={(e) => searchName(e)}/>
+                                // onChangeName={(e) => searchName(e)}
+                                // Временно закоментировано до создания всего необходимого на беке
+                            />
                         </div>
 
                         <div className={classes.Channels}>
