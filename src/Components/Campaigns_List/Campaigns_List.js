@@ -450,13 +450,13 @@ const Campaigns_List = () => {
         }
     }, [filters])
 
-    const searchName = async (e) => {
+    const searchName = (e) => {
         e.preventDefault();
         const value = e.target.value;
         setFilters({...filters, title: value})
     }
 
-    const numberSearch = async (e) => {
+    const numberSearch = (e) => {
         e.preventDefault();
         const name = e.target.name;
         let value = +e.target.value;
@@ -464,6 +464,16 @@ const Campaigns_List = () => {
             value = 1
         }
         setFilters({...filters, [name]: value})
+    }
+
+    const selectSearch = (name, value)  => {
+        let f = filters;
+        if (value === '') {
+            delete f[name];
+        } else {
+            f[name] = value
+        }
+        setFilters(f)
     }
 
 // const socials = (item) => {
