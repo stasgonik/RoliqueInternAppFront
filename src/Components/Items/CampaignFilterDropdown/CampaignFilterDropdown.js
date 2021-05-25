@@ -77,12 +77,14 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 
 	const onClear = () => {
 		selectInputRef.current.select.clearValue();
+		onChange(name, '')
 		setVal([])
 	};
 
 	const onSelect = () => {
 		let v = selectInputRef.current ? selectInputRef.current.select.getValue() : []
 		setVal(v)
+		onChange(name, v)
 	}
 
 	return (
@@ -94,7 +96,7 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 				options={options}
 				name={name}
 				// onSelect={onSelect}
-				onChange={onChange}
+				onChange={onSelect}
 				styles={colorStyles}
 				placeholder={'Select...'}
 				isSearchable={false}

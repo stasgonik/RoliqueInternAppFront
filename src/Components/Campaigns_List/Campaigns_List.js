@@ -527,22 +527,22 @@ const Campaigns_List = () => {
 
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>Brand</span>
-                            <CampaignFilterDropdown/>
+                            <CampaignFilterDropdown onChange={selectSearch}/>
                         </div>
 
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>Effort</span>
-                            <CampaignFilterDropdown options={effort}/>
+                            <CampaignFilterDropdown options={effort} onChange={selectSearch}/>
                         </div>
 
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>Status</span>
-                            <CampaignFilterDropdown options={status}/>
+                            <CampaignFilterDropdown options={status} onChange={selectSearch}/>
                         </div>
 
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>TL</span>
-                            <CampaignFilterDropdown options={TL}/>
+                            <CampaignFilterDropdown options={TL} onChange={selectSearch}/>
                         </div>
 
                         <div className={classes.LeftContainerFilter}>
