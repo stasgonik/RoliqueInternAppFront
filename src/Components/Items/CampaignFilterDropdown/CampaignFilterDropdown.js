@@ -77,14 +77,18 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 
 	const onClear = () => {
 		selectInputRef.current.select.clearValue();
-		onChange(name, '')
 		setVal([])
+		// onChange(name, '')
+		// пустая строка должна сказать родительской компоненте что этот фильтр мы очистили
+		// и его надо удалить из фильтров вообще
 	};
 
 	const onSelect = () => {
 		let v = selectInputRef.current ? selectInputRef.current.select.getValue() : []
 		setVal(v)
-		onChange(name, v)
+		// onChange(name, v)
+		// временно закоментил пока мы не доделаем все остальное,
+		// но в конечном итоге так и должно вызываться
 	}
 
 	return (
