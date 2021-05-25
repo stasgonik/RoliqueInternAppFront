@@ -31,9 +31,11 @@ const Sidebar = () => {
                 <img src={users} alt="users"/>
             </NavLink>
 
-            <NavLink to="/" className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
+            <NavLink to={`/${routes.CAMPAIGNS}`}
+                     className={urlArray.includes(routes.CAMPAIGNS) ? `${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.colorChange}` : `${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
                 <img src={volume} alt="volume"/>
             </NavLink>
+
             <NavLink to={`/${routes.INFLUENCERS}`}
                      className={urlArray.includes(routes.INFLUENCERS) ? `${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.colorChange}` : `${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
 
