@@ -451,11 +451,19 @@ const Campaigns_List = () => {
     }, [filters])
 
     const searchName = async (e) => {
+        e.preventDefault();
         const value = e.target.value;
-        setIsLoading(true)
-        const search = await InfluencersService.getInfluencers({search: value})
-        setValues(search);
-        setIsLoading(false)
+        setFilters({...filters, title: value})
+    }
+
+    const numberSearch = async (e) => {
+        e.preventDefault();
+        const name = e.target.name;
+        let value = +e.target.value;
+        if (value < 1) {
+            value = 1
+        }
+        setFilters({...filters, [name]: value})
     }
 
 // const socials = (item) => {
