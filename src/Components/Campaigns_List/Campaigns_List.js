@@ -244,14 +244,43 @@ const Campaigns_List = () => {
 
         if (!sort.field || sort.field !== 'start_date' ||
             (sort.field === 'start_date' && (sort.normalOrder && preserve) || (!sort.normalOrder && !preserve))) {
-
-
+            const newSort = {field: 'start_date', normalOrder: true}
+            const sorted = values.sort(function (a, b) {
+                    if (!a.start_date && b.start_date) {
+                        return 1
+                    }
+                    if (!b.start_date && a.start_date) {
+                        return -1
+                    }
+                    if (!a.start_date && !b.start_date) {
+                        return 0
+                    }
+                    return a.start_date - b.start_date
+                }
+            )
+            setValues(sorted)
+            setSort(newSort)
             setIsLoading(false)
             return;
         }
 
         if (sort.field === 'start_date' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
-
+            const newSort = {field: 'start_date', normalOrder: true}
+            const sorted = values.sort(function (a, b) {
+                    if (!a.start_date && b.start_date) {
+                        return 1
+                    }
+                    if (!b.start_date && a.start_date) {
+                        return -1
+                    }
+                    if (!a.start_date && !b.start_date) {
+                        return 0
+                    }
+                    return b.start_date - a.start_date
+                }
+            )
+            setValues(sorted)
+            setSort(newSort)
             setIsLoading(false)
         }
     }
@@ -293,7 +322,9 @@ const Campaigns_List = () => {
         if (!sort.field || sort.field !== 'budget' ||
             (sort.field === 'budget' && (sort.normalOrder && preserve) || (!sort.normalOrder && !preserve))) {
             const newSort = {field: 'budget', normalOrder: true}
-            const sorted = values.sort( (a, b) => { return a.budget.totalBudget - b.budget.totalBudget; }
+            const sorted = values.sort((a, b) => {
+                    return a.budget.totalBudget - b.budget.totalBudget;
+                }
             )
             setValues(sorted)
             setSort(newSort)
@@ -303,7 +334,9 @@ const Campaigns_List = () => {
 
         if (sort.field === 'budget' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
             const newSort = {field: 'budget', normalOrder: false}
-            const sorted = values.sort( (a, b) => { return b.budget.totalBudget - a.budget.totalBudget; }
+            const sorted = values.sort((a, b) => {
+                    return b.budget.totalBudget - a.budget.totalBudget;
+                }
             )
             setValues(sorted)
             setSort(newSort)
@@ -324,7 +357,9 @@ const Campaigns_List = () => {
         if (!sort.field || sort.field !== 'profit' ||
             (sort.field === 'profit' && (sort.normalOrder && preserve) || (!sort.normalOrder && !preserve))) {
             const newSort = {field: 'profit', normalOrder: true}
-            const sorted = values.sort( (a, b) => { return a.profit - b.profit; }
+            const sorted = values.sort((a, b) => {
+                    return a.profit - b.profit;
+                }
             )
             setValues(sorted)
             setSort(newSort)
@@ -334,7 +369,9 @@ const Campaigns_List = () => {
 
         if (sort.field === 'profit' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
             const newSort = {field: 'profit', normalOrder: false}
-            const sorted = values.sort( (a, b) => { return b.profit - a.profit; }
+            const sorted = values.sort((a, b) => {
+                    return b.profit - a.profit;
+                }
             )
             setValues(sorted)
             setSort(newSort)
@@ -365,44 +402,44 @@ const Campaigns_List = () => {
             setIsLoading(false)
         }
 
-        async function Filter()  {
+        async function Filter() {
             setIsLoading(true)
 
             const filterState = await CampaignService.getCampaigns(filters)
             if (filterState) {
-               if (!sort.field) {
-                   setValues(filterState)
-                   setIsLoading(false)
-               } else {
-                   if (sort.field === 'title') {
-                       sortByTitle(true)
-                       return
-                   }
+                if (!sort.field) {
+                    setValues(filterState)
+                    setIsLoading(false)
+                } else {
+                    if (sort.field === 'title') {
+                        sortByTitle(true)
+                        return
+                    }
 
-                   if (sort.field === 'brand') {
-                       sortByBrand(true)
-                       return
-                   }
+                    if (sort.field === 'brand') {
+                        sortByBrand(true)
+                        return
+                    }
 
-                   if (sort.field === 'start_date') {
-                       sortByStart(true)
-                       return
-                   }
+                    if (sort.field === 'start_date') {
+                        sortByStart(true)
+                        return
+                    }
 
-                   if (sort.field === 'end_date') {
-                       sortByEnd(true)
-                       return
-                   }
+                    if (sort.field === 'end_date') {
+                        sortByEnd(true)
+                        return
+                    }
 
-                   if (sort.field === 'budget') {
-                       sortByBudget(true)
-                       return
-                   }
+                    if (sort.field === 'budget') {
+                        sortByBudget(true)
+                        return
+                    }
 
-                   if (sort.field === 'profit') {
-                       sortByProfit(true)
-                   }
-               }
+                    if (sort.field === 'profit') {
+                        sortByProfit(true)
+                    }
+                }
             }
         }
 
