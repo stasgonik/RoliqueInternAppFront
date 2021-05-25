@@ -172,6 +172,7 @@ body {
 .BudgetInput {
 		display: flex;
 		margin-top: 8px;
+		margin-bottom: 20px;
 }
 
 .BudgetInput input {
