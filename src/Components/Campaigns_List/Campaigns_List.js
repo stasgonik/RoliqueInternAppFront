@@ -407,7 +407,7 @@ const Campaigns_List = () => {
 
             const filterState = await CampaignService.getCampaigns(filters)
             if (filterState) {
-                if (!sort.field) {
+                if (!filterState.length || !sort.field) {
                     setValues(filterState)
                     setIsLoading(false)
                 } else {
