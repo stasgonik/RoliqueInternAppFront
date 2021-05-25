@@ -21,6 +21,7 @@ import youtubeIcon from "../../img/Social_Icons/Youtube.svg";
 import arrows from "../Items/Icons/arrows.svg"
 import CampaignFilterDropdown from "../Items/CampaignFilterDropdown/CampaignFilterDropdown";
 import UserService from "../../Services/userService";
+import CampaignService from "../../Services/campaign.service";
 
 let status = [
     {
@@ -131,6 +132,7 @@ const Campaigns_List = () => {
 
     const [TL, setTL] = useState([])
     const [sort, setSort] = useState({})
+    const [filters, setFilters] = useState({})
 
     const [values, setValues] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -345,23 +347,71 @@ const Campaigns_List = () => {
         async function Start() {
             setInitial(false)
             setIsLoading(true)
-            const initialState = await UserService.getUsers({role: 'manager'})
+            const initialState = await CampaignService.getCampaigns()
             if (initialState) {
+                setValues(initialState)
+            }
+
+            const initialTL = await UserService.getUsers({role: 'manager'})
+            if (initialTL) {
                 const arr = [];
-                initialState.forEach((user) => {
+                initialTL.forEach((user) => {
                     const tl = {value: user._id, label: user.full_name}
                     arr.push(tl)
                 })
                 setTL(arr)
             }
-            // setValues(initialState)
+
             setIsLoading(false)
         }
 
-        if (initial) {
-            Start()
+        async function Filter()  {
+            setIsLoading(true)
+
+            const filterState = await CampaignService.getCampaigns(filters)
+            if (filterState) {
+               if (!sort.field) {
+                   setValues(filterState)
+                   setIsLoading(false)
+               } else {
+                   if (sort.field === 'title') {
+                       sortByTitle(true)
+                       return
+                   }
+
+                   if (sort.field === 'brand') {
+                       sortByBrand(true)
+                       return
+                   }
+
+                   if (sort.field === 'start_date') {
+                       sortByStart(true)
+                       return
+                   }
+
+                   if (sort.field === 'end_date') {
+                       sortByEnd(true)
+                       return
+                   }
+
+                   if (sort.field === 'budget') {
+                       sortByBudget(true)
+                       return
+                   }
+
+                   if (sort.field === 'profit') {
+                       sortByProfit(true)
+                   }
+               }
+            }
         }
-    })
+
+        if (initial) {
+            Start();
+        } else {
+            Filter();
+        }
+    }, [filters])
 
     const searchName = async (e) => {
         const value = e.target.value;
