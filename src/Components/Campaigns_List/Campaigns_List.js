@@ -612,18 +612,30 @@ const Campaigns_List = () => {
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>Budget</span>
                             <div className={classes.BudgetInput}>
-                                <input type={'number'} min="0" placeholder={'Min'}/>
+                                <input type={'number'} min="0" placeholder={'Min'}
+                                       name={'budget_LTE'}
+                                    // onInput={(e) => numberSearch(e)}
+                                />
                                 <span> – </span>
-                                <input type={'number'} min="0" placeholder={'Max'}/>
+                                <input type={'number'} min="0" placeholder={'Max'}
+                                       name={'budget_GTE'}
+                                    // onInput={(e) => numberSearch(e)}
+                                />
                             </div>
                         </div>
 
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>Profit</span>
                             <div className={classes.BudgetInput}>
-                                <input type={'number'} min="0" placeholder={'Min'}/>
+                                <input type={'number'} min="0" placeholder={'Min'}
+                                       name={'profit_LTE'}
+                                       // onInput={(e) => numberSearch(e)}
+                                />
                                 <span> – </span>
-                                <input type={'number'} min="0" placeholder={'Max'}/>
+                                <input type={'number'} min="0" placeholder={'Max'}
+                                       name={'profit_GTE'}
+                                    // onInput={(e) => numberSearch(e)}
+                                />
                             </div>
                         </div>
 
