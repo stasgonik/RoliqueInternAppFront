@@ -15,7 +15,7 @@ const DropdownIndicator = props => {
 
 const CampaignFilterDropdown = ({options, name, onChange}) => {
 	const selectInputRef = useRef();
-	const [val, setVal] = useState([])
+	const [hasValue, setHasValue] = useState(false)
 
 
 	const colorStyles = {
@@ -77,16 +77,21 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 
 	const onClear = () => {
 		selectInputRef.current.select.clearValue();
-		setVal([])
+		console.log(name)
+		setHasValue(false)
 		// onChange(name, '')
 		// пустая строка должна сказать родительской компоненте что этот фильтр мы очистили
 		// и его надо удалить из фильтров вообще
 	};
 
-	const onSelect = () => {
-		let v = selectInputRef.current ? selectInputRef.current.select.getValue() : []
-		setVal(v)
-		// onChange(name, value)
+	const onSelect = (e) => {
+		if (e && e.value) {
+			console.log(e.value)
+			console.log(name)
+			setHasValue(true)
+			// onChange(name, value)
+		}
+
 		// временно закоментил пока мы не доделаем все остальное,
 		// но в конечном итоге так и должно вызываться
 	}
@@ -100,7 +105,7 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 				options={options}
 				name={name}
 				// onSelect={onSelect}
-				onChange={onSelect}
+				onChange={(e) => onSelect(e)}
 				styles={colorStyles}
 				placeholder={'Select...'}
 				isSearchable={false}
@@ -108,7 +113,7 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 			/>
 
 			{
-				val.length ? <div style={{borderRadius: '50%', backgroundColor: 'grey', padding: '1px', height: '15px', width: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '5px', marginTop: '6px', cursor: 'pointer'}} onClick={onClear}><img src={close} alt={'close'} width={'15px'}/></div> : ''
+				hasValue? <div style={{borderRadius: '50%', backgroundColor: 'grey', padding: '1px', height: '15px', width: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '5px', marginTop: '6px', cursor: 'pointer'}} onClick={onClear}><img src={close} alt={'close'} width={'15px'}/></div> : ''
 			}
 
 		</div>

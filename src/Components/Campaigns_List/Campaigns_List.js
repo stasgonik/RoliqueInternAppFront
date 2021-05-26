@@ -297,14 +297,44 @@ const Campaigns_List = () => {
 
         if (!sort.field || sort.field !== 'end_date' ||
             (sort.field === 'end_date' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
-
-
+            const newSort = {field: 'end_date', normalOrder: true}
+            const sorted = values.sort(function (a, b) {
+                    if (!a.end_date && b.end_date) {
+                        return 1
+                    }
+                    if (!b.end_date && a.end_date) {
+                        return -1
+                    }
+                    if (!a.end_date && !b.end_date) {
+                        return 0
+                    }
+                    return a.end_date - b.end_date
+                }
+            )
+            setValues(sorted)
+            setSort(newSort)
             setIsLoading(false)
             return;
         }
 
         if (sort.field === 'end_date' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
 
+            const newSort = {field: 'end_date', normalOrder: true}
+            const sorted = values.sort(function (a, b) {
+                    if (!a.end_date && b.end_date) {
+                        return 1
+                    }
+                    if (!b.end_date && a.end_date) {
+                        return -1
+                    }
+                    if (!a.end_date && !b.end_date) {
+                        return 0
+                    }
+                    return b.end_date - a.end_date
+                }
+            )
+            setValues(sorted)
+            setSort(newSort)
             setIsLoading(false)
         }
     }
@@ -529,22 +559,30 @@ const Campaigns_List = () => {
 
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>Brand</span>
-                            <CampaignFilterDropdown onChange={selectSearch}/>
+                            <CampaignFilterDropdown
+                                name={'_brand'}
+                                onChange={selectSearch}/>
                         </div>
 
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>Effort</span>
-                            <CampaignFilterDropdown options={effort} onChange={selectSearch}/>
+                            <CampaignFilterDropdown options={effort}
+                                                    name={'effort'}
+                                                    onChange={selectSearch}/>
                         </div>
 
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>Status</span>
-                            <CampaignFilterDropdown options={status} onChange={selectSearch}/>
+                            <CampaignFilterDropdown options={status}
+                                                    name={'status'}
+                                                    onChange={selectSearch}/>
                         </div>
 
                         <div className={classes.LeftContainerFilter}>
                             <span className={`${classes.ChannelsColorText}`}>TL</span>
-                            <CampaignFilterDropdown options={TL} onChange={selectSearch}/>
+                            <CampaignFilterDropdown options={TL}
+                                                    name={'_team_lead'}
+                                                    onChange={selectSearch}/>
                         </div>
 
                         <div className={classes.LeftContainerFilter}>
