@@ -573,7 +573,7 @@ const Campaigns_List = () => {
 
 		return (
 			<div style={{position: "relative", width: 0, height: 0, zIndex: -10}}>
-				<div style={{backgroundColor: "grey", height: '30px', width: length, zIndex: -10, opacity: '0.5'}}/>
+				<div style={{backgroundColor: "#D6EDE2", height: '26px', width: length, zIndex: -10}}/>
 			</div>
 
 		)
@@ -660,7 +660,7 @@ const Campaigns_List = () => {
 
 
 						<div className={classes.LeftContainerFilter}>
-							<span className={${classes.ChannelsColorText}}>Budget</span>
+							<span className={classes.ChannelsColorText}>Budget</span>
 							<div className={classes.BudgetInput}>
 								<input type={'number'} min="0" placeholder={'Min'}
 									   name={'budget_LTE'}
@@ -675,7 +675,7 @@ const Campaigns_List = () => {
 						</div>
 
 						<div className={classes.LeftContainerFilter}>
-							<span className={${classes.ChannelsColorText}}>Profit</span>
+							<span className={classes.ChannelsColorText}>Profit</span>
 							<div className={classes.BudgetInput}>
 								<input type={'number'} min="0" placeholder={'Min'}
 									   name={'profit_LTE'}

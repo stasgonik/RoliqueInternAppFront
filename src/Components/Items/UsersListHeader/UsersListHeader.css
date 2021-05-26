@@ -53,6 +53,7 @@
 }
 
 .header {
+		background-color: #FAFAFB;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
