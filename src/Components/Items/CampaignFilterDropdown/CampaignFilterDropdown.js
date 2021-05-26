@@ -113,7 +113,9 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 			/>
 
 			{
-				hasValue? <div style={{borderRadius: '50%', backgroundColor: 'grey', padding: '1px', height: '15px', width: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '5px', marginTop: '6px', cursor: 'pointer'}} onClick={onClear}><img src={close} alt={'close'} width={'15px'}/></div> : ''
+				hasValue? <div style={{position: 'relative', width: 0, height: 0, bottom: '10px'}}>
+						<div style={{borderRadius: '50%', backgroundColor: 'grey', padding: '1px', height: '15px', width: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '5px', marginTop: '6px', cursor: 'pointer'}} onClick={onClear}><img src={close} alt={'close'} width={'15px'}/></div> </div>
+					: ''
 			}
 
 		</div>

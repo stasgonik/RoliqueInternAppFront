@@ -491,7 +491,7 @@ const Campaigns_List = () => {
         const name = e.target.name;
         let value = +e.target.value;
         if (value < 1) {
-            value = 1
+            value = 0
         }
         setFilters({...filters, [name]: value})
     }
