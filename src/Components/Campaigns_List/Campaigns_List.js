@@ -353,6 +353,18 @@ const Campaigns_List = () => {
 			(sort.field === 'budget' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
 			const newSort = {field: 'budget', normalOrder: true}
 			const sorted = values.sort((a, b) => {
+					if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
+						&& (b.budget.totalBudget || b.budget.totalBudget === 0)) {
+						return 1
+					}
+					if ((!b.budget || typeof b.budget.totalBudget === 'undefined')
+						&& (a.budget.totalBudget || a.budget.totalBudget === 0)) {
+						return -1
+					}
+					if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
+						&& (!b.budget || typeof b.budget.totalBudget === 'undefined')) {
+						return 0
+					}
 					return a.budget.totalBudget - b.budget.totalBudget;
 				}
 			)
@@ -365,6 +377,18 @@ const Campaigns_List = () => {
 		if (sort.field === 'budget' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
 			const newSort = {field: 'budget', normalOrder: false}
 			const sorted = values.sort((a, b) => {
+					if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
+						&& (b.budget.totalBudget || b.budget.totalBudget === 0)) {
+						return 1
+					}
+					if ((!b.budget || typeof b.budget.totalBudget === 'undefined')
+						&& (a.budget.totalBudget || a.budget.totalBudget === 0)) {
+						return -1
+					}
+					if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
+						&& (!b.budget || typeof b.budget.totalBudget === 'undefined')) {
+						return 0
+					}
 					return b.budget.totalBudget - a.budget.totalBudget;
 				}
 			)
@@ -507,7 +531,6 @@ const Campaigns_List = () => {
 	}
 
 
-
 	const tlDiv = (first, last) => {
 		const colors = ['#FBA63C', '#5DC983', '#7784EE', '#D459E8'];
 		const color = colors[Math.floor(Math.random() * 4)]
@@ -517,7 +540,18 @@ const Campaigns_List = () => {
 
 
 		return (
-			<div style={{width: '32px', height: '32px', textTransform: 'uppercase', borderRadius: '50%', backgroundColor: color, color: 'white', textAlign: 'center', verticalAlign: 'middle', fontSize: '12px', display: 'table-cell'}}>
+			<div style={{
+				width: '32px',
+				height: '32px',
+				textTransform: 'uppercase',
+				borderRadius: '50%',
+				backgroundColor: color,
+				color: 'white',
+				textAlign: 'center',
+				verticalAlign: 'middle',
+				fontSize: '12px',
+				display: 'table-cell'
+			}}>
 				{firstL}{lastL}
 			</div>
 		)
@@ -532,7 +566,7 @@ const Campaigns_List = () => {
 		}
 		if (now > start && now < end) {
 			const nowDiff = now - start;
-			const per = nowDiff/total;
+			const per = nowDiff / total;
 			const number = Math.round(per * 180)
 			length = number + 'px'
 		}
@@ -624,24 +658,36 @@ const Campaigns_List = () => {
 													onChange={selectSearch}/>
 						</div>
 
+
 						<div className={classes.LeftContainerFilter}>
-							<span className={`${classes.ChannelsColorText}`}>Budget</span>
+							<span className={${classes.ChannelsColorText}}>Budget</span>
 							<div className={classes.BudgetInput}>
-								<input type={'number'} min="0" placeholder={'Min'}/>
+								<input type={'number'} min="0" placeholder={'Min'}
+									   name={'budget_LTE'}
+									// onInput={(e) => numberSearch(e)}
+								/>
 								<span> – </span>
-								<input type={'number'} min="0" placeholder={'Max'}/>
+								<input type={'number'} min="0" placeholder={'Max'}
+									   name={'budget_GTE'}
+									// onInput={(e) => numberSearch(e)}
+								/>
 							</div>
 						</div>
 
 						<div className={classes.LeftContainerFilter}>
-							<span className={`${classes.ChannelsColorText}`}>Profit</span>
+							<span className={${classes.ChannelsColorText}}>Profit</span>
 							<div className={classes.BudgetInput}>
-								<input type={'number'} min="0" placeholder={'Min'}/>
+								<input type={'number'} min="0" placeholder={'Min'}
+									   name={'profit_LTE'}
+									// onInput={(e) => numberSearch(e)}
+								/>
 								<span> – </span>
-								<input type={'number'} min="0" placeholder={'Max'}/>
+								<input type={'number'} min="0" placeholder={'Max'}
+									   name={'profit_GTE'}
+									// onInput={(e) => numberSearch(e)}
+								/>
 							</div>
 						</div>
-
 
 					</div>
 
