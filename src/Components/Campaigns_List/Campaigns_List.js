@@ -353,6 +353,18 @@ const Campaigns_List = () => {
             (sort.field === 'budget' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
             const newSort = {field: 'budget', normalOrder: true}
             const sorted = values.sort((a, b) => {
+                    if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
+                        && (b.budget.totalBudget || b.budget.totalBudget === 0)) {
+                        return 1
+                    }
+                    if ((!b.budget || typeof b.budget.totalBudget === 'undefined')
+                        && (a.budget.totalBudget || a.budget.totalBudget === 0)) {
+                        return -1
+                    }
+                    if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
+                        && (!b.budget || typeof b.budget.totalBudget === 'undefined')) {
+                        return 0
+                    }
                     return a.budget.totalBudget - b.budget.totalBudget;
                 }
             )
@@ -365,6 +377,18 @@ const Campaigns_List = () => {
         if (sort.field === 'budget' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
             const newSort = {field: 'budget', normalOrder: false}
             const sorted = values.sort((a, b) => {
+                if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
+                    && (b.budget.totalBudget || b.budget.totalBudget === 0)) {
+                    return 1
+                }
+                if ((!b.budget || typeof b.budget.totalBudget === 'undefined')
+                    && (a.budget.totalBudget || a.budget.totalBudget === 0)) {
+                    return -1
+                }
+                if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
+                    && (!b.budget || typeof b.budget.totalBudget === 'undefined')) {
+                    return 0
+                }
                     return b.budget.totalBudget - a.budget.totalBudget;
                 }
             )
@@ -496,7 +520,7 @@ const Campaigns_List = () => {
         setFilters({...filters, [name]: value})
     }
 
-    const selectSearch = (name, value)  => {
+    const selectSearch = (name, value) => {
         let f = filters;
         if (value === '') {
             delete f[name];
