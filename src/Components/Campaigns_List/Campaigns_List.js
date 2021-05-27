@@ -5,7 +5,6 @@ import arrowUp from '../Items/Icons/arrow-up.svg'
 import blogSmall from "../../img/Social_Icons/Stories.svg";
 import classes from './Campaigns_List.module.css';
 import facebookIcon from "../../img/Social_Icons/Facebook.svg";
-import InfluencersService from "../../Services/influencers.service";
 import instagramIcon from "../../img/Social_Icons/Instagram.svg";
 import loading from "../../img/Loading.gif";
 import path from '../Items/Icons/path.svg';
@@ -22,6 +21,7 @@ import arrows from "../Items/Icons/arrows.svg"
 import CampaignFilterDropdown from "../Items/CampaignFilterDropdown/CampaignFilterDropdown";
 import UserService from "../../Services/userService";
 import CampaignService from "../../Services/campaign.service";
+import BrandService from "../../Services/brand.service";
 
 let status = [
 	{
@@ -130,9 +130,10 @@ let effort = [
 
 const Campaigns_List = () => {
 
-	const [TL, setTL] = useState([])
-	const [sort, setSort] = useState({})
-	const [filters, setFilters] = useState({})
+	const [TL, setTL] = useState([]);
+	const [brands, setBrands] = useState([]);
+	const [sort, setSort] = useState({});
+	const [filters, setFilters] = useState({});
 
 	const [values, setValues] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -140,7 +141,7 @@ const Campaigns_List = () => {
 
 	const sortByTitle = (preserve = false) => {
 		if (!preserve) {
-			setIsLoading(true)
+			setIsLoading(true);
 		}
 
 		if (!values.length) {
@@ -150,7 +151,7 @@ const Campaigns_List = () => {
 
 		if (!sort.field || sort.field !== 'title' ||
 			(sort.field === 'title' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
-			const newSort = {field: 'title', normalOrder: true}
+			const newSort = {field: 'title', normalOrder: true};
 			const sorted = values.sort(function (a, b) {
 					if (a.title.toLowerCase() < b.title.toLowerCase()) {
 						return -1;
@@ -158,13 +159,13 @@ const Campaigns_List = () => {
 					if (a.title.toLowerCase() > b.title.toLowerCase()) {
 						return 1;
 					}
-					return 0
+					return 0;
 				}
 			)
-			setValues(sorted)
-			setSort(newSort)
-			setIsLoading(false)
-			return
+			setValues(sorted);
+			setSort(newSort);
+			setIsLoading(false);
+			return;
 		}
 
 		if (sort.field === 'title' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
@@ -176,12 +177,12 @@ const Campaigns_List = () => {
 					if (a.title.toLowerCase() > b.title.toLowerCase()) {
 						return -1;
 					}
-					return 0
+					return 0;
 				}
 			)
-			setValues(sorted)
-			setSort(newSort)
-			setIsLoading(false)
+			setValues(sorted);
+			setSort(newSort);
+			setIsLoading(false);
 		}
 	}
 
@@ -436,62 +437,72 @@ const Campaigns_List = () => {
 
 	useEffect(() => {
 		async function Start() {
-			setInitial(false)
-			setIsLoading(true)
-			const initialState = await CampaignService.getCampaigns()
+			setInitial(false);
+			setIsLoading(true);
+			const initialState = await CampaignService.getCampaigns();
 			if (initialState) {
-				setValues(initialState)
+				setValues(initialState);
 			}
 
-			const initialTL = await UserService.getUsers({role: 'manager'})
+			const initialTL = await UserService.getUsers({role: 'manager'});
 			if (initialTL) {
 				const arr = [];
 				initialTL.forEach((user) => {
-					const tl = {value: user._id, label: user.full_name}
-					arr.push(tl)
+					const tl = {value: user._id, label: user.full_name};
+					arr.push(tl);
 				})
-				setTL(arr)
+				setTL(arr);
 			}
 
-			setIsLoading(false)
+			const initialBrands = await BrandService.getBrands();
+			if (initialBrands) {
+				const arr = [];
+				initialBrands.forEach((brand) => {
+					const br = {value: brand._id, label: brand.name};
+					arr.push(br);
+				})
+				setBrands(arr);
+			}
+
+			setIsLoading(false);
 		}
 
 		async function Filter() {
-			setIsLoading(true)
+			setIsLoading(true);
 
-			const filterState = await CampaignService.getCampaigns(filters)
+			const filterState = await CampaignService.getCampaigns(filters);
 			if (filterState) {
 				if (!filterState.length || !sort.field) {
-					setValues(filterState)
-					setIsLoading(false)
+					setValues(filterState);
+					setIsLoading(false);
 				} else {
 					if (sort.field === 'title') {
-						sortByTitle(true)
-						return
+						sortByTitle(true);
+						return;
 					}
 
 					if (sort.field === 'brand') {
-						sortByBrand(true)
-						return
+						sortByBrand(true);
+						return;
 					}
 
 					if (sort.field === 'start_date') {
-						sortByStart(true)
-						return
+						sortByStart(true);
+						return;
 					}
 
 					if (sort.field === 'end_date') {
-						sortByEnd(true)
-						return
+						sortByEnd(true);
+						return;
 					}
 
 					if (sort.field === 'budget') {
-						sortByBudget(true)
-						return
+						sortByBudget(true);
+						return;
 					}
 
 					if (sort.field === 'profit') {
-						sortByProfit(true)
+						sortByProfit(true);
 					}
 				}
 			}
@@ -507,7 +518,7 @@ const Campaigns_List = () => {
 	const searchName = (e) => {
 		e.preventDefault();
 		const value = e.target.value;
-		setFilters({...filters, title: value})
+		setFilters({...filters, title: value});
 	}
 
 	const numberSearch = (e) => {
@@ -515,9 +526,9 @@ const Campaigns_List = () => {
 		const name = e.target.name;
 		let value = +e.target.value;
 		if (value < 1) {
-			value = 0
+			value = 0;
 		}
-		setFilters({...filters, [name]: value})
+		setFilters({...filters, [name]: value});
 	}
 
 	const selectSearch = (name, value) => {
@@ -525,15 +536,15 @@ const Campaigns_List = () => {
 		if (value === '') {
 			delete f[name];
 		} else {
-			f[name] = value
+			f[name] = value;
 		}
-		setFilters(f)
+		setFilters(f);
 	}
 
 
 	const tlDiv = (first, last) => {
 		const colors = ['#FBA63C', '#5DC983', '#7784EE', '#D459E8'];
-		const color = colors[Math.floor(Math.random() * 4)]
+		const color = colors[Math.floor(Math.random() * 4)];
 
 		const firstL = first.charAt(0);
 		const lastL = last.charAt(0);
@@ -562,13 +573,13 @@ const Campaigns_List = () => {
 		const now = new Date();
 		let length = '0';
 		if (now > end) {
-			length = '180px'
+			length = '180px';
 		}
 		if (now > start && now < end) {
 			const nowDiff = now - start;
 			const per = nowDiff / total;
-			const number = Math.round(per * 180)
-			length = number + 'px'
+			const number = Math.round(per * 180);
+			length = number + 'px';
 		}
 
 		return (
@@ -632,7 +643,7 @@ const Campaigns_List = () => {
 
 						<div className={classes.LeftContainerFilter}>
 							<span className={`${classes.ChannelsColorText}`}>Brand</span>
-							<CampaignFilterDropdown
+							<CampaignFilterDropdown options={brands}
 								name={'_brand'}
 								onChange={selectSearch}/>
 						</div>
