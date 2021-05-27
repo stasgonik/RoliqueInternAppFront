@@ -548,6 +548,11 @@ const Campaigns_List = () => {
         setFilters(f);
     }
 
+    const wheelClean = (e) => {
+        e.preventDefault()
+        e.target.blur()
+    }
+
 
     const tlDiv = (first, last) => {
         const colors = ['#FBA63C', '#5DC983', '#7784EE', '#D459E8'];
@@ -682,11 +687,13 @@ const Campaigns_List = () => {
                             <div className={classes.BudgetInput}>
                                 <input type={'number'} min="0" placeholder={'Min'}
                                        name={'budget_LTE'}
+                                       onWheel={(e) => wheelClean(e)}
                                     // onInput={(e) => numberSearch(e)}
                                 />
                                 <span> – </span>
                                 <input type={'number'} min="0" placeholder={'Max'}
                                        name={'budget_GTE'}
+                                       onWheel={(e) => wheelClean(e)}
                                     // onInput={(e) => numberSearch(e)}
                                 />
                             </div>
@@ -697,11 +704,13 @@ const Campaigns_List = () => {
                             <div className={classes.BudgetInput}>
                                 <input type={'number'} min="0" placeholder={'Min'}
                                        name={'profit_LTE'}
+                                       onWheel={(e) => wheelClean(e)}
                                     // onInput={(e) => numberSearch(e)}
                                 />
                                 <span> – </span>
                                 <input type={'number'} min="0" placeholder={'Max'}
                                        name={'profit_GTE'}
+                                       onWheel={(e) => wheelClean(e)}
                                     // onInput={(e) => numberSearch(e)}
                                 />
                             </div>
