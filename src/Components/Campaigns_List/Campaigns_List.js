@@ -532,6 +532,12 @@ const Campaigns_List = () => {
         e.preventDefault();
         const name = e.target.name;
         let value = +e.target.value;
+        if (value === 0) {
+            const f = filters;
+            delete f[name];
+            setFilters(f);
+            return;
+        }
         if (value < 0) {
             value = value*(-1);
             e.target.value = value;

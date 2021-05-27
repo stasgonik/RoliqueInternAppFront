@@ -8,7 +8,6 @@ import Error from '../Items/Messages/Messages';
 import {INFO} from '../../Constants/messages'
 import regexp from '../../Constants/regexp.enum';
 import routes from "../../Constants/routes.enum";
-import configFront from "../../Constants/configFront";
 
 class Login extends Component {
 
