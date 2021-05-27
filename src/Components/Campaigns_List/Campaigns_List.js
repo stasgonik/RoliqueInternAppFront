@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 
-import arrows from "../Items/Icons/arrows.svg"
-import arrowUp from '../Items/Icons/arrow-up.svg'
+import arrows from "../Items/Icons/arrows.svg";
+import arrowUp from '../Items/Icons/arrow-up.svg';
 import blogSmall from "../../img/Social_Icons/Stories.svg";
 import BrandService from "../../Services/brand.service";
 import CampaignFilterDropdown from "../Items/CampaignFilterDropdown/CampaignFilterDropdown";
@@ -16,7 +16,7 @@ import photoDefault from '../Items/Icons/vector.svg';
 import rightArrow from '../Items/Icons/right-arrow.svg';
 import routes from "../../Constants/routes.enum";
 import Search from "../Items/Search/Search";
-import Sidebar from '../Items/Sidebar/Sidebar'
+import Sidebar from '../Items/Sidebar/Sidebar';
 import tikTokIcon from "../../img/Social_Icons/TikTok.svg";
 import twitterIcon from "../../img/Social_Icons/Twitter.svg";
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
@@ -134,7 +134,7 @@ const Campaigns_List = () => {
     const [brands, setBrands] = useState([]);
     const [sort, setSort] = useState({});
     const [filters, setFilters] = useState({});
-    const [counter, setCounter] = useState(0)
+    const [counter, setCounter] = useState(0);
 
     const [values, setValues] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -528,7 +528,7 @@ const Campaigns_List = () => {
         if (value === '') {
             delete f.title;
         } else {
-            f.title = value
+            f.title = value;
         }
         setFilters({...f});
     }
@@ -547,7 +547,7 @@ const Campaigns_List = () => {
             value = value*(-1);
             e.target.value = value;
         }
-        f[name] = value
+        f[name] = value;
         setFilters({...f});
     }
 
@@ -562,8 +562,8 @@ const Campaigns_List = () => {
     }
 
     const wheelClean = (e) => {
-        e.preventDefault()
-        e.target.blur()
+        e.preventDefault();
+        e.target.blur();
     }
 
 
