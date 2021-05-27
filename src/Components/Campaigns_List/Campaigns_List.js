@@ -783,7 +783,8 @@ const Campaigns_List = () => {
                                 <p>Please wait...</p>
                             </div>
                             :
-                            ''} // ADD VALUES MAP HERE!!! Перевод: кампании итерировать сюда, Ира.
+                            ''}  {/*{ ADD VALUES MAP INSTEAD OF ''!!!}*/}
+
                     </div>
                     {/*            : values ? (values.map((item, index) =>*/}
                     {/*                <div key={index}>*/}
