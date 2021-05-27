@@ -705,13 +705,13 @@ const Campaigns_List = () => {
                             <span className={classes.ChannelsColorText}>Budget</span>
                             <div className={classes.BudgetInput}>
                                 <input type={'number'} min="0" placeholder={'Min'}
-                                       name={'budget_LTE'}
+                                       name={'budget_GTE'}
                                        onWheel={(e) => wheelClean(e)}
                                        onInput={(e) => numberSearch(e)}
                                 />
                                 <span> – </span>
                                 <input type={'number'} min="0" placeholder={'Max'}
-                                       name={'budget_GTE'}
+                                       name={'budget_LTE'}
                                        onWheel={(e) => wheelClean(e)}
                                        onInput={(e) => numberSearch(e)}
                                 />
@@ -722,13 +722,13 @@ const Campaigns_List = () => {
                             <span className={classes.ChannelsColorText}>Profit</span>
                             <div className={classes.BudgetInput}>
                                 <input type={'number'} min="0" placeholder={'Min'}
-                                       name={'profit_LTE'}
+                                       name={'profit_GTE'}
                                        onWheel={(e) => wheelClean(e)}
                                        // onInput={(e) => numberSearch(e)}
                                 />
                                 <span> – </span>
                                 <input type={'number'} min="0" placeholder={'Max'}
-                                       name={'profit_GTE'}
+                                       name={'profit_LTE'}
                                        onWheel={(e) => wheelClean(e)}
                                        // onInput={(e) => numberSearch(e)}
                                 />
