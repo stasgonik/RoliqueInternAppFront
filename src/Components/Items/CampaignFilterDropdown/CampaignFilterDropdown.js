@@ -77,7 +77,6 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 
 	const onClear = () => {
 		selectInputRef.current.select.clearValue();
-		console.log(name)
 		setHasValue(false)
 		// onChange(name, '')
 		// пустая строка должна сказать родительской компоненте что этот фильтр мы очистили
@@ -86,8 +85,6 @@ const CampaignFilterDropdown = ({options, name, onChange}) => {
 
 	const onSelect = (e) => {
 		if (e && e.value) {
-			console.log(e.value)
-			console.log(name)
 			setHasValue(true)
 			// onChange(name, value)
 		}
