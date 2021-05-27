@@ -781,7 +781,9 @@ const Campaigns_List = () => {
                             <div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
                                 <img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
                                 <p>Please wait...</p>
-                            </div> : ''}
+                            </div>
+                            :
+                            ''} // ADD VALUES MAP HERE!!! Перевод: кампании итерировать сюда, Ира.
                     </div>
                     {/*            : values ? (values.map((item, index) =>*/}
                     {/*                <div key={index}>*/}
