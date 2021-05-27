@@ -134,6 +134,7 @@ const Campaigns_List = () => {
 	const [brands, setBrands] = useState([]);
 	const [sort, setSort] = useState({});
 	const [filters, setFilters] = useState({});
+	const [counter, setCounter] = useState(0)
 
 	const [values, setValues] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -436,12 +437,15 @@ const Campaigns_List = () => {
 
 
 	useEffect(() => {
+		window.focus();
+		window.scrollTo(0,0);
 		async function Start() {
 			setInitial(false);
 			setIsLoading(true);
 			const initialState = await CampaignService.getCampaigns();
 			if (initialState) {
-				setValues(initialState);
+				setValues(initialState.data);
+				setCounter(initialState.count);
 			}
 
 			const initialTL = await UserService.getUsers({role: 'manager'});
@@ -472,8 +476,10 @@ const Campaigns_List = () => {
 
 			const filterState = await CampaignService.getCampaigns(filters);
 			if (filterState) {
-				if (!filterState.length || !sort.field) {
-					setValues(filterState);
+				setValues(filterState.data);
+				setCounter(filterState.count);
+
+				if (!filterState.data?.length || !sort.field) {
 					setIsLoading(false);
 				} else {
 					if (sort.field === 'title') {
@@ -617,7 +623,7 @@ const Campaigns_List = () => {
 					<div className={classes.LeftSection}>
 						<div className={classes.FilterContainer}>
 							<span className={classes.TitleFilters}>Filters</span>
-							<div className={classes.NumberCamp}>1111</div>
+							<div className={classes.NumberCamp}>{counter}</div>
 						</div>
 
 						<div className={classes.SearchContainer}>
