@@ -525,23 +525,31 @@ const Campaigns_List = () => {
     const searchName = (e) => {
         e.preventDefault();
         const value = e.target.value;
-        setFilters({...filters, title: value});
+        const f = filters;
+        if (value === '') {
+            delete f.title;
+        } else {
+            f.title = value
+        }
+        setFilters({...f});
     }
 
     const numberSearch = (e) => {
         e.preventDefault();
         const name = e.target.name;
-        console.log(e.target.value);
         let value = +e.target.value;
+        let f = filters;
         if (value === 0 && e.target.value !== 0) {
-            setFilters({...filters, [name]: ''});
+            delete f[name];
+            setFilters({...f});
             return;
         }
         if (value < 0) {
             value = value*(-1);
             e.target.value = value;
         }
-        setFilters({...filters, [name]: value});
+        f[name] = value
+        setFilters({...f});
     }
 
     const selectSearch = (name, value) => {
@@ -551,7 +559,7 @@ const Campaigns_List = () => {
         } else {
             f[name] = value;
         }
-        setFilters(f);
+        setFilters({...f});
     }
 
     const wheelClean = (e) => {
