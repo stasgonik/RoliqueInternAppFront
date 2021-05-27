@@ -525,11 +525,13 @@ const Campaigns_List = () => {
         e.preventDefault();
         const value = e.target.value;
         const f = filters;
+
         if (value === '') {
             delete f.title;
         } else {
             f.title = value;
         }
+
         setFilters({...f});
     }
 
@@ -538,26 +540,31 @@ const Campaigns_List = () => {
         const name = e.target.name;
         let value = +e.target.value;
         let f = filters;
+
         if (value === 0 && e.target.value !== 0) {
             delete f[name];
             setFilters({...f});
             return;
         }
+
         if (value < 0) {
             value = value*(-1);
             e.target.value = value;
         }
+
         f[name] = value;
         setFilters({...f});
     }
 
     const selectSearch = (name, value) => {
         let f = filters;
+
         if (value === '') {
             delete f[name];
         } else {
             f[name] = value;
         }
+
         setFilters({...f});
     }
 
@@ -573,7 +580,6 @@ const Campaigns_List = () => {
 
         const firstL = first.charAt(0);
         const lastL = last.charAt(0);
-
 
         return (
             <div style={{
@@ -600,6 +606,7 @@ const Campaigns_List = () => {
         if (now > end) {
             length = '180px';
         }
+
         if (now > start && now < end) {
             const nowDiff = now - start;
             const per = nowDiff / total;
@@ -650,7 +657,6 @@ const Campaigns_List = () => {
                                 widthSearch={classes.widthSearch}
                                 placeholder={"Search by title..."}
                                 onChangeName={(e) => searchName(e)}
-                                // Временно закоментировано до создания всего необходимого на беке
                             />
                         </div>
 
