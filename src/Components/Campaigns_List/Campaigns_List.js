@@ -528,13 +528,13 @@ const Campaigns_List = () => {
         setFilters({...filters, title: value});
     }
 
-    const numberSearch = (e, id) => {
+    const numberSearch = (e) => {
         e.preventDefault();
         const name = e.target.name;
         let value = +e.target.value;
         if (value < 0) {
             value = value*(-1);
-            document.getElementById(id).value = value;
+            e.target.value = value;
         }
         setFilters({...filters, [name]: value});
     }
@@ -688,16 +688,14 @@ const Campaigns_List = () => {
                             <div className={classes.BudgetInput}>
                                 <input type={'number'} min="0" placeholder={'Min'}
                                        name={'budget_LTE'}
-                                       id={'budget_LTE'}
                                        onWheel={(e) => wheelClean(e)}
-                                       onInput={(e) => numberSearch(e, 'budget_LTE')}
+                                       onInput={(e) => numberSearch(e)}
                                 />
                                 <span> – </span>
                                 <input type={'number'} min="0" placeholder={'Max'}
                                        name={'budget_GTE'}
-                                       id={'budget_GTE'}
                                        onWheel={(e) => wheelClean(e)}
-                                       onInput={(e) => numberSearch(e, 'budget_GTE')}
+                                       onInput={(e) => numberSearch(e)}
                                 />
                             </div>
                         </div>
@@ -707,16 +705,14 @@ const Campaigns_List = () => {
                             <div className={classes.BudgetInput}>
                                 <input type={'number'} min="0" placeholder={'Min'}
                                        name={'profit_LTE'}
-                                       id={'profit_LTE'}
                                        onWheel={(e) => wheelClean(e)}
-                                       // onInput={(e) => numberSearch(e, 'profit_LTE')}
+                                       // onInput={(e) => numberSearch(e)}
                                 />
                                 <span> – </span>
                                 <input type={'number'} min="0" placeholder={'Max'}
                                        name={'profit_GTE'}
-                                       id={'profit_GTE'}
                                        onWheel={(e) => wheelClean(e)}
-                                       // onInput={(e) => numberSearch(e, 'profit_GTE')}
+                                       // onInput={(e) => numberSearch(e)}
                                 />
                             </div>
                         </div>
