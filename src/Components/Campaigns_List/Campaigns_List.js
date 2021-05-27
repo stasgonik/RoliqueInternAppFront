@@ -531,11 +531,10 @@ const Campaigns_List = () => {
     const numberSearch = (e) => {
         e.preventDefault();
         const name = e.target.name;
+        console.log(e.target.value);
         let value = +e.target.value;
-        if (value === 0) {
-            const f = filters;
-            delete f[name];
-            setFilters(f);
+        if (value === 0 && e.target.value !== 0) {
+            setFilters({...filters, [name]: ''});
             return;
         }
         if (value < 0) {
@@ -643,7 +642,7 @@ const Campaigns_List = () => {
                             <Search
                                 widthSearch={classes.widthSearch}
                                 placeholder={"Search by title..."}
-                                // onChangeName={(e) => searchName(e)}
+                                onChangeName={(e) => searchName(e)}
                                 // Временно закоментировано до создания всего необходимого на беке
                             />
                         </div>
