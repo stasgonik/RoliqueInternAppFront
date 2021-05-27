@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 
+import arrows from "../Items/Icons/arrows.svg"
 import arrowUp from '../Items/Icons/arrow-up.svg'
 import blogSmall from "../../img/Social_Icons/Stories.svg";
+import BrandService from "../../Services/brand.service";
+import CampaignFilterDropdown from "../Items/CampaignFilterDropdown/CampaignFilterDropdown";
+import CampaignService from "../../Services/campaign.service";
 import classes from './Campaigns_List.module.css';
 import facebookIcon from "../../img/Social_Icons/Facebook.svg";
 import instagramIcon from "../../img/Social_Icons/Instagram.svg";
@@ -16,12 +20,8 @@ import Sidebar from '../Items/Sidebar/Sidebar'
 import tikTokIcon from "../../img/Social_Icons/TikTok.svg";
 import twitterIcon from "../../img/Social_Icons/Twitter.svg";
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
-import youtubeIcon from "../../img/Social_Icons/Youtube.svg";
-import arrows from "../Items/Icons/arrows.svg"
-import CampaignFilterDropdown from "../Items/CampaignFilterDropdown/CampaignFilterDropdown";
 import UserService from "../../Services/userService";
-import CampaignService from "../../Services/campaign.service";
-import BrandService from "../../Services/brand.service";
+import youtubeIcon from "../../img/Social_Icons/Youtube.svg";
 
 let status = [
     {
@@ -170,7 +170,7 @@ const Campaigns_List = () => {
         }
 
         if (sort.field === 'title' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
-            const newSort = {field: 'title', normalOrder: false}
+            const newSort = {field: 'title', normalOrder: false};
             const sorted = values.sort(function (a, b) {
                     if (a.title.toLowerCase() < b.title.toLowerCase()) {
                         return 1;
@@ -189,7 +189,7 @@ const Campaigns_List = () => {
 
     const sortByBrand = (preserve = false) => {
         if (!preserve) {
-            setIsLoading(true)
+            setIsLoading(true);
         }
 
         if (!values.length) {
@@ -199,7 +199,7 @@ const Campaigns_List = () => {
 
         if (!sort.field || sort.field !== 'brand' ||
             (sort.field === 'brand' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
-            const newSort = {field: 'brand', normalOrder: true}
+            const newSort = {field: 'brand', normalOrder: true};
             const sorted = values.sort(function (a, b) {
                     if (a.brand.name.toLowerCase() < b.brand.name.toLowerCase()) {
                         return -1;
@@ -207,17 +207,17 @@ const Campaigns_List = () => {
                     if (a.brand.name.toLowerCase() > b.brand.name.toLowerCase()) {
                         return 1;
                     }
-                    return 0
+                    return 0;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
-            return
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
+            return;
         }
 
         if (sort.field === 'brand' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
-            const newSort = {field: 'brand', normalOrder: false}
+            const newSort = {field: 'brand', normalOrder: false};
             const sorted = values.sort(function (a, b) {
                     if (a.brand.name.toLowerCase() < b.brand.name.toLowerCase()) {
                         return 1;
@@ -225,18 +225,18 @@ const Campaigns_List = () => {
                     if (a.brand.name.toLowerCase() > b.brand.name.toLowerCase()) {
                         return -1;
                     }
-                    return 0
+                    return 0;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
         }
     }
 
     const sortByStart = (preserve = false) => {
         if (!preserve) {
-            setIsLoading(true)
+            setIsLoading(true);
         }
 
         if (!values.length) {
@@ -246,50 +246,50 @@ const Campaigns_List = () => {
 
         if (!sort.field || sort.field !== 'start_date' ||
             (sort.field === 'start_date' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
-            const newSort = {field: 'start_date', normalOrder: true}
+            const newSort = {field: 'start_date', normalOrder: true};
             const sorted = values.sort(function (a, b) {
                     if (!a.start_date && b.start_date) {
-                        return 1
+                        return 1;
                     }
                     if (!b.start_date && a.start_date) {
-                        return -1
+                        return -1;
                     }
                     if (!a.start_date && !b.start_date) {
-                        return 0
+                        return 0;
                     }
-                    return a.start_date - b.start_date
+                    return a.start_date - b.start_date;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
             return;
         }
 
         if (sort.field === 'start_date' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
-            const newSort = {field: 'start_date', normalOrder: true}
+            const newSort = {field: 'start_date', normalOrder: true};
             const sorted = values.sort(function (a, b) {
                     if (!a.start_date && b.start_date) {
-                        return 1
+                        return 1;
                     }
                     if (!b.start_date && a.start_date) {
-                        return -1
+                        return -1;
                     }
                     if (!a.start_date && !b.start_date) {
-                        return 0
+                        return 0;
                     }
-                    return b.start_date - a.start_date
+                    return b.start_date - a.start_date;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
         }
     }
 
     const sortByEnd = (preserve = false) => {
         if (!preserve) {
-            setIsLoading(true)
+            setIsLoading(true);
         }
 
         if (!values.length) {
@@ -299,51 +299,50 @@ const Campaigns_List = () => {
 
         if (!sort.field || sort.field !== 'end_date' ||
             (sort.field === 'end_date' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
-            const newSort = {field: 'end_date', normalOrder: true}
+            const newSort = {field: 'end_date', normalOrder: true};
             const sorted = values.sort(function (a, b) {
                     if (!a.end_date && b.end_date) {
-                        return 1
+                        return 1;
                     }
                     if (!b.end_date && a.end_date) {
-                        return -1
+                        return -1;
                     }
                     if (!a.end_date && !b.end_date) {
-                        return 0
+                        return 0;
                     }
-                    return a.end_date - b.end_date
+                    return a.end_date - b.end_date;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
             return;
         }
 
         if (sort.field === 'end_date' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
-
-            const newSort = {field: 'end_date', normalOrder: true}
+            const newSort = {field: 'end_date', normalOrder: true};
             const sorted = values.sort(function (a, b) {
                     if (!a.end_date && b.end_date) {
-                        return 1
+                        return 1;
                     }
                     if (!b.end_date && a.end_date) {
-                        return -1
+                        return -1;
                     }
                     if (!a.end_date && !b.end_date) {
-                        return 0
+                        return 0;
                     }
-                    return b.end_date - a.end_date
+                    return b.end_date - a.end_date;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
         }
     }
 
     const sortByBudget = (preserve = false) => {
         if (!preserve) {
-            setIsLoading(true)
+            setIsLoading(true);
         }
 
         if (!values.length) {
@@ -353,56 +352,56 @@ const Campaigns_List = () => {
 
         if (!sort.field || sort.field !== 'budget' ||
             (sort.field === 'budget' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
-            const newSort = {field: 'budget', normalOrder: true}
+            const newSort = {field: 'budget', normalOrder: true};
             const sorted = values.sort((a, b) => {
                     if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
                         && (b.budget.totalBudget || b.budget.totalBudget === 0)) {
-                        return 1
+                        return 1;
                     }
                     if ((!b.budget || typeof b.budget.totalBudget === 'undefined')
                         && (a.budget.totalBudget || a.budget.totalBudget === 0)) {
-                        return -1
+                        return -1;
                     }
                     if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
                         && (!b.budget || typeof b.budget.totalBudget === 'undefined')) {
-                        return 0
+                        return 0;
                     }
                     return a.budget.totalBudget - b.budget.totalBudget;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
             return;
         }
 
         if (sort.field === 'budget' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
-            const newSort = {field: 'budget', normalOrder: false}
+            const newSort = {field: 'budget', normalOrder: false};
             const sorted = values.sort((a, b) => {
                     if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
                         && (b.budget.totalBudget || b.budget.totalBudget === 0)) {
-                        return 1
+                        return 1;
                     }
                     if ((!b.budget || typeof b.budget.totalBudget === 'undefined')
                         && (a.budget.totalBudget || a.budget.totalBudget === 0)) {
-                        return -1
+                        return -1;
                     }
                     if ((!a.budget || typeof a.budget.totalBudget === 'undefined')
                         && (!b.budget || typeof b.budget.totalBudget === 'undefined')) {
-                        return 0
+                        return 0;
                     }
                     return b.budget.totalBudget - a.budget.totalBudget;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
         }
     }
 
     const sortByProfit = (preserve = false) => {
         if (!preserve) {
-            setIsLoading(true)
+            setIsLoading(true);
         }
 
         if (!values.length) {
@@ -412,26 +411,26 @@ const Campaigns_List = () => {
 
         if (!sort.field || sort.field !== 'profit' ||
             (sort.field === 'profit' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
-            const newSort = {field: 'profit', normalOrder: true}
+            const newSort = {field: 'profit', normalOrder: true};
             const sorted = values.sort((a, b) => {
                     return a.profit - b.profit;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
             return;
         }
 
         if (sort.field === 'profit' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
-            const newSort = {field: 'profit', normalOrder: false}
+            const newSort = {field: 'profit', normalOrder: false};
             const sorted = values.sort((a, b) => {
                     return b.profit - a.profit;
                 }
             )
-            setValues(sorted)
-            setSort(newSort)
-            setIsLoading(false)
+            setValues(sorted);
+            setSort(newSort);
+            setIsLoading(false);
         }
     }
 
