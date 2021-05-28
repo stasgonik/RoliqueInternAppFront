@@ -17,6 +17,8 @@ import Login from "./Components/Login_Component/Login";
 import routes from "./Constants/routes.enum"
 import UsersList from "./Components/UsersList/UsersList";
 import Campaigns_List from "./Components/Campaigns_List/Campaigns_List";
+import CreateCampaings from "./Components/Create_Campaing/Create_Campaings";
+import Create_Campaings from "./Components/Create_Campaing/Create_Campaings";
 
 export default function App(props) {
     return (
@@ -33,6 +35,7 @@ export default function App(props) {
                 <Route path={`/${routes.INFLUENCERS}/:${routes.INFLUENCER_ID}`} exact {...props} component={InfluencerDetails}/>
                 <Route path={`/${routes.INFLUENCERS}/:${routes.INFLUENCER_ID}/${routes.EDIT}`} exact {...props} component={EditInfluencer}/>
                 <Route path={`/${routes.CAMPAIGNS}`} exact {...props} component={Campaigns_List}/>
+                <Route path={`/${routes.CAMPAIGNS}/${routes.CREATE}`} exact {...props} component={Create_Campaings}/>
             </Switch>
         </Router>
     );
