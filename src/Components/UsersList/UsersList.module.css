@@ -1,3 +1,7 @@
+.mainContainer {
+		background-color: #F4F2F5;
+}
+
 .SearchContainer {
 		display: flex;
 		flex-direction: column;
