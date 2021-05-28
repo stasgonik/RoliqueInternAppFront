@@ -465,3 +465,24 @@
 		}
 }
 
+.redBorder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 16px;
+	height: 16px !important;
+	box-shadow: 0 0 2px 2px red;
+	border-radius: 50%;
+}
+
+.blueBorder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 16px;
+	height: 16px !important;
+	box-shadow: 0 0 2px 2px blue;
+	border-radius: 50%;
+}
+
+

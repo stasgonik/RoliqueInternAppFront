@@ -163,6 +163,7 @@ const Campaigns_List = () => {
                     return 0;
                 }
             )
+            console.log(sorted)
             setValues(sorted);
             setSort(newSort);
             setIsLoading(false);
@@ -181,6 +182,7 @@ const Campaigns_List = () => {
                     return 0;
                 }
             )
+            console.log(sorted)
             setValues(sorted);
             setSort(newSort);
             setIsLoading(false);
@@ -201,15 +203,16 @@ const Campaigns_List = () => {
             (sort.field === 'brand' && ((sort.normalOrder && preserve) || (!sort.normalOrder && !preserve)))) {
             const newSort = {field: 'brand', normalOrder: true};
             const sorted = values.sort(function (a, b) {
-                    if (a.brand.name.toLowerCase() < b.brand.name.toLowerCase()) {
+                    if (a.brand[0].name.toLowerCase() < b.brand[0].name.toLowerCase()) {
                         return -1;
                     }
-                    if (a.brand.name.toLowerCase() > b.brand.name.toLowerCase()) {
+                    if (a.brand[0].name.toLowerCase() > b.brand[0].name.toLowerCase()) {
                         return 1;
                     }
                     return 0;
                 }
             )
+            console.log(sorted)
             setValues(sorted);
             setSort(newSort);
             setIsLoading(false);
@@ -219,15 +222,16 @@ const Campaigns_List = () => {
         if (sort.field === 'brand' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
             const newSort = {field: 'brand', normalOrder: false};
             const sorted = values.sort(function (a, b) {
-                    if (a.brand.name.toLowerCase() < b.brand.name.toLowerCase()) {
+                    if (a.brand[0].name.toLowerCase() < b.brand[0].name.toLowerCase()) {
                         return 1;
                     }
-                    if (a.brand.name.toLowerCase() > b.brand.name.toLowerCase()) {
+                    if (a.brand[0].name.toLowerCase() > b.brand[0].name.toLowerCase()) {
                         return -1;
                     }
                     return 0;
                 }
             )
+            console.log(sorted)
             setValues(sorted);
             setSort(newSort);
             setIsLoading(false);
@@ -592,7 +596,7 @@ const Campaigns_List = () => {
                 textAlign: 'center',
                 verticalAlign: 'middle',
                 fontSize: '12px',
-                display: 'table-cell'
+                display: 'table-cell',
             }}>
                 {firstL}{lastL}
             </div>
@@ -745,32 +749,36 @@ const Campaigns_List = () => {
                         <div className={classes.TableHeader}>
                             <div className={`${classes.TitleTableHeader} ${classes.HeaderField}`}>
                                 <span>Campaign Title</span>
-                                <button>
-                                    <img src={arrows} alt="arrows"/>
+                                <button className={sort.field === 'title' && sort.normalOrder? classes.blueBorder:
+                                    sort.field === 'title' && !sort.normalOrder? classes.redBorder : ''}>
+                                    <img src={arrows} alt="arrows" onClick={() => sortByTitle()}/>
                                 </button>
 
                             </div>
 
                             <div className={`${classes.BrandTableHeader} ${classes.HeaderField}`}>
                                 <span>Brand</span>
-                                <button>
-                                    <img src={arrows} alt="arrows"/>
+                                <button className={sort.field === 'brand' && sort.normalOrder? classes.blueBorder:
+                                    sort.field === 'brand' && !sort.normalOrder? classes.redBorder : ''}>
+                                    <img src={arrows} alt="arrows" onClick={() => sortByBrand()}/>
                                 </button>
 
                             </div>
 
                             <div className={`${classes.StartTableHeader} ${classes.HeaderField}`}>
                                 <span>Start</span>
-                                <button>
-                                    <img src={arrows} alt="arrows"/>
+                                <button className={sort.field === 'start_date' && sort.normalOrder? classes.blueBorder:
+                                    sort.field === 'start_date' && !sort.normalOrder? classes.redBorder : ''}>
+                                    <img src={arrows} alt="arrows" onClick={() => sortByStart()}/>
                                 </button>
 
                             </div>
 
                             <div className={`${classes.EndTableHeader} ${classes.HeaderField}`}>
                                 <span>End</span>
-                                <button>
-                                    <img src={arrows} alt="arrows"/>
+                                <button className={sort.field === 'end_date' && sort.normalOrder? classes.blueBorder:
+                                    sort.field === 'end_date' && !sort.normalOrder? classes.redBorder : ''}>
+                                    <img src={arrows} alt="arrows" onClick={() => sortByEnd()}/>
                                 </button>
 
                             </div>
@@ -786,8 +794,9 @@ const Campaigns_List = () => {
 
                             <div className={`${classes.BudgetTableHeader} ${classes.HeaderField}`}>
                                 <span>Budget</span>
-                                <button>
-                                    <img src={arrows} alt="arrows"/>
+                                <button className={sort.field === 'budget' && sort.normalOrder? classes.blueBorder:
+                                    sort.field === 'budget' && !sort.normalOrder? classes.redBorder : ''}>
+                                    <img src={arrows} alt="arrows" onClick={() => sortByBudget()}/>
                                 </button>
 
                             </div>
@@ -811,7 +820,8 @@ const Campaigns_List = () => {
                                 <p>Please wait...</p>
                             </div>
                             :
-                            ''}  {/*{ ADD VALUES MAP INSTEAD OF ''!!!}*/}
+                            ''
+                        }  {/*{ ADD VALUES MAP INSTEAD OF ''!!!}*/}
 
                     </div>
                     {/*            : values ? (values.map((item, index) =>*/}
