@@ -13,7 +13,13 @@ import userService from "../../Services/userService";
 import configFront from "../../Constants/configFront";
 import routes from "../../Constants/routes.enum";
 import AuthService from "../../Services/auth.service";
+import plus from '../../img/Create_Campaing/Icon.svg';
 
+
+const campaingDate = [
+    {Created: '-'},
+    {Updated: '-'}
+]
 
 let role = [
     {value: 'admin', label: 'Admin'},
@@ -258,50 +264,121 @@ const Create_Campaings = () => {
             />
 
             <div className={classes.mainContainer}>
-                <section className={classes.leftContainer}>
-                    <h3 className={classes.general}>Basic Information</h3>
+                <div className={classes.leftContainerHelper}>
+                    <section className={classes.leftContainer}>
+                        <h3 className={classes.general}>Basic Information</h3>
+
+                        <label className={classes.input_title}>Title</label>
+                        <input className={!values.title ? classes.input_info : classes.input_info_valid}
+                               type='text'
+                               name='title'
+                               value={values.title}
+                               onInput={(e) => handleChange(e)}
+                        />
+
+                        {errors.title && errors.title.length ?
+                            <div className={classes.errorDiv}>{errors.title}</div> : ''}
 
 
-                    {/**************************************AVATAR*****************************************************/}
+                        <label className={classes.input_title}>Status</label>
+                        <Dropdown required
+                                  options={role}
+                                  name='status'
+                                  valid={!!values.role}
+                                  onChange={(e) => handleChangeRole(e)}
+                        />
+
+                        {errors.role && errors.role.length ?
+                            <div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
+                                {errors.role}</div> : ''}
+
+                        <label className={classes.input_title}>Effort</label>
+                        <Dropdown required
+                                  options={role}
+                                  name='Effort'
+                                  valid={!!values.role}
+                                  onChange={(e) => handleChangeRole(e)}
+                        />
+
+                        {errors.role && errors.role.length ?
+                            <div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
+                                {errors.role}</div> : ''}
+
+                        <div className={classes.wrapper}>
+                            <div className={classes.wrapperColumn}>
+                                <label className={classes.input_title}>Start Date</label>
+                                <Dropdown required
+                                          options={role}
+                                          name='status'
+                                          valid={!!values.role}
+                                          onChange={(e) => handleChangeRole(e)}
+                                />
+                            </div>
+                            <div className={classes.wrapperColumn}>
+                                <label className={classes.input_title}>End Date</label>
+                                <Dropdown required
+                                          className={classes.DropDown}
+                                          options={role}
+                                          name='status'
+                                          valid={!!values.role}
+                                          onChange={(e) => handleChangeRole(e)}
+                                />
+                            </div>
+                        </div>
+
+                        <label className={classes.input_title}>Hashtags</label>
+                        <input className={!values.hashtag ? classes.input_info : classes.input_info_valid}
+                               type='text'
+                               name='hashtag'
+                               value={values.hashtag}
+                               onInput={(e) => handleChange(e)}
+                        />
+
+                        {errors.title && errors.title.length ?
+                            <div className={classes.errorDiv}>{errors.title}</div> : ''}
+
+                        <div className={classes.checkBoxDiv}>
+                            <input
+                                type='checkbox'
+                                className={classes.customCheckbox}
+                                id='check1'
+                            />
+                            <label for='check1' className={classes.input_title}>Campaign won’t have a hashtag</label>
+                        </div>
+
+                    </section>
+
+                    <section className={classes.leftContainer}>
+                        <div>
+                            <h3 className={classes.rightContainer_title}>Client</h3>
+
+                            <label className={classes.input_title}>Brand</label>
+                            <Dropdown required
+                                      options={role}
+                                      name='status'
+                                      valid={!!values.role}
+                                      onChange={(e) => handleChangeRole(e)}
+                            />
+
+                            {errors.role && errors.role.length ?
+                                <div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
+                                    {errors.role}</div> : ''}
+
+                            <div className={classes.flexRow}>
+                                <img src={plus} alt={'plus'}/>
+                                <label className={classes.orangeText}>Add New Brand</label>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
 
 
-                    {/*<p className={classes.profile}>Profile Picture</p>*/}
-                    {/*<input type='file'*/}
-                    {/*       name='avatar'*/}
-                    {/*       className={classes.avatarPhoto}*/}
-                    {/*       style={{display: 'none'}}*/}
-                    {/*       onChange={(e) => selected(e)}*/}
-                    {/*       ref={fileInput}*/}
-
-                    {/*/>*/}
-                    {/*<button className={classes.avatar} onClick={() => fileInput.current.click()}>*/}
-                    {/*    {values.avatar ? <img src={values.avatar.preview} style={{*/}
-                    {/*        width: 64,*/}
-                    {/*        height: 64,*/}
-                    {/*        borderRadius: 50*/}
-                    {/*    }} alt={'alt'}/> : '+'}*/}
-                    {/*</button>*/}
-
-                    {/*{errors.avatar && errors.avatar.length ?*/}
-                    {/*    <div className={classes.errorDiv}>{errors.avatar}</div> : ''}*/}
-
-
-                    {/**************************************AVATAR*****************************************************/}
-
-
-                    <label className={classes.input_title}>Title</label>
-                    <input className={!values.title ? classes.input_info : classes.input_info_valid}
-                           type='text'
-                           name='title'
-                           value={values.title}
-                           onInput={(e) => handleChange(e)}
-                    />
-
-                    {errors.title && errors.title.length ?
-                        <div className={classes.errorDiv}>{errors.title}</div> : ''}
-
-
-                    <label className={classes.input_title}>Status</label>
+                <section className={classes.rightContainer}>
+                    <div className={classes.role}>
+                        <h3 className={classes.rightContainer_title}>Roles</h3>
+                    </div>
+                    <label className={classes.input_title}>Team Lead</label>
                     <Dropdown required
                               options={role}
                               name='status'
@@ -309,75 +386,52 @@ const Create_Campaings = () => {
                               onChange={(e) => handleChangeRole(e)}
                     />
 
-                    {errors.role && errors.role.length ?
-                        <div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
-                            {errors.role}</div> : ''}
-
-                    <label className={classes.input_title}>Effort</label>
-                    <Dropdown required
-                              options={role}
-                              name='Effort'
-                              valid={!!values.role}
-                              onChange={(e) => handleChangeRole(e)}
-                    />
-
-                    {errors.role && errors.role.length ?
-                        <div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
-                            {errors.role}</div> : ''}
-
-                    <div className={classes.wrapper}>
-                        <div className={classes.wrapperColumn}>
-                            <label className={classes.input_title}>Start Date</label>
-                            <input className={!values.title ? classes.wrapperInput : classes.input_info_valid}
-                                   type='date'
-                                   name='start-date'
-                                   value={values.title}
-                                   onInput={(e) => handleChange(e)}
-                            />
-                        </div>
-                        <div className={classes.wrapperColumn}>
-                            <label className={classes.input_title}>End Date</label>
-                            <input className={!values.title ? classes.wrapperInput : classes.input_info_valid}
-                                   type='date'
-                                   name='end-date'
-                                   value={values.title}
-                                   onInput={(e) => handleChange(e)}
-                            />
-                        </div>
-                    </div>
-
-                    <label className={classes.input_title}>Hashtags</label>
-                    <input className={!values.hashtag ? classes.input_info : classes.input_info_valid}
-                           type='text'
-                           name='hashtag'
-                           value={values.hashtag}
-                           onInput={(e) => handleChange(e)}
-                    />
-
-                    {errors.title && errors.title.length ?
-                        <div className={classes.errorDiv}>{errors.title}</div> : ''}
-
-                    <div className={classes.checkBoxDiv}>
-                        <input
-                            type='checkbox'
-                            className={classes.customCheckbox}
-                            id='check1'
-                        />
-                        <label for='check1' className={classes.input_title}>Campaign won’t have a hashtag</label>
-                    </div>
-
-                </section>
-                <section className={classes.rightContainer}>
                     <div className={classes.role}>
-
-                        <h3 className={classes.rightContainer_title}>Role & Permissions</h3>
-
-
+                        <h3 className={classes.rightContainer_title}>Misc.</h3>
                     </div>
-                    <label className={classes.input_title}>Role</label>
+                    <p className={classes.profile}>Campaign Logo</p>
+                    <input type='file'
+                           name='avatar'
+                           className={classes.avatarPhoto}
+                           style={{display: 'none'}}
+                           onChange={(e) => selected(e)}
+                           ref={fileInput}
 
+                    />
+                    <button className={classes.avatar} onClick={() => fileInput.current.click()}>
+                        {values.avatar ? <img src={values.avatar.preview} style={{
+                            width: 64,
+                            height: 64,
+                            borderRadius: 50
+                        }} alt={'alt'}/> : '+'}
+                    </button>
+
+                    {errors.avatar && errors.avatar.length ?
+                        <div className={classes.errorDiv}>{errors.avatar}</div> : ''}
+
+                    <label className={classes.input_title}>Client Description</label>
+                    <input className={classes.textarea} type='textarea'/>
+
+                    <label className={classes.input_title}>Internal Notes</label>
+                    <input className={classes.textarea} type='textarea'/>
+
+                    <label className={classes.input_title}>Campaign Created</label>
+                    <div>
+                        {
+                            campaingDate.map(value => value.Created)
+                        }
+                    </div>
+
+                    <label className={classes.input_title}>Last Campaign Update</label>
+                    <div>
+                        {
+                            campaingDate.map(value => value.Updated)
+                        }
+                    </div>
 
                 </section>
+
+
             </div>
         </form>
     );
