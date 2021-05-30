@@ -866,7 +866,7 @@ const Campaigns_List = () => {
 
 										<div className={classes.dateWrap}>
 											<div></div>
-											<div> -</div>
+											<div> - </div>
 											<div></div>
 										</div>
 

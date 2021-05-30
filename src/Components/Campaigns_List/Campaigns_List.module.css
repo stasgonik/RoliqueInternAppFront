@@ -114,7 +114,7 @@
 }
 
 .BrandTableHeader {
-		margin-left: 210px;
+		margin-left: 200px;
 }
 
 .StartTableHeader {
@@ -156,8 +156,8 @@
 }
 
 .ChannelsIconMin {
-		margin-left: 60px;
-		width: 100px;
+		margin-left: 50px;
+		width: 110px;
 }
 .ChannelsColorText {
 		font-family: Helvetica Neue, sans-serif;
@@ -516,7 +516,7 @@
 		min-width: 4px;
 		margin-top: -4px;
 		background-color: #F4F2F5;
-		margin-right: 16px;
+		margin-right: 23px;
 		margin-left: 16px;
 
 }
@@ -610,3 +610,65 @@
 .profit {
 		width: 88px;
 }
+
+@media (min-width: 1500px) {
+
+		.TableHeader {
+				width: 	1140px;
+		}
+		.tableInfoCampaigns {
+				width: 	1140px;
+		}
+		.tableBtn {
+				position: relative;
+				right: -83px;
+		}
+		.BrandTableHeader {
+				margin-left: 215px;
+		}
+
+}
+
+@media (min-width: 1700px) {
+		.TableHeader {
+				width: 	1240px;
+		}
+		.tableInfoCampaigns {
+				width: 	1240px;
+		}
+		.tableBtn {
+				position: relative;
+				right: -118px;
+		}
+		.BrandTableHeader {
+				margin-left: 235px;
+		}
+		.TLTableHeader {
+				margin-left: 115px;
+		}
+
+		.BudgetTableHeader {
+				margin-left: 73px;
+		}
+
+		.ProfitTableHeader {
+				margin-left: 47px;
+		}
+		.brand {
+				margin-right: 28px;
+		}
+		.divider {
+				margin-right: 33px;
+				margin-left: 20px;
+		}
+		.mainStatusWrap {
+				margin-right: 47px;
+		}
+		.teamLead {
+				margin-right: 62px;
+		}
+		.budget {
+				margin-right: 45px;
+		}
+}
+
