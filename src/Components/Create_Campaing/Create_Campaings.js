@@ -3,11 +3,10 @@ import classes from "./Create_Campaing.module.css";
 import Sidebar from "../Items/Sidebar/Sidebar";
 import Header from "../Items/Header/Header";
 import leftArrow from "../Items/Icons/arrow-left.svg";
-import info from "../Items/Icons/info-button.svg";
-import Tooltip from "../Items/Tooltip/Tooltip";
-import topArrow from "../Items/Icons/top-arrow-black.svg";
 import {INFO} from "../../Constants/messages";
+import Modal from '../Items/Modal_PopUp/Modal_PopUp';
 import Dropdown from "../Items/Dropdown/Dropdown";
+import DropdownSmall from '../Items/Dropdown_Small/Dropdown-Small';
 import regexp from "../../Constants/regexp.enum";
 import userService from "../../Services/userService";
 import configFront from "../../Constants/configFront";
@@ -307,7 +306,7 @@ const Create_Campaings = () => {
                         <div className={classes.wrapper}>
                             <div className={classes.wrapperColumn}>
                                 <label className={classes.input_title}>Start Date</label>
-                                <Dropdown required
+                                <DropdownSmall required
                                           options={role}
                                           name='status'
                                           valid={!!values.role}
@@ -316,7 +315,7 @@ const Create_Campaings = () => {
                             </div>
                             <div className={classes.wrapperColumn}>
                                 <label className={classes.input_title}>End Date</label>
-                                <Dropdown required
+                                <DropdownSmall required
                                           className={classes.DropDown}
                                           options={role}
                                           name='status'
@@ -364,9 +363,8 @@ const Create_Campaings = () => {
                                 <div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
                                     {errors.role}</div> : ''}
 
-                            <div className={classes.flexRow}>
-                                <img src={plus} alt={'plus'}/>
-                                <label className={classes.orangeText}>Add New Brand</label>
+                            <div className={classes.flexRow} id={'main'}>
+                                <Modal/>
                             </div>
 
                         </div>

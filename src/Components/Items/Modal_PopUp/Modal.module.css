@@ -1,0 +1,63 @@
+.modal {
+    cursor: pointer;
+}
+
+.modalFlex {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+.pStyle{
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+
+    color: #151515;
+
+    opacity: 0.9;
+}
+
+.orange, .grey {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    width: 102px;
+    height: 33px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+
+    background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
+    border-radius: 8px;
+}
+
+.orange span, .grey span {
+    display: block;
+}
+
+.grey {
+    width: 70px;
+    height: 33px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    background: #EFEFEF;
+    color: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+}
