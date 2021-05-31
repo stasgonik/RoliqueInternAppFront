@@ -64,6 +64,10 @@ const Modal_PopUp = ({ loadBrands } ) => {
 
     const send = async (e) => {
         e.preventDefault()
+        if (isSending) {
+            return
+        }
+
         setIsSending(true)
         const formData = new FormData();
 
