@@ -24,6 +24,7 @@ export const INFO = {
 	FOLLOWERS_REGEX: 'This field can include only up to 15-digit numbers',
 	PROFILE_REGEX: 'Field must include 2-50 only letters and separators like .@-',
 	SOCIAL_PROFILE_EXIST: 'User with such profile already exist',
+	BRAND_ALREADY_EXIST: "Brand with this name already exist",
 	}
 
 

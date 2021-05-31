@@ -195,6 +195,18 @@ const Create_Campaigns = () => {
         }
     })
 
+    const loadBrands = async () => {
+        const initialBrands = await BrandService.getBrands();
+        if (initialBrands) {
+            const arr = [];
+            initialBrands.forEach((brand) => {
+                const br = {value: brand._id, label: brand.name};
+                arr.push(br);
+            })
+            setBrands(arr);
+        }
+    }
+
     const handleChange = (e) => {
         const value = e.target.value;
         setValues({...values, [e.target.name]: value});
@@ -490,7 +502,7 @@ const Create_Campaigns = () => {
                                     {errors.role}</div> : ''}
 
                             <div className={classes.flexRow} id={'main'}>
-                                <Modal/>
+                                <Modal loadBrands={loadBrands}/>
                             </div>
 
                         </div>
