@@ -12,10 +12,10 @@ import userService from "../../Services/userService";
 import configFront from "../../Constants/configFront";
 import routes from "../../Constants/routes.enum";
 import AuthService from "../../Services/auth.service";
-import plus from '../../img/Create_Campaing/Icon.svg';
+import plus from '../../img/Create_Campaign/Icon.svg';
 
 
-const campaingDate = [
+const campaignDate = [
     {Created: '-'},
     {Updated: '-'}
 ]
@@ -255,7 +255,7 @@ const Create_Campaigns = () => {
             <Sidebar/>
             <Header name={'Create'} titleHeader={classes.title}
                     titleBtn={isSending ? "Sending" : 'Save Changes'}
-                    title='Сreate Campaing'
+                    title='Сreate Campaign'
                     leftArrow={leftArrow}
                     btnHeader={isSending ? classes.btnHeaderDisabled : classes.btnHeader}
                     button={(e) => saveChanges(e)}
@@ -416,14 +416,14 @@ const Create_Campaigns = () => {
                     <label className={classes.input_title}>Campaign Created</label>
                     <div>
                         {
-                            campaingDate.map(value => value.Created)
+                            campaignDate.map(value => value.Created)
                         }
                     </div>
 
                     <label className={classes.input_title}>Last Campaign Update</label>
                     <div>
                         {
-                            campaingDate.map(value => value.Updated)
+                            campaignDate.map(value => value.Updated)
                         }
                     </div>
 

@@ -1,7 +1,7 @@
 import Modal from 'react-modal';
 import Select from "react-select";
 import React, {useRef, useState} from "react";
-import plus from "../../../img/Create_Campaing/Icon.svg";
+import plus from "../../../img/Create_Campaign/Icon.svg";
 import classes from "../../Create_Campaign/Create_Campaign.module.css";
 import classesModal from '../Modal_PopUp/Modal.module.css';
 
