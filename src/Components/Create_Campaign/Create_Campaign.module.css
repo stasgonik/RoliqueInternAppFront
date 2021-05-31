@@ -82,6 +82,8 @@
 .mainContainer {
     display: flex;
     justify-content: space-between;
+
+
 }
 
 .leftContainerHelper {
@@ -362,4 +364,55 @@
     border: 1px solid #BFBFBF;
     box-sizing: border-box;
     border-radius: 6px;
+}
+
+.mainContainerButton {
+    border-top: 1px solid #BFBFBF;
+    margin: 89px 180px 0 180px;
+}
+
+.mainContainerButtonLeft {
+    display: flex;
+    flex-direction: column;
+    padding-top: 31px;
+    box-sizing: border-box;
+    margin-bottom: 100px;
+}
+
+.labelBudget {
+    margin-bottom: 32px;
+}
+
+.inputTotalBudget {
+    margin-top: 33px;
+    margin-bottom: 8px;
+}
+
+.input_info_budget {
+    padding-left: 12px;
+    box-sizing: border-box;
+}
+
+.toggleSwitch  {
+ margin-bottom: 49px !important;
+}
+.inputBox {
+    width: 408px;
+    display: flex;
+    align-items: center;
+    background: #FAFAFB;
+    border:  1px solid #BFBFBF;
+    border-radius: 6px;
+    padding-left: 12px;
+    overflow: hidden;
+    font-family: Helvetica Neue, sans-serif;
+}
+
+.inputBox input {
+    flex-grow: 1;
+    font-size: 14px;
+    background: #fff;
+    border: none;
+    outline: none;
+    padding: 0.5rem;
 }
