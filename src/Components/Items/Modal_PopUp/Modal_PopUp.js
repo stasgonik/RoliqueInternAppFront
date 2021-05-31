@@ -22,7 +22,7 @@ const customStyles = {
 
     },
     overlay: {
-        position: 'absolute',
+        position: 'fixed',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     }
 };

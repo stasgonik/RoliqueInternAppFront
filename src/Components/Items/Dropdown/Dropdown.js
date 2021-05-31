@@ -23,6 +23,7 @@ const Dropdown = ({options, name, onChange, defaultValue, valid = false}) => {
                 minHeight: 32,
                 width: 402,
                 border: valid ? '1px solid #BFBFBF' : '1px solid #DA1414',
+                padding: '0 0 1px',
                 boxShadow: 'none',
                 outline: 'none',
                 '&:active': {

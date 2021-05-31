@@ -1,4 +1,4 @@
-import React, {Component, useRef, useState} from 'react';
+import React, {Component, useEffect, useRef, useState} from 'react';
 import classes from "./Create_Campaign.module.css";
 import Sidebar from "../Items/Sidebar/Sidebar";
 import Header from "../Items/Header/Header";
@@ -13,39 +13,129 @@ import configFront from "../../Constants/configFront";
 import routes from "../../Constants/routes.enum";
 import AuthService from "../../Services/auth.service";
 import plus from '../../img/Create_Campaign/Icon.svg';
+import CampaignService from "../../Services/campaign.service";
+import UserService from "../../Services/userService";
+import BrandService from "../../Services/brand.service";
 
+let status = [
+    {
+        value: 'Requested',
+        label: <div style={{display: "flex", alignItems: "center"}}>
+            <div style={{
+                height: "10px",
+                width: "10px",
+                backgroundColor: '#D9AD42',
+                borderRadius: '50%',
+                marginRight: '4px'
+            }}/>
+            Requested </div>
+    },
+    {
+        value: 'Pre-phase',
+        label: <div style={{display: "flex", alignItems: "center"}}>
+            <div style={{
+                height: "10px",
+                width: "10px",
+                backgroundColor: '#B14AC2',
+                borderRadius: '50%',
+                marginRight: '4px'
+            }}/>
+            Pre-phase</div>
+    },
+    {
+        value: 'Running',
+        label: <div style={{display: "flex", alignItems: "center"}}>
+            <div style={{
+                height: "10px",
+                width: "10px",
+                backgroundColor: '#1778B0',
+                borderRadius: '50%',
+                marginRight: '4px'
+            }}/>
+            Running </div>
+    },
+    {
+        value: 'Done',
+        label: <div style={{display: "flex", alignItems: "center"}}>
+            <div style={{
+                height: "10px",
+                width: "10px",
+                backgroundColor: '#54A880',
+                borderRadius: '50%',
+                marginRight: '4px'
+            }}/>
+            Done </div>
+    }
+];
+
+let effort = [
+    {
+        value: 'NotSet',
+        label: <div style={{display: "flex", alignItems: "center"}}>
+            <div style={{
+                height: "10px",
+                width: "10px",
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #CCCCCC',
+                boxSizing: 'border-box',
+                borderRadius: '50%',
+                marginRight: '4px'
+            }}/>
+            Not set </div>
+    },
+    {
+        value: 'Low',
+        label: <div style={{display: "flex", alignItems: "center"}}>
+            <div style={{
+                height: "10px",
+                width: "10px",
+                backgroundColor: '#5DC983',
+                borderRadius: '50%',
+                marginRight: '4px'
+            }}/>
+            Low</div>
+    },
+    {
+        value: 'Medium',
+        label: <div style={{display: "flex", alignItems: "center"}}>
+            <div style={{
+                height: "10px",
+                width: "10px",
+                backgroundColor: '#FBA63C',
+                borderRadius: '50%',
+                marginRight: '4px'
+            }}/>
+            Medium </div>
+    },
+    {
+        value: 'High',
+        label: <div style={{display: "flex", alignItems: "center"}}>
+            <div style={{
+                height: "10px",
+                width: "10px",
+                backgroundColor: '#ED6B3E',
+                borderRadius: '50%',
+                marginRight: '4px'
+            }}/>
+            High </div>
+    }
+];
 
 const campaignDate = [
     {Created: '-'},
     {Updated: '-'}
 ]
 
-let role = [
-    {value: 'admin', label: 'Admin'},
-    {value: 'manager', label: 'Manager'},
-    {value: 'employee', label: 'Employee'},
-];
 
-function setRoles() {
-    const user_role = AuthService.getUserRole();
-    if (user_role === 'employee') {
-        role = [
-            {value: 'employee', label: 'Employee'}
-        ];
-    }
-    if (user_role === 'manager') {
-        role = [
-            {value: 'manager', label: 'Manager'},
-            {value: 'employee', label: 'Employee'}
-        ];
-    }
-    return role;
-}
+
 
 const Create_Campaigns = () => {
-
+    const [TL, setTL] = useState([]);
     const [isSending, setIsSending] = useState(false);
-    setRoles();
+    const [initial, setInitial] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+    const [brands, setBrands] = useState([]);
+
     const fileInput = useRef(null);
     const [values, setValues] = useState({
         avatar: '',
@@ -66,6 +156,44 @@ const Create_Campaigns = () => {
         role: '',
         password: '',
     });
+
+
+    useEffect(() => {
+        window.focus();
+        window.scrollTo(0, 0);
+
+        async function Start() {
+            setInitial(false);
+            setIsLoading(true);
+
+            const initialTL = await UserService.getUsers({role: 'manager'});
+            if (initialTL) {
+                const arr = [];
+                initialTL.forEach((user) => {
+                    const tl = {value: user._id, label: user.full_name};
+                    arr.push(tl);
+                })
+                setTL(arr);
+            }
+
+            const initialBrands = await BrandService.getBrands();
+            if (initialBrands) {
+                const arr = [];
+                initialBrands.forEach((brand) => {
+                    const br = {value: brand._id, label: brand.name};
+                    arr.push(br);
+                })
+                setBrands(arr);
+            }
+
+            setIsLoading(false);
+        }
+
+
+        if (initial) {
+            Start();
+        }
+    })
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -281,7 +409,7 @@ const Create_Campaigns = () => {
 
                         <label className={classes.input_title}>Status</label>
                         <Dropdown required
-                                  options={role}
+                                  options={status}
                                   name='status'
                                   valid={!!values.role}
                                   onChange={(e) => handleChangeRole(e)}
@@ -293,7 +421,7 @@ const Create_Campaigns = () => {
 
                         <label className={classes.input_title}>Effort</label>
                         <Dropdown required
-                                  options={role}
+                                  options={effort}
                                   name='Effort'
                                   valid={!!values.role}
                                   onChange={(e) => handleChangeRole(e)}
@@ -306,8 +434,7 @@ const Create_Campaigns = () => {
                         <div className={classes.wrapper}>
                             <div className={classes.wrapperColumn}>
                                 <label className={classes.input_title}>Start Date</label>
-                                <DropdownSmall required
-                                          options={role}
+                                <DropdownSmall requiredF
                                           name='status'
                                           valid={!!values.role}
                                           onChange={(e) => handleChangeRole(e)}
@@ -317,7 +444,6 @@ const Create_Campaigns = () => {
                                 <label className={classes.input_title}>End Date</label>
                                 <DropdownSmall required
                                           className={classes.DropDown}
-                                          options={role}
                                           name='status'
                                           valid={!!values.role}
                                           onChange={(e) => handleChangeRole(e)}
@@ -353,7 +479,7 @@ const Create_Campaigns = () => {
 
                             <label className={classes.input_title}>Brand</label>
                             <Dropdown required
-                                      options={role}
+                                      options={brands}
                                       name='status'
                                       valid={!!values.role}
                                       onChange={(e) => handleChangeRole(e)}
@@ -378,7 +504,7 @@ const Create_Campaigns = () => {
                     </div>
                     <label className={classes.input_title}>Team Lead</label>
                     <Dropdown required
-                              options={role}
+                              options={TL}
                               name='status'
                               valid={!!values.role}
                               onChange={(e) => handleChangeRole(e)}
