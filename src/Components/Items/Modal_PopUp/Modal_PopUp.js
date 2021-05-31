@@ -30,6 +30,7 @@ const customStyles = {
 };
 
 const Modal_PopUp = ({ loadBrands } ) => {
+    const [isSending, setIsSending] = useState(false);
     const fileInput = useRef(null);
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [values, setValues] = useState({
@@ -63,6 +64,7 @@ const Modal_PopUp = ({ loadBrands } ) => {
 
     const send = async (e) => {
         e.preventDefault()
+        setIsSending(true)
         const formData = new FormData();
 
         if (values['logo'] === "") {
@@ -79,6 +81,7 @@ const Modal_PopUp = ({ loadBrands } ) => {
         if(!errors.name && !errors.logo) {
             const result = await BrandService.postBrands(formData)
             if (result) {
+                setIsSending(false)
                 if (result.status === 200) {
                     await loadBrands();
                     setModalIsOpen(false);
@@ -107,6 +110,7 @@ const Modal_PopUp = ({ loadBrands } ) => {
                 }
             }
         }
+        setIsSending(false)
 
     }
 
@@ -153,7 +157,9 @@ const Modal_PopUp = ({ loadBrands } ) => {
                     <div className={classes.errorDiv}>{errors.logo}</div> : ''}
 
                 <div className={classesModal.modalFlex}>
-                    <div className={classesModal.orange} onClick={(e) => send(e)}><span>Create Brand</span></div>
+                    <div className={isSending? `${classesModal.orange} ${classesModal.disabled}` : classesModal.orange}
+                         onClick={(e) => send(e)}>
+                        <span>{isSending? 'Sending' : 'Create Brand'}</span></div>
                     <div className={classesModal.grey} onClick={() => setModalIsOpen(false)}><span>Cancel</span></div>
                 </div>
             </Modal>
