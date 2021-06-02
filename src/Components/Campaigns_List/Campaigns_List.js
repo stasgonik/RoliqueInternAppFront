@@ -698,7 +698,7 @@ const Campaigns_List = () => {
 						<div className={classes.LeftContainerFilter}>
 							<span className={`${classes.ChannelsColorText}`}>Brand</span>
 							<CampaignFilterDropdown options={brands}
-													name={'_brand'}
+													name={"brand"}
 													onChange={selectSearch}/>
 						</div>
 
@@ -728,13 +728,13 @@ const Campaigns_List = () => {
 							<span className={classes.ChannelsColorText}>Budget</span>
 							<div className={classes.BudgetInput}>
 								<input type={'number'} min="0" placeholder={'Min'}
-									   name={'budget_GTE'}
+									   name={'budget_gte'}
 									   onWheel={(e) => wheelClean(e)}
 									   onInput={(e) => numberSearch(e)}
 								/>
 								<span> – </span>
 								<input type={'number'} min="0" placeholder={'Max'}
-									   name={'budget_LTE'}
+									   name={'budget_lte'}
 									   onWheel={(e) => wheelClean(e)}
 									   onInput={(e) => numberSearch(e)}
 								/>

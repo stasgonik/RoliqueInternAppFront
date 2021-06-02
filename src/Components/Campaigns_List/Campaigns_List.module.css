@@ -4,7 +4,7 @@
 
 .centerContainer {
 	display: flex;
-	overflow-x: hidden;
+	/*overflow-x: hidden;*/
 }
 
 .LeftSection {

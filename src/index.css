@@ -16,8 +16,10 @@ code {
 html,
 body {
   height: 100%;
+  width: calc(100% + 10px);
 }
 
 #root {
   height: 100%;
+  width: calc(100% + 10px);
 }
