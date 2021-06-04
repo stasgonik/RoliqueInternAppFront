@@ -18,6 +18,7 @@
     "react-modal": "^3.13.1",
     "react-redux": "^7.2.3",
     "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-select": "^4.3.0",
     "redux-thunk": "^2.3.0",
@@ -48,6 +49,6 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^5.2.0"
+
   }
 }

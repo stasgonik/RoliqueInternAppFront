@@ -150,7 +150,6 @@ const CreateInfluencer = () => {
 			}
 		}
 
-
 		if (target === 'followers') {
 			const inputProfile = socialName + '_profile'
 			const input = ref[inputProfile]
@@ -187,6 +186,7 @@ const CreateInfluencer = () => {
 			}
 
 		}
+
 		if (target === 'profile') {
 			const inputFollower = socialName + '_followers'
 			const input = ref[inputFollower]
@@ -314,11 +314,9 @@ const CreateInfluencer = () => {
 		return formIsValid;
 	}
 
-
 	const saveChanges = async () => {
 		setIsSending(true);
 		const formData = new FormData();
-		// const arr = []
 		let bd;
 		if (values.birthdate) {
 			bd = values.birthdate
@@ -333,11 +331,6 @@ const CreateInfluencer = () => {
 				values[value] = values[value].split('.').join('')
 			}
 
-			// arr.push(values[value])
-			// if (values[value] === '') {
-			// 	values[value] = null
-			// }
-
 			formData.append(value, values[value])
 			if (values[value]) {
 				values[value] = values[value].toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
@@ -347,7 +340,6 @@ const CreateInfluencer = () => {
 
 		if (values) {
 			if (bd) {
-				// formData.set('profile_picture', pp, 'avatar.jpg')
 				if (pp) {
 					setValues({...values, avatar: pp, birthdate: bd})
 				} else {
@@ -378,7 +370,6 @@ const CreateInfluencer = () => {
 						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
 						return
 					}
-					 console.log(result)
 
 					if (typeof result.data !== "undefined") {
 						 if (result.data.customCode === 4005) {
