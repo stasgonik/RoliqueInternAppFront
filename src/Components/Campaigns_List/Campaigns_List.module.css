@@ -1,689 +1,716 @@
 .mainContainer {
-		background-color: #F4F2F5;
+    background-color: #F4F2F5;
 }
 
 .centerContainer {
-	display: flex;
-	/*overflow-x: hidden;*/
+    display: flex;
+    /*overflow-x: hidden;*/
 }
 
 .LeftSection {
-		margin-left: 68px;
+    margin-left: 68px;
 }
 
 .FilterContainer {
-		display: flex;
+    display: flex;
 }
 
 .TitleFilters {
-		margin: 24px 8px 23px 0;
+    margin: 24px 8px 23px 0;
 
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 16px;
-		line-height: 20px;
-		/* identical to box height */
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height */
 
-		display: flex;
-		align-items: center;
-		letter-spacing: -0.25px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.25px;
 
-		color: #151515;
-		opacity: 0.9;
+    color: #151515;
+    opacity: 0.9;
 
 }
 
 .NumberCamp {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 2px 6px;
-		box-sizing: border-box;
-		width: 40px;
-		height: 16px;
-		background: #FF650E;
-		border-radius: 2px;
-		margin-top: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 6px;
+    box-sizing: border-box;
+    width: 40px;
+    height: 16px;
+    background: #FF650E;
+    border-radius: 2px;
+    margin-top: 26px;
 
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 10px;
-		line-height: 12px;
-		/*text-align: center;*/
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 12px;
+    /*text-align: center;*/
 
-		color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 .SearchContainer {
-		display: flex;
-		flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .widthSearch {
-		width: 184px !important;
+    width: 184px !important;
 }
 
 .RightSection {
-		margin: 24px 10px 0 30px;
+    margin: 24px 10px 0 30px;
 }
 
 .TableHeader {
-		display: flex;
-		align-items: center;
-		width: 1040px;
-		height: 56px;
-		background: rgba(255, 255, 255, 0.55);
-		box-shadow: inset 0 -4px 0 #F4F2F5;
+    display: flex;
+    align-items: center;
+    width: 1040px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: inset 0 -4px 0 #F4F2F5;
 
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 14px;
-		line-height: 17px;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
 
-		letter-spacing: -0.35px;
+    letter-spacing: -0.35px;
 
-		color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.6);
 
 
 }
 
 .HeaderField {
-		margin-left: 16px;
-		display: flex;
-		align-items: center;
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .HeaderField img {
 }
 
 .HeaderField button {
-		height: 12px;
-		text-align: center;
-		vertical-align: center;
-		margin-left: 5px;
-		outline: none;
-		border: none;
-		padding: 0;
-		background-color: #FAF9FB;
-		opacity: 0.76;
-		appearance: none;
-		cursor: pointer;
+    height: 12px;
+    text-align: center;
+    vertical-align: center;
+    margin-left: 5px;
+    outline: none;
+    border: none;
+    padding: 0;
+    background-color: #FAF9FB;
+    opacity: 0.76;
+    appearance: none;
+    cursor: pointer;
 }
 
 .BrandTableHeader {
-		margin-left: 200px;
+    margin-left: 200px;
 }
 
 .StartTableHeader {
-		margin-left: 67px;
+    margin-left: 67px;
 }
 
 .EndTableHeader {
-		margin-left: 36px;
+    margin-left: 36px;
 }
 
 .StatusTableHeader {
-		margin-left: 63px;
+    margin-left: 63px;
 }
 
 .TLTableHeader {
-		margin-left: 105px;
+    margin-left: 105px;
 }
 
 .BudgetTableHeader {
-		margin-left: 53px;
+    margin-left: 53px;
 }
 
 .ProfitTableHeader {
-		margin-left: 29px;
+    margin-left: 29px;
 }
 
 .Channels {
-		margin-top: 24px;
+    margin-top: 24px;
 }
 
 .ChannelsIcon img {
-		width: 24px;
-		margin: 7px 4px 0 0;
+    width: 24px;
+    margin: 7px 4px 0 0;
 }
 
 .ChannelsIconMin img {
-		width: 12px;
-		margin: 7px 4px 0 0;
+    width: 12px;
+    margin: 7px 4px 0 0;
 }
 
 .ChannelsIconMin {
-		margin-left: 50px;
-		width: 110px;
+    margin-left: 50px;
+    width: 110px;
 }
+
 .ChannelsColorText {
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 14px;
-		line-height: 17px;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
 
-		letter-spacing: -0.35px;
+    letter-spacing: -0.35px;
 
-		color: rgba(0, 0, 0, 0.6);
-		opacity: 0.76;
-		mix-blend-mode: hard-light;
+    color: rgba(0, 0, 0, 0.6);
+    opacity: 0.76;
+    mix-blend-mode: hard-light;
 }
 
 .LeftContainerFilter {
-		margin-top: 16px;
+    margin-top: 16px;
 
 }
 
 
 .BudgetInput {
-		display: flex;
-		margin-top: 8px;
-		margin-bottom: 20px;
+    display: flex;
+    margin-top: 8px;
+    margin-bottom: 20px;
 }
 
 .BudgetInput input {
-		-moz-appearance: textfield;
-		width: 84px;
-		height: 31.44px;
-		background: #FAFAFB;
-		border: 1px solid #BFBFBF;
-		box-sizing: border-box;
-		border-radius: 6px;
-		margin-right: 4px;
-		padding-left: 12px;
-		color: rgba(56, 56, 56, 0.45);
-		font-size: 14px;
-		line-height: 17px;
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		font-weight: normal;
-		opacity: 0.76;
+    -moz-appearance: textfield;
+    width: 84px;
+    height: 31.44px;
+    background: #FAFAFB;
+    border: 1px solid #BFBFBF;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin-right: 4px;
+    padding-left: 12px;
+    color: rgba(56, 56, 56, 0.45);
+    font-size: 14px;
+    line-height: 17px;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    opacity: 0.76;
 }
 
 .BudgetInput input::-webkit-outer-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .BudgetInput input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .BudgetInput span {
-		margin-right: 4px;
-		color: #383838;
-		display: flex;
-		align-items: center;
-		text-align: center;
-		letter-spacing: -0.35px;
-		font-weight: 500;
+    margin-right: 4px;
+    color: #383838;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.35px;
+    font-weight: 500;
 }
 
 .BudgetInput input:hover {
-		outline: none;
+    outline: none;
 }
 
 .BudgetInput input:active, .BudgetInput input:focus {
-		outline: none;
+    outline: none;
 }
 
 .tooltipMain {
-		display: flex;
-		width: 130px;
-		height: 44px;
-		visibility: hidden;
-		box-sizing: border-box;
-		position: absolute;
-		right: 0;
+    display: flex;
+    width: 130px;
+    height: 44px;
+    visibility: hidden;
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
 
-		padding: 12px 16px;
-		margin-right: 41px;
-		background-color: #000000;
-		opacity: 0.8;
-		border-radius: 8px;
+    padding: 12px 16px;
+    margin-right: 41px;
+    background-color: #000000;
+    opacity: 0.8;
+    border-radius: 8px;
 }
 
 .ArrowImg {
-		margin-right: 42px;
-		visibility: hidden;
+    margin-right: 42px;
+    visibility: hidden;
 }
 
 .TooltipText {
-		font-family: Helvetica Neue, sans-serif;
-		font-size: 14px;
-		line-height: 20px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: #EEEEEE;
+    font-family: Helvetica Neue, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #EEEEEE;
 }
 
 .Test:hover + .tooltipMain {
-		visibility: visible;
+    visibility: visible;
 }
 
 .Test:hover + .tooltipMain + .ArrowImg {
-		visibility: visible;
+    visibility: visible;
 }
 
 .tableBtn:hover + .tooltipMain {
-		visibility: visible;
+    visibility: visible;
 }
 
 .tableBtn:hover + .tooltipMain + .ArrowImg {
-		visibility: visible;
+    visibility: visible;
 }
 
 .avatar {
-		width: 32px;
-		height: 32px;
-		margin: 12px 0 24px 0;
-		box-sizing: border-box;
-		border-radius: 40px;
-		color: #D0A7B6;
-		background: none;
-		margin-left: 16px;
+    width: 32px;
+    height: 32px;
+    margin: 12px 0 24px 0;
+    box-sizing: border-box;
+    border-radius: 40px;
+    color: #D0A7B6;
+    background: none;
+    margin-left: 16px;
 }
+
 .avatarComp {
-		width: 32px;
-		height: 32px;
-		box-sizing: border-box;
-		border-radius: 50%;
-		color: #D0A7B6;
-		background: none;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    color: #D0A7B6;
+    background: none;
 }
 
 .photo {
-		background-color: #121033;
+    background-color: #121033;
 }
 
 .titleUsers {
-		margin-left: 69px;
-		font-size: 24px;
-		line-height: 29px;
-		font-weight: bold;
+    margin-left: 69px;
+    font-size: 24px;
+    line-height: 29px;
+    font-weight: bold;
 
-		color: #151515;
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		opacity: 0.9;
+    color: #151515;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    opacity: 0.9;
 
 }
 
 .btnHeader {
-		display: flex;
-		align-items: center;
-		padding: 8px 16px;
-		width: 123px;
-		height: 33px;
-		right: 68px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    width: 123px;
+    height: 33px;
+    right: 68px;
 
-		background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
-		border-radius: 8px;
-		margin-right: 68px;
+    background: linear-gradient(180deg, #FF650E 0%, #FF650E 100%);
+    border-radius: 8px;
+    margin-right: 68px;
 
-		border: 0;
-		text-decoration: none;
+    border: 0;
+    text-decoration: none;
 }
 
 .tableHeader {
-		width: 90%;
-		height: 56px;
-		margin-left: 68px;
-		display: flex;
-		align-items: center;
+    width: 90%;
+    height: 56px;
+    margin-left: 68px;
+    display: flex;
+    align-items: center;
 
-		background: #FAF9FB;
-		box-shadow: inset 0px -4px 0px #F4F2F5;
-		font-family: Helvetica Neue, sans-serif;
+    background: #FAF9FB;
+    box-shadow: inset 0px -4px 0px #F4F2F5;
+    font-family: Helvetica Neue, sans-serif;
 
-		font-weight: 500;
-		font-size: 14px;
-		line-height: 17px;
-		letter-spacing: -0.35px;
-		color: rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.35px;
+    color: rgba(0, 0, 0, 0.6);
 
 }
 
 .tableHeaderName {
-		margin-left: 16px;
-		margin-right: 258px;
+    margin-left: 16px;
+    margin-right: 258px;
 }
 
 .tableHeaderEmail {
-		margin-right: 191px;
+    margin-right: 191px;
 }
 
 .tableHeaderRole {
-		margin-right: 186px;
+    margin-right: 186px;
 }
 
 .tableTextName {
-		width: 247px;
-		margin-left: 16px;
+    width: 247px;
+    margin-left: 16px;
 }
 
 .tableHeaderInfo {
-		position: relative;
-		display: flex;
-		align-items: center;
-		width: 90%;
-		height: 56px;
-		margin-left: 68px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 56px;
+    margin-left: 68px;
 
-		background: #FAF9FB;
-		box-shadow: inset 0 -4px 0 #F4F2F5;
-		font-family: Helvetica Neue, sans-serif;
-		font-size: 14px;
-		line-height: 17px;
-		letter-spacing: -0.35px;
-		color: #EEEEEE;
+    background: #FAF9FB;
+    box-shadow: inset 0 -4px 0 #F4F2F5;
+    font-family: Helvetica Neue, sans-serif;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.35px;
+    color: #EEEEEE;
 
 }
 
 .textColor {
-		color: #383838;
+    color: #383838;
 }
 
 .tableTextEmail {
-		width: 225px;
+    width: 225px;
 }
 
 .tableTextRole {
-		text-align: center;
-		width: 140px;
-		margin-right: 100px;
+    text-align: center;
+    width: 140px;
+    margin-right: 100px;
 }
 
 .tableTextRating {
-		text-align: center;
-		width: 150px;
+    text-align: center;
+    width: 150px;
 }
 
 .tableBtn {
-		position: relative;
-		margin-top: -4px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		right: 0;
-		top: 0;
-		width: 28px;
-		height: 52px;
-		background-color: #E7E6E8;
+    position: relative;
+    margin-top: -4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    width: 28px;
+    height: 52px;
+    background-color: #E7E6E8;
 }
 
 .social_img {
-		width: 16px;
-		height: 16px;
-		margin-right: 2px;
-		border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    margin-right: 2px;
+    border-radius: 50%;
 }
 
 .Test {
-		position: absolute;
+    position: absolute;
 }
 
 @media (min-width: 1500px) {
-		.tableHeaderName {
-				margin-right: 300px;
-		}
+    .tableHeaderName {
+        margin-right: 300px;
+    }
 
-		.tableHeaderEmail {
-				margin-right: 233px;
-		}
+    .tableHeaderEmail {
+        margin-right: 233px;
+    }
 
-		.tableHeaderRole {
-				margin-right: 228px;
-		}
+    .tableHeaderRole {
+        margin-right: 228px;
+    }
 
-		.tableTextName {
-				width: 300px;
-		}
+    .tableTextName {
+        width: 300px;
+    }
 
-		.tableTextEmail {
-				width: 235px;
-		}
+    .tableTextEmail {
+        width: 235px;
+    }
 
-		.tableTextRole {
-				width: 177px;
-				margin-right: 142px;
-		}
+    .tableTextRole {
+        width: 177px;
+        margin-right: 142px;
+    }
 }
 
 @media (min-width: 1800px) {
-		.tableHeaderName {
-				margin-right: 320px;
-		}
+    .tableHeaderName {
+        margin-right: 320px;
+    }
 
-		.tableHeaderEmail {
-				margin-right: 245px;
-		}
+    .tableHeaderEmail {
+        margin-right: 245px;
+    }
 
-		.tableHeaderRole {
-				margin-right: 240px;
-		}
+    .tableHeaderRole {
+        margin-right: 240px;
+    }
 
-		.tableTextName {
-				width: 330px;
-		}
+    .tableTextName {
+        width: 330px;
+    }
 
-		.tableTextEmail {
-				width: 236px;
-		}
+    .tableTextEmail {
+        width: 236px;
+    }
 
-		.tableTextRole {
-				width: 177px;
-				margin-right: 142px;
-		}
+    .tableTextRole {
+        width: 177px;
+        margin-right: 142px;
+    }
 }
 
 .redBorder {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 16px;
-	height: 16px !important;
-	box-shadow: 0 0 2px 2px red;
-	border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px !important;
+    box-shadow: 0 0 2px 2px red;
+    border-radius: 50%;
 }
 
 .blueBorder {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 16px;
-	height: 16px !important;
-	box-shadow: 0 0 2px 2px blue;
-	border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px !important;
+    box-shadow: 0 0 2px 2px blue;
+    border-radius: 50%;
 }
 
 
 .effort {
-		height: 52px;
-		min-width: 4px;
-		margin-top: -4px;
+    height: 52px;
+    min-width: 4px;
+    margin-top: -4px;
 }
 
 .divider {
-		height: 52px;
-		min-width: 4px;
-		margin-top: -4px;
-		background-color: #F4F2F5;
-		margin-right: 23px;
-		margin-left: 16px;
+    height: 52px;
+    min-width: 4px;
+    margin-top: -4px;
+    background-color: #F4F2F5;
+    margin-right: 23px;
+    margin-left: 16px;
 
 }
+
 .brand {
-		width: 70px;
-		margin-right: 20px;
+    width: 70px;
+    margin-right: 20px;
 }
+
 .statusWrap {
-		height: 23px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 3px 12px;
-		box-sizing: border-box;
-		border-radius: 32px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 12px;
+    box-sizing: border-box;
+    border-radius: 32px;
 
-		font-family: Helvetica Neue, sans-serif;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 14px;
-		line-height: 17px;
-		letter-spacing: -0.35px;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.35px;
 
-		color: #9D1CB2;
+    color: #9D1CB2;
 
 
 }
 
 .statusDot {
-		width: 6px;
-		height: 6px;
-		margin-right: 4px;
-		border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    margin-right: 4px;
+    border-radius: 50%;
 }
 
 .tableInfoCampaigns {
-		width: 1040px;
-		display: flex;
-		align-items: center;
-		margin-left: 30px;
-		height: 56px;
-		background: rgba(255, 255, 255, 0.55);
-		box-shadow: inset 0 -4px 0 #F4F2F5;
+    width: 1040px;
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: inset 0 -4px 0 #F4F2F5;
 }
 
 .campaignLogo {
-		margin-left: 12px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+    margin-left: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .titleCamp {
-		width: 70px;
-		margin-left: 16px;
+    width: 70px;
+    margin-left: 16px;
 }
 
 .rightSection {
-		display: flex;
-		align-items: center;
+    display: flex;
+    align-items: center;
 
 }
 
 .dateWrap {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		width: 180px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 180px;
+    font-family: Helvetica Neue, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.35px;
+    color: black;
+    z-index: 2;
 }
 
-.dateWrap div:nth-child(1){
-	text-align: right;
-	width: 70px;
+.dateWrap div:nth-child(1) {
+    text-align: right;
+    width: 70px;
+    z-index: 2;
 }
 
-.dateWrap div:nth-child(2){
-	text-align: center;
-	width: 40px;
+.dateWrap div:nth-child(2) {
+    text-align: center;
+    width: 40px;
+    z-index: 2;
 }
 
-.dateWrap div:nth-child(3){
-	text-align: left;
-	width: 70px;
+.dateWrap div:nth-child(3) {
+    text-align: left;
+    width: 70px;
+    z-index: 2;
 }
 
 .mainStatusWrap {
-		width: 100px;
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		margin-right: 44px;
-		margin-left: 27px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 44px;
+    margin-left: 27px;
 }
 
 .teamLead {
-		width: 36px;
-		height: 32px;
-		margin-right: 37px;
+    width: 36px;
+    height: 32px;
+    margin-right: 37px;
 }
 
 .budget {
-		width: 60px;
-		margin-right: 30px;
+    width: 60px;
+    margin-right: 30px;
 }
 
 .profit {
-		width: 88px;
+    width: 88px;
 }
 
 @media (min-width: 1500px) {
 
-		.TableHeader {
-				width: 	1140px;
-		}
-		.tableInfoCampaigns {
-				width: 	1140px;
-		}
-		.tableBtn {
-				position: relative;
-				right: -83px;
-		}
-		.BrandTableHeader {
-				margin-left: 215px;
-		}
+    .TableHeader {
+        width: 1140px;
+    }
+
+    .tableInfoCampaigns {
+        width: 1140px;
+    }
+
+    .tableBtn {
+        position: relative;
+        right: -83px;
+    }
+
+    .BrandTableHeader {
+        margin-left: 215px;
+    }
 
 }
 
 @media (min-width: 1700px) {
-		.TableHeader {
-				width: 	1240px;
-		}
-		.tableInfoCampaigns {
-				width: 	1240px;
-		}
-		.tableBtn {
-				position: relative;
-				right: -118px;
-		}
-		.BrandTableHeader {
-				margin-left: 235px;
-		}
-		.TLTableHeader {
-				margin-left: 115px;
-		}
+    .TableHeader {
+        width: 1240px;
+    }
 
-		.BudgetTableHeader {
-				margin-left: 73px;
-		}
+    .tableInfoCampaigns {
+        width: 1240px;
+    }
 
-		.ProfitTableHeader {
-				margin-left: 47px;
-		}
-		.brand {
-				margin-right: 28px;
-		}
-		.divider {
-				margin-right: 33px;
-				margin-left: 20px;
-		}
-		.mainStatusWrap {
-				margin-right: 47px;
-		}
-		.teamLead {
-				margin-right: 62px;
-		}
-		.budget {
-				margin-right: 45px;
-		}
+    .tableBtn {
+        position: relative;
+        right: -118px;
+    }
+
+    .BrandTableHeader {
+        margin-left: 235px;
+    }
+
+    .TLTableHeader {
+        margin-left: 115px;
+    }
+
+    .BudgetTableHeader {
+        margin-left: 73px;
+    }
+
+    .ProfitTableHeader {
+        margin-left: 47px;
+    }
+
+    .brand {
+        margin-right: 28px;
+    }
+
+    .divider {
+        margin-right: 33px;
+        margin-left: 20px;
+    }
+
+    .mainStatusWrap {
+        margin-right: 47px;
+    }
+
+    .teamLead {
+        margin-right: 62px;
+    }
+
+    .budget {
+        margin-right: 45px;
+    }
 }
 
