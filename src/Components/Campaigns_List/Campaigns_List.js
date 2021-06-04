@@ -77,7 +77,7 @@ let status = [
 
 let effort = [
     {
-        value: 'NotSet',
+        value: 'Not set',
         label: <div style={{display: "flex", alignItems: "center"}}>
             <div style={{
                 height: "10px",
@@ -463,8 +463,8 @@ const Campaigns_List = () => {
 
 
     useEffect(() => {
-        window.focus();
-        window.scrollTo(0, 0);
+        // window.focus();
+        // window.scrollTo(0, 0);
 
         async function Start() {
             setInitial(false);
@@ -664,7 +664,7 @@ const Campaigns_List = () => {
     }
 
     const effortColors = {
-        NotSet: '#FFFFFF',
+        Notset: '#FFFFFF',
         Low: '#5DC983',
         Medium: '#FBA63C',
         High: '#ED6B3E'
@@ -878,8 +878,7 @@ const Campaigns_List = () => {
                             </div>
                             : values ? (values.map((item, index) =>
                                 <div key={index} className={classes.tableInfoCampaigns}>
-
-                                    <div style={{backgroundColor: effortColors[item.effort]}}
+                                    <div style={{backgroundColor: effortColors[item.effort.split('').join('')]}}
                                          className={classes.effort}/>
                                     <div className={classes.campaignLogo}>
                                         {item.campaign_logo ? <img src={item.campaign_logo} alt='photo'

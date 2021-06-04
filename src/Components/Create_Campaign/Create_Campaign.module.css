@@ -201,7 +201,7 @@
 
 .avatar {
 		width: 64px;
-		height: 64px;
+		min-height: 64px;
 		margin: 12px 0 24px 0;
 		border: 1px dashed rgba(197, 146, 165, 0.8);
 		box-sizing: border-box;
@@ -359,12 +359,18 @@ input:checked + label:before {
 }
 
 .textarea {
-		height: 64px;
-		width: 408px;
-		background: #FAFAFB;
-		border: 1px solid #BFBFBF;
-		box-sizing: border-box;
-		border-radius: 6px;
+		max-width: 380px;
+		margin: 4px 10px;
+		display: block;
+		width: 100%;
+		outline : none;
+		border: none;
+		background-color: #FAFAFB;
+		resize:none
+}
+
+.textarea::-webkit-scrollbar {
+		display: none;
 }
 
 .mainContainerButton {
@@ -480,3 +486,13 @@ input:checked + label:before {
 		/*width: 196px;*/
 }
 
+.clientDesc {
+		min-height: 64px;
+		width: 408px;
+
+
+		background: #FAFAFB;
+		border: 1px solid #BFBFBF;
+		box-sizing: border-box;
+		border-radius: 6px;
+}

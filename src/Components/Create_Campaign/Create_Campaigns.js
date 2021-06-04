@@ -79,7 +79,7 @@ let status = [
 
 let effort = [
 	{
-		value: 'NotSet',
+		value: 'Not set',
 		label: <div style={{display: "flex", alignItems: "center"}}>
 			<div style={{
 				height: "10px",
@@ -172,14 +172,16 @@ const Create_Campaigns = () => {
 	const [values, setValues] = useState({
 		avatar: '',
 		title: '',
+		start_date: null,
+		end_date: null,
+		status: '',
+		effort: '',
 		hashtags: [],
-		email: '',
-		phone: '',
-		role: '',
-		password: '',
+		_brand: '',
+		_team_lead: '',
 		budget: {
 			totalBudget: 0,
-			subBudget: {}
+			subBudgets: {}
 		}
 	});
 
@@ -248,7 +250,7 @@ const Create_Campaigns = () => {
 
 	const handleSubBudgetChange = (e) => {
 		const value = e.target.value;
-		setValues({...values, budget: {...values.budget, subBudget: {...values.budget.subBudget, [e.target.name]: value}}})
+		setValues({...values, budget: {...values.budget, subBudgets: {...values.budget.subBudgets, [e.target.name]: value}}})
 	}
 
 	const handleChange = (e) => {
@@ -261,10 +263,15 @@ const Create_Campaigns = () => {
 		e.preventDefault()
 	}
 
-	const handleChangeRole = (e) => {
+	// const handleChangeDate = (e) => {
+	// 	console.log(e);
+	//
+	// }
 
+	const handleChangeDropdown = (e, name) => {
 		const value = e.value;
-		setValues({...values, role: value})
+		setValues({...values, [name]: value})
+		console.log(values)
 	};
 
 	const selected = (e) => {
@@ -360,7 +367,7 @@ const Create_Campaigns = () => {
 		setter(e);
 		if (!e) {
 			const v = values;
-			delete v.budget.subBudget[name];
+			delete v.budget.subBudgets[name];
 			setValues({...v})
 		}
 	}
@@ -368,77 +375,100 @@ const Create_Campaigns = () => {
 	const saveChanges = async () => {
 		setIsSending(true)
 		const formData = new FormData();
-		if (!values["phone"].length) {
-			delete values["phone"]
-		}
 
 		if (values["avatar"] === "") {
 			delete values["avatar"]
+		}
+
+		if (values.start_date === null) {
+			delete values.start_date
+		}
+
+		if (values.end_date === null) {
+			delete values.end_date
+		}
+
+		if (!values.hashtags.length) {
+			delete values.hashtags
+		}
+
+		let b = values.budget;
+		if (values.budget) {
+			values.budget = JSON.stringify(values.budget)
 		}
 
 		for (const value in values) {
 			formData.append(value, values[value])
 		}
 
+
+		let ht = values.hashtags ? values.hashtags : [];
+		let st = values.start_date ? values.start_date : null;
+		let en = values.end_date ? values.end_date : null;
 		let av = values["avatar"] ? values['avatar'] : "";
-		setValues({...values, phone: '', avatar: av})
+		const restore = {avatar: av, start_date: st, end_date: en, hashtags: ht}
+		if (b) {
+			restore.budget = b
+		}
+		setValues({...values, ...restore})
 
 
-		if (handleValidation()) {
-			const result = await userService.postUsers(formData);
+		if (true) {
+			const result = await CampaignService.postCampaign(formData);
 			if (result) {
 				setIsSending(false)
-				if (result.status === 200) {
-					window.location.href = configFront.URL + `${routes.USERS}`;
-					return
-				}
-
-				let errors = {
-					avatar: '',
-					first_name: '',
-					last_name: '',
-					email: '',
-					phone: '',
-					role: '',
-					password: '',
-				};
-
-				if (result.status === 403) {
-					window.location.href = configFront.URL + `${routes.USERS}`;
-					return
-				}
-
-				if (typeof result.data !== "undefined") {
-					if (result.data.customCode === 4000) {
-						errors["email"] = INFO.DATA_INCORRECT
-						setErrors(errors);
-						return
-					}
-					if (result.data.customCode === 4002) {
-						errors["email"] = INFO.EMAIL_ALREADY_EXIST
-						setErrors(errors);
-						return
-					}
-					if (result.data.customCode === 4005) {
-						errors["avatar"] = INFO.TOO_BIG_PHOTO
-						setErrors(errors);
-						return
-					}
-				}
-
-				if (result.status === 500) {
-					errors["email"] = INFO.SERVER_ERROR
-					setErrors(errors);
-					console.log(result);
-					return
-				}
-
-				if (result.status !== 200) {
-					errors["email"] = INFO.UNKNOWN_ERROR
-					setErrors(errors);
-					console.log(result);
-					return
-				}
+				console.log(result)
+				// if (result.status === 200) {
+				// 	window.location.href = configFront.URL + `${routes.USERS}`;
+				// 	return
+				// }
+				//
+				// let errors = {
+				// 	avatar: '',
+				// 	first_name: '',
+				// 	last_name: '',
+				// 	email: '',
+				// 	phone: '',
+				// 	role: '',
+				// 	password: '',
+				// };
+				//
+				// if (result.status === 403) {
+				// 	window.location.href = configFront.URL + `${routes.USERS}`;
+				// 	return
+				// }
+				//
+				// if (typeof result.data !== "undefined") {
+				// 	if (result.data.customCode === 4000) {
+				// 		errors["email"] = INFO.DATA_INCORRECT
+				// 		setErrors(errors);
+				// 		return
+				// 	}
+				// 	if (result.data.customCode === 4002) {
+				// 		errors["email"] = INFO.EMAIL_ALREADY_EXIST
+				// 		setErrors(errors);
+				// 		return
+				// 	}
+				// 	if (result.data.customCode === 4005) {
+				// 		errors["avatar"] = INFO.TOO_BIG_PHOTO
+				// 		setErrors(errors);
+				// 		return
+				// 	}
+				// }
+				//
+				// if (result.status === 500) {
+				// 	errors["email"] = INFO.SERVER_ERROR
+				// 	setErrors(errors);
+				// 	console.log(result);
+				// 	return
+				// }
+				//
+				// if (result.status !== 200) {
+				// 	errors["email"] = INFO.UNKNOWN_ERROR
+				// 	setErrors(errors);
+				// 	console.log(result);
+				// 	return
+				// }
 			}
 		}
 	}
@@ -454,7 +484,7 @@ const Create_Campaigns = () => {
 		} else {
 			v.budget = {
 				totalBudget: 0,
-				subBudget: {}
+				subBudgets: {}
 			}
 			setValues({...v})
 			clear.style.visibility = 'visible'
@@ -475,6 +505,18 @@ const Create_Campaigns = () => {
 			setValues({...v})
 			input.removeAttribute('disabled');
 		}
+	}
+
+	const handleTextInput = (e) => {
+		e.preventDefault();
+		const value = e.target.value;
+		const v = values;
+		if (value === '') {
+			delete v[e.target.name];
+		} else {
+			v[e.target.name] = value;
+		}
+		setValues({...v})
 	}
 
 	return (
@@ -511,7 +553,7 @@ const Create_Campaigns = () => {
 									  options={status}
 									  name='status'
 									  valid={!!values.role}
-									  onChange={(e) => handleChangeRole(e)}
+									  onChange={(e) => handleChangeDropdown(e, 'status')}
 							/>
 
 							{errors.role && errors.role.length ?
@@ -523,7 +565,7 @@ const Create_Campaigns = () => {
 									  options={effort}
 									  name='Effort'
 									  valid={!!values.role}
-									  onChange={(e) => handleChangeRole(e)}
+									  onChange={(e) => handleChangeDropdown(e, 'effort')}
 							/>
 
 							{errors.role && errors.role.length ?
@@ -535,26 +577,26 @@ const Create_Campaigns = () => {
 									<label className={classes.input_title}>Start Date</label>
 									<DatePicker
 										className={classes.myDatePicker}
-										selected={startDate}
-										onChange={(date) => setStartDate(date)}
+										selected={values.start_date}
+										onChange={(date) => setValues({...values, start_date: date})}
 										popperClassName={classes.properClass}
 										calendarClassName={classes.calendar}
-										styles={{ backgroundImage:`url(${arrow})` }}
+										styles={{backgroundImage: `url(${arrow})`}}
 										placeholderText={'Select...'}
-										 />
+									/>
 
 									{/*<DropdownSmall requiredF*/}
 									{/*			   name='status'*/}
 									{/*			   valid={!!values.role}*/}
-									{/*			   onChange={(e) => handleChangeRole(e)}*/}
+									{/*			   onChange={(e) => handleChangeDropdown(e)}*/}
 									{/*/>*/}
 								</div>
 								<div className={classes.wrapperColumn}>
 									<label className={classes.input_title}>End Date</label>
 									<DatePicker
 										className={classes.myDatePicker}
-										selected={endDate}
-										onChange={(date) => setEndDate(date)}
+										selected={values.end_date}
+										onChange={(date) => setValues({...values, end_date: date})}
 										popperClassName={classes.properClass}
 										calendarClassName={classes.calendar}
 
@@ -593,9 +635,9 @@ const Create_Campaigns = () => {
 								<label className={classes.input_title}>Brand</label>
 								<Dropdown required
 										  options={brands}
-										  name='status'
+										  name='_brand'
 										  valid={!!values.role}
-										  onChange={(e) => handleChangeRole(e)}
+										  onChange={(e) => handleChangeDropdown(e, '_brand')}
 								/>
 
 								{errors.role && errors.role.length ?
@@ -618,9 +660,9 @@ const Create_Campaigns = () => {
 						<label className={classes.input_title}>Team Lead</label>
 						<Dropdown required
 								  options={TL}
-								  name='status'
+								  name='_team_lead'
 								  valid={!!values.role}
-								  onChange={(e) => handleChangeRole(e)}
+								  onChange={(e) => handleChangeDropdown(e, '_team_lead')}
 						/>
 
 						<div className={classes.role}>
@@ -637,8 +679,8 @@ const Create_Campaigns = () => {
 						/>
 						<button className={classes.avatar} onClick={() => fileInput.current.click()}>
 							{values.avatar ? <img src={values.avatar.preview} style={{
-								width: 64,
-								height: 64,
+								minWidth: 64,
+								minHeight: 64,
 								borderRadius: 50
 							}} alt={'alt'}/> : '+'}
 						</button>
@@ -647,10 +689,15 @@ const Create_Campaigns = () => {
 							<div className={classes.errorDiv}>{errors.avatar}</div> : ''}
 
 						<label className={classes.input_title}>Client Description</label>
-						<input className={classes.textarea} type='textarea'/>
+						<div className={classes.clientDesc}>
+							<textarea name={'client_description'} onInput={(e) => handleTextInput(e)}  className={classes.textarea} wrap="hard" rows={3}/>
+						</div>
+
 
 						<label className={classes.input_title}>Internal Notes</label>
-						<input className={classes.textarea} type='textarea'/>
+						<div className={classes.clientDesc}>
+							<textarea name={'internal_note'} onInput={(e) => handleTextInput(e)}   className={classes.textarea} wrap="hard" rows={3}/>
+						</div>
 
 						<label className={classes.input_title}>Campaign Created</label>
 						<div>
@@ -709,7 +756,7 @@ const Create_Campaigns = () => {
 								<ToggleSwitch onColor={'#FF650E'}
 											  className={classes.toggleSwitch}
 											  checked={toggleSocialBudget}
-											  onChange={(e) => check(e, setToggleSocialBudget, 'socialBudget')}
+											  onChange={(e) => check(e, setToggleSocialBudget, 'socialAdsMediaBudget')}
 								/>
 								<ToggleSwitch onColor={'#FF650E'}
 											  className={classes.toggleSwitch}
@@ -743,7 +790,7 @@ const Create_Campaigns = () => {
 											   type='text'
 											   disabled={!toggleInfluencerBudget}
 											   name='influencerBudget'
-											   value={!values.budget || !values.budget.subBudget['influencerBudget'] ? '' : values.budget.subBudget['influencerBudget']}
+											   value={!values.budget || !values.budget.subBudgets['influencerBudget'] ? '' : values.budget.subBudgets['influencerBudget']}
 											   onInput={(e) => handleSubBudgetChange(e)}/>
 									</div>
 								</div>
@@ -755,8 +802,8 @@ const Create_Campaigns = () => {
 										<input className={`${classes.input_info_budget}`}
 											   disabled={!toggleSocialBudget}
 											   type='text'
-											   name='socialBudget'
-											   value={!values.budget || !values.budget.subBudget['socialBudget'] ? '' : values.budget.subBudget['socialBudget']}
+											   name='socialAdsMediaBudget'
+											   value={!values.budget || !values.budget.subBudgets['socialAdsMediaBudget'] ? '' : values.budget.subBudgets['socialAdsMediaBudget']}
 											   onInput={(e) => handleSubBudgetChange(e)}/>
 									</div>
 								</div>
@@ -769,7 +816,7 @@ const Create_Campaigns = () => {
 											   disabled={!toggleProductionBudget}
 											   type='text'
 											   name='productionBudget'
-											   value={!values.budget || !values.budget.subBudget['productionBudget'] ? '' : values.budget.subBudget['productionBudget']}
+											   value={!values.budget || !values.budget.subBudgets['productionBudget'] ? '' : values.budget.subBudgets['productionBudget']}
 											   onInput={(e) => handleSubBudgetChange(e)}
 										/>
 									</div>
@@ -783,7 +830,7 @@ const Create_Campaigns = () => {
 											   disabled={!toggleTravelBudget}
 											   type='text'
 											   name='travelBudget'
-											   value={!values.budget || !values.budget.subBudget['travelBudget'] ? '' : values.budget.subBudget['travelBudget']}
+											   value={!values.budget || !values.budget.subBudgets['travelBudget'] ? '' : values.budget.subBudgets['travelBudget']}
 											   onInput={(e) => handleSubBudgetChange(e)}
 										/>
 									</div>
@@ -797,7 +844,7 @@ const Create_Campaigns = () => {
 											   disabled={!toggleHandlingFee}
 											   type='text'
 											   name='handlingFee'
-											   value={!values.budget || !values.budget.subBudget['handlingFee'] ? '' : values.budget.subBudget['handlingFee']}
+											   value={!values.budget || !values.budget.subBudgets['handlingFee'] ? '' : values.budget.subBudgets['handlingFee']}
 											   onInput={(e) => handleSubBudgetChange(e)}
 										/>
 									</div>
@@ -811,7 +858,7 @@ const Create_Campaigns = () => {
 											   disabled={!toggleOtherBudget}
 											   type='text'
 											   name='otherBudget'
-											   value={!values.budget || !values.budget.subBudget['otherBudget'] ? '' : values.budget.subBudget['otherBudget']}
+											   value={!values.budget || !values.budget.subBudgets['otherBudget'] ? '' : values.budget.subBudgets['otherBudget']}
 											   onInput={(e) => handleSubBudgetChange(e)}
 										/>
 									</div>

@@ -9,6 +9,7 @@
     "axios": "^0.21.1",
     "dotenv": "^9.0.2",
     "jquery-form-styler": "^2.0.2",
+    "material-ui-chip-input": "^1.1.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-datepicker": "^4.1.0",
@@ -48,7 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }
