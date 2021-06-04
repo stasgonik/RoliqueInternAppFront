@@ -1,5 +1,10 @@
 import React, {Component, useEffect, useRef, useState} from 'react';
+
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 import classes from "./Create_Campaign.module.css";
+
 import Sidebar from "../Items/Sidebar/Sidebar";
 import Header from "../Items/Header/Header";
 import leftArrow from "../Items/Icons/arrow-left.svg";
@@ -18,6 +23,8 @@ import UserService from "../../Services/userService";
 import BrandService from "../../Services/brand.service";
 import {ToggleSwitch} from 'react-dragswitch';
 import 'react-dragswitch/dist/index.css';
+import arrow from '../Items/Icons/arrow-left.svg'
+import {element} from "prop-types";
 
 let status = [
 	{
@@ -142,6 +149,8 @@ const Create_Campaigns = () => {
 	const [toggleTravelBudget, setToggleTravelBudget] = useState(false);
 	const [toggleHandlingFee, setToggleHandlingFee] = useState(false);
 	const [toggleOtherBudget, setToggleOtherBudget] = useState(false);
+	const [startDate, setStartDate] = useState(null);
+	const [endDate, setEndDate] = useState(null);
 
 	const fileInput = useRef(null);
 	// const toggleInfluencerBudget = useRef(null);
@@ -163,7 +172,7 @@ const Create_Campaigns = () => {
 	const [values, setValues] = useState({
 		avatar: '',
 		title: '',
-		hashtag: '',
+		hashtags: [],
 		email: '',
 		phone: '',
 		role: '',
@@ -186,8 +195,6 @@ const Create_Campaigns = () => {
 
 
 	useEffect(() => {
-		window.focus();
-		window.scrollTo(0, 0);
 
 		async function Start() {
 			setInitial(false);
@@ -232,6 +239,16 @@ const Create_Campaigns = () => {
 			})
 			setBrands(arr);
 		}
+	}
+
+	const handleTotalBudgetChange = (e) => {
+		const value = e.target.value;
+		setValues({...values, budget: {...values.budget, totalBudget: value}})
+	}
+
+	const handleSubBudgetChange = (e) => {
+		const value = e.target.value;
+		setValues({...values, budget: {...values.budget, subBudget: {...values.budget.subBudget, [e.target.name]: value}}})
 	}
 
 	const handleChange = (e) => {
@@ -343,7 +360,7 @@ const Create_Campaigns = () => {
 		setter(e);
 		if (!e) {
 			const v = values;
-			delete v[name];
+			delete v.budget.subBudget[name];
 			setValues({...v})
 		}
 	}
@@ -426,6 +443,39 @@ const Create_Campaigns = () => {
 		}
 	}
 
+	const checkBox = ({target: {checked}}) => {
+		let clear = document.getElementById('xxx');
+		let v = values;
+		if (checked) {
+			delete v.budget;
+			setValues({...v})
+
+			clear.style.visibility = 'hidden'
+		} else {
+			v.budget = {
+				totalBudget: 0,
+				subBudget: {}
+			}
+			setValues({...v})
+			clear.style.visibility = 'visible'
+		}
+	}
+	const checkboxHash = ({target: {checked}}) => {
+		let input = document.getElementById('hashTagdisabled');
+		let v = values;
+		if (checked) {
+			delete v.hashtags;
+			setValues({...v})
+
+			input.setAttribute('disabled', 'disabled');
+
+		} else {
+			v.hashtags = []
+
+			setValues({...v})
+			input.removeAttribute('disabled');
+		}
+	}
 
 	return (
 		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
@@ -483,25 +533,38 @@ const Create_Campaigns = () => {
 							<div className={classes.wrapper}>
 								<div className={classes.wrapperColumn}>
 									<label className={classes.input_title}>Start Date</label>
-									<DropdownSmall requiredF
-												   name='status'
-												   valid={!!values.role}
-												   onChange={(e) => handleChangeRole(e)}
-									/>
+									<DatePicker
+										className={classes.myDatePicker}
+										selected={startDate}
+										onChange={(date) => setStartDate(date)}
+										popperClassName={classes.properClass}
+										calendarClassName={classes.calendar}
+										styles={{ backgroundImage:`url(${arrow})` }}
+										placeholderText={'Select...'}
+										 />
+
+									{/*<DropdownSmall requiredF*/}
+									{/*			   name='status'*/}
+									{/*			   valid={!!values.role}*/}
+									{/*			   onChange={(e) => handleChangeRole(e)}*/}
+									{/*/>*/}
 								</div>
 								<div className={classes.wrapperColumn}>
 									<label className={classes.input_title}>End Date</label>
-									<DropdownSmall required
-												   className={classes.DropDown}
-												   name='status'
-												   valid={!!values.role}
-												   onChange={(e) => handleChangeRole(e)}
+									<DatePicker
+										className={classes.myDatePicker}
+										selected={endDate}
+										onChange={(date) => setEndDate(date)}
+										popperClassName={classes.properClass}
+										calendarClassName={classes.calendar}
+
+										placeholderText={'Select...'}
 									/>
 								</div>
 							</div>
 
 							<label className={classes.input_title}>Hashtags</label>
-							<input className={!values.hashtag ? classes.input_info : classes.input_info_valid}
+							<input className={classes.input_info_valid} id={'hashTagdisabled'}
 								   type='text'
 								   name='hashtag'
 								   value={values.hashtag}
@@ -516,6 +579,7 @@ const Create_Campaigns = () => {
 									type='checkbox'
 									className={classes.customCheckbox}
 									id='check1'
+									onChange={checkboxHash}
 								/>
 								<label for='check1' className={classes.input_title}>Campaign won’t have a hashtag</label>
 							</div>
@@ -618,137 +682,142 @@ const Create_Campaigns = () => {
 						<input
 							type='checkbox'
 							className={classes.customCheckbox}
-							id='check1'
+							onChange={checkBox}
+							id='check2'
 						/>
-						<label htmlFor='check1' className={classes.input_title}>Campaign won’t have a budget</label>
+						<label For='check2' className={classes.input_title}>Campaign won’t have a budget</label>
 					</div>
-
-					<div className={classes.inputTotalBudget}>
-						<label className={classes.input_title}>Total Budget</label>
-					</div>
-					<div className={`${classes.input_info_valid} ${classes.inputBox}`}>
-						<span className="prefix">$</span>
-						<input className={`${classes.input_info_budget}`} type='text'/>
-					</div>
-					<div className={classes.containerBudget}>
-
-						<div className={classes.mainToggleSwitch}>
-							<ToggleSwitch className={classes.toggleSwitch}
-										  onColor={'#FF650E'}
-										  checked={toggleInfluencerBudget}
-										  onChange={(e) => check(e, setToggleInfluencerBudget, 'influencerBudget')}
-							/>
-							<ToggleSwitch onColor={'#FF650E'}
-										  className={classes.toggleSwitch}
-										  checked={toggleSocialBudget}
-										  onChange={(e) => check(e, setToggleSocialBudget,'socialBudget')}
-							/>
-							<ToggleSwitch onColor={'#FF650E'}
-										  className={classes.toggleSwitch}
-										  checked={toggleProductionBudget}
-										  onChange={(e) => check(e, setToggleProductionBudget,'productionBudget')}
-							/>
-							<ToggleSwitch onColor={'#FF650E'}
-										  className={classes.toggleSwitch}
-										  checked={toggleTravelBudget}
-										  onChange={(e) => check(e, setToggleTravelBudget,'travelBudget')}
-							/>
-							<ToggleSwitch onColor={'#FF650E'}
-										  className={classes.toggleSwitch}
-										  checked={toggleHandlingFee}
-										  onChange={(e) => check(e, setToggleHandlingFee,'handlingFee')}
-							/>
-							<ToggleSwitch onColor={'#FF650E'}
-										  className={classes.toggleSwitch}
-										  checked={toggleOtherBudget}
-										  onChange={(e) => check(e, setToggleOtherBudget,'otherBudget')}
-							/>
+					<div id={'xxx'}>
+						<div className={classes.inputTotalBudget}>
+							<label className={classes.input_title}>Total Budget</label>
 						</div>
+						<div className={`${classes.input_info_valid} ${classes.inputBox}`}>
+							<span className="prefix">$</span>
+							<input className={`${classes.input_info_budget}`}
+								   value={!values.budget || !values.budget.totalBudget ? '' : values.budget.totalBudget}
+								   onInput={(e) => handleTotalBudgetChange(e)}
+								   type='text'/>
+						</div>
+						<div className={classes.containerBudget}>
 
-
-						<div className={classes.inputBudget}>
-							<div className={!toggleInfluencerBudget ? classes.inputDisabled : ''}>
-								<label className={classes.input_title}>Influencer Budget</label>
-								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-									<span className="prefix">$</span>
-									<input className={`${classes.input_info_budget}`}
-										   type='text'
-										   disabled={!toggleInfluencerBudget}
-										   name='influencerBudget'
-										   value={!values['influencerBudget']? '' : values['influencerBudget']}
-										   onInput={(e) => handleChange(e)}/>
-								</div>
+							<div className={classes.mainToggleSwitch}>
+								<ToggleSwitch className={classes.toggleSwitch}
+											  onColor={'#FF650E'}
+											  checked={toggleInfluencerBudget}
+											  onChange={(e) => check(e, setToggleInfluencerBudget, 'influencerBudget')}
+								/>
+								<ToggleSwitch onColor={'#FF650E'}
+											  className={classes.toggleSwitch}
+											  checked={toggleSocialBudget}
+											  onChange={(e) => check(e, setToggleSocialBudget, 'socialBudget')}
+								/>
+								<ToggleSwitch onColor={'#FF650E'}
+											  className={classes.toggleSwitch}
+											  checked={toggleProductionBudget}
+											  onChange={(e) => check(e, setToggleProductionBudget, 'productionBudget')}
+								/>
+								<ToggleSwitch onColor={'#FF650E'}
+											  className={classes.toggleSwitch}
+											  checked={toggleTravelBudget}
+											  onChange={(e) => check(e, setToggleTravelBudget, 'travelBudget')}
+								/>
+								<ToggleSwitch onColor={'#FF650E'}
+											  className={classes.toggleSwitch}
+											  checked={toggleHandlingFee}
+											  onChange={(e) => check(e, setToggleHandlingFee, 'handlingFee')}
+								/>
+								<ToggleSwitch onColor={'#FF650E'}
+											  className={classes.toggleSwitch}
+											  checked={toggleOtherBudget}
+											  onChange={(e) => check(e, setToggleOtherBudget, 'otherBudget')}
+								/>
 							</div>
 
-							<div className={!toggleSocialBudget ? classes.inputDisabled : ''}>
-								<label className={classes.input_title}>Social Ads Media Budget</label>
-								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-									<span className="prefix">$</span>
-									<input className={`${classes.input_info_budget}`}
-										   disabled={!toggleSocialBudget}
-										   type='text'
-										   name='socialBudget'
-										   value={!values['socialBudget']? '' : values['socialBudget']}
-										   onInput={(e) => handleChange(e)}/>
-								</div>
-							</div>
 
-							<div className={!toggleProductionBudget ? classes.inputDisabled : ''}>
-								<label className={classes.input_title}>Production Budget</label>
-								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-									<span className="prefix">$</span>
-									<input className={`${classes.input_info_budget}`}
-										   disabled={!toggleProductionBudget}
-										   type='text'
-										   name='productionBudget'
-										   value={!values['productionBudget']? '' : values['productionBudget']}
-										   onInput={(e) => handleChange(e)}
-									/>
+							<div className={classes.inputBudget}>
+								<div className={!toggleInfluencerBudget ? classes.inputDisabled : ''}>
+									<label className={classes.input_title}>Influencer Budget</label>
+									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+										<span className="prefix">$</span>
+										<input className={`${classes.input_info_budget}`}
+											   type='text'
+											   disabled={!toggleInfluencerBudget}
+											   name='influencerBudget'
+											   value={!values.budget || !values.budget.subBudget['influencerBudget'] ? '' : values.budget.subBudget['influencerBudget']}
+											   onInput={(e) => handleSubBudgetChange(e)}/>
+									</div>
 								</div>
-							</div>
 
-							<div className={!toggleTravelBudget ? classes.inputDisabled : ''}>
-								<label className={classes.input_title}>Travel Budget</label>
-								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-									<span className="prefix">$</span>
-									<input className={`${classes.input_info_budget}`}
-										   disabled={!toggleTravelBudget}
-										   type='text'
-										   name='travelBudget'
-										   value={!values['travelBudget']? '' : values['travelBudget']}
-										   onInput={(e) => handleChange(e)}
-									/>
+								<div className={!toggleSocialBudget ? classes.inputDisabled : ''}>
+									<label className={classes.input_title}>Social Ads Media Budget</label>
+									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+										<span className="prefix">$</span>
+										<input className={`${classes.input_info_budget}`}
+											   disabled={!toggleSocialBudget}
+											   type='text'
+											   name='socialBudget'
+											   value={!values.budget || !values.budget.subBudget['socialBudget'] ? '' : values.budget.subBudget['socialBudget']}
+											   onInput={(e) => handleSubBudgetChange(e)}/>
+									</div>
 								</div>
-							</div>
 
-							<div className={!toggleHandlingFee ? classes.inputDisabled : ''}>
-								<label className={classes.input_title}>Other Budget</label>
-								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-									<span className="prefix">$</span>
-									<input className={`${classes.input_info_budget}`}
-										   disabled={!toggleHandlingFee}
-										   type='text'
-										   name='handlingFee'
-										   value={!values['handlingFee']? '' : values['handlingFee']}
-										   onInput={(e) => handleChange(e)}
-									/>
+								<div className={!toggleProductionBudget ? classes.inputDisabled : ''}>
+									<label className={classes.input_title}>Production Budget</label>
+									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+										<span className="prefix">$</span>
+										<input className={`${classes.input_info_budget}`}
+											   disabled={!toggleProductionBudget}
+											   type='text'
+											   name='productionBudget'
+											   value={!values.budget || !values.budget.subBudget['productionBudget'] ? '' : values.budget.subBudget['productionBudget']}
+											   onInput={(e) => handleSubBudgetChange(e)}
+										/>
+									</div>
 								</div>
-							</div>
 
-							<div className={!toggleOtherBudget ? classes.inputDisabled : ''}>
-								<label className={classes.input_title}>Handling Fee</label>
-								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-									<span className="prefix">$</span>
-									<input className={`${classes.input_info_budget}`}
-										   disabled={!toggleOtherBudget}
-										   type='text'
-										   name='otherBudget'
-										   value={!values['otherBudget']? '' : values['otherBudget']}
-										   onInput={(e) => handleChange(e)}
-									/>
+								<div className={!toggleTravelBudget ? classes.inputDisabled : ''}>
+									<label className={classes.input_title}>Travel Budget</label>
+									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+										<span className="prefix">$</span>
+										<input className={`${classes.input_info_budget}`}
+											   disabled={!toggleTravelBudget}
+											   type='text'
+											   name='travelBudget'
+											   value={!values.budget || !values.budget.subBudget['travelBudget'] ? '' : values.budget.subBudget['travelBudget']}
+											   onInput={(e) => handleSubBudgetChange(e)}
+										/>
+									</div>
 								</div>
-							</div>
 
+								<div className={!toggleHandlingFee ? classes.inputDisabled : ''}>
+									<label className={classes.input_title}>Other Budget</label>
+									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+										<span className="prefix">$</span>
+										<input className={`${classes.input_info_budget}`}
+											   disabled={!toggleHandlingFee}
+											   type='text'
+											   name='handlingFee'
+											   value={!values.budget || !values.budget.subBudget['handlingFee'] ? '' : values.budget.subBudget['handlingFee']}
+											   onInput={(e) => handleSubBudgetChange(e)}
+										/>
+									</div>
+								</div>
+
+								<div className={!toggleOtherBudget ? classes.inputDisabled : ''}>
+									<label className={classes.input_title}>Handling Fee</label>
+									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+										<span className="prefix">$</span>
+										<input className={`${classes.input_info_budget}`}
+											   disabled={!toggleOtherBudget}
+											   type='text'
+											   name='otherBudget'
+											   value={!values.budget || !values.budget.subBudget['otherBudget'] ? '' : values.budget.subBudget['otherBudget']}
+											   onInput={(e) => handleSubBudgetChange(e)}
+										/>
+									</div>
+								</div>
+
+							</div>
 						</div>
 					</div>
 				</div>
