@@ -25,6 +25,9 @@ import {ToggleSwitch} from 'react-dragswitch';
 import 'react-dragswitch/dist/index.css';
 import arrow from '../Items/Icons/arrow-left.svg'
 import {element} from "prop-types";
+import ChipInput from 'material-ui-chip-input';
+import Chip from '@material-ui/core/Chip';
+import {classNames} from "react-select/src/utils";
 
 let status = [
 	{
@@ -244,13 +247,30 @@ const Create_Campaigns = () => {
 	}
 
 	const handleTotalBudgetChange = (e) => {
-		const value = e.target.value;
+		let value = +e.target.value;
+
+		if (value < 0) {
+			value = value * (-1);
+			e.target.value = value;
+		}
+
 		setValues({...values, budget: {...values.budget, totalBudget: value}})
 	}
 
 	const handleSubBudgetChange = (e) => {
-		const value = e.target.value;
+		let value = +e.target.value;
+
+		if (value < 0) {
+			value = value * (-1);
+			e.target.value = value;
+		}
+
 		setValues({...values, budget: {...values.budget, subBudgets: {...values.budget.subBudgets, [e.target.name]: value}}})
+	}
+
+	const wheelClean = (e) => {
+		e.preventDefault();
+		e.target.blur();
 	}
 
 	const handleChange = (e) => {
@@ -397,6 +417,12 @@ const Create_Campaigns = () => {
 			values.budget = JSON.stringify(values.budget)
 		}
 
+		let h = values.hashtags;
+		if (values.hashtags) {
+			values.hashtags = JSON.stringify(values.hashtags)
+		}
+
+
 		for (const value in values) {
 			formData.append(value, values[value])
 		}
@@ -410,8 +436,10 @@ const Create_Campaigns = () => {
 		if (b) {
 			restore.budget = b
 		}
+		if (h) {
+			restore.hashtags = h
+		}
 		setValues({...values, ...restore})
-
 
 		if (true) {
 			const result = await CampaignService.postCampaign(formData);
@@ -469,6 +497,7 @@ const Create_Campaigns = () => {
 				// 	console.log(result);
 				// 	return
 				// }
+				console.log(values)
 			}
 		}
 	}
@@ -518,359 +547,417 @@ const Create_Campaigns = () => {
 		}
 		setValues({...v})
 	}
+	const handleAddChip = (chip) => {
+		if (chip) {
+			chip.forEach(value => {
+				const hash = values.hashtags.push(value);
+				setValues((prevState) => ({...prevState, hashtags: hash}))
+			})
+		}
+		setValues({...values});
+	}
 
-	return (
-		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
-			<Sidebar/>
-			<Header name={'Create'} titleHeader={classes.title}
-					titleBtn={isSending ? "Sending" : 'Save Changes'}
-					title='Сreate Campaign'
-					leftArrow={leftArrow}
-					btnHeader={isSending ? classes.btnHeaderDisabled : classes.btnHeader}
-					button={(e) => saveChanges(e)}
-					isSending={isSending}
-			/>
-			<div>
-				<div className={classes.mainContainer}>
-					<div className={classes.leftContainerHelper}>
-						<section className={classes.leftContainer}>
-							<h3 className={classes.general}>Basic Information</h3>
+	const handleDeleteChip = (deletedChip) => {
+		if (deletedChip) {
 
-							<label className={classes.input_title}>Title</label>
-							<input className={!values.title ? classes.input_info : classes.input_info_valid}
-								   type='text'
-								   name='title'
-								   value={values.title}
-								   onInput={(e) => handleChange(e)}
-							/>
+			 const del = values.hashtags.filter((c, index) => {
+			 	if (c !== deletedChip) {
 
-							{errors.title && errors.title.length ?
-								<div className={classes.errorDiv}>{errors.title}</div> : ''}
+				}
+			 });
+			 setValues({...values})
+		}
+		setValues({...values})
+
+	}
 
 
-							<label className={classes.input_title}>Status</label>
-							<Dropdown required
-									  options={status}
-									  name='status'
-									  valid={!!values.role}
-									  onChange={(e) => handleChangeDropdown(e, 'status')}
-							/>
+return (
+	<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
+		<Sidebar/>
+		<Header name={'Create'} titleHeader={classes.title}
+				titleBtn={isSending ? "Sending" : 'Save Changes'}
+				title='Сreate Campaign'
+				leftArrow={leftArrow}
+				btnHeader={isSending ? classes.btnHeaderDisabled : classes.btnHeader}
+				button={(e) => saveChanges(e)}
+				isSending={isSending}
+		/>
+		<div>
+			<div className={classes.mainContainer}>
+				<div className={classes.leftContainerHelper}>
+					<section className={classes.leftContainer}>
+						<h3 className={classes.general}>Basic Information</h3>
 
-							{errors.role && errors.role.length ?
-								<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
-									{errors.role}</div> : ''}
+						<label className={classes.input_title}>Title</label>
+						<input className={!values.title ? classes.input_info : classes.input_info_valid}
+							   type='text'
+							   name='title'
+							   value={values.title}
+							   onInput={(e) => handleChange(e)}
+						/>
 
-							<label className={classes.input_title}>Effort</label>
-							<Dropdown required
-									  options={effort}
-									  name='Effort'
-									  valid={!!values.role}
-									  onChange={(e) => handleChangeDropdown(e, 'effort')}
-							/>
-
-							{errors.role && errors.role.length ?
-								<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
-									{errors.role}</div> : ''}
-
-							<div className={classes.wrapper}>
-								<div className={classes.wrapperColumn}>
-									<label className={classes.input_title}>Start Date</label>
-									<DatePicker
-										className={classes.myDatePicker}
-										selected={values.start_date}
-										onChange={(date) => setValues({...values, start_date: date})}
-										popperClassName={classes.properClass}
-										calendarClassName={classes.calendar}
-										styles={{backgroundImage: `url(${arrow})`}}
-										placeholderText={'Select...'}
-									/>
-
-									{/*<DropdownSmall requiredF*/}
-									{/*			   name='status'*/}
-									{/*			   valid={!!values.role}*/}
-									{/*			   onChange={(e) => handleChangeDropdown(e)}*/}
-									{/*/>*/}
-								</div>
-								<div className={classes.wrapperColumn}>
-									<label className={classes.input_title}>End Date</label>
-									<DatePicker
-										className={classes.myDatePicker}
-										selected={values.end_date}
-										onChange={(date) => setValues({...values, end_date: date})}
-										popperClassName={classes.properClass}
-										calendarClassName={classes.calendar}
-
-										placeholderText={'Select...'}
-									/>
-								</div>
-							</div>
-
-							<label className={classes.input_title}>Hashtags</label>
-							<input className={classes.input_info_valid} id={'hashTagdisabled'}
-								   type='text'
-								   name='hashtag'
-								   value={values.hashtag}
-								   onInput={(e) => handleChange(e)}
-							/>
-
-							{errors.title && errors.title.length ?
-								<div className={classes.errorDiv}>{errors.title}</div> : ''}
-
-							<div className={classes.checkBoxDiv}>
-								<input
-									type='checkbox'
-									className={classes.customCheckbox}
-									id='check1'
-									onChange={checkboxHash}
-								/>
-								<label for='check1' className={classes.input_title}>Campaign won’t have a hashtag</label>
-							</div>
-
-						</section>
-
-						<section className={classes.leftContainer}>
-							<div>
-								<h3 className={classes.rightContainer_title}>Client</h3>
-
-								<label className={classes.input_title}>Brand</label>
-								<Dropdown required
-										  options={brands}
-										  name='_brand'
-										  valid={!!values.role}
-										  onChange={(e) => handleChangeDropdown(e, '_brand')}
-								/>
-
-								{errors.role && errors.role.length ?
-									<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
-										{errors.role}</div> : ''}
-
-								<div className={classes.flexRow} id={'main'}>
-									<Modal loadBrands={loadBrands}/>
-								</div>
-
-							</div>
-						</section>
-					</div>
+						{errors.title && errors.title.length ?
+							<div className={classes.errorDiv}>{errors.title}</div> : ''}
 
 
-					<section className={classes.rightContainer}>
-						<div className={classes.role}>
-							<h3 className={classes.rightContainer_title}>Roles</h3>
-						</div>
-						<label className={classes.input_title}>Team Lead</label>
+						<label className={classes.input_title}>Status</label>
 						<Dropdown required
-								  options={TL}
-								  name='_team_lead'
+								  options={status}
+								  name='status'
 								  valid={!!values.role}
-								  onChange={(e) => handleChangeDropdown(e, '_team_lead')}
+								  onChange={(e) => handleChangeDropdown(e, 'status')}
 						/>
 
-						<div className={classes.role}>
-							<h3 className={classes.rightContainer_title}>Misc.</h3>
-						</div>
-						<p className={classes.profile}>Campaign Logo</p>
-						<input type='file'
-							   name='avatar'
-							   className={classes.avatarPhoto}
-							   style={{display: 'none'}}
-							   onChange={(e) => selected(e)}
-							   ref={fileInput}
+						{errors.role && errors.role.length ?
+							<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
+								{errors.role}</div> : ''}
 
+						<label className={classes.input_title}>Effort</label>
+						<Dropdown required
+								  options={effort}
+								  name='Effort'
+								  valid={!!values.role}
+								  onChange={(e) => handleChangeDropdown(e, 'effort')}
 						/>
-						<button className={classes.avatar} onClick={() => fileInput.current.click()}>
-							{values.avatar ? <img src={values.avatar.preview} style={{
-								minWidth: 64,
-								minHeight: 64,
-								borderRadius: 50
-							}} alt={'alt'}/> : '+'}
-						</button>
 
-						{errors.avatar && errors.avatar.length ?
-							<div className={classes.errorDiv}>{errors.avatar}</div> : ''}
+						{errors.role && errors.role.length ?
+							<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
+								{errors.role}</div> : ''}
 
-						<label className={classes.input_title}>Client Description</label>
-						<div className={classes.clientDesc}>
-							<textarea name={'client_description'} onInput={(e) => handleTextInput(e)}  className={classes.textarea} wrap="hard" rows={3}/>
+						<div className={classes.wrapper}>
+							<div className={classes.wrapperColumn}>
+								<label className={classes.input_title}>Start Date</label>
+								<DatePicker
+									className={classes.myDatePicker}
+									selected={values.start_date}
+									onChange={(date) => setValues({...values, start_date: date})}
+									popperClassName={classes.properClass}
+									calendarClassName={classes.calendar}
+									styles={{backgroundImage: `url(${arrow})`}}
+									placeholderText={'Select...'}
+								/>
+
+								{/*<DropdownSmall requiredF*/}
+								{/*			   name='status'*/}
+								{/*			   valid={!!values.role}*/}
+								{/*			   onChange={(e) => handleChangeDropdown(e)}*/}
+								{/*/>*/}
+							</div>
+							<div className={classes.wrapperColumn}>
+								<label className={classes.input_title}>End Date</label>
+								<DatePicker
+									className={classes.myDatePicker}
+									selected={values.end_date}
+									onChange={(date) => setValues({...values, end_date: date})}
+									popperClassName={classes.properClass}
+									calendarClassName={classes.calendar}
+
+									placeholderText={'Select...'}
+								/>
+							</div>
 						</div>
 
+						<label className={classes.input_title}>Hashtags</label>
+						<ChipInput
+							value={values.hashtag}
+							onChange={(chip) => { handleAddChip(chip); handleDeleteChip(chip)}}
+							className={classes.hashtagInput}
+							disableUnderline={true}
+							 // chipRenderer = {(style) => {
+								//  style={{ height: '20px', width: '30px', margin: '8px 8px 0 0'}}
+							 // }}
+							// chipRenderer={({ value, isFocused, isDisabled, handleClick, handleRequestDelete }, key) => (
+								// <Chip
+								// 	key={key}
+								// 	value={values.hashtag}
+								// 	style={{ height: '20px', width: '30px', margin: '8px 8px 0 0'}}
+								// 	backgroundColor={isFocused ? 'green' : 'red'}
+								// >
+								// </Chip>)}
+							// onDelete={(deletedChip) => handleDeleteChip(deletedChip)}
+						/>
+						{/*<Chip*/}
+						{/*	// icon={icon}*/}
+						{/*	label={values.hashtags}*/}
+						{/*	onDelete={values.hashtags ? handleDelete(values.hashtags) : ''}*/}
+						{/*	className={classes.chip}*/}
+						{/*/>*/}
+						{/*<input className={classes.input_info_valid} id={'hashTagdisabled'}*/}
+						{/*	   type='text'*/}
+						{/*	   name='hashtag'*/}
+						{/*	   value={values.hashtag}*/}
+						{/*	   onInput={(e) => handleChange(e)}*/}
+						{/*/>*/}
 
-						<label className={classes.input_title}>Internal Notes</label>
-						<div className={classes.clientDesc}>
-							<textarea name={'internal_note'} onInput={(e) => handleTextInput(e)}   className={classes.textarea} wrap="hard" rows={3}/>
-						</div>
+						{errors.title && errors.title.length ?
+							<div className={classes.errorDiv}>{errors.title}</div> : ''}
 
-						<label className={classes.input_title}>Campaign Created</label>
-						<div>
-							{
-								campaignDate.map(value => value.Created)
-							}
-						</div>
-
-						<label className={classes.input_title}>Last Campaign Update</label>
-						<div>
-							{
-								campaignDate.map(value => value.Updated)
-							}
+						<div className={classes.checkBoxDiv}>
+							<input
+								type='checkbox'
+								className={classes.customCheckbox}
+								id='check1'
+								onChange={checkboxHash}
+							/>
+							<label for='check1' className={classes.input_title}>Campaign won’t have a hashtag</label>
 						</div>
 
 					</section>
 
+					<section className={classes.leftContainer}>
+						<div>
+							<h3 className={classes.rightContainer_title}>Client</h3>
 
-				</div>
-			</div>
+							<label className={classes.input_title}>Brand</label>
+							<Dropdown required
+									  options={brands}
+									  name='_brand'
+									  valid={!!values.role}
+									  onChange={(e) => handleChangeDropdown(e, '_brand')}
+							/>
 
-			<div className={classes.mainContainerButton}>
-				<div className={classes.mainContainerButtonLeft}>
-					<div className={`${classes.labelBudget}`}>
-						<label className={`${classes.input_title} `}>Budgets & Targets</label>
-					</div>
+							{errors.role && errors.role.length ?
+								<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
+									{errors.role}</div> : ''}
 
-					<div className={classes.checkBoxDiv}>
-						<input
-							type='checkbox'
-							className={classes.customCheckbox}
-							onChange={checkBox}
-							id='check2'
-						/>
-						<label For='check2' className={classes.input_title}>Campaign won’t have a budget</label>
-					</div>
-					<div id={'xxx'}>
-						<div className={classes.inputTotalBudget}>
-							<label className={classes.input_title}>Total Budget</label>
-						</div>
-						<div className={`${classes.input_info_valid} ${classes.inputBox}`}>
-							<span className="prefix">$</span>
-							<input className={`${classes.input_info_budget}`}
-								   value={!values.budget || !values.budget.totalBudget ? '' : values.budget.totalBudget}
-								   onInput={(e) => handleTotalBudgetChange(e)}
-								   type='text'/>
-						</div>
-						<div className={classes.containerBudget}>
-
-							<div className={classes.mainToggleSwitch}>
-								<ToggleSwitch className={classes.toggleSwitch}
-											  onColor={'#FF650E'}
-											  checked={toggleInfluencerBudget}
-											  onChange={(e) => check(e, setToggleInfluencerBudget, 'influencerBudget')}
-								/>
-								<ToggleSwitch onColor={'#FF650E'}
-											  className={classes.toggleSwitch}
-											  checked={toggleSocialBudget}
-											  onChange={(e) => check(e, setToggleSocialBudget, 'socialAdsMediaBudget')}
-								/>
-								<ToggleSwitch onColor={'#FF650E'}
-											  className={classes.toggleSwitch}
-											  checked={toggleProductionBudget}
-											  onChange={(e) => check(e, setToggleProductionBudget, 'productionBudget')}
-								/>
-								<ToggleSwitch onColor={'#FF650E'}
-											  className={classes.toggleSwitch}
-											  checked={toggleTravelBudget}
-											  onChange={(e) => check(e, setToggleTravelBudget, 'travelBudget')}
-								/>
-								<ToggleSwitch onColor={'#FF650E'}
-											  className={classes.toggleSwitch}
-											  checked={toggleHandlingFee}
-											  onChange={(e) => check(e, setToggleHandlingFee, 'handlingFee')}
-								/>
-								<ToggleSwitch onColor={'#FF650E'}
-											  className={classes.toggleSwitch}
-											  checked={toggleOtherBudget}
-											  onChange={(e) => check(e, setToggleOtherBudget, 'otherBudget')}
-								/>
+							<div className={classes.flexRow} id={'main'}>
+								<Modal loadBrands={loadBrands}/>
 							</div>
 
+						</div>
+					</section>
+				</div>
 
-							<div className={classes.inputBudget}>
-								<div className={!toggleInfluencerBudget ? classes.inputDisabled : ''}>
-									<label className={classes.input_title}>Influencer Budget</label>
-									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-										<span className="prefix">$</span>
-										<input className={`${classes.input_info_budget}`}
-											   type='text'
-											   disabled={!toggleInfluencerBudget}
-											   name='influencerBudget'
-											   value={!values.budget || !values.budget.subBudgets['influencerBudget'] ? '' : values.budget.subBudgets['influencerBudget']}
-											   onInput={(e) => handleSubBudgetChange(e)}/>
-									</div>
+
+				<section className={classes.rightContainer}>
+					<div className={classes.role}>
+						<h3 className={classes.rightContainer_title}>Roles</h3>
+					</div>
+					<label className={classes.input_title}>Team Lead</label>
+					<Dropdown required
+							  options={TL}
+							  name='_team_lead'
+							  valid={!!values.role}
+							  onChange={(e) => handleChangeDropdown(e, '_team_lead')}
+					/>
+
+					<div className={classes.role}>
+						<h3 className={classes.rightContainer_title}>Misc.</h3>
+					</div>
+					<p className={classes.profile}>Campaign Logo</p>
+					<input type='file'
+						   name='avatar'
+						   className={classes.avatarPhoto}
+						   style={{display: 'none'}}
+						   onChange={(e) => selected(e)}
+						   ref={fileInput}
+
+					/>
+					<button className={classes.avatar} onClick={() => fileInput.current.click()}>
+						{values.avatar ? <img src={values.avatar.preview} style={{
+							minWidth: 64,
+							minHeight: 64,
+							borderRadius: 50
+						}} alt={'alt'}/> : '+'}
+					</button>
+
+					{errors.avatar && errors.avatar.length ?
+						<div className={classes.errorDiv}>{errors.avatar}</div> : ''}
+
+					<label className={classes.input_title}>Client Description</label>
+					<div className={classes.clientDesc}>
+						<textarea name={'client_description'} onInput={(e) => handleTextInput(e)} className={classes.textarea} wrap="hard" rows={3}/>
+					</div>
+
+
+					<label className={classes.input_title}>Internal Notes</label>
+					<div className={classes.clientDesc}>
+						<textarea name={'internal_note'} onInput={(e) => handleTextInput(e)} className={classes.textarea} wrap="hard" rows={3}/>
+					</div>
+
+					<label className={classes.input_title}>Campaign Created</label>
+					<div>
+						{
+							campaignDate.map(value => value.Created)
+						}
+					</div>
+
+					<label className={classes.input_title}>Last Campaign Update</label>
+					<div>
+						{
+							campaignDate.map(value => value.Updated)
+						}
+					</div>
+
+				</section>
+
+
+			</div>
+		</div>
+
+		<div className={classes.mainContainerButton}>
+			<div className={classes.mainContainerButtonLeft}>
+				<div className={`${classes.labelBudget}`}>
+					<label className={`${classes.input_title} `}>Budgets & Targets</label>
+				</div>
+
+				<div className={classes.checkBoxDiv}>
+					<input
+						type='checkbox'
+						className={classes.customCheckbox}
+						onChange={checkBox}
+						id='check2'
+					/>
+					<label For='check2' className={classes.input_title}>Campaign won’t have a budget</label>
+				</div>
+				<div id={'xxx'}>
+					<div className={classes.inputTotalBudget}>
+						<label className={classes.input_title}>Total Budget</label>
+					</div>
+					<div className={`${classes.input_info_valid} ${classes.inputBox}`}>
+						<span className="prefix">$</span>
+						<input className={`${classes.input_info_budget}`}
+							   type={'number'}
+							   min="0"
+							   value={!values.budget || !values.budget.totalBudget ? '' : values.budget.totalBudget}
+							   onInput={(e) => handleTotalBudgetChange(e)}
+							   onWheel={(e) => wheelClean(e)}
+							   />
+					</div>
+					<div className={classes.containerBudget}>
+
+						<div className={classes.mainToggleSwitch}>
+							<ToggleSwitch className={classes.toggleSwitch}
+										  onColor={'#FF650E'}
+										  checked={toggleInfluencerBudget}
+										  onChange={(e) => check(e, setToggleInfluencerBudget, 'influencerBudget')}
+							/>
+							<ToggleSwitch onColor={'#FF650E'}
+										  className={classes.toggleSwitch}
+										  checked={toggleSocialBudget}
+										  onChange={(e) => check(e, setToggleSocialBudget, 'socialAdsMediaBudget')}
+							/>
+							<ToggleSwitch onColor={'#FF650E'}
+										  className={classes.toggleSwitch}
+										  checked={toggleProductionBudget}
+										  onChange={(e) => check(e, setToggleProductionBudget, 'productionBudget')}
+							/>
+							<ToggleSwitch onColor={'#FF650E'}
+										  className={classes.toggleSwitch}
+										  checked={toggleTravelBudget}
+										  onChange={(e) => check(e, setToggleTravelBudget, 'travelBudget')}
+							/>
+							<ToggleSwitch onColor={'#FF650E'}
+										  className={classes.toggleSwitch}
+										  checked={toggleHandlingFee}
+										  onChange={(e) => check(e, setToggleHandlingFee, 'handlingFee')}
+							/>
+							<ToggleSwitch onColor={'#FF650E'}
+										  className={classes.toggleSwitch}
+										  checked={toggleOtherBudget}
+										  onChange={(e) => check(e, setToggleOtherBudget, 'otherBudget')}
+							/>
+						</div>
+
+
+						<div className={classes.inputBudget}>
+							<div className={!toggleInfluencerBudget ? classes.inputDisabled : ''}>
+								<label className={classes.input_title}>Influencer Budget</label>
+								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+									<span className="prefix">$</span>
+									<input className={`${classes.input_info_budget}`}
+										   type={'number'}
+										   min="0"
+										   disabled={!toggleInfluencerBudget}
+										   name='influencerBudget'
+										   value={!values.budget || !values.budget.subBudgets['influencerBudget'] ? '' : values.budget.subBudgets['influencerBudget']}
+										   onInput={(e) => handleSubBudgetChange(e)}/>
 								</div>
-
-								<div className={!toggleSocialBudget ? classes.inputDisabled : ''}>
-									<label className={classes.input_title}>Social Ads Media Budget</label>
-									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-										<span className="prefix">$</span>
-										<input className={`${classes.input_info_budget}`}
-											   disabled={!toggleSocialBudget}
-											   type='text'
-											   name='socialAdsMediaBudget'
-											   value={!values.budget || !values.budget.subBudgets['socialAdsMediaBudget'] ? '' : values.budget.subBudgets['socialAdsMediaBudget']}
-											   onInput={(e) => handleSubBudgetChange(e)}/>
-									</div>
-								</div>
-
-								<div className={!toggleProductionBudget ? classes.inputDisabled : ''}>
-									<label className={classes.input_title}>Production Budget</label>
-									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-										<span className="prefix">$</span>
-										<input className={`${classes.input_info_budget}`}
-											   disabled={!toggleProductionBudget}
-											   type='text'
-											   name='productionBudget'
-											   value={!values.budget || !values.budget.subBudgets['productionBudget'] ? '' : values.budget.subBudgets['productionBudget']}
-											   onInput={(e) => handleSubBudgetChange(e)}
-										/>
-									</div>
-								</div>
-
-								<div className={!toggleTravelBudget ? classes.inputDisabled : ''}>
-									<label className={classes.input_title}>Travel Budget</label>
-									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-										<span className="prefix">$</span>
-										<input className={`${classes.input_info_budget}`}
-											   disabled={!toggleTravelBudget}
-											   type='text'
-											   name='travelBudget'
-											   value={!values.budget || !values.budget.subBudgets['travelBudget'] ? '' : values.budget.subBudgets['travelBudget']}
-											   onInput={(e) => handleSubBudgetChange(e)}
-										/>
-									</div>
-								</div>
-
-								<div className={!toggleHandlingFee ? classes.inputDisabled : ''}>
-									<label className={classes.input_title}>Other Budget</label>
-									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-										<span className="prefix">$</span>
-										<input className={`${classes.input_info_budget}`}
-											   disabled={!toggleHandlingFee}
-											   type='text'
-											   name='handlingFee'
-											   value={!values.budget || !values.budget.subBudgets['handlingFee'] ? '' : values.budget.subBudgets['handlingFee']}
-											   onInput={(e) => handleSubBudgetChange(e)}
-										/>
-									</div>
-								</div>
-
-								<div className={!toggleOtherBudget ? classes.inputDisabled : ''}>
-									<label className={classes.input_title}>Handling Fee</label>
-									<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
-										<span className="prefix">$</span>
-										<input className={`${classes.input_info_budget}`}
-											   disabled={!toggleOtherBudget}
-											   type='text'
-											   name='otherBudget'
-											   value={!values.budget || !values.budget.subBudgets['otherBudget'] ? '' : values.budget.subBudgets['otherBudget']}
-											   onInput={(e) => handleSubBudgetChange(e)}
-										/>
-									</div>
-								</div>
-
 							</div>
+
+							<div className={!toggleSocialBudget ? classes.inputDisabled : ''}>
+								<label className={classes.input_title}>Social Ads Media Budget</label>
+								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+									<span className="prefix">$</span>
+									<input className={`${classes.input_info_budget}`}
+										   disabled={!toggleSocialBudget}
+										   type={'number'}
+										   min="0"
+										   name='socialAdsMediaBudget'
+										   value={!values.budget || !values.budget.subBudgets['socialAdsMediaBudget'] ? '' : values.budget.subBudgets['socialAdsMediaBudget']}
+										   onInput={(e) => handleSubBudgetChange(e)}/>
+								</div>
+							</div>
+
+							<div className={!toggleProductionBudget ? classes.inputDisabled : ''}>
+								<label className={classes.input_title}>Production Budget</label>
+								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+									<span className="prefix">$</span>
+									<input className={`${classes.input_info_budget}`}
+										   disabled={!toggleProductionBudget}
+										   type={'number'}
+										   min="0"
+										   name='productionBudget'
+										   value={!values.budget || !values.budget.subBudgets['productionBudget'] ? '' : values.budget.subBudgets['productionBudget']}
+										   onInput={(e) => handleSubBudgetChange(e)}
+									/>
+								</div>
+							</div>
+
+							<div className={!toggleTravelBudget ? classes.inputDisabled : ''}>
+								<label className={classes.input_title}>Travel Budget</label>
+								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+									<span className="prefix">$</span>
+									<input className={`${classes.input_info_budget}`}
+										   disabled={!toggleTravelBudget}
+										   type={'number'}
+										   min="0"
+										   name='travelBudget'
+										   value={!values.budget || !values.budget.subBudgets['travelBudget'] ? '' : values.budget.subBudgets['travelBudget']}
+										   onInput={(e) => handleSubBudgetChange(e)}
+									/>
+								</div>
+							</div>
+
+							<div className={!toggleHandlingFee ? classes.inputDisabled : ''}>
+								<label className={classes.input_title}>Other Budget</label>
+								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+									<span className="prefix">$</span>
+									<input className={`${classes.input_info_budget}`}
+										   disabled={!toggleHandlingFee}
+										   type={'number'}
+										   min="0"
+										   name='handlingFee'
+										   value={!values.budget || !values.budget.subBudgets['handlingFee'] ? '' : values.budget.subBudgets['handlingFee']}
+										   onInput={(e) => handleSubBudgetChange(e)}
+									/>
+								</div>
+							</div>
+
+							<div className={!toggleOtherBudget ? classes.inputDisabled : ''}>
+								<label className={classes.input_title}>Handling Fee</label>
+								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
+									<span className="prefix">$</span>
+									<input className={`${classes.input_info_budget}`}
+										   disabled={!toggleOtherBudget}
+										   type={'number'}
+										   min="0"
+										   name='otherBudget'
+										   value={!values.budget || !values.budget.subBudgets['otherBudget'] ? '' : values.budget.subBudgets['otherBudget']}
+										   onWheel={(e) => wheelClean(e)}
+										   onInput={(e) => handleSubBudgetChange(e)}
+									/>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
 			</div>
-		</form>
-	);
+		</div>
+	</form>
+);
 }
 
 export default Create_Campaigns;

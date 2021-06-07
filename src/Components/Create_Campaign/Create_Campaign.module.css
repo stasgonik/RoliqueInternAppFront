@@ -496,3 +496,30 @@ input:checked + label:before {
 		box-sizing: border-box;
 		border-radius: 6px;
 }
+
+.MuiInputBase-input {
+		width: 200px;
+		height: 70px;
+		border: 1px solid #BFBFBF !important;
+}
+
+
+.inputBox input::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+}
+
+.inputBox input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+}
+
+.hashtagInput {
+		min-height: 32px;
+		width: 408px;
+		background: #FAFAFB;
+		border: 1px solid #BFBFBF !important;
+		box-sizing: border-box;
+		border-radius: 6px;
+		padding: 0;
+}
