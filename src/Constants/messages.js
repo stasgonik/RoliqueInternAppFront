@@ -25,6 +25,10 @@ export const INFO = {
 	PROFILE_REGEX: 'Field must include 2-50 only letters and separators like .@-',
 	SOCIAL_PROFILE_EXIST: 'User with such profile already exist',
 	BRAND_ALREADY_EXIST: "Brand with this name already exist",
+	CAMPAIGN_ALREADY_EXIST: "Campaign with this title already exist",
+	DATE_ERROR: 'Both date must be either present or absent',
+	DATE_VALID_ERROR: 'Start date can not be bigger then End date'
+
 	}
 
 

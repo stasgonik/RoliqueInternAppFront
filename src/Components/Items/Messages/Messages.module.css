@@ -3,7 +3,8 @@
 		align-items: center;
 		padding: 6px 16px;
 		box-sizing: border-box;
-		width: 344px;
+		min-width: 344px;
+		max-width: 355px;
 		height: 29px;
 		top: 19px;
 		border-radius: 8px;

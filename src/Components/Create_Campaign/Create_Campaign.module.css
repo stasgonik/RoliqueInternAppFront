@@ -151,7 +151,7 @@
 		width: 408px;
 		height: 32px;
 		margin-top: 8px;
-		margin-bottom: 16px;
+		/*F*/
 		box-sizing: border-box;
 		border-radius: 6px;
 		outline: none;
@@ -398,14 +398,20 @@ input:checked + label:before {
 }
 
 .input_info_budget {
+
 		padding-left: 12px;
 		box-sizing: border-box;
+		background: #FAFAFB;
 }
 
 .toggleSwitch {
 		margin-bottom: 49px !important;
 		width: 42px !important;
 		height: 24px !important;
+}
+
+.inputBudget > div {
+		margin-bottom: 11px;
 }
 
 .inputBox {
@@ -423,7 +429,7 @@ input:checked + label:before {
 .inputBox input {
 		flex-grow: 1;
 		font-size: 14px;
-		background: #fff;
+		/*background: #fff;*/
 		border: none;
 		outline: none;
 		padding: 0.5rem;
@@ -558,4 +564,8 @@ input:checked + label:before {
 		height: 16px !important;
 		font-size: 14px !important;
 		line-height: 14px !important;
+}
+
+.positionDate {
+		text-align: center;
 }

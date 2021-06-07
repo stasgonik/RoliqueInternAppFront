@@ -23,7 +23,7 @@ const Dropdown = ({options, name, onChange, defaultValue, valid = false}) => {
                 minHeight: 32,
                 width: 402,
                 border: valid ? '1px solid #BFBFBF' : '1px solid #DA1414',
-                padding: '0 0 1px',
+                padding: '0 0 3px',
                 boxShadow: 'none',
                 cursor: 'pointer',
                 outline: 'none',
@@ -45,7 +45,7 @@ const Dropdown = ({options, name, onChange, defaultValue, valid = false}) => {
         placeholder: (styles,) => {
             return {
                 ...styles,
-                paddingBottom: 7,
+                paddingBottom: '3px',
             }
 
         },

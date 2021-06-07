@@ -27,6 +27,7 @@ import arrow from '../Items/Icons/caret-down.svg';
 // import {element} from "prop-types";
 import ChipInput from 'material-ui-chip-input';
 import Chip from '@material-ui/core/Chip';
+import Error from "../Items/Messages/Messages";
 // import {classNames} from "react-select/src/utils";
 
 let status = [
@@ -190,12 +191,13 @@ const Create_Campaigns = () => {
 
 	const [errors, setErrors] = useState({
 		avatar: '',
-		first_name: '',
-		last_name: '',
-		email: '',
-		phone: '',
-		role: '',
-		password: '',
+		title: '',
+		status: '',
+		effort: '',
+		date: '',
+		_brand: '',
+		_team_lead: '',
+		budget: ''
 	});
 
 
@@ -283,11 +285,6 @@ const Create_Campaigns = () => {
 		e.preventDefault()
 	}
 
-	// const handleChangeDate = (e) => {
-	// 	console.log(e);
-	//
-	// }
-
 	const handleChangeDropdown = (e, name) => {
 		const value = e.value;
 		setValues({...values, [name]: value})
@@ -307,74 +304,71 @@ const Create_Campaigns = () => {
 	const handleValidation = () => {
 		let errors = {
 			avatar: '',
-			first_name: '',
-			last_name: '',
-			email: '',
-			phone: '',
-			role: '',
-			password: '',
+			title: '',
+			status: '',
+			effort: '',
+			date: '',
+			_brand: '',
+			_team_lead: '',
+			budget: ''
 		};
 		let formIsValid = true;
 
-		if (typeof values["password"] !== "undefined") {
-			if (!values["password"].match(regexp.PASSWORD_REGEXP)) {
-				formIsValid = false;
-				errors["password"] = INFO.INVALID_PASSWORD_PATTERN
+		// if (typeof values["password"] !== "undefined") {
+		// 	if (!values["password"].match(regexp.PASSWORD_REGEXP)) {
+		// 		formIsValid = false;
+		// 		errors["password"] = INFO.INVALID_PASSWORD_PATTERN
+		// 	}
+		// }
+
+		if (!values["title"] || !values["title"].length) {
+			formIsValid = false;
+			errors["title"] = INFO.EMPTY_FIELD
+		}
+
+		if (!values["status"] || !values["status"].length) {
+			formIsValid = false;
+			errors["status"] = INFO.EMPTY_FIELD
+		}
+
+		if (!values["effort"] || !values["effort"].length) {
+			formIsValid = false;
+			errors["effort"] = INFO.EMPTY_FIELD
+		}
+
+		if (!values["_brand"] || !values["_brand"].length) {
+			formIsValid = false;
+			errors["_brand"] = INFO.EMPTY_FIELD
+		}
+
+		if (!values["_team_lead"] || !values["_team_lead"].length) {
+			formIsValid = false;
+			errors["_team_lead"] = INFO.EMPTY_FIELD
+		}
+
+		if ((values.start_date && ! values.end_date) || (!values.start_date && values.end_date)) {
+			formIsValid = false;
+			errors["date"] = INFO.DATE_ERROR;
+		}
+
+		if ((values["start_date"] && values["end_date"]) && (values["start_date"] > values["end_date"])) {
+			formIsValid = false;
+			errors["date"] = INFO.DATE_VALID_ERROR;
+		}
+
+		if (values['budget']) {
+			let bud = typeof values['budget'] === "string"? JSON.parse(values.budget) : values.budget
+			let sum = 0;
+			for (const keys in bud.subBudgets) {
+				sum += +bud.subBudgets[keys]
+			}
+			if (bud.totalBudget !== sum && Object.keys(bud.subBudgets).length) {
+				formIsValid = false
+				errors['budget'] = sum > bud.totalBudget? `Budgets below are $${sum - bud.totalBudget} over the Total Budget` : `Budgets below are $${bud.totalBudget - sum} less then the Total Budget`
 			}
 		}
 
-		if (!values["password"] || !values["password"].length) {
-			formIsValid = false;
-			errors["password"] = INFO.EMPTY_FIELD
-		}
 
-		if (typeof values["email"] !== "undefined") {
-			if (!values["email"].match(regexp.EMAIL_REGEXP)) {
-				formIsValid = false;
-				errors["email"] = INFO.INVALID_EMAIL_PATTERN
-			}
-		}
-
-		if (!values["email"] || !values["email"].length) {
-			formIsValid = false;
-			errors["email"] = INFO.EMPTY_FIELD
-		}
-
-		if (typeof values["first_name"] !== "undefined") {
-			if (!values["first_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
-				formIsValid = false;
-				errors["first_name"] = INFO.INVALID_NAME_PATTERN
-			}
-		}
-
-		if (!values["first_name"] || !values["first_name"].length) {
-			formIsValid = false;
-			errors["first_name"] = INFO.EMPTY_FIELD
-		}
-
-		if (typeof values["last_name"] !== "undefined") {
-			if (!values["last_name"].match(regexp.FIRST_LAST_NAME_REGEXP)) {
-				formIsValid = false;
-				errors["last_name"] = INFO.INVALID_NAME_PATTERN
-			}
-		}
-
-		if (!values["last_name"] || !values["last_name"].length) {
-			formIsValid = false;
-			errors["last_name"] = INFO.EMPTY_FIELD
-		}
-
-		if (!values["role"] || !values["role"].length) {
-			formIsValid = false;
-			errors["role"] = INFO.EMPTY_FIELD
-		}
-
-		if (typeof values["phone"] !== "undefined" && values["phone"] && values["phone"].length) {
-			if (!values["phone"].match(regexp.PHONE_REGEXP)) {
-				formIsValid = false;
-				errors["phone"] = INFO.INVALID_PHONE_PATTERN
-			}
-		}
 
 		setErrors(errors);
 		if (!formIsValid) {
@@ -407,7 +401,7 @@ const Create_Campaigns = () => {
 		if (values.end_date === null) {
 			delete values.end_date
 		}
-
+		let h = values.hashtags;
 		if (!values.hashtags.length) {
 			delete values.hashtags
 		}
@@ -417,7 +411,6 @@ const Create_Campaigns = () => {
 			values.budget = JSON.stringify(values.budget)
 		}
 
-		let h = values.hashtags;
 		if (values.hashtags) {
 			values.hashtags = JSON.stringify(values.hashtags)
 		}
@@ -426,7 +419,6 @@ const Create_Campaigns = () => {
 		for (const value in values) {
 			formData.append(value, values[value])
 		}
-
 
 		let ht = h.length ? h : [];
 		let st = values.start_date ? values.start_date : null;
@@ -438,63 +430,60 @@ const Create_Campaigns = () => {
 		}
 		setValues({...values, ...restore})
 
-		if (true) {
+		if (handleValidation()) {
 			const result = await CampaignService.postCampaign(formData);
 			if (result) {
 				setIsSending(false)
 				console.log(result)
-				// if (result.status === 200) {
-				// 	window.location.href = configFront.URL + `${routes.USERS}`;
-				// 	return
-				// }
-				//
-				// let errors = {
-				// 	avatar: '',
-				// 	first_name: '',
-				// 	last_name: '',
-				// 	email: '',
-				// 	phone: '',
-				// 	role: '',
-				// 	password: '',
-				// };
-				//
-				// if (result.status === 403) {
-				// 	window.location.href = configFront.URL + `${routes.USERS}`;
-				// 	return
-				// }
-				//
-				// if (typeof result.data !== "undefined") {
-				// 	if (result.data.customCode === 4000) {
-				// 		errors["email"] = INFO.DATA_INCORRECT
-				// 		setErrors(errors);
-				// 		return
-				// 	}
-				// 	if (result.data.customCode === 4002) {
-				// 		errors["email"] = INFO.EMAIL_ALREADY_EXIST
-				// 		setErrors(errors);
-				// 		return
-				// 	}
-				// 	if (result.data.customCode === 4005) {
-				// 		errors["avatar"] = INFO.TOO_BIG_PHOTO
-				// 		setErrors(errors);
-				// 		return
-				// 	}
-				// }
-				//
-				// if (result.status === 500) {
-				// 	errors["email"] = INFO.SERVER_ERROR
-				// 	setErrors(errors);
-				// 	console.log(result);
-				// 	return
-				// }
-				//
-				// if (result.status !== 200) {
-				// 	errors["email"] = INFO.UNKNOWN_ERROR
-				// 	setErrors(errors);
-				// 	console.log(result);
-				// 	return
-				// }
-				console.log(values)
+				if (result.status === 200) {
+					window.location.href = configFront.URL + `${routes.CAMPAIGNS}`;
+					return
+				}
+
+				let errors = {
+					avatar: '',
+					title: '',
+					status: '',
+					effort: '',
+					date: '',
+					_brand: '',
+					_team_lead: '',
+					budget: ''
+				};
+
+				if (result.status === 403) {
+					window.location.href = configFront.URL + `${routes.CAMPAIGNS}`;
+					return
+				}
+
+				if (typeof result.data !== "undefined") {
+
+					if (result.data.customCode === 4005) {
+						errors["avatar"] = INFO.TOO_BIG_PHOTO
+						setErrors(errors);
+						return
+					}
+
+					if (result.data.customCode === 40012) {
+						errors["title"] = INFO.CAMPAIGN_ALREADY_EXIST
+						setErrors(errors);
+						return
+					}
+				}
+
+				if (result.status === 500) {
+					errors["title"] = INFO.SERVER_ERROR
+					setErrors(errors);
+					console.log(result);
+					return
+				}
+
+				if (result.status !== 200) {
+					errors["title"] = INFO.UNKNOWN_ERROR
+					setErrors(errors);
+					console.log(result);
+					return
+				}
 			}
 		}
 	}
@@ -582,7 +571,7 @@ return (
 						/>
 
 						{errors.title && errors.title.length ?
-							<div className={classes.errorDiv}>{errors.title}</div> : ''}
+							<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>{errors.title}</div> : ''}
 
 
 						<label className={classes.input_title}>Status</label>
@@ -593,9 +582,9 @@ return (
 								  onChange={(e) => handleChangeDropdown(e, 'status')}
 						/>
 
-						{errors.role && errors.role.length ?
+						{errors.status && errors.status.length ?
 							<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
-								{errors.role}</div> : ''}
+								{errors.status}</div> : ''}
 
 						<label className={classes.input_title}>Effort</label>
 						<Dropdown required
@@ -605,9 +594,9 @@ return (
 								  onChange={(e) => handleChangeDropdown(e, 'effort')}
 						/>
 
-						{errors.role && errors.role.length ?
+						{errors.effort && errors.effort.length ?
 							<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
-								{errors.role}</div> : ''}
+								{errors.effort}</div> : ''}
 
 						<div className={classes.wrapper}>
 							<div className={classes.wrapperColumn}>
@@ -621,12 +610,10 @@ return (
 									selected={values.start_date}
 									onChange={(date) => setValues({...values, start_date: date})}
 									popperClassName={classes.properClass}
-									// calendarClassName={classes.calendar}
 									placeholderText={'Select...'}
 								/>
-
-
 							</div>
+
 							<div className={classes.wrapperColumn}>
 								<label className={classes.input_title}>End Date</label>
 
@@ -645,6 +632,10 @@ return (
 							</div>
 						</div>
 
+						{errors.date && errors.date.length ?
+							<div className={`${classes.errorDiv} ${classes.roleErrorPos} ${classes.positionDate}`}>
+								{errors.date}</div> : ''}
+
 						<label className={classes.input_title}>Hashtags</label>
 						<ChipInput
 							value={values.hashtags}
@@ -655,8 +646,8 @@ return (
 							id={'hashTagdisabled'}
 						/>
 
-						{errors.title && errors.title.length ?
-							<div className={classes.errorDiv}>{errors.title}</div> : ''}
+						{/*{errors.title && errors.title.length ?*/}
+						{/*	<div className={classes.errorDiv}>{errors.title}</div> : ''}*/}
 
 						<div className={classes.checkBoxDiv}>
 							<input
@@ -682,9 +673,9 @@ return (
 									  onChange={(e) => handleChangeDropdown(e, '_brand')}
 							/>
 
-							{errors.role && errors.role.length ?
+							{errors._brand && errors._brand.length ?
 								<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
-									{errors.role}</div> : ''}
+									{errors._brand}</div> : ''}
 
 							<div className={classes.flexRow} id={'main'}>
 								<Modal loadBrands={loadBrands}/>
@@ -707,6 +698,10 @@ return (
 							  onChange={(e) => handleChangeDropdown(e, '_team_lead')}
 					/>
 
+					{errors._team_lead && errors._team_lead.length ?
+						<div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
+							{errors._team_lead}</div> : ''}
+
 					<div className={classes.role}>
 						<h3 className={classes.rightContainer_title}>Misc.</h3>
 					</div>
@@ -717,8 +712,8 @@ return (
 						   style={{display: 'none'}}
 						   onChange={(e) => selected(e)}
 						   ref={fileInput}
-
 					/>
+
 					<button className={classes.avatar} onClick={() => fileInput.current.click()}>
 						{values.avatar ? <img src={values.avatar.preview} style={{
 							minWidth: 64,
@@ -790,6 +785,11 @@ return (
 							   onWheel={(e) => wheelClean(e)}
 							   />
 					</div>
+
+					{errors.budget && errors.budget.length  ?
+					<Error color={{backgroundColor: '#FEEFEF', margin: '8px 0'}}
+						   colorRound={'colorRound'}  message={errors.budget}/> : ''}
+
 					<div className={classes.containerBudget}>
 
 						<div className={classes.mainToggleSwitch}>
