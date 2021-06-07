@@ -152,12 +152,14 @@
 		height: 32px;
 		margin-top: 8px;
 		margin-bottom: 16px;
-		border: 1px solid #BFBFBF;
 		box-sizing: border-box;
 		border-radius: 6px;
 		outline: none;
 		background: #FAFAFB;
+}
 
+.input_info_valid_title {
+		border: 1px solid #BFBFBF;
 }
 
 .rightContainer_title {
@@ -473,17 +475,32 @@ input:checked + label:before {
 		line-height: 17px;
 
 		letter-spacing: -0.35px;
-
 		color: rgba(56, 56, 56, 0.45);
-
 }
 
-.properClass {
-		/*width: 196px;*/
-}
-.calendar {
+/*.react-datepicker-wrapper::after {*/
+/*		!*background-image: url('../Items/Icons/caret-down.svg');*!*/
+/*		content: '';*/
+/*		border: solid black;*/
+/*		border-width: 0 3px 3px 0;*/
+/*		display: inline-block;*/
+/*		padding: 3px;*/
+/*		transform: rotate(45deg);*/
+/*		-webkit-transform: rotate(45deg);*/
+/*}*/
 
-		/*width: 196px;*/
+.arrow_down  {
+		width: 0;
+		height: 0;
+		position: relative;
+		left: 178px;
+		top: 2px;
+		z-index: 10;
+		pointer-events: none;
+}
+
+.arrow_down img {
+		pointer-events: none;
 }
 
 .clientDesc {
@@ -515,11 +532,30 @@ input:checked + label:before {
 }
 
 .hashtagInput {
-		min-height: 32px;
+		min-height: 27px !important;
 		width: 408px;
 		background: #FAFAFB;
 		border: 1px solid #BFBFBF !important;
 		box-sizing: border-box;
 		border-radius: 6px;
-		padding: 0;
+		padding: 1px 4px !important;
+}
+
+.hashtagInput > div {
+		min-height: 27px !important;
+		margin: 0 !important;
+
+}
+
+.hashtagInput > div > div {
+		height: 22px !important;
+		font-size: 14px !important;
+		line-height: 14px !important;
+		margin: 3px 3px !important;
+}
+
+.hashtagInput > div > div > input {
+		height: 16px !important;
+		font-size: 14px !important;
+		line-height: 14px !important;
 }

@@ -23,11 +23,11 @@ import UserService from "../../Services/userService";
 import BrandService from "../../Services/brand.service";
 import {ToggleSwitch} from 'react-dragswitch';
 import 'react-dragswitch/dist/index.css';
-import arrow from '../Items/Icons/arrow-left.svg'
-import {element} from "prop-types";
+import arrow from '../Items/Icons/caret-down.svg';
+// import {element} from "prop-types";
 import ChipInput from 'material-ui-chip-input';
 import Chip from '@material-ui/core/Chip';
-import {classNames} from "react-select/src/utils";
+// import {classNames} from "react-select/src/utils";
 
 let status = [
 	{
@@ -428,16 +428,13 @@ const Create_Campaigns = () => {
 		}
 
 
-		let ht = values.hashtags ? values.hashtags : [];
+		let ht = h.length ? h : [];
 		let st = values.start_date ? values.start_date : null;
 		let en = values.end_date ? values.end_date : null;
 		let av = values["avatar"] ? values['avatar'] : "";
 		const restore = {avatar: av, start_date: st, end_date: en, hashtags: ht}
 		if (b) {
 			restore.budget = b
-		}
-		if (h) {
-			restore.hashtags = h
 		}
 		setValues({...values, ...restore})
 
@@ -522,16 +519,11 @@ const Create_Campaigns = () => {
 	const checkboxHash = ({target: {checked}}) => {
 		let input = document.getElementById('hashTagdisabled');
 		let v = values;
+		v.hashtags = []
+		setValues({...v})
 		if (checked) {
-			delete v.hashtags;
-			setValues({...v})
-
-			input.setAttribute('disabled', 'disabled');
-
+			input.setAttribute('disabled', true);
 		} else {
-			v.hashtags = []
-
-			setValues({...v})
 			input.removeAttribute('disabled');
 		}
 	}
@@ -547,28 +539,20 @@ const Create_Campaigns = () => {
 		}
 		setValues({...v})
 	}
+
+
 	const handleAddChip = (chip) => {
-		if (chip) {
-			chip.forEach(value => {
-				const hash = values.hashtags.push(value);
-				setValues((prevState) => ({...prevState, hashtags: hash}))
-			})
-		}
-		setValues({...values});
+
+		const v = values;
+		v.hashtags.push(chip)
+		setValues({...v})
 	}
 
-	const handleDeleteChip = (deletedChip) => {
-		if (deletedChip) {
-
-			 const del = values.hashtags.filter((c, index) => {
-			 	if (c !== deletedChip) {
-
-				}
-			 });
-			 setValues({...values})
-		}
-		setValues({...values})
-
+	const handleDeleteChip = (chip) => {
+		const v = values;
+		let arr = values.hashtags.filter((value, i) => value !== chip)
+		v.hashtags = arr;
+		setValues({...v})
 	}
 
 
@@ -590,7 +574,7 @@ return (
 						<h3 className={classes.general}>Basic Information</h3>
 
 						<label className={classes.input_title}>Title</label>
-						<input className={!values.title ? classes.input_info : classes.input_info_valid}
+						<input className={!values.title ? classes.input_info : `${classes.input_info_valid} ${classes.input_info_valid_title}`}
 							   type='text'
 							   name='title'
 							   value={values.title}
@@ -605,7 +589,7 @@ return (
 						<Dropdown required
 								  options={status}
 								  name='status'
-								  valid={!!values.role}
+								  valid={!!values.status}
 								  onChange={(e) => handleChangeDropdown(e, 'status')}
 						/>
 
@@ -617,7 +601,7 @@ return (
 						<Dropdown required
 								  options={effort}
 								  name='Effort'
-								  valid={!!values.role}
+								  valid={!!values.effort}
 								  onChange={(e) => handleChangeDropdown(e, 'effort')}
 						/>
 
@@ -628,31 +612,34 @@ return (
 						<div className={classes.wrapper}>
 							<div className={classes.wrapperColumn}>
 								<label className={classes.input_title}>Start Date</label>
+
+								<div className={classes.arrow_down}>
+									<img src={arrow} alt="arrow"/>
+								</div>
 								<DatePicker
 									className={classes.myDatePicker}
 									selected={values.start_date}
 									onChange={(date) => setValues({...values, start_date: date})}
 									popperClassName={classes.properClass}
-									calendarClassName={classes.calendar}
-									styles={{backgroundImage: `url(${arrow})`}}
+									// calendarClassName={classes.calendar}
 									placeholderText={'Select...'}
 								/>
 
-								{/*<DropdownSmall requiredF*/}
-								{/*			   name='status'*/}
-								{/*			   valid={!!values.role}*/}
-								{/*			   onChange={(e) => handleChangeDropdown(e)}*/}
-								{/*/>*/}
+
 							</div>
 							<div className={classes.wrapperColumn}>
 								<label className={classes.input_title}>End Date</label>
+
+								<div className={classes.arrow_down}>
+									<img src={arrow} alt="arrow"/>
+								</div>
+
 								<DatePicker
 									className={classes.myDatePicker}
 									selected={values.end_date}
 									onChange={(date) => setValues({...values, end_date: date})}
 									popperClassName={classes.properClass}
 									calendarClassName={classes.calendar}
-
 									placeholderText={'Select...'}
 								/>
 							</div>
@@ -660,35 +647,13 @@ return (
 
 						<label className={classes.input_title}>Hashtags</label>
 						<ChipInput
-							value={values.hashtag}
-							onChange={(chip) => { handleAddChip(chip); handleDeleteChip(chip)}}
+							value={values.hashtags}
+							onAdd={(chip) => handleAddChip(chip)}
+							onDelete={(chip) => handleDeleteChip(chip)}
 							className={classes.hashtagInput}
 							disableUnderline={true}
-							 // chipRenderer = {(style) => {
-								//  style={{ height: '20px', width: '30px', margin: '8px 8px 0 0'}}
-							 // }}
-							// chipRenderer={({ value, isFocused, isDisabled, handleClick, handleRequestDelete }, key) => (
-								// <Chip
-								// 	key={key}
-								// 	value={values.hashtag}
-								// 	style={{ height: '20px', width: '30px', margin: '8px 8px 0 0'}}
-								// 	backgroundColor={isFocused ? 'green' : 'red'}
-								// >
-								// </Chip>)}
-							// onDelete={(deletedChip) => handleDeleteChip(deletedChip)}
+							id={'hashTagdisabled'}
 						/>
-						{/*<Chip*/}
-						{/*	// icon={icon}*/}
-						{/*	label={values.hashtags}*/}
-						{/*	onDelete={values.hashtags ? handleDelete(values.hashtags) : ''}*/}
-						{/*	className={classes.chip}*/}
-						{/*/>*/}
-						{/*<input className={classes.input_info_valid} id={'hashTagdisabled'}*/}
-						{/*	   type='text'*/}
-						{/*	   name='hashtag'*/}
-						{/*	   value={values.hashtag}*/}
-						{/*	   onInput={(e) => handleChange(e)}*/}
-						{/*/>*/}
 
 						{errors.title && errors.title.length ?
 							<div className={classes.errorDiv}>{errors.title}</div> : ''}
@@ -713,7 +678,7 @@ return (
 							<Dropdown required
 									  options={brands}
 									  name='_brand'
-									  valid={!!values.role}
+									  valid={!!values._brand}
 									  onChange={(e) => handleChangeDropdown(e, '_brand')}
 							/>
 
@@ -738,7 +703,7 @@ return (
 					<Dropdown required
 							  options={TL}
 							  name='_team_lead'
-							  valid={!!values.role}
+							  valid={!!values._team_lead}
 							  onChange={(e) => handleChangeDropdown(e, '_team_lead')}
 					/>
 

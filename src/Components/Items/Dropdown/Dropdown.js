@@ -1,7 +1,7 @@
 import React from 'react';
 import Select, {components} from 'react-select';
 
-import arrow from '../Icons/caret-down.svg'
+import arrow from '../Icons/caret-down.svg';
 
 const DropdownIndicator = props => {
     return (
@@ -25,6 +25,7 @@ const Dropdown = ({options, name, onChange, defaultValue, valid = false}) => {
                 border: valid ? '1px solid #BFBFBF' : '1px solid #DA1414',
                 padding: '0 0 1px',
                 boxShadow: 'none',
+                cursor: 'pointer',
                 outline: 'none',
                 '&:active': {
                     outline: 0,
