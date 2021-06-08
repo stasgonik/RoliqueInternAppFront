@@ -368,12 +368,15 @@ export const EditCampaign = () => {
     const check = (e, setter, name) => {
         setter(e);
         const v = values;
+        if (!v.budget.subBudgets) {
+            v.budget.subBudgets = {}
+        }
         if (!e) {
             delete v.budget.subBudgets[name];
         }
-//        if (e) {
-//            v.budget.subBudgets[name] = 0;
-//        }
+       // if (e) {
+       //     v.budget.subBudgets[name] = 0;
+       // }
         setValues({ ...v })
     }
 
@@ -804,32 +807,32 @@ export const EditCampaign = () => {
                                 <ToggleSwitch className={classes.toggleSwitch}
                                               onColor={'#FF650E'}
                                     //                                              checked={toggleInfluencerBudget}
-                                              checked={values.budget.subBudgets.influencerBudget || toggleInfluencerBudget}
+                                              checked={values.budget?.subBudgets?.influencerBudget || toggleInfluencerBudget}
                                               onChange={(e) => check(e, setToggleInfluencerBudget, 'influencerBudget')}
                                 />
                                 <ToggleSwitch onColor={'#FF650E'}
                                               className={classes.toggleSwitch}
-                                              checked={values.budget.subBudgets.socialAdsMediaBudget || toggleSocialBudget}
+                                              checked={values.budget?.subBudgets?.socialAdsMediaBudget || toggleSocialBudget}
                                               onChange={(e) => check(e, setToggleSocialBudget, 'socialAdsMediaBudget')}
                                 />
                                 <ToggleSwitch onColor={'#FF650E'}
                                               className={classes.toggleSwitch}
-                                              checked={values.budget.subBudgets.productionBudget || toggleProductionBudget}
+                                              checked={values.budget?.subBudgets?.productionBudget || toggleProductionBudget}
                                               onChange={(e) => check(e, setToggleProductionBudget, 'productionBudget')}
                                 />
                                 <ToggleSwitch onColor={'#FF650E'}
                                               className={classes.toggleSwitch}
-                                              checked={values.budget.subBudgets.travelBudget || toggleTravelBudget}
+                                              checked={values.budget?.subBudgets?.travelBudget || toggleTravelBudget}
                                               onChange={(e) => check(e, setToggleTravelBudget, 'travelBudget')}
                                 />
                                 <ToggleSwitch onColor={'#FF650E'}
                                               className={classes.toggleSwitch}
-                                              checked={values.budget.subBudgets.handlingFee || toggleHandlingFee}
+                                              checked={values.budget?.subBudgets?.handlingFee || toggleHandlingFee}
                                               onChange={(e) => check(e, setToggleHandlingFee, 'handlingFee')}
                                 />
                                 <ToggleSwitch onColor={'#FF650E'}
                                               className={classes.toggleSwitch}
-                                              checked={values.budget.subBudgets.otherBudget || toggleOtherBudget}
+                                              checked={values.budget?.subBudgets?.otherBudget || toggleOtherBudget}
                                               onChange={(e) => check(e, setToggleOtherBudget, 'otherBudget')}
                                 />
                             </div>
@@ -837,7 +840,7 @@ export const EditCampaign = () => {
 
                             <div className={classes.inputBudget}>
                                 <div
-                                    className={!values.budget.subBudgets.influencerBudget && !toggleInfluencerBudget ? classes.inputDisabled : ''}>
+                                    className={!values.budget?.subBudgets?.influencerBudget && !toggleInfluencerBudget ? classes.inputDisabled : ''}>
                                     <label className={classes.input_title}>Influencer Budget</label>
                                     <div
                                         className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
@@ -845,92 +848,92 @@ export const EditCampaign = () => {
                                         <input className={`${classes.input_info_budget}`}
                                                type={'number'}
                                                min="0"
-                                               disabled={values.budget && !values.budget.subBudgets.influencerBudget && !toggleInfluencerBudget}
+                                               disabled={values.budget && !values.budget.subBudgets?.influencerBudget && !toggleInfluencerBudget}
                                                name='influencerBudget'
-                                               value={!values.budget || !values.budget.subBudgets['influencerBudget'] ? '' : values.budget.subBudgets['influencerBudget']}
+                                               value={!values.budget || !values.budget.subBudgets?.influencerBudget ? '' : values.budget.subBudgets['influencerBudget']}
                                                onInput={(e) => handleSubBudgetChange(e)}/>
                                     </div>
                                 </div>
 
                                 <div
-                                    className={!values.budget.subBudgets.socialAdsMediaBudget && !toggleSocialBudget ? classes.inputDisabled : ''}>
+                                    className={!values.budget?.subBudgets?.socialAdsMediaBudget && !toggleSocialBudget ? classes.inputDisabled : ''}>
                                     <label className={classes.input_title}>Social Ads Media Budget</label>
                                     <div
                                         className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
                                         <span className="prefix">$</span>
                                         <input className={`${classes.input_info_budget}`}
-                                               disabled={values.budget && !values.budget.subBudgets.socialAdsMediaBudget && !toggleSocialBudget}
+                                               disabled={values.budget && !values.budget.subBudgets?.socialAdsMediaBudget && !toggleSocialBudget}
                                                type={'number'}
                                                min="0"
                                                name='socialAdsMediaBudget'
-                                               value={!values.budget || !values.budget.subBudgets['socialAdsMediaBudget'] ? '' : values.budget.subBudgets['socialAdsMediaBudget']}
+                                               value={!values.budget || !values.budget.subBudgets?.socialAdsMediaBudget ? '' : values.budget.subBudgets['socialAdsMediaBudget']}
                                                onInput={(e) => handleSubBudgetChange(e)}/>
                                     </div>
                                 </div>
 
                                 <div
-                                    className={!values.budget.subBudgets.productionBudget && !toggleProductionBudget ? classes.inputDisabled : ''}>
+                                    className={!values.budget?.subBudgets?.productionBudget && !toggleProductionBudget ? classes.inputDisabled : ''}>
                                     <label className={classes.input_title}>Production Budget</label>
                                     <div
                                         className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
                                         <span className="prefix">$</span>
                                         <input className={`${classes.input_info_budget}`}
-                                               disabled={values.budget && !values.budget.subBudgets.productionBudget && !toggleProductionBudget}
+                                               disabled={values.budget && !values.budget.subBudgets?.productionBudget && !toggleProductionBudget}
                                                type={'number'}
                                                min="0"
                                                name='productionBudget'
-                                               value={!values.budget || !values.budget.subBudgets['productionBudget'] ? '' : values.budget.subBudgets['productionBudget']}
+                                               value={!values.budget || !values.budget.subBudgets?.productionBudget ? '' : values.budget.subBudgets['productionBudget']}
                                                onInput={(e) => handleSubBudgetChange(e)}
                                         />
                                     </div>
                                 </div>
 
                                 <div
-                                    className={!values.budget.subBudgets.travelBudget && !toggleTravelBudget ? classes.inputDisabled : ''}>
+                                    className={!values.budget?.subBudgets?.travelBudget && !toggleTravelBudget ? classes.inputDisabled : ''}>
                                     <label className={classes.input_title}>Travel Budget</label>
                                     <div
                                         className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
                                         <span className="prefix">$</span>
                                         <input className={`${classes.input_info_budget}`}
-                                               disabled={values.budget && !values.budget.subBudgets.travelBudget && !toggleTravelBudget}
+                                               disabled={values.budget && !values.budget.subBudgets?.travelBudget && !toggleTravelBudget}
                                                type={'number'}
                                                min="0"
                                                name='travelBudget'
-                                               value={!values.budget || !values.budget.subBudgets['travelBudget'] ? '' : values.budget.subBudgets['travelBudget']}
+                                               value={!values.budget || !values.budget.subBudgets?.travelBudget ? '' : values.budget.subBudgets['travelBudget']}
                                                onInput={(e) => handleSubBudgetChange(e)}
                                         />
                                     </div>
                                 </div>
 
                                 <div
-                                    className={!values.budget.subBudgets.handlingFee && !toggleHandlingFee ? classes.inputDisabled : ''}>
+                                    className={!values.budget?.subBudgets?.handlingFee && !toggleHandlingFee ? classes.inputDisabled : ''}>
                                     <label className={classes.input_title}>Handling Fee</label>
                                     <div
                                         className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
                                         <span className="prefix">$</span>
                                         <input className={`${classes.input_info_budget}`}
-                                               disabled={values.budget && !values.budget.subBudgets.handlingFee && !toggleHandlingFee}
+                                               disabled={values.budget && !values.budget.subBudgets?.handlingFee && !toggleHandlingFee}
                                                type={'number'}
                                                min="0"
                                                name='handlingFee'
-                                               value={!values.budget || !values.budget.subBudgets['handlingFee'] ? '' : values.budget.subBudgets['handlingFee']}
+                                               value={!values.budget || !values.budget.subBudgets?.handlingFee ? '' : values.budget.subBudgets['handlingFee']}
                                                onInput={(e) => handleSubBudgetChange(e)}
                                         />
                                     </div>
                                 </div>
 
                                 <div
-                                    className={!values.budget.subBudgets.otherBudget && !toggleOtherBudget ? classes.inputDisabled : ''}>
+                                    className={!values.budget?.subBudgets?.otherBudget && !toggleOtherBudget ? classes.inputDisabled : ''}>
                                     <label className={classes.input_title}> Other Budget</label>
                                     <div
                                         className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
                                         <span className="prefix">$</span>
                                         <input className={`${classes.input_info_budget}`}
-                                               disabled={values.budget && !values.budget.subBudgets.otherBudget && !toggleOtherBudget}
+                                               disabled={values.budget && !values.budget.subBudgets?.otherBudget && !toggleOtherBudget}
                                                type={'number'}
                                                min="0"
                                                name='otherBudget'
-                                               value={!values.budget || !values.budget.subBudgets['otherBudget'] ? '' : values.budget.subBudgets['otherBudget']}
+                                               value={!values.budget || !values.budget.subBudgets?.otherBudget ? '' : values.budget.subBudgets['otherBudget']}
                                                onWheel={(e) => wheelClean(e)}
                                                onInput={(e) => handleSubBudgetChange(e)}
                                         />
