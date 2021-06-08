@@ -9,6 +9,7 @@ const routes = {
     CHANGE_PASSWORD: "changePassword",
     USER_ID: 'userId',
     INFLUENCER_ID: 'influencerId',
-    CAMPAIGN_ID: "campaignId"
+    CAMPAIGN_ID: "campaignId",
+    PLANNING: "planning"
 }
 export default routes
