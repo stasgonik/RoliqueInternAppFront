@@ -79,6 +79,7 @@ const InfluencerDetails = () => {
                              btnHeader={classes.btnHeader}
                              titleBtnEdit={'Edit'}
                              EditInf={classes.EditInf}
+                             item={'influencer'}
                              icon={{background: `url(${edit}) no-repeat`, backgroundPosition: 'left 8px top 8px'}}
             />
             {isLoading ?

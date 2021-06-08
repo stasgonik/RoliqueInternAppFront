@@ -6,10 +6,13 @@ import './UsersListHeader.css'
 import routes from "../../../Constants/routes.enum";
 
 
-const UsersListHeader = ({upArrow, titleBtn, titleHeader, title, titleBtnEdit, EditInf, icon}) => {
+const UsersListHeader = ({upArrow, titleBtn, titleHeader, title, titleBtnEdit, EditInf, icon, item}) => {
     let params = useParams();
     if (!params[routes.INFLUENCER_ID]) {
         params[routes.INFLUENCER_ID] = 0
+    }
+    if (!params[routes.CAMPAIGN_ID]) {
+        params[routes.CAMPAIGN_ID] = 0
     }
 
     const myFunction = () => {
@@ -21,10 +24,15 @@ const UsersListHeader = ({upArrow, titleBtn, titleHeader, title, titleBtnEdit, E
                 <h1 className={titleHeader}>{title}</h1>
             </div>
 
-            {(AuthService.getUserRole() === 'admin' || AuthService.getUserRole() === 'manager')? <Link to={`${params[routes.INFLUENCER_ID]}/${routes.EDIT}`} className={EditInf ? 'EditSrc' : 'DispNone'}
+            {(AuthService.getUserRole() === 'admin' || AuthService.getUserRole() === 'manager') && item === 'influencer' ?
+                <Link to={`${params[routes.INFLUENCER_ID]}/${routes.EDIT}`} className={EditInf ? 'EditSrc' : 'DispNone'}
                    style={icon}>
-                <div className={EditInf}>{titleBtnEdit}</div>
-            </Link> : ''}
+                    <div className={EditInf}>{titleBtnEdit}</div>
+                </Link> : (AuthService.getUserRole() === 'admin' || AuthService.getUserRole() === 'manager') && item === 'campaign'?
+                    <Link to={`${routes.EDIT}`} exact className={EditInf ? 'EditSrc' : 'DispNone'}
+                          style={icon}>
+                        <div className={EditInf}>{titleBtnEdit}</div>
+                    </Link> : ''}
 
             <div
                 className={'dropdown'}>{(AuthService.getUserRole() === 'admin' || AuthService.getUserRole() === 'manager') ?

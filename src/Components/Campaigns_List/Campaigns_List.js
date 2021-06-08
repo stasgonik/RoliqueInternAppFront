@@ -957,7 +957,7 @@ const Campaigns_List = () => {
                                             <span>$60.000 (60%)</span>
                                         </div>
                                     </div>
-                                    <Link to={`${routes.CAMPAIGNS}/${item._id}`}>
+                                    <Link to={`${routes.CAMPAIGNS}/${item._id}/${routes.PLANNING}`}>
                                         <div className={classes.tableBtn}>
                                             <div className={classes.Test}>
                                                 <div className={classes.btnPosition}>
