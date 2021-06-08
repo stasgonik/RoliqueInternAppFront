@@ -126,8 +126,9 @@
 }
 
 .input_title {
-		margin-bottom: 8px;
-		margin-top: 16px;
+		margin-bottom: 6px;
+		margin-top: 8px;
+		/*!*margin-top: 16px;*!*/
 		font-family: Helvetica Neue, sans-serif;
 		font-style: normal;
 		font-weight: normal;
@@ -254,7 +255,6 @@
 .wrapper {
 		width: 100%;
 		display: flex;
-		justify-content: space-between;
 }
 
 .wrapperInput {
@@ -262,7 +262,7 @@
 }
 
 .wrapperColumn {
-		width: 100%;
+		width: 210px;
 		display: flex;
 		flex-direction: column;
 }
@@ -275,7 +275,7 @@
 
 .checkBoxDiv label {
 		margin-bottom: 0;
-		margin-left: 12px;
+		/*margin-left: 12px;*/
 }
 
 .checkBoxDiv input {
@@ -394,24 +394,24 @@ input:checked + label:before {
 
 .inputTotalBudget {
 		margin-top: 33px;
-		margin-bottom: 8px;
+		/*margin-bottom: 8px;*/
 }
 
 .input_info_budget {
-
 		padding-left: 12px;
 		box-sizing: border-box;
 		background: #FAFAFB;
 }
 
 .toggleSwitch {
-		margin-bottom: 49px !important;
+		margin-bottom: 52px !important;
 		width: 42px !important;
 		height: 24px !important;
 }
 
 .inputBudget > div {
-		margin-bottom: 11px;
+		/*margin-bottom: 11px;*/
+		margin-top: 16px;
 }
 
 .inputBox {
@@ -441,11 +441,12 @@ input:checked + label:before {
 
 .containerBudget {
 		display: flex;
+		margin-left: -8px;
 }
 
 .mainToggleSwitch .toggleSwitch {
 		display: flex;
-		margin-top: 29px;
+		margin-top: 48px;
 		margin-right: 36px;
 }
 
@@ -466,6 +467,7 @@ input:checked + label:before {
 .myDatePicker {
 		width: 196px;
 		height: 32px;
+		margin-right: 10px;
 		background: #FAFAFB;
 		border: 1px solid #BFBFBF;
 		box-sizing: border-box;
@@ -568,4 +570,14 @@ input:checked + label:before {
 
 .positionDate {
 		text-align: center;
+}
+
+@media screen and (max-width: 1200px)  {
+		.mainContainer {
+				flex-wrap: wrap;
+
+		}
+		.rightContainer {
+				margin-left: 180px;
+		}
 }

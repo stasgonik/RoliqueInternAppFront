@@ -21,7 +21,7 @@ const Dropdown = ({options, name, onChange, defaultValue, valid = false}) => {
                 boxSizing: 'border-box',
                 height: 32,
                 minHeight: 32,
-                width: 402,
+                width: 408,
                 border: valid ? '1px solid #BFBFBF' : '1px solid #DA1414',
                 padding: '0 0 3px',
                 boxShadow: 'none',

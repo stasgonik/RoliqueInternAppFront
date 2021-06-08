@@ -886,7 +886,7 @@ return (
 							</div>
 
 							<div className={!toggleHandlingFee ? classes.inputDisabled : ''}>
-								<label className={classes.input_title}>Other Budget</label>
+								<label className={classes.input_title}>Handling Fee</label>
 								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
 									<span className="prefix">$</span>
 									<input className={`${classes.input_info_budget}`}
@@ -901,7 +901,7 @@ return (
 							</div>
 
 							<div className={!toggleOtherBudget ? classes.inputDisabled : ''}>
-								<label className={classes.input_title}>Handling Fee</label>
+								<label className={classes.input_title}> Other Budget</label>
 								<div className={`${classes.input_info_valid} ${classes.inputBox} ${classes.inputBoxSize}`}>
 									<span className="prefix">$</span>
 									<input className={`${classes.input_info_budget}`}
