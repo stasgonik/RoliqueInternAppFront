@@ -1,5 +1,5 @@
 import React from 'react';
-import Select, {components} from 'react-select';
+import Select, { components } from 'react-select';
 
 import arrow from '../Icons/caret-down.svg';
 
@@ -11,7 +11,7 @@ const DropdownIndicator = props => {
     );
 };
 
-const Dropdown = ({options, name, onChange, defaultValue, valid = false}) => {
+const Dropdown = ({ options, name, onChange, defaultValue, valid = false }) => {
 
     const colorStyles = {
         control: (styles) => {
@@ -50,7 +50,7 @@ const Dropdown = ({options, name, onChange, defaultValue, valid = false}) => {
 
         },
 
-        option: (styles, {isFocused}) => {
+        option: (styles, { isFocused }) => {
             return {
                 ...styles,
                 background: isFocused ? '#E3E3E3' : '#FFFFFF',

@@ -19,6 +19,7 @@ import UsersList from "./Components/UsersList/UsersList";
 import Campaigns_List from "./Components/Campaigns_List/Campaigns_List";
 import Create_Campaigns from "./Components/Create_Campaign/Create_Campaigns";
 import Campaign_Planning from "./Components/Campaign_Planning/Campaign_Planning";
+import { EditCampaign } from "./Components/Edit_Campaign";
 
 export default function App(props) {
     return (
@@ -27,16 +28,24 @@ export default function App(props) {
                 <Route path={'/'} exact{...props} component={Login}/>
                 <Route path={`/${routes.USERS}`} exact{...props} component={UsersList}/>
                 <Route path={`/${routes.USERS}/${routes.CREATE}`} exact {...props} component={CreateInternalUser}/>
-                <Route path={`/${routes.USERS}/:${routes.USER_ID}/${routes.EDIT}`} exact {...props} component={EditInternalUser}/>
-                <Route path={`/${routes.FORGOT_PASSWORD}/${routes.EMAIL_FORM}`} exact {...props} component={ForgotPassEmailForm}/>
-                <Route path={`/${routes.FORGOT_PASSWORD}/${routes.CHANGE_PASSWORD}`} exact {...props} component={ForgotPassForm}/>
+                <Route path={`/${routes.USERS}/:${routes.USER_ID}/${routes.EDIT}`} exact {...props}
+                       component={EditInternalUser}/>
+                <Route path={`/${routes.FORGOT_PASSWORD}/${routes.EMAIL_FORM}`} exact {...props}
+                       component={ForgotPassEmailForm}/>
+                <Route path={`/${routes.FORGOT_PASSWORD}/${routes.CHANGE_PASSWORD}`} exact {...props}
+                       component={ForgotPassForm}/>
                 <Route path={`/${routes.INFLUENCERS}`} exact {...props} component={Influencers_List}/>
-                <Route path={`/${routes.INFLUENCERS}/${routes.CREATE}`} exact {...props}  component={CreateInfluencer}/>
-                <Route path={`/${routes.INFLUENCERS}/:${routes.INFLUENCER_ID}`} exact {...props} component={InfluencerDetails}/>
-                <Route path={`/${routes.INFLUENCERS}/:${routes.INFLUENCER_ID}/${routes.EDIT}`} exact {...props} component={EditInfluencer}/>
+                <Route path={`/${routes.INFLUENCERS}/${routes.CREATE}`} exact {...props} component={CreateInfluencer}/>
+                <Route path={`/${routes.INFLUENCERS}/:${routes.INFLUENCER_ID}`} exact {...props}
+                       component={InfluencerDetails}/>
+                <Route path={`/${routes.INFLUENCERS}/:${routes.INFLUENCER_ID}/${routes.EDIT}`} exact {...props}
+                       component={EditInfluencer}/>
                 <Route path={`/${routes.CAMPAIGNS}`} exact {...props} component={Campaigns_List}/>
                 <Route path={`/${routes.CAMPAIGNS}/${routes.CREATE}`} exact {...props} component={Create_Campaigns}/>
-                <Route path={`/${routes.CAMPAIGNS}/:${routes.CAMPAIGN_ID}/${routes.PLANNING}`} exact {...props} component={Campaign_Planning}/>
+                <Route path={`/${routes.CAMPAIGNS}/:${routes.CAMPAIGN_ID}/${routes.PLANNING}`} exact {...props}
+                       component={Campaign_Planning}/>
+                <Route path={`/${routes.CAMPAIGNS}/:${routes.CAMPAIGN_ID}/${routes.EDIT}`} exact {...props}
+                       component={EditCampaign}/>
             </Switch>
         </Router>
     );

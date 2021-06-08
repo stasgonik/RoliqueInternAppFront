@@ -7,12 +7,12 @@ class _endpoint {
 
 export default class CampaignService {
     static async getCampaigns(queryReq) {
-        try{
-            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Campaigns}`,{
+        try {
+            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Campaigns}`, {
                 params: queryReq
             });
 
-            if(result.status === 200) {
+            if (result.status === 200) {
                 return result.data
             }
         } catch (e) {
@@ -22,10 +22,10 @@ export default class CampaignService {
     }
 
     static async getSingleCampaign(id) {
-        try{
+        try {
             const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Campaigns}${id}`);
 
-            if(result.status === 200) {
+            if (result.status === 200) {
                 return result.data
             }
         } catch (e) {
@@ -35,7 +35,7 @@ export default class CampaignService {
     }
 
     static async postCampaign(body) {
-        try{
+        try {
             const result = await axiosInstance.post(`${configServer.URL}${_endpoint.Campaigns}`, body);
 
             return result
@@ -45,8 +45,8 @@ export default class CampaignService {
         }
     }
 
-    static async editCampaign(body,id) {
-        try{
+    static async updateCampaign(body, id) {
+        try {
             const result = await axiosInstance.put(`${configServer.URL}${_endpoint.Campaigns}${id}`, body);
 
             return result
@@ -55,4 +55,5 @@ export default class CampaignService {
             return e
         }
     }
+
 }
