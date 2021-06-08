@@ -11,13 +11,9 @@ import leftArrow from "../Items/Icons/arrow-left.svg";
 import {INFO} from "../../Constants/messages";
 import Modal from '../Items/Modal_PopUp/Modal_PopUp';
 import Dropdown from "../Items/Dropdown/Dropdown";
-import DropdownSmall from '../Items/Dropdown_Small/Dropdown-Small';
-import regexp from "../../Constants/regexp.enum";
-import userService from "../../Services/userService";
 import configFront from "../../Constants/configFront";
 import routes from "../../Constants/routes.enum";
-import AuthService from "../../Services/auth.service";
-import plus from '../../img/Create_Campaign/Icon.svg';
+// import plus from '../../img/Create_Campaign/Icon.svg';
 import CampaignService from "../../Services/campaign.service";
 import UserService from "../../Services/userService";
 import BrandService from "../../Services/brand.service";
@@ -153,8 +149,6 @@ const Create_Campaigns = () => {
 	const [toggleTravelBudget, setToggleTravelBudget] = useState(false);
 	const [toggleHandlingFee, setToggleHandlingFee] = useState(false);
 	const [toggleOtherBudget, setToggleOtherBudget] = useState(false);
-	const [startDate, setStartDate] = useState(null);
-	const [endDate, setEndDate] = useState(null);
 
 	const fileInput = useRef(null);
 	// const toggleInfluencerBudget = useRef(null);
@@ -379,11 +373,14 @@ const Create_Campaigns = () => {
 
 	const check = (e, setter, name) => {
 		setter(e);
+		const v = values;
 		if (!e) {
-			const v = values;
 			delete v.budget.subBudgets[name];
-			setValues({...v})
 		}
+		if (e) {
+			v.budget.subBudgets[name] = 0;
+		}
+		setValues({...v})
 	}
 
 	const saveChanges = async () => {
