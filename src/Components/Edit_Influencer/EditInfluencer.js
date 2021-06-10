@@ -223,7 +223,7 @@ const EditInfluencer = () => {
                     if (!value.match(regexp.PROFILE_REGEXP)) {
                         errProf = INFO.PROFILE_REGEX
                     }
-                console.log(normalFoll)
+                    console.log(normalFoll)
                     if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
                         errFoll = INFO.FOLLOWERS_REGEX
                     }
@@ -525,215 +525,215 @@ const EditInfluencer = () => {
                     <img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
                     <p>Please wait...</p>
                 </div>
-            : <div className={classes.mainContainer}>
-                <section className={classes.leftContainer}>
-                    <h3 className={classes.general}>General</h3>
+                : <div className={classes.mainContainer}>
+                    <section className={classes.leftContainer}>
+                        <h3 className={classes.general}>General</h3>
 
-                    <label className={classes.input_title}>First Name</label>
-                    <input className={classes.input_info_left}
-                           type='text'
-                           name='first_name'
-                           defaultValue={values.first_name}
-                           onInput={(e) => handleChange(e)}
-                    />
+                        <label className={classes.input_title}>First Name</label>
+                        <input className={classes.input_info_left}
+                               type='text'
+                               name='first_name'
+                               defaultValue={values.first_name}
+                               onInput={(e) => handleChange(e)}
+                        />
 
-                    {errors.first_name && errors.first_name.length ?
-                        <div className={classes.errorDiv}>{errors.first_name}</div> : ''}
+                        {errors.first_name && errors.first_name.length ?
+                            <div className={classes.errorDiv}>{errors.first_name}</div> : ''}
 
-                    <label className={classes.input_title}>Last Name</label>
-                    <input className={classes.input_info_left}
-                           type='text'
-                           name='last_name'
-                           defaultValue={values.last_name}
-                           onInput={(e) => handleChange(e)}/>
+                        <label className={classes.input_title}>Last Name</label>
+                        <input className={classes.input_info_left}
+                               type='text'
+                               name='last_name'
+                               defaultValue={values.last_name}
+                               onInput={(e) => handleChange(e)}/>
 
-                    {errors.last_name && errors.last_name.length ?
-                        <div className={classes.errorDiv}>{errors.last_name}</div> : ''}
+                        {errors.last_name && errors.last_name.length ?
+                            <div className={classes.errorDiv}>{errors.last_name}</div> : ''}
 
 
-                    <label className={classes.input_title}>Birthdate</label>
-                    <input className={classes.input_info_left}
-                           type='date'
-                           name='birthdate'
-                           defaultValue={values.birthdate}
-                           placeholder={''}
-                           onInput={(e) => handleChange(e)}/>
+                        <label className={classes.input_title}>Birthdate</label>
+                        <input className={classes.input_info_left}
+                               type='date'
+                               name='birthdate'
+                               defaultValue={values.birthdate}
+                               placeholder={''}
+                               onInput={(e) => handleChange(e)}/>
 
-                    <label className={classes.input_title}>Profession</label>
-                    <input className={`${classes.input_info_left}`}
-                           type='text'
-                           name='profession'
-                           defaultValue={values.profession}
-                           onInput={(e) => handleChange(e)}/>
+                        <label className={classes.input_title}>Profession</label>
+                        <input className={`${classes.input_info_left}`}
+                               type='text'
+                               name='profession'
+                               defaultValue={values.profession}
+                               onInput={(e) => handleChange(e)}/>
 
-                    {errors.profession && errors.profession.length ?
-                        <div className={classes.errorDiv}>{errors.profession}</div> : ''}
+                        {errors.profession && errors.profession.length ?
+                            <div className={classes.errorDiv}>{errors.profession}</div> : ''}
 
-                    <p className={classes.profile}>Profile Picture</p>
-                    <input type='file'
-                           name='avatar'
-                           style={{display: 'none'}}
-                           onChange={(e) => selected(e)}
-                           ref={fileInput}
-                    />
-                    <button className={classes.avatar} onClick={() => fileInput.current.click()}>
-                        {values.profile_picture || edit.profile_picture ? <img
-                            src={typeof edit.profile_picture === 'object' ? `${edit.profile_picture.preview}` : `${values.profile_picture}`}
-                            style={{
-                                width: 64,
-                                height: 64,
-                                borderRadius: 50,
-                            }} alt={'alt'}/> : '+'}
-                    </button>
+                        <p className={classes.profile}>Profile Picture</p>
+                        <input type='file'
+                               name='avatar'
+                               style={{display: 'none'}}
+                               onChange={(e) => selected(e)}
+                               ref={fileInput}
+                        />
+                        <button className={classes.avatar} onClick={() => fileInput.current.click()}>
+                            {values.profile_picture || edit.profile_picture ? <img
+                                src={typeof edit.profile_picture === 'object' ? `${edit.profile_picture.preview}` : `${values.profile_picture}`}
+                                style={{
+                                    width: 64,
+                                    height: 64,
+                                    borderRadius: 50,
+                                }} alt={'alt'}/> : '+'}
+                        </button>
 
-                    {errors.avatar && errors.avatar.length ?
-                        <div className={classes.errorDiv}>{errors.avatar}</div> : ''}
-                </section>
+                        {errors.avatar && errors.avatar.length ?
+                            <div className={classes.errorDiv}>{errors.avatar}</div> : ''}
+                    </section>
 
-                <section className={classes.rightContainer}>
-                    <div className={`${classes.div_helper}`}>
-                        <h3 className={classes.rightContainer_title}>Social Profiles</h3>
-                        <div className={classes.tooltip}>
-                            <Tooltip align='center' text={INFO.message}/>
+                    <section className={classes.rightContainer}>
+                        <div className={`${classes.div_helper}`}>
+                            <h3 className={classes.rightContainer_title}>Social Profiles</h3>
+                            <div className={classes.tooltip}>
+                                <Tooltip align='center' text={INFO.message}/>
+                            </div>
+                            <label className={`${classes.input_title}`}>Instagram</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='instagram_profile'
+                                   disabled={false}
+                                   defaultValue={values.instagram_profile && values.instagram_profile}
+                                   ref={instagram_profile}
+                                   onInput={(e) => handleChange(e)}/>
+
+                            {errors['instagram_profile'] && errors['instagram_profile'].length ?
+                                <div className={classes.errorDiv}>{errors['instagram_profile']}</div> : ''}
+
+                            <label className={`${classes.input_title}`}>YouTube</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   defaultValue={values.youtube_profile && values.youtube_profile}
+                                   name='youtube_profile'
+                                   ref={youtube_profile}
+                                   onInput={(e) => handleChange(e)}/>
+
+                            {errors['youtube_profile'] && errors['youtube_profile'].length ?
+                                <div className={classes.errorDiv}>{errors['youtube_profile']}</div> : ''}
+
+                            <label className={`${classes.input_title}`}>Facebook</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='facebook_profile'
+                                   defaultValue={values.facebook_profile && values.facebook_profile}
+                                   ref={facebook_profile}
+                                   onInput={(e) => handleChange(e)}/>
+
+                            {errors['facebook_profile'] && errors['facebook_profile'].length ?
+                                <div className={classes.errorDiv}>{errors['facebook_profile']}</div> : ''}
+
+                            <label className={`${classes.input_title}`}>Tiktok</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='tiktok_profile'
+                                   ref={tiktok_profile}
+                                   defaultValue={values.tiktok_profile && values.tiktok_profile}
+                                   onInput={(e) => handleChange(e)}/>
+
+                            {errors['tiktok_profile'] && errors['tiktok_profile'].length ?
+                                <div className={classes.errorDiv}>{errors['tiktok_profile']}</div> : ''}
+
+                            <label className={`${classes.input_title}`}>Twitter</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='twitter_profile'
+                                   ref={twitter_profile}
+                                   defaultValue={values.twitter_profile && values.twitter_profile}
+                                   onInput={(e) => handleChange(e)}/>
+
+                            {errors['twitter_profile'] && errors['twitter_profile'].length ?
+                                <div className={classes.errorDiv}>{errors['twitter_profile']}</div> : ''}
+
+                            <label className={`${classes.input_title}`}>Blog</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='blog_profile'
+                                   ref={blog_profile}
+                                   defaultValue={values.blog_profile && values.blog_profile}
+                                   onInput={(e) => handleChange(e)}/>
+
+                            {errors['blog_profile'] && errors['blog_profile'].length ?
+                                <div className={classes.errorDiv}>{errors['blog_profile']}</div> : ''}
                         </div>
-                        <label className={`${classes.input_title}`}>Instagram</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='instagram_profile'
-                               disabled={false}
-                               defaultValue={values.instagram_profile && values.instagram_profile}
-                               ref={instagram_profile}
-                               onInput={(e) => handleChange(e)}/>
 
-                        {errors['instagram_profile'] && errors['instagram_profile'].length ?
-                            <div className={classes.errorDiv}>{errors['instagram_profile']}</div> : ''}
+                        <div className={`${classes.div_helper}`} style={{paddingTop: '58px'}}>
+                            <label className={`${classes.input_title}`}>Instagram Followers</label>
+                            <input className={`${classes.input_info}`}
+                                   disabled={false}
+                                   name='instagram_followers'
+                                   ref={instagram_followers}
+                                   value={edit.instagram_followers ? edit.instagram_followers : edit.instagram_followers === '' || edit.instagram_followers === 0 ? '' : values.instagram_followers}
+                                   onInput={(e) => handleChange(e)}/>
 
-                        <label className={`${classes.input_title}`}>YouTube</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               defaultValue={values.youtube_profile && values.youtube_profile}
-                               name='youtube_profile'
-                               ref={youtube_profile}
-                               onInput={(e) => handleChange(e)}/>
+                            {errors['instagram_followers'] && errors['instagram_followers'].length ?
+                                <div className={classes.errorDiv}>{errors['instagram_followers']}</div> : ''}
 
-                        {errors['youtube_profile'] && errors['youtube_profile'].length ?
-                            <div className={classes.errorDiv}>{errors['youtube_profile']}</div> : ''}
+                            <label className={`${classes.input_title}`}>YouTube Subscribers</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='youtube_followers'
+                                   ref={youtube_followers}
+                                   value={edit.youtube_followers ? edit.youtube_followers : edit.youtube_followers === '' || edit.youtube_followers === 0 ? '' : values.youtube_followers}
+                                   onInput={(e) => handleChange(e)}/>
 
-                        <label className={`${classes.input_title}`}>Facebook</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='facebook_profile'
-                               defaultValue={values.facebook_profile && values.facebook_profile}
-                               ref={facebook_profile}
-                               onInput={(e) => handleChange(e)}/>
+                            {errors['youtube_followers'] && errors['youtube_followers'].length ?
+                                <div className={classes.errorDiv}>{errors['youtube_followers']}</div> : ''}
 
-                        {errors['facebook_profile'] && errors['facebook_profile'].length ?
-                            <div className={classes.errorDiv}>{errors['facebook_profile']}</div> : ''}
+                            <label className={`${classes.input_title}`}>Facebook Followers</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='facebook_followers'
+                                   ref={facebook_followers}
+                                   value={edit.facebook_followers ? edit.facebook_followers : edit.facebook_followers === '' || edit.facebook_followers === 0 ? '' : values.facebook_followers}
+                                   onInput={(e) => handleChange(e)}/>
 
-                        <label className={`${classes.input_title}`}>Tiktok</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='tiktok_profile'
-                               ref={tiktok_profile}
-                               defaultValue={values.tiktok_profile && values.tiktok_profile}
-                               onInput={(e) => handleChange(e)}/>
+                            {errors['facebook_followers'] && errors['facebook_followers'].length ?
+                                <div className={classes.errorDiv}>{errors['facebook_followers']}</div> : ''}
 
-                        {errors['tiktok_profile'] && errors['tiktok_profile'].length ?
-                            <div className={classes.errorDiv}>{errors['tiktok_profile']}</div> : ''}
+                            <label className={`${classes.input_title}`}>Tiktok Followers</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='tiktok_followers'
+                                   ref={tiktok_followers}
+                                   value={edit.tiktok_followers ? edit.tiktok_followers : edit.tiktok_followers === '' || edit.tiktok_followers === 0 ? '' : values.tiktok_followers}
+                                   onInput={(e) => handleChange(e)}/>
 
-                        <label className={`${classes.input_title}`}>Twitter</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='twitter_profile'
-                               ref={twitter_profile}
-                               defaultValue={values.twitter_profile && values.twitter_profile}
-                               onInput={(e) => handleChange(e)}/>
+                            {errors['tiktok_followers'] && errors['tiktok_followers'].length ?
+                                <div className={classes.errorDiv}>{errors['tiktok_followers']}</div> : ''}
 
-                        {errors['twitter_profile'] && errors['twitter_profile'].length ?
-                            <div className={classes.errorDiv}>{errors['twitter_profile']}</div> : ''}
+                            <label className={`${classes.input_title}`}>Twitter Followers</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='twitter_followers'
+                                   ref={twitter_followers}
+                                   value={edit.twitter_followers ? edit.twitter_followers : edit.twitter_followers === '' || edit.twitter_followers === 0 ? '' : values.twitter_followers}
+                                   onInput={(e) => handleChange(e)}/>
 
-                        <label className={`${classes.input_title}`}>Blog</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='blog_profile'
-                               ref={blog_profile}
-                               defaultValue={values.blog_profile && values.blog_profile}
-                               onInput={(e) => handleChange(e)}/>
+                            {errors['twitter_followers'] && errors['twitter_followers'].length ?
+                                <div className={classes.errorDiv}>{errors['twitter_followers']}</div> : ''}
 
-                        {errors['blog_profile'] && errors['blog_profile'].length ?
-                            <div className={classes.errorDiv}>{errors['blog_profile']}</div> : ''}
-                    </div>
+                            <label className={`${classes.input_title}`}>Blog Views</label>
+                            <input className={`${classes.input_info}`}
+                                   type='text'
+                                   name='blog_followers'
+                                   ref={blog_followers}
+                                   value={edit.blog_followers ? edit.blog_followers : edit.blog_followers === '' || edit.blog_followers === 0 ? '' : values.blog_followers}
+                                   onInput={(e) => handleChange(e)}/>
 
-                    <div className={`${classes.div_helper}`} style={{paddingTop: '58px'}}>
-                        <label className={`${classes.input_title}`}>Instagram Followers</label>
-                        <input className={`${classes.input_info}`}
-                               disabled={false}
-                               name='instagram_followers'
-                               ref={instagram_followers}
-                               value={edit.instagram_followers ? edit.instagram_followers : edit.instagram_followers === '' || edit.instagram_followers === 0 ? '' : values.instagram_followers}
-                               onInput={(e) => handleChange(e)}/>
+                            {errors['blog_followers'] && errors['blog_followers'].length ?
+                                <div className={classes.errorDiv}>{errors['blog_followers']}</div> : ''}
 
-                        {errors['instagram_followers'] && errors['instagram_followers'].length ?
-                            <div className={classes.errorDiv}>{errors['instagram_followers']}</div> : ''}
-
-                        <label className={`${classes.input_title}`}>YouTube Subscribers</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='youtube_followers'
-                               ref={youtube_followers}
-                               value={edit.youtube_followers ? edit.youtube_followers : edit.youtube_followers === '' || edit.youtube_followers === 0 ? '' : values.youtube_followers}
-                               onInput={(e) => handleChange(e)}/>
-
-                        {errors['youtube_followers'] && errors['youtube_followers'].length ?
-                            <div className={classes.errorDiv}>{errors['youtube_followers']}</div> : ''}
-
-                        <label className={`${classes.input_title}`}>Facebook Followers</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='facebook_followers'
-                               ref={facebook_followers}
-                               value={edit.facebook_followers ? edit.facebook_followers : edit.facebook_followers === '' || edit.facebook_followers === 0 ? '' : values.facebook_followers}
-                               onInput={(e) => handleChange(e)}/>
-
-                        {errors['facebook_followers'] && errors['facebook_followers'].length ?
-                            <div className={classes.errorDiv}>{errors['facebook_followers']}</div> : ''}
-
-                        <label className={`${classes.input_title}`}>Tiktok Followers</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='tiktok_followers'
-                               ref={tiktok_followers}
-                               value={edit.tiktok_followers ? edit.tiktok_followers : edit.tiktok_followers === '' || edit.tiktok_followers === 0 ? '' : values.tiktok_followers}
-                               onInput={(e) => handleChange(e)}/>
-
-                        {errors['tiktok_followers'] && errors['tiktok_followers'].length ?
-                            <div className={classes.errorDiv}>{errors['tiktok_followers']}</div> : ''}
-
-                        <label className={`${classes.input_title}`}>Twitter Followers</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='twitter_followers'
-                               ref={twitter_followers}
-                               value={edit.twitter_followers ? edit.twitter_followers : edit.twitter_followers === '' || edit.twitter_followers === 0 ? '' : values.twitter_followers}
-                               onInput={(e) => handleChange(e)}/>
-
-                        {errors['twitter_followers'] && errors['twitter_followers'].length ?
-                            <div className={classes.errorDiv}>{errors['twitter_followers']}</div> : ''}
-
-                        <label className={`${classes.input_title}`}>Blog Views</label>
-                        <input className={`${classes.input_info}`}
-                               type='text'
-                               name='blog_followers'
-                               ref={blog_followers}
-                               value={edit.blog_followers ? edit.blog_followers : edit.blog_followers === '' || edit.blog_followers === 0 ? '' : values.blog_followers}
-                               onInput={(e) => handleChange(e)}/>
-
-                        {errors['blog_followers'] && errors['blog_followers'].length ?
-                            <div className={classes.errorDiv}>{errors['blog_followers']}</div> : ''}
-
-                    </div>
-                </section>
-            </div>}
+                        </div>
+                    </section>
+                </div>}
         </form>
     )
 }

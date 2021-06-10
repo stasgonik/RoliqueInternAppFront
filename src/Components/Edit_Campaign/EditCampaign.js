@@ -374,9 +374,9 @@ export const EditCampaign = () => {
         if (!e) {
             delete v.budget.subBudgets[name];
         }
-       // if (e) {
-       //     v.budget.subBudgets[name] = 0;
-       // }
+        // if (e) {
+        //     v.budget.subBudgets[name] = 0;
+        // }
         setValues({ ...v })
     }
 

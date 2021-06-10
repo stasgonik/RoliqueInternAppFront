@@ -281,13 +281,13 @@ const User = () => {
                     {errors.avatar && errors.avatar.length ?
                         <div className={classes.errorDiv}>{errors.avatar}</div> : ''}
 
-                   <Input type='text'
-                          name='first_name'
-                          label='First Name'
-                          className={!values.first_name ? classes.inputInfo : `${classes.inputInfo} ${classes.inputInfoInvalid}`}
-                          value={values.first_name}
-                          onInput={(e) => handleChange(e)}
-                         />
+                    <Input type='text'
+                           name='first_name'
+                           label='First Name'
+                           className={!values.first_name ? classes.inputInfo : `${classes.inputInfo} ${classes.inputInfoInvalid}`}
+                           value={values.first_name}
+                           onInput={(e) => handleChange(e)}
+                    />
 
 
                     {errors.first_name && errors.first_name.length ?

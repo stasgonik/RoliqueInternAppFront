@@ -72,7 +72,7 @@ const Influencers_List = () => {
 
             <section className={classes.SearchContainer}>
                 <Search placeholder={"Search"}
-                    onChangeName={(e) => searchName(e)}/>
+                        onChangeName={(e) => searchName(e)}/>
             </section>
             <section className={classes.tableHeader}>
                 <p className={classes.tableHeaderName}>Username</p>

@@ -366,26 +366,26 @@ const CreateInfluencer = () => {
 						birthdate: '',
 					};
 
-					 if (result.status === 403) {
+					if (result.status === 403) {
 						window.location.href = configFront.URL + `${routes.INFLUENCERS}`;
 						return
 					}
 
 					if (typeof result.data !== "undefined") {
-						 if (result.data.customCode === 4005) {
-							 errors["avatar"] = INFO.TOO_BIG_PHOTO
-							 setErrors(errors);
-							 return
-						 }
-						 if (result.data.customCode === 4008) {
-						 	result.data.payload.forEach((value)=> {
-						 		const errorName = value + "_profile"
+						if (result.data.customCode === 4005) {
+							errors["avatar"] = INFO.TOO_BIG_PHOTO
+							setErrors(errors);
+							return
+						}
+						if (result.data.customCode === 4008) {
+							result.data.payload.forEach((value)=> {
+								const errorName = value + "_profile"
 								errors[errorName] = INFO.SOCIAL_PROFILE_EXIST;
 							})
-							 setErrors(errors);
-							 return
-						 }
-					 }
+							setErrors(errors);
+							return
+						}
+					}
 
 
 					if (result.status === 500) {

@@ -63,7 +63,7 @@ const UsersList = () => {
 
             <section className={classes.SearchContainer}>
                 <Search placeholder={"Search"}
-                    onChangeName={(e) => searchName(e)}/>
+                        onChangeName={(e) => searchName(e)}/>
             </section>
             <section className={classes.tableHeader}>
                 <p className={classes.tableHeaderName}>Name</p>
@@ -81,72 +81,72 @@ const UsersList = () => {
                             <p>Please wait...</p>
                         </div>
                         : values ? (values.map((item, index) =>
-                        <div key={index}>
-                            <div className={`${classes.tableHeaderInfo}`}>
-                                {item.profile_picture ?
-                                    <img src={`${item.profile_picture}`} alt='avatar' className={classes.avatar}/> :
-                                    <img src={photoDefault} alt='photoDefault'
-                                         className={`${classes.avatar} ${classes.photo}`}/>}
+                            <div key={index}>
+                                <div className={`${classes.tableHeaderInfo}`}>
+                                    {item.profile_picture ?
+                                        <img src={`${item.profile_picture}`} alt='avatar' className={classes.avatar}/> :
+                                        <img src={photoDefault} alt='photoDefault'
+                                             className={`${classes.avatar} ${classes.photo}`}/>}
 
-                                <div className={`${classes.tableTextName} ${classes.textColor}`}>{item.first_name} {item.last_name}</div>
+                                    <div className={`${classes.tableTextName} ${classes.textColor}`}>{item.first_name} {item.last_name}</div>
 
-                                <div className={`${classes.tableTextEmail} ${classes.textColor}`}>{item.email}</div>
-                                <div className={`${classes.tableTextRole} ${classes.textColor}`}>{capitalizeFirstLetter(item.role)}</div>
-                                <div className={`${classes.phone} ${classes.tableText} ${classes.textColor}`}>{item.phone}
+                                    <div className={`${classes.tableTextEmail} ${classes.textColor}`}>{item.email}</div>
+                                    <div className={`${classes.tableTextRole} ${classes.textColor}`}>{capitalizeFirstLetter(item.role)}</div>
+                                    <div className={`${classes.phone} ${classes.tableText} ${classes.textColor}`}>{item.phone}
+                                    </div>
+
+                                    <div>{(AuthService.getUserRole() === 'admin') ?
+                                        <Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
+                                            <div className={classes.tableBtn}>
+                                                <div className={classes.Test}>
+                                                    <div className={classes.btnPosition}>
+                                                        <img src={path} alt='path'
+                                                             className={classes.infoBtn}/></div>
+                                                </div>
+                                                <div className={classes.tooltipMain}>
+                                                    <div className={classes.TooltipText}>
+                                                        <p>Edit User</p></div>
+                                                </div>
+                                                <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
+                                            </div>
+                                        </Link>
+                                        : ''}</div>
+                                    {(AuthService.getUserRole() === 'manager') && (item.role === 'manager' || item.role === 'employee') ?
+                                        <Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
+                                            <div className={classes.tableBtn}>
+                                                <div className={classes.Test}>
+                                                    <div className={classes.btnPosition}>
+                                                        <img src={path} alt='path'
+                                                             className={classes.infoBtn}/></div>
+                                                </div>
+                                                <div className={classes.tooltipMain}>
+                                                    <div className={classes.TooltipText}>
+                                                        <p>Edit User</p></div>
+                                                </div>
+                                                <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
+                                            </div>
+                                        </Link>
+                                        : ''}
+
+                                    {(AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === item._id) ?
+                                        <Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
+                                            <div className={classes.tableBtn}>
+                                                <div className={classes.Test}>
+                                                    <div className={classes.btnPosition}>
+                                                        <img src={path} alt='path'
+                                                             className={classes.infoBtn}/></div>
+                                                </div>
+                                                <div className={classes.tooltipMain}>
+                                                    <div className={classes.TooltipText}>
+                                                        <p>Edit User</p></div>
+                                                </div>
+                                                <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
+                                            </div>
+                                        </Link>
+                                        : ''}
                                 </div>
-
-                                <div>{(AuthService.getUserRole() === 'admin') ?
-                                    <Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
-                                        <div className={classes.tableBtn}>
-                                            <div className={classes.Test}>
-                                                <div className={classes.btnPosition}>
-                                                    <img src={path} alt='path'
-                                                         className={classes.infoBtn}/></div>
-                                            </div>
-                                            <div className={classes.tooltipMain}>
-                                                <div className={classes.TooltipText}>
-                                                    <p>Edit User</p></div>
-                                            </div>
-                                            <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
-                                        </div>
-                                    </Link>
-                                    : ''}</div>
-                                {(AuthService.getUserRole() === 'manager') && (item.role === 'manager' || item.role === 'employee') ?
-                                    <Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
-                                        <div className={classes.tableBtn}>
-                                            <div className={classes.Test}>
-                                                <div className={classes.btnPosition}>
-                                                    <img src={path} alt='path'
-                                                         className={classes.infoBtn}/></div>
-                                            </div>
-                                            <div className={classes.tooltipMain}>
-                                                <div className={classes.TooltipText}>
-                                                    <p>Edit User</p></div>
-                                            </div>
-                                            <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
-                                        </div>
-                                    </Link>
-                                    : ''}
-
-                                {(AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === item._id) ?
-                                    <Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
-                                        <div className={classes.tableBtn}>
-                                            <div className={classes.Test}>
-                                                <div className={classes.btnPosition}>
-                                                    <img src={path} alt='path'
-                                                         className={classes.infoBtn}/></div>
-                                            </div>
-                                            <div className={classes.tooltipMain}>
-                                                <div className={classes.TooltipText}>
-                                                    <p>Edit User</p></div>
-                                            </div>
-                                            <img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
-                                        </div>
-                                    </Link>
-                                    : ''}
                             </div>
-                        </div>
-                    )) : ''}
+                        )) : ''}
                     }
                 </div>
             </section>

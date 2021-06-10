@@ -404,18 +404,18 @@ const Campaigns_List = () => {
         if (sort.field === 'budget' && ((!sort.normalOrder && preserve) || (sort.normalOrder && !preserve))) {
             const newSort = {field: 'budget', normalOrder: false};
             const sorted = v.sort((a, b) => {
-                if ((!a.budget || (!a.budget.totalBudget && a.budget.totalBudget !== 0))
-                    && (!!b.budget && (!!b.budget.totalBudget || b.budget.totalBudget === 0))) {
-                    return 1;
-                }
-                if ((!b.budget || (!b.budget.totalBudget && b.budget.totalBudget !== 0))
-                    && (!!a.budget && (!!a.budget.totalBudget || a.budget.totalBudget === 0))) {
-                    return -1;
-                }
-                if ((!a.budget || (!a.budget.totalBudget && a.budget.totalBudget !== 0))
-                    && (!!a.budget && (!!a.budget.totalBudget || a.budget.totalBudget === 0))) {
-                    return 0;
-                }
+                    if ((!a.budget || (!a.budget.totalBudget && a.budget.totalBudget !== 0))
+                        && (!!b.budget && (!!b.budget.totalBudget || b.budget.totalBudget === 0))) {
+                        return 1;
+                    }
+                    if ((!b.budget || (!b.budget.totalBudget && b.budget.totalBudget !== 0))
+                        && (!!a.budget && (!!a.budget.totalBudget || a.budget.totalBudget === 0))) {
+                        return -1;
+                    }
+                    if ((!a.budget || (!a.budget.totalBudget && a.budget.totalBudget !== 0))
+                        && (!!a.budget && (!!a.budget.totalBudget || a.budget.totalBudget === 0))) {
+                        return 0;
+                    }
                     return b.budget.totalBudget - a.budget.totalBudget;
                 }
             )
