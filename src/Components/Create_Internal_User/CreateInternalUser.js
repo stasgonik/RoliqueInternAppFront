@@ -246,9 +246,9 @@ const User = () => {
         }
     }
 
+
     return (
         <form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
-            <Sidebar/>
             <Header name={'Create'} titleHeader={classes.title}
                     titleBtn={isSending? "Sending" : 'Save Changes'}
                     title='Create Internal User'
@@ -315,11 +315,11 @@ const User = () => {
                     {errors.email && errors.email.length ?
                         <div className={classes.errorDiv}>{errors.email}</div> : ''}
 
-                    <Input type='text'
+                    <Input type='number'
                            name='phone'
                            label='Phone'
-                           className={classes.inputInfo}
-                           value={values.email}
+                           className={`${classes.inputInfo} ${classes.inputInfoInvalid}`}
+                           value={values.phone}
                            onInput={(e) => handleChange(e)}
                     />
 
@@ -336,8 +336,9 @@ const User = () => {
                             <Tooltip align='center' Arrow={topArrow} text={INFO.message}/>
                         </div>
                     </div>
-                    <label className={classes.input_title}>Role</label>
+
                     <Dropdown required
+                              label='Role'
                               options={role}
                               name='role'
                               valid={!!values.role}
@@ -353,8 +354,8 @@ const User = () => {
                     <Input type='text'
                            name='password'
                            label='Set Password'
-                           className={classes.inputInfo}
-                           value={values.email}
+                           className={!values.password ? classes.inputInfo : `${classes.inputInfo} ${classes.inputInfoInvalid}`}
+                           value={values.password}
                            onInput={(e) => handleChange(e)}
                     />
 

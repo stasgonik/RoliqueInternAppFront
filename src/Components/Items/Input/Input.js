@@ -17,6 +17,7 @@ const Input = (props) => {
 				onInput={props.onInput}
 				ref={props.ref}
 				value={props.value}
+				onWheel={props.onWheel}
 			/>
 		</div>
 	)

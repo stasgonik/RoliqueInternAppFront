@@ -1,12 +1,21 @@
-
-
 .mainContainerInput {
 		display: flex;
 		flex-direction: column;
+}
+
+.mainContainerInput input::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+}
+
+.mainContainerInput input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
 }
 
 .inputMain {
 		border-radius: 6px;
 		outline: none;
 		box-sizing: border-box;
+		padding-left: 12px;
 }

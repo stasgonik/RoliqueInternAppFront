@@ -1,5 +1,6 @@
 import React from 'react';
 import Select, { components } from 'react-select';
+import Label from '../Label/Label';
 
 import arrow from '../Icons/caret-down.svg';
 
@@ -11,7 +12,7 @@ const DropdownIndicator = props => {
     );
 };
 
-const Dropdown = ({ options, name, onChange, defaultValue, valid = false }) => {
+const Dropdown = ({label, options, name, onChange, defaultValue, valid = false }) => {
 
     const colorStyles = {
         control: (styles) => {
@@ -22,6 +23,7 @@ const Dropdown = ({ options, name, onChange, defaultValue, valid = false }) => {
                 height: 32,
                 minHeight: 32,
                 width: 408,
+                marginTop: '8px',
                 border: valid ? '1px solid #BFBFBF' : '1px solid #DA1414',
                 padding: '0 0 3px',
                 boxShadow: 'none',
@@ -70,6 +72,7 @@ const Dropdown = ({ options, name, onChange, defaultValue, valid = false }) => {
 
     return (
         <div>
+            <Label label={label}/>
             <Select
                 components={{
                     IndicatorSeparator: () => null, DropdownIndicator

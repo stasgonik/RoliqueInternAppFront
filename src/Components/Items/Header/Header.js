@@ -2,6 +2,7 @@ import React from 'react';
 import {useHistory} from "react-router-dom";
 
 import classes from './Header.module.css';
+import SideBar from '../Sidebar/Sidebar';
 
 // import arrowUp from "../Icons/arrow-up.svg";
 
@@ -10,6 +11,8 @@ const Header = ({leftArrow, button, title, titleHeader, titleBtn, btnHeader, isS
 
 
     return (
+        <div>
+            <SideBar/>
         <header className={classes.header}>
             <div className={classes.headerRightBlock}>
                 {leftArrow ? <img src={leftArrow} alt="LeftArrow" className={classes.Arrow}
@@ -18,6 +21,7 @@ const Header = ({leftArrow, button, title, titleHeader, titleBtn, btnHeader, isS
             </div>
             <button disabled={!!isSending} className={btnHeader} onClick={button}><span className={classes.titleBtn}>{titleBtn}</span></button>
         </header>
+        </div>
     )
 }
 export default Header;
