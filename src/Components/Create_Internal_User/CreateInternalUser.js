@@ -1,20 +1,25 @@
 import React, {useRef, useState} from 'react';
 
-import AuthService from "../../Services/auth.service";
+import AuthService from '../../Services/auth.service';
+import UserService from "../../Services/userService";
 import classes from './CreateInternalUser.module.css';
-import configFront from "../../Constants/configFront";
+
+import configFront from '../../Constants/configFront';
 import Dropdown from '../Items/Dropdown/Dropdown';
-import Header from '../Items/Header/Header';
-import info from '../Items/Icons/info-button.svg';
+import Error from '../Items/Error/Error';
 import {INFO} from '../../Constants/messages';
-import leftArrow from '../Items/Icons/arrow-left.svg';
+import Input from '../Items/Input/Input';
+import Header from '../Items/Header/Header';
+import Tooltip from '../Items/Tooltip/Tooltip';
+
 import regexp from '../../Constants/regexp.enum';
 import routes from "../../Constants/routes.enum";
-import Sidebar from '../Items/Sidebar/Sidebar';
-import Tooltip from '../Items/Tooltip/Tooltip'
+
+import info from '../Items/Icons/info-button.svg';
+import leftArrow from '../Items/Icons/arrow-left.svg';
 import topArrow from '../Items/Icons/top-arrow-black.svg';
-import userService from "../../Services/userService";
-import Input from '../Items/Input/Input';
+
+
 
 let role = [
     {value: 'admin', label: 'Admin'},
@@ -40,8 +45,9 @@ function setRoles() {
 
 const User = () => {
     const [isSending, setIsSending] = useState(false);
-    setRoles();
     const fileInput = useRef(null);
+    setRoles();
+
     const [values, setValues] = useState({
         avatar: '',
         first_name: '',
@@ -188,7 +194,7 @@ const User = () => {
 
 
         if (handleValidation()) {
-            const result = await userService.postUsers(formData);
+            const result = await UserService.postUsers(formData);
             if (result) {
                 setIsSending(false)
                 if (result.status === 200) {
@@ -258,18 +264,18 @@ const User = () => {
                     isSending={isSending}
             />
 
-            <div className={classes.mainContainer}>
+            <main className={classes.mainContainer}>
                 <section className={classes.leftContainer}>
                     <h3 className={classes.general}>General</h3>
                     <p className={classes.profile}>Profile Picture</p>
+
                     <input type='file'
                            name='avatar'
-                           className={classes.avatarPhoto}
                            style={{display: 'none'}}
                            onChange={(e) => selected(e)}
                            ref={fileInput}
-
                     />
+
                     <button className={classes.avatar} onClick={() => fileInput.current.click()}>
                         {values.avatar ? <img src={values.avatar.preview} style={{
                             width: 64,
@@ -279,7 +285,8 @@ const User = () => {
                     </button>
 
                     {errors.avatar && errors.avatar.length ?
-                        <div className={classes.errorDiv}>{errors.avatar}</div> : ''}
+                        <Error message= {errors.avatar}/> : ''}
+
 
                    <Input type='text'
                           name='first_name'
@@ -289,9 +296,8 @@ const User = () => {
                           onInput={(e) => handleChange(e)}
                          />
 
-
                     {errors.first_name && errors.first_name.length ?
-                        <div className={classes.errorDiv}>{errors.first_name}</div> : ''}
+                        <Error message= {errors.first_name}/> : ''}
 
                     <Input type='text'
                            name='last_name'
@@ -302,7 +308,7 @@ const User = () => {
                     />
 
                     {errors.last_name && errors.last_name.length ?
-                        <div className={classes.errorDiv}>{errors.last_name}</div> : ''}
+                        <Error message= {errors.last_name}/> : ''}
 
                     <Input type='text'
                            name='email'
@@ -313,7 +319,7 @@ const User = () => {
                     />
 
                     {errors.email && errors.email.length ?
-                        <div className={classes.errorDiv}>{errors.email}</div> : ''}
+                        <Error message= {errors.email}/> : ''}
 
                     <Input type='number'
                            name='phone'
@@ -324,9 +330,10 @@ const User = () => {
                     />
 
                     {errors.phone && errors.phone.length ?
-                        <div className={classes.errorDiv}>{errors.phone}</div> : ''}
+                        <Error message= {errors.phone}/> : ''}
 
                 </section>
+
                 <section className={classes.rightContainer}>
                     <div className={classes.role}>
 
@@ -346,8 +353,7 @@ const User = () => {
                     />
 
                     {errors.role && errors.role.length ?
-                        <div className={`${classes.errorDiv} ${classes.roleErrorPos}`}>
-                            {errors.role}</div> : ''}
+                        <Error message= {errors.role}/> : ''}
 
                     <h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
 
@@ -355,15 +361,16 @@ const User = () => {
                            name='password'
                            label='Set Password'
                            className={!values.password ? classes.inputInfo : `${classes.inputInfo} ${classes.inputInfoInvalid}`}
+                           style={{marginBottom: '14px'}}
                            value={values.password}
                            onInput={(e) => handleChange(e)}
                     />
 
                     {errors.password && errors.password.length ?
-                        <div className={classes.errorDiv}>{errors.password}</div> : ''}
+                    <Error message={errors.password}/> : ''}
 
                 </section>
-            </div>
+            </main>
         </form>
     )
 }

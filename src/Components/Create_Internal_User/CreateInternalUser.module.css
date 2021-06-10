@@ -144,14 +144,7 @@
 }
 
 .inputInfoInvalid {
-    /*width: 408px;*/
-    /*height: 32px;*/
-    /*margin-bottom: 16px;*/
     border: 1px solid #BFBFBF;
-    /*border-radius: 6px;*/
-    /*outline: none;*/
-    /*background: #FAFAFB;*/
-
 }
 
 .rightContainer_title {
@@ -170,6 +163,9 @@
     margin-top: 39px;
 }
 
+.rightContainer_title_password Input {
+    margin-bottom: 8px;
+}
 
 .role {
     display: flex;
@@ -280,4 +276,5 @@
         top: 717px;
         right: 476px;
     }
+
 }

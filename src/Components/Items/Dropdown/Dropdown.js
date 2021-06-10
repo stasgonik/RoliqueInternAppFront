@@ -12,7 +12,7 @@ const DropdownIndicator = props => {
     );
 };
 
-const Dropdown = ({label, options, name, onChange, defaultValue, valid = false }) => {
+const Dropdown = ({label, style, options, name, onChange, defaultValue, valid = false }) => {
 
     const colorStyles = {
         control: (styles) => {
@@ -24,6 +24,7 @@ const Dropdown = ({label, options, name, onChange, defaultValue, valid = false }
                 minHeight: 32,
                 width: 408,
                 marginTop: '8px',
+                marginBottom: '14px',
                 border: valid ? '1px solid #BFBFBF' : '1px solid #DA1414',
                 padding: '0 0 3px',
                 boxShadow: 'none',
@@ -81,6 +82,7 @@ const Dropdown = ({label, options, name, onChange, defaultValue, valid = false }
                 name={name}
                 onChange={onChange}
                 styles={colorStyles}
+                style={style}
                 placeholder={defaultValue}
                 isSearchable={false}
             />

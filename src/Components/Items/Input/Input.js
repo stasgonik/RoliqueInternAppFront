@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 
 import classes from './Input.module.css';
 import Label from '../Label/Label'
@@ -15,7 +15,6 @@ const Input = (props) => {
 				style={props.style}
 				onChange={props.onChange}
 				onInput={props.onInput}
-				ref={props.ref}
 				value={props.value}
 				onWheel={props.onWheel}
 			/>
