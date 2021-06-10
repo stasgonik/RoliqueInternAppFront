@@ -133,27 +133,24 @@
     color: #7D7D7D;
 }
 
-.input_info {
+.inputInfo {
     width: 408px;
     height: 32px;
     margin-bottom: 16px;
 
     background: #FAFAFB;
     border: 1px solid #DA1414;
-    box-sizing: border-box;
-    border-radius: 6px;
-    outline: none;
+
 }
 
-.input_info_valid {
-    width: 408px;
-    height: 32px;
-    margin-bottom: 16px;
+.inputInfoInvalid {
+    /*width: 408px;*/
+    /*height: 32px;*/
+    /*margin-bottom: 16px;*/
     border: 1px solid #BFBFBF;
-    box-sizing: border-box;
-    border-radius: 6px;
-    outline: none;
-    background: #FAFAFB;
+    /*border-radius: 6px;*/
+    /*outline: none;*/
+    /*background: #FAFAFB;*/
 
 }
 

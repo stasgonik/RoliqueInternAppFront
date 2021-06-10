@@ -1,0 +1,12 @@
+
+
+.mainContainerInput {
+		display: flex;
+		flex-direction: column;
+}
+
+.inputMain {
+		border-radius: 6px;
+		outline: none;
+		box-sizing: border-box;
+}

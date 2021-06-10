@@ -17,9 +17,14 @@ html,
 body {
   height: 100%;
   width: 100%;
+  font-family: Helvetica Neue, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #7D7D7D;
 }
 
 #root {
   height: 100%;
   width: 100%;
 }
+

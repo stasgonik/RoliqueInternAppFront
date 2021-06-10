@@ -14,6 +14,7 @@ import Sidebar from '../Items/Sidebar/Sidebar';
 import Tooltip from '../Items/Tooltip/Tooltip'
 import topArrow from '../Items/Icons/top-arrow-black.svg';
 import userService from "../../Services/userService";
+import Input from '../Items/Input/Input';
 
 let role = [
     {value: 'admin', label: 'Admin'},
@@ -280,40 +281,47 @@ const User = () => {
                     {errors.avatar && errors.avatar.length ?
                         <div className={classes.errorDiv}>{errors.avatar}</div> : ''}
 
-                    <label className={classes.input_title}>First Name</label>
-                    <input className={!values.first_name ? classes.input_info : classes.input_info_valid}
-                           type='text'
-                           name='first_name'
-                           value={values.firstName}
-                           onInput={(e) => handleChange(e)}
-                    />
+                   <Input type='text'
+                          name='first_name'
+                          label='First Name'
+                          className={!values.first_name ? classes.inputInfo : `${classes.inputInfo} ${classes.inputInfoInvalid}`}
+                          value={values.first_name}
+                          onInput={(e) => handleChange(e)}
+                         />
+
 
                     {errors.first_name && errors.first_name.length ?
                         <div className={classes.errorDiv}>{errors.first_name}</div> : ''}
 
-                    <label className={classes.input_title}>Last Name</label>
-                    <input className={!values.last_name ? classes.input_info : classes.input_info_valid}
-                           type='text'
+                    <Input type='text'
                            name='last_name'
-                           onInput={(e) => handleChange(e)}/>
+                           label='Last Name'
+                           className={!values.last_name ? classes.inputInfo : `${classes.inputInfo} ${classes.inputInfoInvalid}`}
+                           value={values.last_name}
+                           onInput={(e) => handleChange(e)}
+                    />
 
                     {errors.last_name && errors.last_name.length ?
                         <div className={classes.errorDiv}>{errors.last_name}</div> : ''}
 
-                    <label className={classes.input_title}>Email</label>
-                    <input className={!values.email ? classes.input_info : classes.input_info_valid}
-                           type='email'
+                    <Input type='text'
                            name='email'
-                           onInput={(e) => handleChange(e)}/>
+                           label='Email'
+                           className={!values.email ? classes.inputInfo : `${classes.inputInfo} ${classes.inputInfoInvalid}`}
+                           value={values.email}
+                           onInput={(e) => handleChange(e)}
+                    />
 
                     {errors.email && errors.email.length ?
                         <div className={classes.errorDiv}>{errors.email}</div> : ''}
 
-                    <label className={classes.input_title}>Phone</label>
-                    <input className={classes.input_info_valid}
-                           type='text'
+                    <Input type='text'
                            name='phone'
-                           onInput={(e) => handleChange(e)}/>
+                           label='Phone'
+                           className={classes.inputInfo}
+                           value={values.email}
+                           onInput={(e) => handleChange(e)}
+                    />
 
                     {errors.phone && errors.phone.length ?
                         <div className={classes.errorDiv}>{errors.phone}</div> : ''}
@@ -341,11 +349,14 @@ const User = () => {
                             {errors.role}</div> : ''}
 
                     <h3 className={`${classes.rightContainer_title} ${classes.rightContainer_title_password}`}>Password</h3>
-                    <label className={`${classes.input_title} ${classes.input_password}`}>Set Password</label>
-                    <input className={!values.password ? classes.input_info : classes.input_info_valid}
-                           type='text'
+
+                    <Input type='text'
                            name='password'
-                           onInput={(e) => handleChange(e)}/>
+                           label='Set Password'
+                           className={classes.inputInfo}
+                           value={values.email}
+                           onInput={(e) => handleChange(e)}
+                    />
 
                     {errors.password && errors.password.length ?
                         <div className={classes.errorDiv}>{errors.password}</div> : ''}
