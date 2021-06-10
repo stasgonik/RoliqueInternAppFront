@@ -16,6 +16,7 @@ const Input = (props) => {
 				onChange={props.onChange}
 				onInput={props.onInput}
 				value={props.value}
+				defaultValue={props.defaultValue}
 				onWheel={props.onWheel}
 			/>
 		</div>

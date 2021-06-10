@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 
 import AuthService from '../../Services/auth.service';
-import UserService from "../../Services/userService";
+import UserService from '../../Services/userService';
 import classes from './CreateInternalUser.module.css';
 
 import configFront from '../../Constants/configFront';

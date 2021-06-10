@@ -140,17 +140,16 @@
     color: #7D7D7D;
 }
 
-.input_info {
+.inputInfo {
     width: 408px;
     height: 32px;
     margin-bottom: 16px;
 
     background: #FAFAFB;
     border: 1px solid #BFBFBF;
-    box-sizing: border-box;
-    border-radius: 6px;
-    outline: none;
+
 }
+
 
 .rightContainer_title {
     font-family: Helvetica Neue, sans-serif;

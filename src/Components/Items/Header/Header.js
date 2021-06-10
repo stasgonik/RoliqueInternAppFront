@@ -3,8 +3,7 @@ import {useHistory} from "react-router-dom";
 
 import classes from './Header.module.css';
 import SideBar from '../Sidebar/Sidebar';
-
-// import arrowUp from "../Icons/arrow-up.svg";
+import arrowUp from "../Icons/arrow-up.svg";
 
 const Header = ({leftArrow, button, title, titleHeader, titleBtn, btnHeader, isSending}) => {
     const history = useHistory();

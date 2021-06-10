@@ -4,15 +4,15 @@ import {Link} from "react-router-dom";
 import arrowUp from '../Items/Icons/arrow-up.svg';
 import AuthService from "../../Services/auth.service";
 import classes from './UsersList.module.css';
-import loading from "../../img/Loading.gif";
 import path from '../Items/Icons/path.svg';
 import photoDefault from '../Items/Icons/vector.svg';
 import rightArrow from '../Items/Icons/right-arrow.svg';
-import routes from "../../Constants/routes.enum";
+import routes from '../../Constants/routes.enum';
 import Sidebar from '../Items/Sidebar/Sidebar'
-import Search from "../Items/Search/Search";
+import Search from '../Items/Search/Search';
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 import userService from "../../Services/userService";
+import Loading from "../Items/Loading/Loading";
 
 
 const UsersList = () => {
@@ -56,9 +56,6 @@ const UsersList = () => {
                              titleBtn='Create New'
                              upArrow={arrowUp}
                              btnHeader={classes.btnHeader}
-
-                // btnHeader={cl}
-                // className={classes.btnHeader}
             />
 
             <section className={classes.SearchContainer}>
@@ -75,11 +72,7 @@ const UsersList = () => {
             <section>
 
                 <div>
-                    {isLoading?
-                        <div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
-                            <img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
-                            <p>Please wait...</p>
-                        </div>
+                    {isLoading ? <Loading message='Please wait...'/>
                         : values ? (values.map((item, index) =>
                         <div key={index}>
                             <div className={`${classes.tableHeaderInfo}`}>
