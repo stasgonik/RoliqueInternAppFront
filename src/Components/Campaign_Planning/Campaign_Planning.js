@@ -11,13 +11,13 @@ import edit from '../Items/Icons/edit-alt.svg';
 import facebook from '../Items/Icons/facebook.svg';
 import CampaignService from "../../Services/campaign.service";
 import instagram from '../Items/Icons/instagram.svg';
-import loading from '../../img/Loading.gif'
 import routes from "../../Constants/routes.enum";
 import Sidebar from '../Items/Sidebar/Sidebar'
 import tiktok from '../Items/Icons/tiktok.svg';
 import twitter from '../Items/Icons/twitter.svg';
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 import youtube from '../Items/Icons/youtube.svg';
+import Loading from "../Items/Loading/Loading";
 
 // import Search from "../Items/Search/Search";
 // import path from '../Items/Icons/path.svg';
@@ -66,10 +66,7 @@ const Campaign_Planning = () => {
                              icon={{background: `url(${edit}) no-repeat`, backgroundPosition: 'left 8px top 8px'}}
             />
             {isLoading ?
-                <div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
-                    <img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
-                    <p>Please wait...</p>
-                </div> : ''
+                <Loading message='Please, wait...'/> : ''
             }
         </div>
     )

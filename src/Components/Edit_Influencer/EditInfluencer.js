@@ -9,11 +9,11 @@ import Header from '../Items/Header/Header';
 import influerenceService from "../../Services/influencers.service";
 import {INFO} from '../../Constants/messages';
 import leftArrow from '../Items/Icons/arrow-left.svg';
-import loading from "../../img/Loading.gif";
 import regexp from "../../Constants/regexp.enum";
 import routes from "../../Constants/routes.enum";
 import Sidebar from '../Items/Sidebar/Sidebar'
 import Tooltip from '../Items/Tooltip/Tooltip'
+import Loading from "../Items/Loading/Loading";
 
 
 const EditInfluencer = () => {
@@ -521,10 +521,7 @@ const EditInfluencer = () => {
             />
 
             {isLoading?
-                <div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
-                    <img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
-                    <p>Please wait...</p>
-                </div>
+                <Loading message='Please, wait...'/>
             : <div className={classes.mainContainer}>
                 <section className={classes.leftContainer}>
                     <h3 className={classes.general}>General</h3>

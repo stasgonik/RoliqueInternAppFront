@@ -19,7 +19,6 @@ import regexp from '../../Constants/regexp.enum';
 
 import info from '../Items/Icons/info-button.svg';
 import leftArrow from '../Items/Icons/arrow-left.svg';
-import loading from '../../img/Loading.gif';
 import topArrow from '../Items/Icons/top-arrow-black.svg';
 
 
@@ -264,7 +263,7 @@ const EditUser = () => {
 					button={(e) => saveChanges(e)}
 					isSending={isSending}
 			/>
-			{isLoading ? <Loading message='Please wait...'/>
+			{isLoading ? <Loading message='Please, wait...'/>
 				: <main className={classes.mainContainer}>
 					<section className={classes.leftContainer}>
 						<h3 className={classes.general}>General</h3>

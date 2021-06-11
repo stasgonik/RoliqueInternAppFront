@@ -7,7 +7,7 @@ import classes from './Influencers_List.module.css';
 import facebookIcon from "../../img/Social_Icons/Facebook.svg";
 import InfluencersService from "../../Services/influencers.service";
 import instagramIcon from "../../img/Social_Icons/Instagram.svg";
-import loading from "../../img/Loading.gif";
+// import loading from "../../img/Loading.gif";
 import path from '../Items/Icons/path.svg';
 import photoDefault from '../Items/Icons/vector.svg';
 import rightArrow from '../Items/Icons/right-arrow.svg';
@@ -18,6 +18,7 @@ import tikTokIcon from "../../img/Social_Icons/TikTok.svg";
 import twitterIcon from "../../img/Social_Icons/Twitter.svg";
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 import youtubeIcon from "../../img/Social_Icons/Youtube.svg";
+import Loading from "../Items/Loading/Loading";
 
 
 const Influencers_List = () => {
@@ -84,10 +85,7 @@ const Influencers_List = () => {
 
                 <div>
                     {isLoading ?
-                        <div style={{textAlign: "center", fontSize: "18px", fontWeight: "700", marginTop: "30px"}}>
-                            <img style={{margin: "20px auto", width: "50px"}} alt="Loading" src={loading}/>
-                            <p>Please wait...</p>
-                        </div>
+                        <Loading message='Please, wait...'/>
                         : values ? (values.map((item, index) =>
                             <div key={index}>
                                 <div className={`${classes.tableHeaderInfo}`}>
