@@ -1,14 +1,14 @@
 import axiosInstance from "./tokenInterceptor";
 import configServer from '../Constants/configServer'
 
-class _endpoint {
-    static Brands = 'brands/';
+const _endpoint = {
+    BRANDS: 'brands/'
 }
 
 export default class BrandService {
     static async getBrands(queryReq) {
         try{
-            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Brands}`,{
+            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.BRANDS}`,{
                 params: queryReq
             });
 
@@ -23,7 +23,7 @@ export default class BrandService {
 
     static async getSingleBrand(id) {
         try{
-            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Brands}${id}`);
+            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.BRANDS}${id}`);
 
             if(result.status === 200) {
                 return result.data
@@ -36,7 +36,7 @@ export default class BrandService {
 
     static async postBrands(body) {
         try{
-            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.Brands}`, body);
+            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.BRANDS}`, body);
 
             return result
         } catch (e) {
@@ -47,7 +47,7 @@ export default class BrandService {
 
     static async editBrand(body,id) {
         try{
-            const result = await axiosInstance.put(`${configServer.URL}${_endpoint.Brands}${id}`, body);
+            const result = await axiosInstance.put(`${configServer.URL}${_endpoint.BRANDS}${id}`, body);
 
             return result
         } catch (e) {

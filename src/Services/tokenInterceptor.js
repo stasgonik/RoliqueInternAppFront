@@ -3,8 +3,8 @@ import axios from 'axios';
 import configFront from "../Constants/configFront";
 import configServer from '../Constants/configServer'
 
-class _endpoint {
-    static refresh = 'auth/refresh';
+const _endpoint = {
+    REFRESH: 'auth/refresh'
 }
 
 const axiosInstance = axios.create({
@@ -26,52 +26,42 @@ axiosInstance.interceptors.response.use(
         const originalRequest = error.config;
 
         // Prevent infinite loops
-        if (error.response.status === 401 && (originalRequest.url === `${_endpoint.refresh}`
-            || originalRequest.url === originalRequest.url + `${_endpoint.refresh}`)) {
+        if (error.response.status === 401 && (originalRequest.url === `${_endpoint.REFRESH}`
+            || originalRequest.url === originalRequest.url + `${_endpoint.REFRESH}`)) {
             localStorage.clear()
             window.location.href = configFront.URL;
             return Promise.reject(error);
         }
 
         if (error.response.data.message === "Token not valid!" &&
-            error.response.status === 401)
-        {
+            error.response.status === 401) {
             const refreshToken = localStorage.getItem(configServer.refresh_token);
 
-            if (refreshToken){
-                const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
+            if (refreshToken) {
+                axiosInstance.defaults.headers[configServer.AUTHORIZATION] = refreshToken;
+                return axiosInstance
+                    .post(`${_endpoint.REFRESH}`, {})
+                    .then((response) => {
 
-                // exp date in token is expressed in seconds, while now() returns milliseconds:
-                const now = Math.ceil(Date.now() / 1000);
+                        localStorage.setItem(configServer.access_token, response.data.access_token);
+                        localStorage.setItem(configServer.refresh_token, response.data.refresh_token);
+                        localStorage.setItem(configServer.user_role, response.data.user_role);
+                        localStorage.setItem(configServer.user_id, response.data.user_id);
 
-                if (tokenParts.exp > now) {
-                    axiosInstance.defaults.headers[configServer.AUTHORIZATION] = refreshToken;
-                    return axiosInstance
-                        .post(`${_endpoint.refresh}`, {})
-                        .then((response) => {
+                        axiosInstance.defaults.headers[configServer.AUTHORIZATION] = response.data.access_token;
+                        originalRequest.headers[configServer.AUTHORIZATION] = response.data.access_token;
 
-                            localStorage.setItem(configServer.access_token, response.data.access_token);
-                            localStorage.setItem(configServer.refresh_token, response.data.refresh_token);
-                            localStorage.setItem(configServer.user_role, response.data.user_role);
-                            localStorage.setItem(configServer.user_id, response.data.user_id);
+                        return axiosInstance(originalRequest);
+                    })
+                    .catch(err => {
+                        // console.log(err)
+                        if (err.status === 401) {
+                            window.location.href = configFront.URL;
+                        }
+                        return err
+                    });
 
-                            axiosInstance.defaults.headers[configServer.AUTHORIZATION] = response.data.access_token;
-                            originalRequest.headers[configServer.AUTHORIZATION] = response.data.access_token;
-
-                            return axiosInstance(originalRequest);
-                        })
-                        .catch(err => {
-                            // console.log(err)
-                            if (err.status === 401) {
-                                window.location.href = configFront.URL;
-                            }
-                            return err
-                        });
-                }else{
-                    console.log("Refresh token is expired", tokenParts.exp, now);
-                    window.location.href = configFront.URL;
-                }
-            }else{
+            } else {
                 console.log("Refresh token not available.")
                 window.location.href = configFront.URL;
             }

@@ -2,16 +2,16 @@ import axiosInstance from "./tokenInterceptor";
 import configFront from "../Constants/configFront";
 import configServer from '../Constants/configServer'
 
-class _endpoint {
-    static login = 'auth/';
-    static logout = 'auth/logout/';
-    static refresh = 'auth/refresh';
+const _endpoint = {
+    LOGIN : 'auth/',
+    LOGOUT: 'auth/logout/',
+    REFRESH: 'auth/refresh/'
 }
 
 export default class AuthService {
     static async login(body) {
         try {
-            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.login}`, body)
+            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.LOGIN}`, body)
 
             this.setTokens(result.data)
 
@@ -24,7 +24,7 @@ export default class AuthService {
     static async refresh() {
         try {
             axiosInstance.defaults.headers[configServer.AUTHORIZATION] = this.getRefreshToken();
-            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.refresh}`)
+            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.REFRESH}`)
 
             this.setTokens(result.data)
             axiosInstance.defaults.headers[configServer.AUTHORIZATION] = this.getAccessToken();
@@ -38,7 +38,7 @@ export default class AuthService {
 
     static async logout() {
         try {
-            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.logout}`)
+            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.LOGOUT}`)
 
             if (result && result.status === 200) {
                 localStorage.clear()

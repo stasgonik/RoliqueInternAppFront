@@ -1,15 +1,15 @@
 import axiosInstance from "./tokenInterceptor";
 import configServer from '../Constants/configServer'
 
-class _endpoint {
-    static Users = 'users/';
-    static ChangePassword = 'users/forgotPassword/';
+const _endpoint = {
+    USERS: 'users/',
+    CHANGE_PASSWORD: 'users/forgotPassword/'
 }
 
 export default class UserService {
     static async getUsers(queryReq) {
         try{
-            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Users}`,{
+            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.USERS}`,{
                 params: queryReq
             });
 
@@ -24,7 +24,7 @@ export default class UserService {
 
     static async getSingleUser(id) {
         try{
-            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.Users}${id}`);
+            const result = await axiosInstance.get(`${configServer.URL}${_endpoint.USERS}${id}`);
 
             if(result.status === 200) {
                 return result.data
@@ -37,7 +37,7 @@ export default class UserService {
 
     static async changePassword(body) {
         try{
-            const result = await axiosInstance.patch(`${configServer.URL}${_endpoint.ChangePassword}`, body);
+            const result = await axiosInstance.patch(`${configServer.URL}${_endpoint.CHANGE_PASSWORD}`, body);
 
             return result
         } catch (e) {
@@ -47,7 +47,7 @@ export default class UserService {
 
     static async postUsers(body) {
         try{
-            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.Users}`, body);
+            const result = await axiosInstance.post(`${configServer.URL}${_endpoint.USERS}`, body);
 
             return result
         } catch (e) {
@@ -58,7 +58,7 @@ export default class UserService {
     static async editUser(body,id) {
         try{
             console.log(body)
-            const result = await axiosInstance.put(`${configServer.URL}${_endpoint.Users}${id}`, body);
+            const result = await axiosInstance.put(`${configServer.URL}${_endpoint.USERS}${id}`, body);
 
             return result
         } catch (e) {
