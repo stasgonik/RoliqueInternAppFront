@@ -45,20 +45,15 @@ class Login extends Component {
 
     handleValidation() {
         const fields = this.state.fields;
-        let errors = '';
         let formIsValid = true;
 
-        if ((typeof fields["password"] !== "undefined") || (typeof fields["email"] !== "undefined")) {
-            if (!fields["password"].match(regexp.PASSWORD_REGEXP) || !fields["email"].match(regexp.EMAIL_REGEXP)) {
+        if ((typeof fields.password !== "undefined") || (typeof fields.email !== "undefined")) {
+            if (!fields.password.match(regexp.PASSWORD_REGEXP) || !fields.email.match(regexp.EMAIL_REGEXP)) {
                 formIsValid = false;
-                errors = INFO.INVALID_EMAIL_OR_PASSWORD
+                this.setState({errors: INFO.INVALID_EMAIL_OR_PASSWORD, isSending: false})
             }
         }
 
-        this.setState({errors});
-        if (!formIsValid) {
-            this.setState({isSending: false})
-        }
         return formIsValid;
     }
 
@@ -77,12 +72,11 @@ class Login extends Component {
         e.preventDefault();
         this.setState({isSending: true})
         try {
-            let in1 = this.myForm.current[0].value;
-            let in2 = this.myForm.current[1].value;
+            const fields = this.state.fields;
 
             const body = {
-                email: in1,
-                password: in2
+                email: fields.email,
+                password: fields.password
             }
 
             if (this.handleValidation()) {
