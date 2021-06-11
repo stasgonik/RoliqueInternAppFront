@@ -20,7 +20,7 @@ import Sidebar from '../Items/Sidebar/Sidebar';
 import tikTokIcon from "../../img/Social_Icons/TikTok.svg";
 import twitterIcon from "../../img/Social_Icons/Twitter.svg";
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
-import UserService from "../../Services/userService";
+import UserService from "../../Services/user.service";
 import youtubeIcon from "../../img/Social_Icons/Youtube.svg";
 import exportItem from "../Items/Icons/exportItem.svg";
 

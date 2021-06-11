@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
 
-import authService from '../../Services/auth.service';
-import userService from '../../Services/userService';
+import AuthService from '../../Services/auth.service';
+import UserService from '../../Services/user.service';
 
 import classes from './EditInternalUser.module.css';
 import configFront from '../../Constants/configFront';
@@ -30,7 +30,7 @@ let role = [
 ];
 
 function setRoles() {
-	const user_role = authService.getUserRole();
+	const user_role = AuthService.getUserRole();
 	if (user_role === 'employee') {
 		role = [
 			{value: 'employee', label: 'Employee'}
@@ -56,7 +56,7 @@ const EditUser = () => {
 
 	const [user, setUser] = useState(async () => {
 		setIsLoading(true)
-		const initialState = await userService.getSingleUser(params[routes.USER_ID])
+		const initialState = await UserService.getSingleUser(params[routes.USER_ID])
 		if (initialState) {
 			setUser({
 				first_name: initialState.first_name,
@@ -195,7 +195,7 @@ const EditUser = () => {
 		// }
 
 		if (handleValidation()) {
-			const result = await userService.editUser(formData, params[routes.USER_ID]);
+			const result = await UserService.editUser(formData, params[routes.USER_ID]);
 			if (result) {
 				setIsSending(true)
 				if (result.status === 200) {

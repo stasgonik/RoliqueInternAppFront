@@ -11,7 +11,7 @@ import routes from '../../Constants/routes.enum';
 import Sidebar from '../Items/Sidebar/Sidebar'
 import Search from '../Items/Search/Search';
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
-import userService from "../../Services/userService";
+import UserService from "../../Services/user.service";
 import Loading from "../Items/Loading/Loading";
 
 
@@ -25,7 +25,7 @@ const UsersList = () => {
         async function Start() {
             setInitial(false)
             setIsLoading(true)
-            const initialState = await userService.getUsers()
+            const initialState = await UserService.getUsers()
             setValues(initialState)
             setIsLoading(false)
         }
@@ -42,7 +42,7 @@ const UsersList = () => {
     const searchName = async (e) => {
         setIsLoading(true)
         const value = e.target.value;
-        const search = await userService.getUsers({search: value})
+        const search = await UserService.getUsers({search: value})
         setValues(search);
         setIsLoading(false)
     }

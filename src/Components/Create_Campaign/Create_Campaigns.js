@@ -15,7 +15,7 @@ import configFront from "../../Constants/configFront";
 import routes from "../../Constants/routes.enum";
 // import plus from '../../img/Create_Campaign/Icon.svg';
 import CampaignService from "../../Services/campaign.service";
-import UserService from "../../Services/userService";
+import UserService from "../../Services/user.service";
 import BrandService from "../../Services/brand.service";
 import {ToggleSwitch} from 'react-dragswitch';
 import 'react-dragswitch/dist/index.css';

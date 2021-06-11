@@ -5,7 +5,7 @@ import Error from "../Items/Messages/Messages";
 import './forgotPassForm.css'
 import {INFO} from "../../Constants/messages";
 import regexp from '../../Constants/regexp.enum'
-import userService from "../../Services/userService";
+import UserService from "../../Services/user.service";
 
 class ForgotPassForm extends Component {
 
@@ -89,7 +89,7 @@ class ForgotPassForm extends Component {
             const body = {password: this.state.fields['password'], forgot_token: token}
 
             if (this.handleValidation()) {
-                const result = await userService.changePassword(body);
+                const result = await UserService.changePassword(body);
                 if (result) {
                     this.setState({isSending: false})
                 }
