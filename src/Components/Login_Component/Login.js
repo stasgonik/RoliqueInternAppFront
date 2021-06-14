@@ -23,6 +23,7 @@ const Login = () => {
 
     const handleValidation = () => {
         let formIsValid = true;
+        setError('')
 
         if ((typeof values.password !== "undefined") || (typeof values.email !== "undefined")) {
             if (!values.password.match(regexp.PASSWORD_REGEXP) || !values.email.match(regexp.EMAIL_REGEXP)) {
