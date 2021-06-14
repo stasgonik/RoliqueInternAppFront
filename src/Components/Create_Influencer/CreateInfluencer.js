@@ -331,9 +331,8 @@ const CreateInfluencer = () => {
 				values[value] = values[value].split('.').join('')
 			}
 
-			console.log(values);
 			formData.append(value, values[value])
-			if (values[value]) {
+			if (value.includes('followers')) {
 				values[value] = values[value].toString().split('.').join('').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 			}
 		}

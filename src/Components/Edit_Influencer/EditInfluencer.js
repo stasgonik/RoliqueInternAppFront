@@ -397,7 +397,6 @@ const EditInfluencer = () => {
     const saveChanges = async () => {
         setIsSending(true)
         const formData = new FormData();
-        const arr = []
         let pp = false;
         if (edit.profile_picture) {
             pp = edit.profile_picture;
@@ -412,7 +411,6 @@ const EditInfluencer = () => {
                 edit[value] = edit[value].split('.').join('')
             }
 
-            arr.push(values[value])
             if (edit[value] === '') {
                 if (value.includes('followers')) {
                     edit[value] = 0
