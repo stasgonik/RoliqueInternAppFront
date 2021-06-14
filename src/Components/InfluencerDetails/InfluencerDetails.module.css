@@ -361,8 +361,14 @@
     margin-top: 48px;
 }
 
-.instPhoto img {
+.instPhoto {
     width: 296px;
     height: 296px;
+    overflow: hidden;
 }
 
+.instPhoto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
