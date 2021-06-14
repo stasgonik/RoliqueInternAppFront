@@ -8,6 +8,40 @@
 		margin: 24px 0 16px 68px;
 }
 
+.userListContainer {
+		margin: 0 68px;
+}
+
+.tableUserList {
+		height: 56px;
+		background: #FAF9FB;
+		box-shadow: inset 0 -4px 0 #F4F2F5;
+		padding-left: 16px;
+		box-sizing: border-box;
+
+}
+
+.tr > th > span {
+		font-weight: 500;
+		font-size: 14px;
+		line-height: 17px;
+		letter-spacing: -0.35px;
+
+		color: rgba(0, 0, 0, 0.6);
+		mix-blend-mode: hard-light;
+		opacity: 0.76;
+}
+
+.tableUserListInfo {
+		width: 56px;
+
+		background: rgba(255, 255, 255, 0.55);
+
+}
+.tableUserListText {
+		box-sizing: border-box;
+		box-shadow: inset 0 -4px 0 #F4F2F5;
+}
 .tooltipMain {
 		display: flex;
 		width: 130px;
@@ -22,6 +56,11 @@
 		background-color: #000000;
 		opacity: 0.8;
 		border-radius: 8px;
+}
+
+.tableUserListInfo {
+		table-layout: auto;
+		width: 100%;
 }
 
 .ArrowImg {
@@ -58,7 +97,7 @@
 .avatar {
 		width: 32px;
 		height: 32px;
-		margin: 12px 0 24px 0;
+		/*margin: 12px 0 24px 0;*/
 		box-sizing: border-box;
 		border-radius: 40px;
 		color: #D0A7B6;
@@ -167,13 +206,12 @@
 }
 
 .tableBtn {
-		position: absolute;
+		margin-top: -2px;
+		margin-right: -2px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
-		right: 0;
-		top: 0;
 		width: 28px;
 		height: 52px;
 		background-color: #E7E6E8;
@@ -187,12 +225,15 @@
 		.tableHeaderName {
 				margin-right: 300px;
 		}
+
 		.tableHeaderEmail {
 				margin-right: 233px;
 		}
+
 		.tableHeaderRole {
 				margin-right: 228px;
 		}
+
 		.tableTextName {
 				width: 286px;
 		}
@@ -200,6 +241,7 @@
 		.tableTextEmail {
 				width: 268px;
 		}
+
 		.tableTextRole {
 				width: 255px;
 		}
@@ -209,12 +251,15 @@
 		.tableHeaderName {
 				margin-right: 320px;
 		}
+
 		.tableHeaderEmail {
 				margin-right: 245px;
 		}
+
 		.tableHeaderRole {
 				margin-right: 240px;
 		}
+
 		.tableTextName {
 				width: 305px;
 		}
@@ -222,14 +267,15 @@
 		.tableTextEmail {
 				width: 278px;
 		}
+
 		.tableTextRole {
 				width: 270px;
 		}
 }
 
 @media (max-width: 1100px) {
-	.phone {
-			margin-right: 60px;
-	}
+		.phone {
+				margin-right: 60px;
+		}
 
 }
