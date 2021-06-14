@@ -4,20 +4,16 @@ import {
 } from "react-router-dom";
 
 import arrowUp from '../Items/Icons/arrow-up.svg'
-import blog from '../Items/Icons/blog.svg';
 import classes from './InfluencerDetails.module.css';
 import configFront from "../../Constants/configFront";
 import edit from '../Items/Icons/edit-alt.svg';
-import facebook from '../Items/Icons/facebook.svg';
 import InfluencersService from "../../Services/influencers.service";
-import instagram from '../Items/Icons/instagram.svg';
 import routes from "../../Constants/routes.enum";
 import Sidebar from '../Items/Sidebar/Sidebar'
-import tiktok from '../Items/Icons/tiktok.svg';
-import twitter from '../Items/Icons/twitter.svg';
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
-import youtube from '../Items/Icons/youtube.svg';
 import Loading from "../Items/Loading/Loading";
+import defaultImg from '../../img/Default_Pic/24-248253_user-profile-default-image-png-clipart-png-download.png';
+import Profiles from '../Items/Profiles/Profiles'
 
 // import Search from "../Items/Search/Search";
 // import path from '../Items/Icons/path.svg';
@@ -58,7 +54,6 @@ const InfluencerDetails = () => {
                 } else {
                     const newDate = initialState.birthdate.split('T').shift();
                     setValues({...initialState, birthdate: newDate.split('-').reverse().join('.')});
-
                 }
                 setIsLoading(false)
             }
@@ -85,9 +80,12 @@ const InfluencerDetails = () => {
             {isLoading ?
                 <Loading message='Please, wait...'/> :
                 <div className={classes.infoContainer}>
-                    <section className={classes.rightBox}>
-                        <img src={values.profile_picture} alt="avatar"/>
-                    </section>
+                    <div className={classes.rightBox}>
+                        <img
+                            src={values.profile_picture ? values.profile_picture : defaultImg}
+                            alt="avatar"
+                        />
+                    </div>
                     <section className={classes.leftBox}>
                         <div
                             className={classes.FullName}>{values.first_name && values.last_name ? `${values.first_name} ${values.last_name}` : ''}</div>
@@ -106,72 +104,9 @@ const InfluencerDetails = () => {
 
                                 {values.social_profiles && values.social_profiles.length ? values.social_profiles.map((soc, index) =>
                                     <div key={index}>
-                                        <div> {soc.social_network_name === 'instagram' ?
-                                            <div className={`${classes.instagram} ${classes.mainSocial}`}>
-                                                <div className={classes.position}><img src={instagram} alt={'inst'}/>
-                                                </div>
-                                                <div className={classes.infoSocial}>
-                                                    <p>{soc.social_network_profile}</p>
-                                                    <p>{soc.social_network_followers}</p>
-                                                </div>
-                                            </div> : ''
-                                        }</div>
-
-
-                                        <div>{soc.social_network_name === 'tiktok' ?
-                                            <div className={`${classes.tiktok} ${classes.mainSocial}`}>
-                                                <div className={classes.position}><img src={tiktok} alt={'tiktok'}/>
-                                                </div>
-                                                <div className={classes.infoSocial}>
-                                                    <p>{soc.social_network_profile}</p>
-                                                    <p>{soc.social_network_followers}</p>
-                                                </div>
-                                            </div> : ''
-                                        }</div>
-
-                                        <div>{soc.social_network_name === "facebook" ?
-                                            <div className={`${classes.facebook} ${classes.mainSocial}`}>
-                                                <div className={classes.position}><img src={facebook} alt={'facebook'}/>
-                                                </div>
-                                                <div className={classes.infoSocial}>
-                                                    <p>{soc.social_network_profile}</p>
-                                                    <p>{soc.social_network_followers}</p>
-                                                </div>
-                                            </div> : ''
-                                        }</div>
-
-                                        <div>{soc.social_network_name === 'youtube' ?
-                                            <div className={`${classes.youTub} ${classes.mainSocial}`}>
-                                                <div className={classes.position}><img src={youtube} alt={'youtube'}/>
-                                                </div>
-                                                <div className={classes.infoSocial}>
-                                                    <p>{soc.social_network_profile}</p>
-                                                    <p>{soc.social_network_followers}</p>
-                                                </div>
-                                            </div> : ''
-                                        }</div>
-
-                                        <div>{soc.social_network_name === 'blog' ?
-                                            <div className={`${classes.blog} ${classes.mainSocial}`}>
-                                                <div className={classes.position}><img src={blog} alt={'blog'}/></div>
-                                                <div className={classes.infoSocial}>
-                                                    <p>{soc.social_network_profile}</p>
-                                                    <p>{soc.social_network_followers}</p>
-                                                </div>
-                                            </div> : ''
-                                        }</div>
-
-                                        <div>{soc.social_network_name === 'twitter' ?
-                                            <div className={`${classes.twitter} ${classes.mainSocial}`}>
-                                                <div className={classes.position}><img src={twitter} alt={'twitter'}/>
-                                                </div>
-                                                <div className={classes.infoSocial}>
-                                                    <p>{soc.social_network_profile}</p>
-                                                    <p>{soc.social_network_followers}</p>
-                                                </div>
-                                            </div> : ''
-                                        }</div>
-
+                                        <Profiles network_name={soc.social_network_name}
+                                                  followers={soc.social_network_followers}
+                                                  profile={soc.social_network_profile}/>
                                     </div>
                                 ) : ''
                                 }
