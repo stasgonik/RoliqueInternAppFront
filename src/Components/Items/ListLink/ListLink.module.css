@@ -1,0 +1,58 @@
+.tableBtn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		width: 28px;
+		height: 50px;
+		background-color: #E7E6E8;
+		margin: -1px -1px 3px 0;
+}
+
+.tableBtn:hover + .tooltipMain {
+		visibility: visible;
+}
+
+
+.tooltipMain {
+		display: flex;
+		min-width: 130px;
+		height: 44px;
+		visibility: hidden;
+		box-sizing: border-box;
+		position: relative;
+		/*right: 110px;*/
+		padding: 12px 16px;
+		background-color: #000000;
+		opacity: 0.8;
+		border-radius: 8px;
+}
+
+.Test:hover + .tooltipMain {
+		visibility: visible;
+}
+
+.Test:hover + .tooltipMain + .ArrowImg {
+		visibility: visible;
+}
+
+.tableBtn:hover + .tooltipMain + .ArrowImg {
+		visibility: visible;
+}
+
+.Test {
+		position: absolute;
+}
+
+.TooltipText {
+		line-height: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #EEEEEE;
+}
+
+.ArrowImg {
+		margin-right: 42px;
+		visibility: hidden;
+}

@@ -5,7 +5,7 @@ import arrowUp from '../Items/Icons/arrow-up.svg';
 import AuthService from "../../Services/auth.service";
 import classes from './UsersList.module.css';
 import path from '../Items/Icons/path.svg';
-import photoDefault from '../Items/Icons/vector.svg';
+import photoDefault from '../Items/Icons/blog.svg'
 import rightArrow from '../Items/Icons/right-arrow.svg';
 import routes from '../../Constants/routes.enum';
 import Sidebar from '../Items/Sidebar/Sidebar'
@@ -13,6 +13,8 @@ import Search from '../Items/Search/Search';
 import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 import UserService from "../../Services/user.service";
 import Loading from "../Items/Loading/Loading";
+import ListLink from "../Items/ListLink/ListLink";
+import Header from "../Items/Header/Header";
 
 
 const UsersList = () => {
@@ -49,7 +51,8 @@ const UsersList = () => {
 
 	return (
 
-		<div className={classes.mainContainer}>
+		<main className={classes.mainContainer}>
+
 			<Sidebar/>
 			<UsersListHeader titleHeader={classes.titleUsers}
 							 title={initial ? '' : 'Users'}
@@ -62,29 +65,24 @@ const UsersList = () => {
 				<Search placeholder={"Search"}
 						onChangeName={(e) => searchName(e)}/>
 			</section>
-			{/*<section className={classes.tableHeader}>*/}
-			{/*    <p className={classes.tableHeaderName}>Name</p>*/}
-			{/*    <p className={classes.tableHeaderEmail}>Email</p>*/}
-			{/*    <p className={classes.tableHeaderRole}>Role</p>*/}
-			{/*    <p>Phone</p>*/}
-			{/*</section>*/}
+
+
 
 			<section className={classes.userListContainer}>
 
 
-				<table className={classes.tableUserList}>
+				<table className={classes.tableUserListInfo}>
 					<thead>
 					<tr className={classes.tr}>
+						<th/>
 						<th className={classes.titleUserList}><span>Name</span></th>
 						<th className={classes.titleUserList}><span>Email</span></th>
 						<th className={classes.titleUserList}><span>Role</span></th>
 						<th className={classes.titleUserList}><span>Phone</span></th>
 					</tr>
 					</thead>
-				</table>
 
-				<table className={classes.tableUserListInfo}>
-				{isLoading ? <Loading message='Please wait...'/> : values ? (values.map((item) =>
+					{isLoading ? <Loading message='Please wait...'/> : values ? (values.map((item) =>
 						<tbody className={classes.tableUserListText}>
 						<tr>
 							<td> {item.profile_picture ?
@@ -92,38 +90,23 @@ const UsersList = () => {
 								<img src={photoDefault} alt='photoDefault'
 									 className={`${classes.avatar} ${classes.photo}`}/>}
 							</td>
-							<td>{item.first_name}</td>
-							<td>{item.last_name}</td>
+							<td>{item.first_name} {item.last_name}</td>
 							<td>{item.email}</td>
 							<td>{capitalizeFirstLetter(item.role)}</td>
 							<td>{item.phone}</td>
 
-							<td>{(AuthService.getUserRole() === 'admin') ?
-								<Link to={`${routes.USERS}/${item._id}/${routes.EDIT}`}>
-									<div className={classes.tableBtn}>
-										<div className={classes.Test}>
-											<div className={classes.btnPosition}>
-												<img src={path} alt='path'
-													 className={classes.infoBtn}/></div>
-										</div>
-										<div className={classes.tooltipMain}>
-											<div className={classes.TooltipText}>
-												<p>Edit User</p></div>
-										</div>
-										<img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>
-									</div>
-								</Link>
+							<td className={classes.tdLink}>{(AuthService.getUserRole() === 'admin') || (AuthService.getUserRole() === 'manager') && (item.role === 'manager' || item.role === 'employee') || (AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === item._id) ?
+								<ListLink message='Edit User' arrow={rightArrow} link={`${routes.USERS}/${item._id}/${routes.EDIT}`}/>
 								: ''}</td>
+
 						</tr>
 						</tbody>
-
-
-				)) : ''}
+					)) : ''}
 
 				</table>
 
 
-					{/*    {isLoading ? <Loading message='Please wait...'/>*/}
+				{/*    {isLoading ? <Loading message='Please wait...'/>*/}
 				{/*        : values ? (values.map((item, index) =>*/}
 				{/*        <div key={index}>*/}
 				{/*            <div className={`${classes.tableHeaderInfo}`}>*/}
@@ -193,9 +176,9 @@ const UsersList = () => {
 				{/*    )) : ''}*/}
 				{/*    }*/}
 
-					</section>
-					</div>
-					)
-					}
+			</section>
+		</main>
+	)
+}
 
-					export default UsersList;
+export default UsersList;
