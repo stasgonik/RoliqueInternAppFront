@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, {Component, useEffect, useState} from 'react';
 import {NavLink, withRouter, useHistory} from "react-router-dom";
 
@@ -61,6 +60,7 @@ const Login = () => {
                 if (login.status === 200) {
                     console.log("AAA")
                     history.push(`/${routes.USERS}`)
+                    return
                 }
                 if (login.status === 400) {
                     setError(INFO.INVALID_EMAIL_OR_PASSWORD)
