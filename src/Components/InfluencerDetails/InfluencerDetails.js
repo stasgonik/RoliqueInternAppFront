@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     useParams
 } from "react-router-dom";
@@ -53,11 +53,11 @@ const InfluencerDetails = () => {
                 }
 
                 if (!initialState.birthdate) {
-                    setValues({...initialState})
+                    setValues({ ...initialState })
 
                 } else {
                     const newDate = initialState.birthdate.split('T').shift();
-                    setValues({...initialState, birthdate: newDate.split('-').reverse().join('.')});
+                    setValues({ ...initialState, birthdate: newDate.split('-').reverse().join('.') });
 
                 }
                 setIsLoading(false)
@@ -80,7 +80,7 @@ const InfluencerDetails = () => {
                              titleBtnEdit={'Edit'}
                              EditInf={classes.EditInf}
                              item={'influencer'}
-                             icon={{background: `url(${edit}) no-repeat`, backgroundPosition: 'left 8px top 8px'}}
+                             icon={{ background: `url(${edit}) no-repeat`, backgroundPosition: 'left 8px top 8px' }}
             />
             {isLoading ?
                 <Loading message='Please, wait...'/> :
@@ -144,10 +144,10 @@ const InfluencerDetails = () => {
                                             <div className={`${classes.youTub} ${classes.mainSocial}`}>
                                                 <div className={classes.position}><img src={youtube} alt={'youtube'}/>
                                                 </div>
-                                                <div className={classes.infoSocial}>
-                                                    <p>{soc.social_network_profile}</p>
+                                                <a href={soc.social_network_profile} className={classes.infoSocial}>
+                                                    <p>{values.youtube_username}</p>
                                                     <p>{soc.social_network_followers}</p>
-                                                </div>
+                                                </a>
                                             </div> : ''
                                         }</div>
 
@@ -189,6 +189,11 @@ const InfluencerDetails = () => {
                             className={classes.instPhoto}><img src={photo} alt={'instPhoto'}/></div>) : ''}
 
 
+                        {values.youtube_videos ? values.youtube_videos.map((video) => <a
+                            target="_blank"
+                            href={`https://www.youtube.com/watch?v=${video.videoId}`}
+                            className={classes.instPhoto}><img src={video.preview} alt={'instPhoto'}/>
+                        </a>) : ''}
                     </div>
                 </section>}
         </div>
