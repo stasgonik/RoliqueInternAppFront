@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, {Component} from 'react';
-import {NavLink, withRouter} from "react-router-dom";
+import {NavLink, Redirect, withRouter} from "react-router-dom";
 
 import authService from '../../Services/auth.service'
 import './login.css'
@@ -8,6 +8,7 @@ import Error from '../Items/Messages/Messages';
 import {INFO} from '../../Constants/messages'
 import regexp from '../../Constants/regexp.enum';
 import routes from "../../Constants/routes.enum";
+import configFront from "../../Constants/configFront";
 
 class Login extends Component {
 
@@ -74,8 +75,7 @@ class Login extends Component {
                     this.setState({isSending: false})
                 }
                 if (login.status === 200) {
-                    this.props.history.push(`/${routes.USERS}`)
-                    return
+                    window.location.href = configFront.URL + routes.USERS
                 }
                 if (login.status === 400) {
                     this.setState({errors: INFO.INVALID_EMAIL_OR_PASSWORD})

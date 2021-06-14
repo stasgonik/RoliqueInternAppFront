@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import configFront from "../Constants/configFront";
 import configServer from '../Constants/configServer'
+import routes from "../Constants/routes.enum";
 
 const _endpoint = {
     REFRESH: 'auth/refresh'
@@ -29,7 +30,7 @@ axiosInstance.interceptors.response.use(
         if (error.response.status === 401 && (originalRequest.url === `${_endpoint.REFRESH}`
             || originalRequest.url === originalRequest.url + `${_endpoint.REFRESH}`)) {
             localStorage.clear()
-            window.location.href = configFront.URL;
+            window.location.href = configFront.URL + routes.LOGIN;
             return Promise.reject(error);
         }
 
@@ -56,14 +57,14 @@ axiosInstance.interceptors.response.use(
                     .catch(err => {
                         // console.log(err)
                         if (err.status === 401) {
-                            window.location.href = configFront.URL;
+                            window.location.href = configFront.URL + routes.LOGIN;
                         }
                         return err
                     });
 
             } else {
                 console.log("Refresh token not available.")
-                window.location.href = configFront.URL;
+                window.location.href = configFront.URL + routes.LOGIN;
             }
         }
         throw error.response

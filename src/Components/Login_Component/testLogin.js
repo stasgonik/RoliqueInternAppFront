@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, {Component, useEffect, useState} from 'react';
-import {NavLink, withRouter, u, useHistory} from "react-router-dom";
+import {NavLink, withRouter, Redirect} from "react-router-dom";
 
 import AuthService from '../../Services/auth.service'
 import './login.css'
@@ -15,8 +15,6 @@ const Login = () => {
         email: '',
         password: ''
     })
-
-    const h = useHistory();
 
     const [error, setError] = useState('')
     const [type, setType] = useState('password')
@@ -59,8 +57,8 @@ const Login = () => {
                     setIsSending(false)
                 }
                 if (login.status === 200) {
-                    h.push(`/${routes.USERS}`)
-                    return
+                    console.log("AAA")
+                    return <Redirect to='/users'  />
                 }
                 if (login.status === 400) {
                     setError(INFO.INVALID_EMAIL_OR_PASSWORD)
@@ -80,7 +78,7 @@ const Login = () => {
         }
     };
 
-    const handleChange = (field, e) => {
+    const handleChange = (e, field) => {
         e.preventDefault();
         let fields = this.state.fields;
         fields[field] = e.target.value;
@@ -100,7 +98,7 @@ const Login = () => {
                     <span className={'login-form-spam'}>Email</span>
 
                     <input id={'in1'} className={'loginInput'} required={true}
-                           onChange={this.handleChange.bind(this, "email")}
+                           onInput={(e) => handleChange(e, 'email')}
                     />
 
                     <div className={'PasswordForm'}>

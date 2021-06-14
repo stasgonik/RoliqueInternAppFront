@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {
-    BrowserRouter as Router,
+    BrowserRouter as Router, Redirect,
     Route,
     Switch,
     useHistory
@@ -20,29 +20,32 @@ import UsersList from "./Components/UsersList/UsersList";
 import Campaigns_List from "./Components/Campaigns_List/Campaigns_List";
 import Create_Campaigns from "./Components/Create_Campaign/Create_Campaigns";
 import Campaign_Planning from "./Components/Campaign_Planning/Campaign_Planning";
-import { EditCampaign } from "./Components/Edit_Campaign";
+import {EditCampaign} from "./Components/Edit_Campaign";
 import AuthService from "./Services/auth.service";
-
+import configFront from "./Constants/configFront";
 
 
 export default function App(props) {
 
-    const h = useHistory();
-
     useEffect(() => {
-        async function tryToken() {
+        const tryToken = async () => {
             if (AuthService.getAccessToken() && AuthService.getRefreshToken()) {
                 const result = await AuthService.refresh()
                 if (result.status === 200) {
-                    h.push(`/${routes.USERS}`)
+                    window.location.href = configFront.URL + routes.USERS
                 } else {
-                    h.push(`/${routes.LOGIN}`)
                     localStorage.clear()
+                    window.location.href = configFront.URL + routes.LOGIN
                 }
+            } else {
+                localStorage.clear()
+                window.location.href = configFront.URL + routes.LOGIN
             }
         }
 
-        tryToken();
+        if (window.location.href === configFront.URL) {
+            tryToken();
+        }
     }, [])
 
     return (
