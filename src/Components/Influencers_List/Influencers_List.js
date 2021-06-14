@@ -9,7 +9,7 @@ import InfluencersService from "../../Services/influencers.service";
 import instagramIcon from "../../img/Social_Icons/Instagram.svg";
 // import loading from "../../img/Loading.gif";
 import path from '../Items/Icons/path.svg';
-import photoDefault from '../Items/Icons/vector.svg';
+import photoDefault from '../../img/Default_Pic/24-248253_user-profile-default-image-png-clipart-png-download.png';
 import rightArrow from '../Items/Icons/right-arrow.svg';
 import routes from "../../Constants/routes.enum";
 import Search from "../Items/Search/Search";
