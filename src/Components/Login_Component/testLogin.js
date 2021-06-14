@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, {Component, useEffect, useState} from 'react';
-import {NavLink, withRouter, Redirect} from "react-router-dom";
+import {NavLink, withRouter, useHistory} from "react-router-dom";
 
 import AuthService from '../../Services/auth.service'
 import './login.css'
@@ -10,6 +10,8 @@ import regexp from '../../Constants/regexp.enum';
 import routes from "../../Constants/routes.enum";
 
 const Login = () => {
+
+    const history = useHistory();
 
     const [values, setValues] = useState({
         email: '',
@@ -58,7 +60,7 @@ const Login = () => {
                 }
                 if (login.status === 200) {
                     console.log("AAA")
-                    return <Redirect to='/users'  />
+                    history.push(`/${routes.USERS}`)
                 }
                 if (login.status === 400) {
                     setError(INFO.INVALID_EMAIL_OR_PASSWORD)
@@ -80,15 +82,13 @@ const Login = () => {
 
     const handleChange = (e, field) => {
         e.preventDefault();
-        let fields = this.state.fields;
-        fields[field] = e.target.value;
-        this.setState({fields});
+        values[field] = e.target.value;
+        setValues({...values})
     }
 
-    render() {
         return (
             <div className={'main-flex-login'}>
-                <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
+                <form className={'login-form'} onSubmit={(e) => send(e)}>
 
                     <h3 className={'login-form-h3'}>Log into your account</h3>
 
@@ -103,16 +103,16 @@ const Login = () => {
 
                     <div className={'PasswordForm'}>
                         <span className={'login-form-spam'}>Password</span>
-                        <span className="login-form-spam clickPassword" onClick={this.showHide}>
-                            {this.state.type === "input" ? "Hide Password" : "Show Password"}
+                        <span className="login-form-spam clickPassword" onClick={(e) => showHide(e)}>
+                            {type === "input" ? "Hide Password" : "Show Password"}
                      </span>
                     </div>
-                    <input type={this.state.type} className="password__input" required={true}
-                           onChange={this.handleChange.bind(this, "password")}
+                    <input type={type} className="password__input" required={true}
+                           onInput={(e) => handleChange(e, 'password')}
                     />
 
                     <div className="wrap">
-                        <button className={this.state.isSending? "button disabled" : "button"} disabled={!!this.state.isSending}>{this.state.isSending? 'Sending' : 'Log In'}</button>
+                        <button className={isSending? "button disabled" : "button"} disabled={!!isSending}>{isSending? 'Sending' : 'Log In'}</button>
                     </div>
 
                     <NavLink to={`/${routes.FORGOT_PASSWORD}/${routes.EMAIL_FORM}`}>
@@ -121,7 +121,7 @@ const Login = () => {
                 </form>
             </div>
         );
-    }
+
 }
 
 export default withRouter(Login);
