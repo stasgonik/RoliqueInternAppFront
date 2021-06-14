@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     BrowserRouter as Router,
     Route,
     Switch,
+    useHistory
 } from "react-router-dom";
 
 import CreateInfluencer from "./Components/Create_Influencer/CreateInfluencer";
@@ -20,12 +21,34 @@ import Campaigns_List from "./Components/Campaigns_List/Campaigns_List";
 import Create_Campaigns from "./Components/Create_Campaign/Create_Campaigns";
 import Campaign_Planning from "./Components/Campaign_Planning/Campaign_Planning";
 import { EditCampaign } from "./Components/Edit_Campaign";
+import AuthService from "./Services/auth.service";
+
+
 
 export default function App(props) {
+
+    const h = useHistory();
+
+    useEffect(() => {
+        async function tryToken() {
+            if (AuthService.getAccessToken() && AuthService.getRefreshToken()) {
+                const result = await AuthService.refresh()
+                if (result.status === 200) {
+                    h.push(`/${routes.USERS}`)
+                } else {
+                    h.push(`/${routes.LOGIN}`)
+                    localStorage.clear()
+                }
+            }
+        }
+
+        tryToken();
+    }, [])
+
     return (
         <Router>
             <Switch>
-                <Route path={'/'} exact{...props} component={Login}/>
+                <Route path={`/${routes.LOGIN}`} exact{...props} component={Login}/>
                 <Route path={`/${routes.USERS}`} exact{...props} component={UsersList}/>
                 <Route path={`/${routes.USERS}/${routes.CREATE}`} exact {...props} component={CreateInternalUser}/>
                 <Route path={`/${routes.USERS}/:${routes.USER_ID}/${routes.EDIT}`} exact {...props}

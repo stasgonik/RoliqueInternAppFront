@@ -1,4 +1,5 @@
 const routes = {
+    LOGIN: "login",
     USERS: "users",
     INFLUENCERS: "influencers",
     CAMPAIGNS: "campaigns",

@@ -1,94 +1,78 @@
 import PropTypes from "prop-types";
-import React, {Component} from 'react';
-import {NavLink, withRouter} from "react-router-dom";
+import React, {Component, useEffect, useState} from 'react';
+import {NavLink, withRouter, u, useHistory} from "react-router-dom";
 
-import authService from '../../Services/auth.service'
+import AuthService from '../../Services/auth.service'
 import './login.css'
 import Error from '../Items/Messages/Messages';
 import {INFO} from '../../Constants/messages'
 import regexp from '../../Constants/regexp.enum';
 import routes from "../../Constants/routes.enum";
 
-class Login extends Component {
+const Login = () => {
 
-    static propTypes = {
-        match: PropTypes.object.isRequired,
-        location: PropTypes.object.isRequired,
-        history: PropTypes.object.isRequired
-    };
+    const [values, setValues] = useState({
+        email: '',
+        password: ''
+    })
 
-    state = {
-        fields: {
-            email: '',
-            password: ''
-        },
-        errors: '',
-        type: 'password',
-        isSending: false
-    };
+    const h = useHistory();
 
-    constructor(props) {
-        super(props);
-        this.showHide = this.showHide.bind(this);
-    }
+    const [error, setError] = useState('')
+    const [type, setType] = useState('password')
+    const [isSending, setIsSending] = useState(false)
 
-    handleValidation() {
-        const fields = this.state.fields;
+    const handleValidation = () => {
         let formIsValid = true;
 
-        if ((typeof fields.password !== "undefined") || (typeof fields.email !== "undefined")) {
-            if (!fields.password.match(regexp.PASSWORD_REGEXP) || !fields.email.match(regexp.EMAIL_REGEXP)) {
+        if ((typeof values.password !== "undefined") || (typeof values.email !== "undefined")) {
+            if (!values.password.match(regexp.PASSWORD_REGEXP) || !values.email.match(regexp.EMAIL_REGEXP)) {
                 formIsValid = false;
-                this.setState({errors: INFO.INVALID_EMAIL_OR_PASSWORD, isSending: false})
+                setError(INFO.INVALID_EMAIL_OR_PASSWORD)
+                setIsSending(false)
             }
         }
 
         return formIsValid;
     }
 
-    showHide(e) {
+    const showHide = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        this.setState({
-            type: this.state.type === "input" ? "password" : "input"
-        });
+        const newType = type === 'input' ? "password" : "input"
+        setType(newType)
     }
 
-    myForm = React.createRef();
-
-
-    send = async (e) => {
+    const send = async (e) => {
         e.preventDefault();
-        this.setState({isSending: true})
+        setIsSending(true)
         try {
-            const fields = this.state.fields;
 
             const body = {
-                email: fields.email,
-                password: fields.password
+                email: values.email,
+                password: values.password
             }
 
-            if (this.handleValidation()) {
-                const login = await authService.login(body);
+            if (handleValidation()) {
+                const login = await AuthService.login(body);
                 if (login) {
-                    this.setState({isSending: false})
+                    setIsSending(false)
                 }
                 if (login.status === 200) {
-                    this.props.history.push(`/${routes.USERS}`)
+                    h.push(`/${routes.USERS}`)
                     return
                 }
                 if (login.status === 400) {
-                    this.setState({errors: INFO.INVALID_EMAIL_OR_PASSWORD})
+                    setError(INFO.INVALID_EMAIL_OR_PASSWORD)
                     return
                 }
                 if (login.status === 500) {
-                    this.setState({errors: INFO.SERVER_ERROR})
+                    setError(INFO.SERVER_ERROR)
                     console.log(login)
                     return
                 }
-                this.setState({errors: INFO.UNKNOWN_ERROR})
+                setError(INFO.UNKNOWN_ERROR)
                 console.log(login)
-                return
             }
 
         } catch (e) {
@@ -96,7 +80,7 @@ class Login extends Component {
         }
     };
 
-    handleChange(field, e) {
+    const handleChange = (field, e) => {
         e.preventDefault();
         let fields = this.state.fields;
         fields[field] = e.target.value;
@@ -109,9 +93,10 @@ class Login extends Component {
                 <form className={'login-form'} onSubmit={this.send} ref={this.myForm}>
 
                     <h3 className={'login-form-h3'}>Log into your account</h3>
-                    {this.state.errors ?
+
+                    {error ?
                         <Error color={{backgroundColor: '#FEEFEF', marginLeft: '32px', marginBottom: '24px'}}
-                               colorRound={'colorRound'} className={'ErrorPosition'} message={this.state.errors}/> : ''}
+                               colorRound={'colorRound'} className={'ErrorPosition'} message={error}/> : ''}
                     <span className={'login-form-spam'}>Email</span>
 
                     <input id={'in1'} className={'loginInput'} required={true}
