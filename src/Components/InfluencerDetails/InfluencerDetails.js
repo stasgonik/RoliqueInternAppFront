@@ -122,6 +122,7 @@ const InfluencerDetails = () => {
                                     <div key={index}>
                                         <Profiles network_name={soc.social_network_name}
                                                   followers={soc.social_network_followers}
+                                                  url={soc.social_network_url && soc.social_network_url}
                                                   profile={soc.social_network_profile}/>
                                     </div>
                                 ) : ''
