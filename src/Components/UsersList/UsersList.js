@@ -95,7 +95,7 @@ const UsersList = () => {
 							<td>{capitalizeFirstLetter(item.role)}</td>
 							<td>{item.phone}</td>
 
-							<td className={classes.tdLink}>{(AuthService.getUserRole() === 'admin') || (AuthService.getUserRole() === 'manager') && (item.role === 'manager' || item.role === 'employee') || (AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === item._id) ?
+							<td className={classes.tdLink}>{(AuthService.getUserRole() === 'admin') || ((AuthService.getUserRole() === 'manager') && (item.role === 'manager' || item.role === 'employee')) || ((AuthService.getUserRole() === 'employee') && (AuthService.getUserId() === item._id)) ?
 								<ListLink message='Edit User' arrow={rightArrow} link={`${routes.USERS}/${item._id}/${routes.EDIT}`}/>
 								: ''}</td>
 

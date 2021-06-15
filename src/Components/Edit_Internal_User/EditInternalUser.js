@@ -222,11 +222,11 @@ const EditUser = () => {
 						setErrors(errors);
 						return
 					}
-					// if (result.data.customCode === 4002) {
-					//     errors["email"] = INFO.EMAIL_ALREADY_EXIST
-					//     setErrors(errors);
-					//     return
-					// }
+					if (result.data.customCode === 4002) {
+					    errors["email"] = INFO.EMAIL_ALREADY_EXIST
+					    setErrors(errors);
+					    return
+					}
 					if (result.data.customCode === 4005) {
 						errors["avatar"] = INFO.TOO_BIG_PHOTO
 						setErrors(errors);
