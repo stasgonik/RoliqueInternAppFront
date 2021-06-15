@@ -127,8 +127,10 @@ const InfluencerDetails = () => {
                 <section>
                     <div className={classes.ContainerPhoto}>
 
-                        {values.photos ? values.photos.map((photo) => <div
-                            className={classes.instPhoto}><img src={photo.preview} alt={'instPhoto'}/></div>) : ''}
+                        {values.photos ? values.photos.map((photo) => <a target="_blank"
+                                                                         href={photo.videoId && `https://www.youtube.com/watch?v=${photo.videoId}`}
+                                                                         className={classes.instPhoto}><img
+                            src={photo.preview} alt={'instPhoto'}/></a>) : ''}
 
 
                     </div>
