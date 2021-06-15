@@ -51,12 +51,12 @@ const InfluencerDetails = () => {
                     })
                     initialState.photos = [];
 
-                    if(initialState.instagram_photos && initialState.instagram_photos.length) {
-                        initialState.photos = [...initialState.instagram_photos];
+                    if (initialState.instagram_photos && initialState.instagram_photos.length) {
+                        initialState.photos = [...initialState.photos, ...initialState.instagram_photos];
                     }
 
-                    if(initialState.youtube_videos && initialState.youtube_videos.length) {
-                        initialState.photos = [...initialState.youtube_videos];
+                    if (initialState.youtube_videos && initialState.youtube_videos.length) {
+                        initialState.photos = [...initialState.photos, ...initialState.youtube_videos];
                     }
 
                     initialState.photos = initialState.photos.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
