@@ -137,13 +137,13 @@ const InfluencerDetails = () => {
                     <div className={classes.ContainerPhoto}>
 
                         {values.photos ? values.photos.map((photo) =>
-                                <a target="_blank"
-                               href={photo.videoId && `https://www.youtube.com/watch?v=${photo.videoId}`}
+                            <a target="_blank"
+                               href={photo.id && photo.social_name === 'youtube' ? `https://www.youtube.com/watch?v=${photo.id}` : photo.social_name === 'instagram' ? `https://www.instagram.com/p/${photo.id}` : '#'}
                                className={classes.photoWrapper}>
-                                    <Social_Icon img={photo.social_name}/>
+                                <Social_Icon img={photo.social_name}/>
 
-                                    <img className={classes.photo}
-                                src={photo.preview} alt={'instPhoto'}/></a>) : ''}
+                                <img className={classes.photo}
+                                     src={photo.preview} alt={'instPhoto'}/></a>) : ''}
 
 
                     </div>
