@@ -206,7 +206,7 @@ const EditInfluencer = () => {
 
                 if (value !== '') {
                     let errProf = '';
-                    if (!value.match(regexp.PROFILE_REGEXP)) {
+                    if (!value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
                         errProf = INFO.PROFILE_REGEX
                     }
                     setErrors({...errors, [inputFollower]: INFO.PROFILES_ERROR, [e.target.name]: errProf})
@@ -220,7 +220,7 @@ const EditInfluencer = () => {
                     let errFoll = '';
                     let normalFoll = input.current.value.split('.').join('')
 
-                    if (!value.match(regexp.PROFILE_REGEXP)) {
+                    if (!value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
                         errProf = INFO.PROFILE_REGEX
                     }
                 console.log(normalFoll)
@@ -281,14 +281,14 @@ const EditInfluencer = () => {
                     if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
                         errFoll = INFO.FOLLOWERS_REGEX
                     }
-                    if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+                    if (!input.current.value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
                         errProf = INFO.PROFILE_REGEX
                     }
 
                     setErrors({...errors, [e.target.name]: errFoll, [inputProfile]: errProf})
                 } else {
                     let errProf = '';
-                    if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+                    if (!input.current.value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
                         errProf = INFO.PROFILE_REGEX
                     }
                     setErrors({...errors, [inputProfile]: errProf})
@@ -336,7 +336,7 @@ const EditInfluencer = () => {
                     inputFocus.current.style.borderColor = 'red'
                     inputFocus.current.required = true
                     let errProf = '';
-                    if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+                    if (!input.current.value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
                         errProf = INFO.PROFILE_REGEX
                     }
                     setErrors({...errors, [inputProfile]: errProf, [e.target.name]: INFO.PROFILES_ERROR})
