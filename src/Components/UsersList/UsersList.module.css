@@ -16,14 +16,6 @@
 		margin-right: 69px;
 }
 
-.tableUserList {
-		height: 56px;
-		background: #FAF9FB;
-		box-shadow: inset 0 -4px 0 #F4F2F5;
-		padding-left: 16px;
-		box-sizing: border-box;
-
-}
 
 .titleUsers {
 		margin-left: 69px;
@@ -56,21 +48,23 @@ thead {
 		opacity: 0.76;
 }
 
-.tableUserListInfo {
-		width: 56px;
-		background: rgba(255, 255, 255, 0.55);
-}
 
-.tableUserListText {
-		box-sizing: border-box;
-		box-shadow: inset 0 -4px 0 #F4F2F5;
-}
 
 .tableUserListInfo {
 		table-layout: auto;
 		width: 100%;
 		border-collapse: collapse;
+		background: rgba(255, 255, 255, 0.55);
 }
+
+
+
+.tableUserListText {
+		box-sizing: border-box;
+		box-shadow: inset 0 -4px 0 #F4F2F5;
+		height: 56px;
+}
+
 
 .ArrowImg {
 		margin-right: 42px;

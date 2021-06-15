@@ -75,15 +75,15 @@ const UsersList = () => {
 					<thead>
 					<tr className={classes.tr}>
 						<th/>
-						<th className={classes.titleUserList}><span>Name</span></th>
-						<th className={classes.titleUserList}><span>Email</span></th>
-						<th className={classes.titleUserList}><span>Role</span></th>
-						<th className={classes.titleUserList}><span>Phone</span></th>
+						<th><span>Name</span></th>
+						<th><span>Email</span></th>
+						<th><span>Role</span></th>
+						<th><span>Phone</span></th>
 					</tr>
 					</thead>
 
 					{isLoading ? <Loading message='Please wait...'/> : values ? (values.map((item) =>
-						<tbody className={classes.tableUserListText}>
+						<tbody className={classes.tableUserListText} key={item._id}>
 						<tr>
 							<td> {item.profile_picture ?
 								<img src={`${item.profile_picture}`} alt='avatar' className={classes.avatar}/> :

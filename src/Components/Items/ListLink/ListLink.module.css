@@ -21,7 +21,6 @@
 		visibility: hidden;
 		box-sizing: border-box;
 		position: relative;
-		/*right: 110px;*/
 		padding: 12px 16px;
 		background-color: #000000;
 		opacity: 0.8;
@@ -53,6 +52,6 @@
 }
 
 .ArrowImg {
-		margin-right: 42px;
+		margin-right: 170px;
 		visibility: hidden;
 }
