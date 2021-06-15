@@ -14,6 +14,7 @@ import UsersListHeader from "../Items/UsersListHeader/UsersListHeader";
 import Loading from "../Items/Loading/Loading";
 import defaultImg from '../../img/Default_Pic/24-248253_user-profile-default-image-png-clipart-png-download.png';
 import Profiles from '../Items/Profiles/Profiles'
+import Social_Icon from "../Items/Social_Icon/Social_Icon";
 
 // import Search from "../Items/Search/Search";
 // import path from '../Items/Icons/path.svg';
@@ -135,10 +136,14 @@ const InfluencerDetails = () => {
                 <section>
                     <div className={classes.ContainerPhoto}>
 
-                        {values.photos ? values.photos.map((photo) => <a target="_blank"
-                                                                         href={photo.videoId && `https://www.youtube.com/watch?v=${photo.videoId}`}
-                                                                         className={classes.instPhoto}><img
-                            src={photo.preview} alt={'instPhoto'}/></a>) : ''}
+                        {values.photos ? values.photos.map((photo) =>
+                                <a target="_blank"
+                               href={photo.videoId && `https://www.youtube.com/watch?v=${photo.videoId}`}
+                               className={classes.photoWrapper}>
+                                    <Social_Icon img={photo.social_name}/>
+
+                                    <img className={classes.photo}
+                                src={photo.preview} alt={'instPhoto'}/></a>) : ''}
 
 
                     </div>

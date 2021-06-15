@@ -1,0 +1,21 @@
+.wrapper{
+    margin-top: 3px;
+    margin-right: 5px;
+    right: 0;
+    top: 0;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #FFFFFF;
+    z-index: 10;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.wrapper img {
+    width: 60%;
+    height: 60%;
+    /*object-fit: cover;*/
+}
