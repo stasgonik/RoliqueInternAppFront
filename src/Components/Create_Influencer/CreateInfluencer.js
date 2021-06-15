@@ -76,7 +76,7 @@ const CreateInfluencer = () => {
 				input.current.required = true
 				if (value !== '') {
 					let errProf = '';
-					if (!value.match(regexp.PROFILE_REGEXP)) {
+					if (!value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
 						errProf = INFO.PROFILE_REGEX
 					}
 					setErrors({...errors, [inputFollower]: INFO.PROFILES_ERROR, [e.target.name]: errProf})
@@ -90,7 +90,7 @@ const CreateInfluencer = () => {
 					let errFoll = '';
 					let normalFoll = input.current.value.split('.').join('')
 
-					if (!value.match(regexp.PROFILE_REGEXP)) {
+					if (!value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
 						errProf = INFO.PROFILE_REGEX
 					}
 					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
@@ -135,14 +135,14 @@ const CreateInfluencer = () => {
 					if (!normalFoll.match(regexp.FOLLOWERS_REGEXP)) {
 						errFoll = INFO.FOLLOWERS_REGEX
 					}
-					if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+					if (!input.current.value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
 						errProf = INFO.PROFILE_REGEX
 					}
 
 					setErrors({...errors, [e.target.name]: errFoll, [inputProfile]: errProf})
 				} else {
 					let errProf = '';
-					if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+					if (!input.current.value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
 						errProf = INFO.PROFILE_REGEX
 					}
 					setErrors({...errors, [inputProfile]: errProf})
@@ -178,7 +178,7 @@ const CreateInfluencer = () => {
 					inputFocus.current.style.borderColor = 'red'
 					inputFocus.current.required = true
 					let errProf = '';
-					if (!input.current.value.match(regexp.PROFILE_REGEXP)) {
+					if (!input.current.value.match(regexp.PROFILE_REGEXP) && socialName !== 'youtube') {
 						errProf = INFO.PROFILE_REGEX
 					}
 					setErrors({...errors, [inputProfile]: errProf, [e.target.name]: INFO.PROFILES_ERROR})
