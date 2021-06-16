@@ -121,84 +121,14 @@ const Influencers_List = () => {
 									<img alt='blog' className={classes.social_img} src={blogSmall}/> : ''}</td>
 							<td><span>SUPER!</span></td>
 							<td> </td>
-							<td><ListLink message='Edit Influencer' arrow={rightArrow} link={`${routes.INFLUENCERS}/${item._id}/${routes.EDIT}`}/></td>
+							<td><ListLink message='Edit Influencer' arrow={rightArrow} link={`${routes.INFLUENCERS}/${item._id}`}/></td>
 						</tr>
 						</tbody>
 					)) : ''}
 				</table>
-				{/*<p className={classes.tableHeaderName}>Username</p>*/}
-				{/*<p className={classes.tableHeaderEmail}>Name</p>*/}
-				{/*<p className={classes.tableHeaderRole}>Social profiles</p>*/}
-				{/*<p>Rating</p>*/}
+
 			</section>
 
-			{/*<section>*/}
-
-			{/*<div>*/}
-			{/*{isLoading ?*/}
-			{/*	<Loading message='Please, wait...'/>*/}
-			{/*	: values ? (values.map((item, index) =>*/}
-			{/*		<div key={index}>*/}
-			{/*			<div className={`${classes.tableHeaderInfo}`}>*/}
-			{/*				{item.profile_picture ?*/}
-			{/*					<img src={`${item.profile_picture}`} alt='avatar' className={classes.avatar}/> :*/}
-			{/*					<img src={photoDefault} alt='photoDefault'*/}
-			{/*						 className={`${classes.avatar} ${classes.photo}`}/>}*/}
-
-			{/*				<div className={classes.tableTextName}><p*/}
-			{/*					className={classes.textColor}>{item.user_name} </p></div>*/}
-
-			{/*				<div className={classes.tableTextEmail}><p*/}
-			{/*					className={classes.textColor}>{item.full_name}</p></div>*/}
-			{/*				<div className={classes.tableTextRole}><p className={classes.textColor}>*/}
-			{/*					{socials(item).includes('instagram') ?*/}
-			{/*						<img alt='instagram' className={classes.social_img}*/}
-			{/*							 src={instagramIcon}/> : ''}*/}
-
-			{/*					{socials(item).includes('youtube') ?*/}
-			{/*						<img alt='youtube' className={classes.social_img} src={youtubeIcon}/> : ''}*/}
-
-			{/*					{socials(item).includes('facebook') ?*/}
-			{/*						<img alt='facebook' className={classes.social_img}*/}
-			{/*							 src={facebookIcon}/> : ''}*/}
-
-			{/*					{socials(item).includes('tiktok') ?*/}
-			{/*						<img alt='tiktok' className={classes.social_img} src={tikTokIcon}/> : ''}*/}
-
-			{/*					{socials(item).includes('twitter') ?*/}
-			{/*						<img alt='twitter' className={classes.social_img} src={twitterIcon}/> : ''}*/}
-
-			{/*					{socials(item).includes('blog') ?*/}
-			{/*						<img alt='blog' className={classes.social_img} src={blogSmall}/> : ''}*/}
-			{/*				</p></div>*/}
-			{/*	*/}
-			{/*				<div className={classes.tableTextRating}><p className={classes.textColor}>SUPER!</p>*/}
-			{/*				</div>*/}
-
-			{/*									<div></div>*/}
-
-			{/*									<Link to={`${routes.INFLUENCERS}/${item._id}`}>*/}
-			{/*										<div className={classes.tableBtn}>*/}
-			{/*											<div className={classes.Test}>*/}
-			{/*												<div className={classes.btnPosition}>*/}
-			{/*													<img src={path} alt='path' className={classes.infoBtn}/>*/}
-			{/*												</div>*/}
-			{/*											</div>*/}
-			{/*											<div className={classes.tooltipMain}>*/}
-			{/*												<div className={classes.TooltipText}>*/}
-			{/*													<p>Show Influencer</p></div>*/}
-			{/*											</div>*/}
-			{/*											<img className={classes.ArrowImg} src={rightArrow} alt={'Right arrow'}/>*/}
-			{/*										</div>*/}
-			{/*									</Link>*/}
-
-
-			{/*								</div>*/}
-			{/*							</div>*/}
-			{/*						)) : ''}*/}
-			{/*					}*/}
-			{/*				</div>*/}
-			{/*			</section>*/}
 		</div>
 	)
 }

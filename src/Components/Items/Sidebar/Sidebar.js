@@ -26,18 +26,15 @@ const Sidebar = () => {
             <div className={`${classes.SidebarImgLogo}`}>
                 <img src={logo} alt="logo"/>
             </div>
-            <NavLink to={`/${routes.USERS}`}
-                     className={urlArray.includes(routes.USERS) ? `${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.colorChange}` : `${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
+            <NavLink to={`/${routes.USERS}`} className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`} activeClassName={classes.colorChange}>
                 <img src={users} alt="users"/>
             </NavLink>
 
-            <NavLink to={`/${routes.CAMPAIGNS}`}
-                     className={urlArray.includes(routes.CAMPAIGNS) ? `${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.colorChange}` : `${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
+            <NavLink to={`/${routes.CAMPAIGNS}`} className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`} activeClassName={classes.colorChange}>
                 <img src={volume} alt="volume"/>
             </NavLink>
 
-            <NavLink to={`/${routes.INFLUENCERS}`}
-                     className={urlArray.includes(routes.INFLUENCERS) ? `${classes.SidebarImg} ${classes.SidebarImgBtn} ${classes.colorChange}` : `${classes.SidebarImg} ${classes.SidebarImgBtn}`}>
+            <NavLink to={`/${routes.INFLUENCERS}`} className={`${classes.SidebarImg} ${classes.SidebarImgBtn}`} activeClassName={classes.colorChange}>
 
                 <img src={at} alt="at"/>
             </NavLink>

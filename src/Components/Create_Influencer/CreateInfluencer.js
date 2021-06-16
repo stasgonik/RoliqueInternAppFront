@@ -408,7 +408,6 @@ const CreateInfluencer = () => {
 
 	return (
 		<form className={classes.mainBlock} onSubmit={(e) => handleSubmit(e)}>
-			<Sidebar/>
 			<Header name={'Create'} titleHeader={classes.title}
 					titleBtn={isSending? 'Sending' : 'Save Changes'}
 					title='Create Influencer'
