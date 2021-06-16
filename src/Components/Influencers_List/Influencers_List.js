@@ -121,7 +121,7 @@ const Influencers_List = () => {
 									<img alt='blog' className={classes.social_img} src={blogSmall}/> : ''}</td>
 							<td><span>SUPER!</span></td>
 							<td> </td>
-							<td><ListLink message='Edit Influencer' arrow={rightArrow} link={`${routes.INFLUENCERS}/${item._id}`}/></td>
+							<td><ListLink message='Show Influencer' arrow={rightArrow} link={`${routes.INFLUENCERS}/${item._id}`}/></td>
 						</tr>
 						</tbody>
 					)) : ''}
